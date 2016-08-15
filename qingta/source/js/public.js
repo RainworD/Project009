@@ -38,12 +38,10 @@ function eventBind(){
 		if(array.length>1){
 			$(".leftBox").removeClass("small");
 			$(".rightBox").removeClass("rightnew");
-			$(this).removeClass("showImg");
 		}
 		else{
 			$(".leftBox").addClass("small");
 			$(".rightBox").addClass("rightnew");
-			$(this).addClass("showImg");
 		}		
 	})
 	$(window).bind('load hashchange', loadContent);

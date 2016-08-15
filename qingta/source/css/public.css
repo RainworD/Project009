@@ -195,7 +195,7 @@ li {
 .mainContainer .rightBox .topBar .leftImg .showBtn {
   font-size: 23px;
 }
-.mainContainer .rightBox .topBar .showImg {
+.mainContainer .rightBox .topBar .leftImg:hover {
   background-color: #fff;
   color: #3cc;
 }
