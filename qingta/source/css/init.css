@@ -1,0 +1,24 @@
+.like {
+  float: left;
+  padding-right: 10px;
+}
+.like .likefont {
+  font-size: 16px;
+  color: red;
+}
+.reply {
+  float: left;
+}
+.reply .editfont {
+  font-size: 16px;
+}
+.after:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.item-title {
+  font-size: 14px;
+  color: #757575;
+  font-weight: 600px;
+}

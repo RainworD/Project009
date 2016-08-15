@@ -1,0 +1,137 @@
+.like {
+  float: left;
+  padding-right: 10px;
+}
+.like .likefont {
+  font-size: 16px;
+  color: red;
+}
+.reply {
+  float: left;
+}
+.reply .editfont {
+  font-size: 16px;
+}
+.after:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.item-title {
+  font-size: 14px;
+  color: #757575;
+  font-weight: 600px;
+}
+ul,
+li {
+  list-style: none;
+}
+.mainContainer {
+  width: 100%;
+}
+.mainContainer .leftBox {
+  background-color: #4d505b;
+  width: 240px;
+  height: auto;
+  float: left;
+}
+.mainContainer .leftBox .leftList .topItem {
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  background-color: #414750;
+  position: relative;
+  padding-left: 40px;
+}
+.mainContainer .leftBox .leftList .topItem .leftImg {
+  text-align: center;
+  width: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.mainContainer .leftBox .leftList .topItem .leftImg .leftBtn {
+  font-size: 23px;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downBtn {
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  background-color: #4d505b;
+  position: relative;
+  padding-left: 40px;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downBtn .leftImg {
+  text-align: center;
+  width: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downBtn .leftImg .leftBtn {
+  font-size: 23px;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downBtn .downflag {
+  position: absolute;
+  right: 0px;
+  bottom: 0;
+  height: 45px;
+  line-height: 45px;
+  width: 40px;
+  text-align: center;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downContent {
+  display: none;
+  background-color: #595e6a;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downContent .downList > li {
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downContent .downList {
+  color: #fff;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downContent .downList .linka {
+  display: block;
+  padding-left: 40px;
+  height: 45px;
+  line-height: 45px;
+}
+.mainContainer .leftBox .leftList .section .sectionList .downContent .downList .linka:hover {
+  background-color: #414750;
+  color: #3cc;
+}
+.mainContainer .leftBox .leftList .section .sectionList .show {
+  display: block;
+}
+.mainContainer .small .leftBox {
+  width: 40px;
+}
+.mainContainer .rightBox {
+  width: 100%;
+  padding-left: 240px;
+}
+.mainContainer .rightBox .topBar {
+  height: 45px;
+  line-height: 45px;
+  background-color: #3cc;
+  padding-left: 40px;
+  position: relative;
+  color: #fff;
+}
+.mainContainer .rightBox .topBar .leftImg {
+  width: 40px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.mainContainer .rightBox .topBar .leftImg .showBtn {
+  font-size: 23px;
+}
+.mainContainer:after {
+  display: block;
+  content: '';
+  clear: both;
+}
