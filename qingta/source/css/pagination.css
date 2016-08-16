@@ -59,6 +59,7 @@
   bottom: 1px;
 }
 .M-box a:hover {
+  background-color: #5cd6d6;
   color: #fff;
 }
 .M-box .next,
