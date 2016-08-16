@@ -83,7 +83,6 @@ body {
 }
 .mainContainer .searchBtn {
   background-color: #00db97;
-  margin-bottom: 10px;
 }
 .mainContainer .resetBtn {
   background-color: #4ec1ff;
@@ -264,6 +263,9 @@ body {
   background-color: #fff;
   color: #3cc;
 }
+.mainContainer .rightBox .rightContent {
+  min-width: 1000px;
+}
 .mainContainer .rightBox .rightContent .enterBox {
   padding: 0 20px;
   width: 100%;
@@ -280,11 +282,6 @@ body {
 .mainContainer .rightBox .rightContent .enterBox .topTable th {
   padding: 5px;
 }
-.mainContainer .rightBox .rightContent .enterBox .topTable td {
-  position: relative;
-  height: 30px;
-  width: 150px;
-}
 .mainContainer .rightBox .rightContent .enterBox .topTable td label {
   display: block;
   position: absolute;
@@ -299,15 +296,6 @@ body {
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td .label2 {
   left: 40px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td .commonput {
-  border: none;
-  width: 150px;
-  height: 30px;
-  line-height: 30px;
-  border: 1px solid #bdbdbd;
-  padding-left: 10px;
-  border-radius: 5px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td span {
   display: inline-block;
@@ -337,28 +325,67 @@ body {
   display: block;
   border-top: none;
 }
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus {
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .commonInputBox {
   position: relative;
+  width: 150px;
 }
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .commonput {
-  position: absolute;
-  left: 0;
-  top: 5px;
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .commonInputBox .commonput {
+  border: none;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #bdbdbd;
+  padding-left: 10px;
+  border-radius: 5px;
 }
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .showDetailBox {
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .commonInputBox .showDetailBox {
   position: absolute;
-  top: 6px;
-  right: 15px;
+  top: 0px;
+  right: 0px;
   width: 30px;
   height: 30px;
   line-height: 30px;
 }
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .showDetailBox .showDetail {
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .commonInputBox .showDetailBox .showDetail {
   cursor: pointer;
   color: #ebebeb;
   font-size: 18px;
 }
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .showDetailBox .showDetail:hover {
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .commonInputBox .showDetailBox .showDetail:hover {
+  color: #3cc;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonput {
+  border: none;
+  width: 150px;
+  max-width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #bdbdbd;
+  padding-left: 10px;
+  border-radius: 5px;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox {
+  position: relative;
+  width: 150px;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .commonput {
+  width: 100%;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox .showDetail {
+  cursor: pointer;
+  color: #ebebeb;
+  font-size: 18px;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox .showDetail:hover {
   color: #3cc;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable th {
@@ -453,6 +480,7 @@ body {
 .mainContainer .rightBox .rightContent .commonselect {
   display: inline-block;
   width: 150px;
+  max-width: 100%;
   overflow: hidden;
   height: 30px;
   position: relative;

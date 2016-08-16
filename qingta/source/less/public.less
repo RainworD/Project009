@@ -56,7 +56,6 @@ body{
 	}
 	.searchBtn{
 		background-color:#00db97;
-		margin-bottom: 10px;
 	}
 	.resetBtn{
 		background-color: #4ec1ff;
@@ -246,6 +245,7 @@ body{
 			}
 		}
 		.rightContent{
+			min-width: 1000px;
 			.enterBox{
 				padding:0 20px;
 				width: 100%;				
@@ -260,9 +260,6 @@ body{
 						padding: 5px;
 					}
 					td{
-						position: relative;
-						height: 30px;
-						width: 150px;
 						label{
 							display: block;
 							position: absolute;
@@ -278,15 +275,7 @@ body{
 						.label2{
 							left: 40px;
 						}
-						.commonput{
-							border:none;
-							width: 150px;
-							height: 30px;
-							line-height: 30px;
-							border:1px solid #bdbdbd;
-							padding-left: 10px;
-							border-radius: 5px;
-						}
+						
 						span{
 							display: inline-block;
 							height: 30px;
@@ -358,19 +347,60 @@ body{
 						}
 					}
 					.commonPlus{
-						position: relative;
+						.commonInputBox{
+							position: relative;	
+							width: 150px;					
+							.commonput{
+								border:none;
+								width: 100%;
+								height: 30px;
+								line-height: 30px;
+								border:1px solid #bdbdbd;
+								padding-left: 10px;
+								border-radius: 5px;
+							}
+							.showDetailBox{
+								position: absolute;
+								top: 0px;
+								right: 0px;
+								width: 30px;
+								height: 30px;
+								line-height: 30px;
+								.showDetail{
+									cursor: pointer;
+									color:#ebebeb;
+									font-size: 18px;
+								}
+								.showDetail:hover{
+									color:#3cc;
+								}
+							}
+						}
+					}
+					.commonput{
+						border:none;
+						width: 150px;
+						max-width: 100%;
+						height: 30px;
+						line-height: 30px;
+						border:1px solid #bdbdbd;
+						padding-left: 10px;
+						border-radius: 5px;
+					}
+					.commonInputBox{
+						position: relative;	
+						width: 150px;					
 						.commonput{
-							position: absolute;
-							left: 0;
-							top: 5px;
+							width: 100%;
 						}
 						.showDetailBox{
 							position: absolute;
-							top: 6px;
-							right: 15px;
+							top: 0px;
+							right: 0px;
 							width: 30px;
 							height: 30px;
 							line-height: 30px;
+							text-align: center;
 							.showDetail{
 								cursor: pointer;
 								color:#ebebeb;
@@ -496,6 +526,7 @@ body{
 			.commonselect{
 				display: inline-block;
 				width: 150px;
+				max-width: 100%;
 				overflow: hidden;
 				height: 30px;
 				position: relative;
