@@ -60,49 +60,26 @@
 	<table class="infoTable">
 		<thead>
 			<tr class="tableTitle">
-				<th>序号</th>
-				<th>学科分类</th>
-				<th>项目名称</th>
-				<th>批准年度</th>
-				<th>项目类别</th>
-				<th>申请人</th>
-				<th>学校名称</th>
+				<td rowspan="2">序号</td>
+				<td rowspan="2">预算年度</td>
+				<td rowspan="2">学校名称</td>
+				<td colspan="4">收入（万元）</td>
+				<td colspan="4">支出（万元）</td>
+			</tr>
+			<tr class="tableTitle">
+				<td>本年收入合计</td>
+				<td>用事业基金弥补收支差额</td>
+				<td>上半年结转和结余</td>
+				<td>总计</td>
+				<td>本年支出合计</td>
+				<td>年末转结与结余</td>
+				<td>总计</td>
+				<td></td>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>语言学</td>
-				<td><span class="txt">少数民族地区中小学少数民族地区中小学少数民族地区中小学</span><i class="fa fa-angle-double-right fa-lg arrowDown"></i><div class="lookMore"><span></span><i class="rectangle"></i>
-				</div></td>
-				<td>2015年</td>
-				<td>规划基金项目</td>
-				<td>郑宇民</td>
-				<td>阿贝高等专科学校</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>语言学</td>
-				<td>少数民族地区中小学</td>
-				<td>2015年</td>
-				<td>规划基金项目</td>
-				<td>郑宇民</td>
-				<td>阿贝高等专科学校</td>
-			</tr>
+			
 		</tbody>
+		
 	</table>
 </div>
-<script type="text/javascript">
-	$(".arrowDown").bind("click",function(){
-		var className=$(this).siblings('.lookMore').attr("class");
-		var txt=$(this).parent("td").children(".txt").text();
-		var array=className.split(" ");
-		if(array.length>1){
-			$(this).siblings('.lookMore').removeClass("showMore");
-		}
-		else{
-			$(this).siblings('.lookMore').addClass("showMore");
-			$(this).siblings('.lookMore').children("span").text(txt);
-		}
-	})
-</script>
