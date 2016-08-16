@@ -431,6 +431,15 @@ body {
 .mainContainer .rightBox .rightContent .tableContent .infoTable td .showMore {
   display: block;
 }
+.mainContainer .rightBox .rightContent .commonputBox {
+  display: inline-block;
+  width: 150px;
+  overflow: hidden;
+  height: 30px;
+  position: relative;
+  vertical-align: middle;
+  border-radius: 5px;
+}
 .mainContainer .rightBox .rightContent .commonselect {
   display: inline-block;
   width: 150px;
