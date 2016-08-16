@@ -1,0 +1,76 @@
+@import url('./init.less');
+@qinglan: #3cc;
+.M-box{
+    margin: 10px 0;
+	position: relative;
+    text-align: center;
+  	zoom: 1;
+    &:before,&:after{
+        content:"";
+        display:table;
+    }
+    &:after{
+        clear:both;
+        overflow:hidden;
+    }
+    span{
+        color: #bdbdbd;
+        font-size: 14px;
+    }
+    .active{
+        background: @qinglan;
+        color: #fff;
+        font-size: 14px;
+        border: 1px solid @qinglan;
+    }
+    a{
+        background-color: #fff;
+        border: 1px solid #ebebeb;
+        color: #bdbdbd;
+        font-size: 14px;        
+        i{
+            font-size: 18px;
+            position: relative;
+            bottom: 1px;
+        }
+    }
+    a:hover{
+        color:#fff;
+    }
+    .next,.prev{
+        font-family: "Simsun";
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .now,.count{
+        // padding:0 5px;
+        color:#f00;
+    }
+
+    input{
+        text-align: center;
+        background: #fff;
+        border: 1px solid #ebebeb;
+        outline: none;
+        color: #bdbdbd;
+        font-size: 14px;
+    }
+    &>*{
+        margin: 0 5px;
+        width: 38px;
+        height: 38px;
+        line-height: 38px;
+        display: inline-block;vertical-align: middle;
+    }
+}
+.loadMoreButton{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid @qinglan;
+    color: @qinglan;
+    line-height: 38px;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px auto;
+}
