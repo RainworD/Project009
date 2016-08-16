@@ -255,11 +255,15 @@ body{
 					border: 1px dashed #bdbdbd;
 					width: 100%;
 					padding: 20px;
+					table-layout: fixed;
+					border-collapse: collapse;
+					td,th{
+						padding: 5px;
+					}
 					td{
 						position: relative;
 						height: 30px;
 						width: 150px;
-						padding-right: 20px;
 						label{
 							display: block;
 							position: absolute;
@@ -411,6 +415,7 @@ body{
 					// table-layout: fixed;
 					border-spacing: 0;
 					border: 1px solid #d9d9d9;
+					border-collapse: collapse;
 					tr:nth-child(odd){
 						background-color: #f8f8f8;
 					}
