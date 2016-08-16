@@ -209,6 +209,9 @@
 <div class="mask"></div>
 <div class="unitsChoose">
 	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
 		<div class="unitsHeader">
 			<p class="unitsTitle">项目牵头单位选择</p>
 		</div>
@@ -217,19 +220,62 @@
 				<div class="leftColumn">
 					<div class="leftColumnBox">
 						<div class="leftColumnBar">
-							<p class="leftColumnTitle">
-								<input type="" name="">
-								<a class="leftSearchBtn"></a>
-							</p>
+							<input class="searchBox">
+							<a class="leftSearchBtn">查询</a>
 						</div>
 						<div class="leftColumnContent">
-							<div class="leftColumn"></div>
+							<div class="leftColumnBtn">
+								<i class="fa fa-plus-square-o showCollege addShow"></i>
+								<i class="fa fa-minus-square-o unShowCollege"></i>
+							</div>
+							<div class="leftColumnProvinces">
+								<p class="provinceItems">
+									<label for="province1">
+										<input id="province1" type="checkbox">
+										黑龙江
+									</label>							
+								</p>
+								<div class="showMoreCollege">
+									<ul class="collegeItems">
+										<li>
+											<label for="college1">
+												<input id="college1" type="checkbox">
+											东北农业大学
+											</label>
+										</li>
+										<li>
+											<label for="college2">
+												<input id="college2" type="checkbox">
+											东北石油大学
+											</label>
+										</li>
+									</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div class="middleColumn"></div>
-				<div class="rightColumn"></div>
+				<div class="middleColumn">
+					<div class="btnBox">
+						<i class="fa fa-arrow-right moveRight"></i>
+						<i class="fa fa-arrow-left moveLeft"></i>
+					</div>
+				</div>
+				<div class="rightColumn">
+					<div class="rightColumnContent">
+						<p class="rightColumnBar">
+							已选单位：
+						</p>
+						<div class="chooseAlready">
+							
+						</div>
+					</div>
+				</div>
 			</div>
+			<p class="bottomBtn">
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
 		</div>
 	</div>
 </div>
@@ -253,5 +299,25 @@
 	$(".changeBarBox").on("click",".changeRight",function(){
 		$(this).addClass("green").siblings().removeClass("green");
 		$(".underContentSecond").addClass("undershow").siblings(".underContent").removeClass("undershow");
+	})
+	$(".showDetail").bind("click",function(){
+		$(".mask").show();
+		$(".unitsChoose").show();
+	})
+	$(".leftColumnBtn").bind("click",function(){
+		var array=$(this).next().find(".showMoreCollege").attr("class").split(" ");
+		console.log(array);
+		if (array.length>1) {
+			$(this).next().find(".showMoreCollege").removeClass("showMoreCollegeActive");
+			$(this).children(".showCollege").show().siblings().hide();
+		}
+		else{
+			$(this).next().find(".showMoreCollege").addClass("showMoreCollegeActive");
+			$(this).children(".unShowCollege").show().siblings().hide();
+		}
+	})
+	$(".cancelBtn").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose").hide();
 	})
 </script>
