@@ -358,8 +358,9 @@ body {
   color: #3cc;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable th {
-  width: 90px;
-  text-align: left;
+  width: 92px;
+  padding-right: 10px;
+  text-align: right;
   font-weight: normal;
 }
 .mainContainer .rightBox .rightContent .tableContent {
