@@ -20,16 +20,16 @@ function init(){
 	})
 }
 function eventBind(){
-	$(".downflag").bind("click",function(){
-		var showflag=$(this).parent().next(".downContent").attr("class");
+	$(".downBtn").bind("click",function(){
+		var showflag=$(this).next(".downContent").attr("class");
 		var array=showflag.split(" ");
 		if(array.length>1){
-			$(this).parent().next(".downContent").removeClass("show");
-			$(this).parent().removeClass("btnColor");
+			$(this).next(".downContent").removeClass("show");
+			$(this).removeClass("btnColor");
 		}
 		else{
-			$(this).parent().next(".downContent").addClass("show");
-			$(this).parent().addClass("btnColor");
+			$(this).next(".downContent").addClass("show");
+			$(this).addClass("btnColor");
 		}
 	})
 	$(".rightBox").on("click",".leftImg",function(){

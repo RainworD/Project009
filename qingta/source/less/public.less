@@ -7,7 +7,63 @@ body{
 }
 .mainContainer{
 	width:100%;
+	.changeBarContainer{
+		.changeBarBox{
+			width: 300px;
+			background-color: #c7c7c7;
+			height: 40px;
+			line-height: 40px;
+			color: #fff;
+			margin: 20px;
+			border-radius: 6px;
+			.changeButton{
+				padding: 0 10px;
+				width: 50%;
+				display: block;
+				float: left;
+				height: inherit;
+			}
+			.changeLeft{
+				padding-left: 25px;
+				border-top-left-radius: 6px;
+				border-bottom-left-radius: 6px;
+			}
+			.changeRight{
+				padding-right: 25px;
+				border-top-right-radius: 6px;
+				border-bottom-right-radius: 6px;
+			}
+			.after;
+			.green{
+				background-color: #00da96;
+			}
+		}
+	}
+	.underContent{
+		display: none;
+	}
+	.undershow{
+		display: block;
+	}
+	.rightMinBtn{
+		display: block;
+		color:#fff;
+		height: 30px;
+		line-height: 30px;
+		width: 100px;
+		border-radius: 3px;
+		text-align: center;
+	}
+	.searchBtn{
+		background-color:#00db97;
+		margin-bottom: 10px;
+	}
+	.resetBtn{
+		background-color: #4ec1ff;
+	}
 	.leftBox{
+		z-index:2;
+		position: relative;
 		background-color: #595e6a;
 		width:240px;
 		height:auto;
@@ -48,10 +104,11 @@ body{
 				.sectionList{
 					position: relative;
 					.downBtn{
+						cursor: pointer;
 						height:45px;
 						line-height: 45px;
 						color:#fff;
-						background-color: #595e6a;
+						background-color: #4d505b;
 						position: relative;
 						padding-left:40px;
 						.rec{
@@ -72,7 +129,7 @@ body{
 					}
 					.downContent{
 						display: none;
-						background-color: #4d505b;
+						background-color: #595e6a;
 						.downList>li{
 							height:40px;
 							line-height: 40px;
@@ -87,6 +144,7 @@ body{
 								line-height: 45px;
 							}
 							.linka:hover{
+								cursor: pointer;
 								background-color: #414750;
 								color:#3cc;
 							}
@@ -161,6 +219,7 @@ body{
 		}
 	}
 	.rightBox{
+		z-index: 1;
 		width:100%;
 		overflow: visible;
 		padding-left:240px;
@@ -188,27 +247,42 @@ body{
 		}
 		.rightContent{
 			.enterBox{
-				margin-top: 20px;
-				padding:15px;
-				width: 100%;
-				border-top: 1px dashed #ebebeb;
+				padding:0 20px;
+				width: 100%;				
 				height: auto;
 				overflow: hidden;
-				border-bottom: 1px dashed #ebebeb;
 				.topTable{
-					width: auto;
-					float: left;
+					border: 1px dashed #bdbdbd;
+					width: 100%;
+					padding: 20px;
 					td{
 						position: relative;
 						height: 30px;
 						width: 150px;
 						padding-right: 20px;
+						label{
+							display: block;
+							position: absolute;
+							top: 5px;
+							.radioInput{
+								display: inline-block;
+								vertical-align: middle;
+							}
+						}
+						.label1{
+							left: -80px;
+						}
+						.label2{
+							left: 40px;
+						}
 						.commonput{
 							border:none;
 							width: 150px;
 							height: 30px;
 							line-height: 30px;
-							border:1px solid #ccc;
+							border:1px solid #bdbdbd;
+							padding-left: 10px;
+							border-radius: 5px;
 						}
 						span{
 							display: inline-block;
@@ -280,40 +354,65 @@ body{
 							border-top:none;
 						}
 					}
+					.commonPlus{
+						position: relative;
+						.commonput{
+							position: absolute;
+							left: 0;
+							top: 5px;
+						}
+						.showDetailBox{
+							position: absolute;
+							top: 6px;
+							right: 15px;
+							width: 30px;
+							height: 30px;
+							line-height: 30px;
+							.showDetail{
+								cursor: pointer;
+								color:#ebebeb;
+								font-size: 18px;
+							}
+							.showDetail:hover{
+								color:#3cc;
+							}
+						}
+					}
 				}
 				.topTable th{
-					padding-right:10px;
 					width:90px;
 					text-align: left;
+					font-weight: normal;
 				}
-				.rightBtn{
-					position: absolute;
-					right: 10px;
-					margin-left: 30px;
-					.rightMinBtn{
-						color:#fff;
-						height: 30px;
-						line-height: 30px;
-						width: 80px;
-						border-radius: 3px;
-						text-align: center;
-					}
-					.searchBtn{
-						background-color: #3cc;
-						margin-bottom: 10px;
-					}
-					.resetBtn{
-						background-color: #f33;
-					}
-				}
+				// .rightBtn{
+				// 	position: absolute;
+				// 	right: 10px;
+				// 	margin-left: 30px;
+				// 	.rightMinBtn{
+				// 		color:#fff;
+				// 		height: 30px;
+				// 		line-height: 30px;
+				// 		width: 80px;
+				// 		border-radius: 3px;
+				// 		text-align: center;
+				// 	}
+				// 	.searchBtn{
+				// 		background-color: #3cc;
+				// 		margin-bottom: 10px;
+				// 	}
+				// 	.resetBtn{
+				// 		background-color: #f33;
+				// 	}
+				// }
 			}
 			.tableContent{
 				padding: 20px 15px;
 				.infoTable{
+					// table-layout: fixed;
 					border-spacing: 0;
-					border: 1px solid #ebebeb;
+					border: 1px solid #d9d9d9;
 					tr:nth-child(odd){
-						background-color: #ebebeb;
+						background-color: #f8f8f8;
 					}
 					tr:nth-child(even){
 						background-color: #fff;
@@ -322,15 +421,58 @@ body{
 						background-color: #3cc!important;
 						height: 40px;
 						line-height:40px;
+						color: #fff;
 					}
 					tr{
-						height: 35px;
-						line-height: 35px;
+						height: 45px;
+						line-height: 45px;
+					}
+					tr:hover{
+						background-color: #f3f3f3;
 					}
 				}
 				.infoTable td{
-					border: 0;
+					border: 1px solid #d9d9d9;
 					text-align: center;
+					position: relative;
+					.txt{
+						display: block;
+						white-space:nowrap; 
+						overflow:hidden; 
+						text-overflow:ellipsis;
+						width: 100%;
+					}
+					.arrowDown{
+						cursor:pointer;
+						position: absolute;
+						bottom: 0;
+						right: 0;
+						font-size: 15px;
+						color: #999;
+					}
+					.lookMore{
+						display: none;
+						position: absolute;
+						width: 200px;
+						padding: 10px;
+						top: 70px;
+						left: 40px;
+						background:rgba(0,0,0,0.8);
+						color: #fff;
+						z-index: 2;
+						line-height: 20px;
+						.rectangle{
+							border-bottom: 6px solid rgba(0,0,0,0.8);
+							border-left: 6px solid transparent;
+							border-right: 6px solid transparent;
+							position: absolute;
+							top: -6px;
+							left: 100px;
+						}
+					}
+					.showMore{
+						display: block;
+					}
 				}
 			}
 			.commonselect{
@@ -339,15 +481,19 @@ body{
 				overflow: hidden;
 				height: 30px;
 				position: relative;
-				border:1px solid #ccc;
+				border:1px solid #bdbdbd;
+				vertical-align: middle;
+				border-radius:5px;
 				.selBox{
 					padding-left: 10px;
 					position: absolute;
-					left: -1px;
-					width: 150px;
+					left: 0px;
+					width:100%;
 					height: 28px;
 					border:none;
 					line-height: 30px;
+					background: transparent;
+					cursor: pointer;
 				}
 				// .selBtn{
 				// 	position: absolute;
@@ -359,7 +505,7 @@ body{
 				// 	width: 30px;
 				// 	text-align: center;
 				// }
-				&:after {
+				&:before {
 				    position: absolute;
 				    right: 8px;
 				    top: 7px;
@@ -369,7 +515,9 @@ body{
 				    text-rendering: auto;
 				    -webkit-font-smoothing: antialiased;
 				    -moz-osx-font-smoothing: grayscale;
-				    content: "\f0d7";
+				    content:"\f107";
+				    color: #aaa;
+				    cursor: pointer;
 				}
 			}
 		}

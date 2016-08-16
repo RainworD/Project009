@@ -13,22 +13,23 @@
 			<th>项目名称:</th>
 			<td><input class="commonput"></td>
 			<th>批准年度:</th>
-			<td>
-				<div class="commonselect">
+			<td style="width: 200px;">
+				<div class="commonselect" style="width:80px">
+					<select class="selBox">
+						<option>1</option>
+						<option>2</option>
+					</select>
+				</div>
+				至
+				<div class="commonselect" style="width:80px">
 					<select class="selBox">
 						<option>1</option>
 						<option>2</option>
 					</select>
 				</div>
 			</td>
-			<th style="font-weight:normal;margin-right:0;width:30px;">至</th>
 			<td>
-				<div class="commonselect">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
+				<a class="searchBtn rightMinBtn">查询</a>
 			</td>
 		</tr>
 		<tr>
@@ -45,14 +46,15 @@
 			<td><input class="commonput"></td>
 			<th>学校名称:</th>
 			<td>
-				<input class="commonput">
+				<input class="commonput" style="width:182px;">
 			</td>
+			<td><a class="resetBtn rightMinBtn">重置</a></td>
 		</tr>
 	</table>
-	<div class="rightBtn">
-		<p class="searchBtn rightMinBtn">查询</p>
-		<p class="resetBtn rightMinBtn">重置</p>
-	</div>
+<!-- 	<div class="rightBtn">
+		
+		
+	</div> -->
 </div>
 <div class="tableContent">
 	<table class="infoTable">
@@ -68,7 +70,8 @@
 		<tr>
 			<td>1</td>
 			<td>语言学</td>
-			<td>少数民族地区中小学</td>
+			<td><span class="txt">少数民族地区中小学少数民族地区中小学少数民族地区中小学</span><i class="fa fa-angle-double-right fa-lg arrowDown"></i><div class="lookMore"><span></span><i class="rectangle"></i>
+			</div></td>
 			<td>2015年</td>
 			<td>规划基金项目</td>
 			<td>郑宇民</td>
@@ -86,22 +89,16 @@
 	</table>
 </div>
 <script type="text/javascript">
-	var mytxt=$(".commonselect").next().children().eq(0).text();
-	$(".commonselect").children("span").text(mytxt);
-	$(".commonselect").on("click",".selBtn",function(){
-		var showtxt=$(this).parent().next().attr("class");
-		var array=showtxt.split(" ");
-		console.log(array);
+	$(".arrowDown").bind("click",function(){
+		var className=$(this).siblings('.lookMore').attr("class");
+		var txt=$(this).parent("td").children(".txt").text();
+		var array=className.split(" ");
 		if(array.length>1){
-			$(this).parent().next().removeClass("showTxt");
+			$(this).siblings('.lookMore').removeClass("showMore");
 		}
 		else{
-			$(this).parent().next().addClass("showTxt");
+			$(this).siblings('.lookMore').addClass("showMore");
+			$(this).siblings('.lookMore').children("span").text(txt);
 		}
-	})
-	$(".downTxtItem").bind("click",function(){
-		var txt=$(this).text(); 
-		$(this).parent().prev().children("span").text(txt);
-		$(this).parent().removeClass("showTxt");
 	})
 </script>

@@ -32,7 +32,65 @@ body {
 .mainContainer {
   width: 100%;
 }
+.mainContainer .changeBarContainer .changeBarBox {
+  width: 300px;
+  background-color: #c7c7c7;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  margin: 20px;
+  border-radius: 6px;
+}
+.mainContainer .changeBarContainer .changeBarBox .changeButton {
+  padding: 0 10px;
+  width: 50%;
+  display: block;
+  float: left;
+  height: inherit;
+}
+.mainContainer .changeBarContainer .changeBarBox .changeLeft {
+  padding-left: 25px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.mainContainer .changeBarContainer .changeBarBox .changeRight {
+  padding-right: 25px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.mainContainer .changeBarContainer .changeBarBox:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.mainContainer .changeBarContainer .changeBarBox .green {
+  background-color: #00da96;
+}
+.mainContainer .underContent {
+  display: none;
+}
+.mainContainer .undershow {
+  display: block;
+}
+.mainContainer .rightMinBtn {
+  display: block;
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+  width: 100px;
+  border-radius: 3px;
+  text-align: center;
+}
+.mainContainer .searchBtn {
+  background-color: #00db97;
+  margin-bottom: 10px;
+}
+.mainContainer .resetBtn {
+  background-color: #4ec1ff;
+}
 .mainContainer .leftBox {
+  z-index: 2;
+  position: relative;
   background-color: #595e6a;
   width: 240px;
   height: auto;
@@ -73,10 +131,11 @@ body {
   position: relative;
 }
 .mainContainer .leftBox .leftList .section .sectionList .downBtn {
+  cursor: pointer;
   height: 45px;
   line-height: 45px;
   color: #fff;
-  background-color: #595e6a;
+  background-color: #4d505b;
   position: relative;
   padding-left: 40px;
 }
@@ -97,7 +156,7 @@ body {
 }
 .mainContainer .leftBox .leftList .section .sectionList .downContent {
   display: none;
-  background-color: #4d505b;
+  background-color: #595e6a;
 }
 .mainContainer .leftBox .leftList .section .sectionList .downContent .downList > li {
   height: 40px;
@@ -114,6 +173,7 @@ body {
   line-height: 45px;
 }
 .mainContainer .leftBox .leftList .section .sectionList .downContent .downList .linka:hover {
+  cursor: pointer;
   background-color: #414750;
   color: #3cc;
 }
@@ -177,6 +237,7 @@ body {
   display: block;
 }
 .mainContainer .rightBox {
+  z-index: 1;
   width: 100%;
   overflow: visible;
   padding-left: 240px;
@@ -204,17 +265,15 @@ body {
   color: #3cc;
 }
 .mainContainer .rightBox .rightContent .enterBox {
-  margin-top: 20px;
-  padding: 15px;
+  padding: 0 20px;
   width: 100%;
-  border-top: 1px dashed #ebebeb;
   height: auto;
   overflow: hidden;
-  border-bottom: 1px dashed #ebebeb;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable {
-  width: auto;
-  float: left;
+  border: 1px dashed #bdbdbd;
+  width: 100%;
+  padding: 20px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td {
   position: relative;
@@ -222,12 +281,29 @@ body {
   width: 150px;
   padding-right: 20px;
 }
+.mainContainer .rightBox .rightContent .enterBox .topTable td label {
+  display: block;
+  position: absolute;
+  top: 5px;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable td label .radioInput {
+  display: inline-block;
+  vertical-align: middle;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable td .label1 {
+  left: -80px;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable td .label2 {
+  left: 40px;
+}
 .mainContainer .rightBox .rightContent .enterBox .topTable td .commonput {
   border: none;
   width: 150px;
   height: 30px;
   line-height: 30px;
-  border: 1px solid #ccc;
+  border: 1px solid #bdbdbd;
+  padding-left: 10px;
+  border-radius: 5px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td span {
   display: inline-block;
@@ -257,40 +333,44 @@ body {
   display: block;
   border-top: none;
 }
-.mainContainer .rightBox .rightContent .enterBox .topTable th {
-  padding-right: 10px;
-  width: 90px;
-  text-align: left;
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus {
+  position: relative;
 }
-.mainContainer .rightBox .rightContent .enterBox .rightBtn {
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .commonput {
   position: absolute;
-  right: 10px;
-  margin-left: 30px;
+  left: 0;
+  top: 5px;
 }
-.mainContainer .rightBox .rightContent .enterBox .rightBtn .rightMinBtn {
-  color: #fff;
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .showDetailBox {
+  position: absolute;
+  top: 6px;
+  right: 15px;
+  width: 30px;
   height: 30px;
   line-height: 30px;
-  width: 80px;
-  border-radius: 3px;
-  text-align: center;
 }
-.mainContainer .rightBox .rightContent .enterBox .rightBtn .searchBtn {
-  background-color: #3cc;
-  margin-bottom: 10px;
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .showDetailBox .showDetail {
+  cursor: pointer;
+  color: #ebebeb;
+  font-size: 18px;
 }
-.mainContainer .rightBox .rightContent .enterBox .rightBtn .resetBtn {
-  background-color: #f33;
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonPlus .showDetailBox .showDetail:hover {
+  color: #3cc;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable th {
+  width: 90px;
+  text-align: left;
+  font-weight: normal;
 }
 .mainContainer .rightBox .rightContent .tableContent {
   padding: 20px 15px;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable {
   border-spacing: 0;
-  border: 1px solid #ebebeb;
+  border: 1px solid #d9d9d9;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable tr:nth-child(odd) {
-  background-color: #ebebeb;
+  background-color: #f8f8f8;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable tr:nth-child(even) {
   background-color: #fff;
@@ -299,14 +379,57 @@ body {
   background-color: #3cc!important;
   height: 40px;
   line-height: 40px;
+  color: #fff;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable tr {
-  height: 35px;
-  line-height: 35px;
+  height: 45px;
+  line-height: 45px;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTable tr:hover {
+  background-color: #f3f3f3;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable td {
-  border: 0;
+  border: 1px solid #d9d9d9;
   text-align: center;
+  position: relative;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTable td .txt {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTable td .arrowDown {
+  cursor: pointer;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 15px;
+  color: #999;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTable td .lookMore {
+  display: none;
+  position: absolute;
+  width: 200px;
+  padding: 10px;
+  top: 70px;
+  left: 40px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  z-index: 2;
+  line-height: 20px;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTable td .lookMore .rectangle {
+  border-bottom: 6px solid rgba(0, 0, 0, 0.8);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  position: absolute;
+  top: -6px;
+  left: 100px;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTable td .showMore {
+  display: block;
 }
 .mainContainer .rightBox .rightContent .commonselect {
   display: inline-block;
@@ -314,18 +437,22 @@ body {
   overflow: hidden;
   height: 30px;
   position: relative;
-  border: 1px solid #ccc;
+  border: 1px solid #bdbdbd;
+  vertical-align: middle;
+  border-radius: 5px;
 }
 .mainContainer .rightBox .rightContent .commonselect .selBox {
   padding-left: 10px;
   position: absolute;
-  left: -1px;
-  width: 150px;
+  left: 0px;
+  width: 100%;
   height: 28px;
   border: none;
   line-height: 30px;
+  background: transparent;
+  cursor: pointer;
 }
-.mainContainer .rightBox .rightContent .commonselect:after {
+.mainContainer .rightBox .rightContent .commonselect:before {
   position: absolute;
   right: 8px;
   top: 7px;
@@ -335,7 +462,9 @@ body {
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "\f0d7";
+  content: "\f107";
+  color: #aaa;
+  cursor: pointer;
 }
 .mainContainer .rightnew {
   width: 100%;
