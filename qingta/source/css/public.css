@@ -431,6 +431,11 @@ body {
 .mainContainer .rightBox .rightContent .tableContent .infoTable td .showMore {
   display: block;
 }
+.mainContainer .rightBox .rightContent .tableContent .infoTable th {
+  font-weight: normal;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+}
 .mainContainer .rightBox .rightContent .commonputBox {
   display: inline-block;
   width: 150px;
