@@ -274,17 +274,12 @@ body {
   border: 1px dashed #bdbdbd;
   width: 100%;
   padding: 20px;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td,
-.mainContainer .rightBox .rightContent .enterBox .topTable th {
-  padding: 5px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td {
   position: relative;
   height: 30px;
   width: 150px;
+  padding-right: 20px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td label {
   display: block;
@@ -363,9 +358,8 @@ body {
   color: #3cc;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable th {
-  width: 92px;
-  padding-right: 10px;
-  text-align: right;
+  width: 90px;
+  text-align: left;
   font-weight: normal;
 }
 .mainContainer .rightBox .rightContent .tableContent {
@@ -374,7 +368,6 @@ body {
 .mainContainer .rightBox .rightContent .tableContent .infoTable {
   border-spacing: 0;
   border: 1px solid #d9d9d9;
-  border-collapse: collapse;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable tr:nth-child(odd) {
   background-color: #f8f8f8;
