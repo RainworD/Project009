@@ -76,7 +76,7 @@
   width: 45%;
   float: left;
   min-height: 380px;
-  border: 1px solid #ccc;
+  border: 1px solid #cfcfcf;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox {
   padding: 10px;
@@ -84,9 +84,11 @@
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar {
   width: 100%;
   padding-bottom: 10px;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed #cfcfcf;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar .searchBox {
+  border: none;
+  border: 1px solid #cfcfcf;
   width: 210px;
   display: block;
   float: left;
@@ -102,7 +104,7 @@
   height: 30px;
   line-height: 30px;
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #cfcfcf;
   border-radius: 6px;
   text-align: center;
 }
@@ -188,7 +190,7 @@
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn {
   width: 45%;
   float: left;
-  border: 1px solid #ccc;
+  border: 1px solid #cfcfcf;
   min-height: 380px;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent {
@@ -196,7 +198,7 @@
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent .rightColumnBar {
   padding: 10px;
-  border-bottom: 1px dashed #ebebeb;
+  border-bottom: 1px dashed #cfcfcf;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent .chooseAlready {
   padding: 10px;
