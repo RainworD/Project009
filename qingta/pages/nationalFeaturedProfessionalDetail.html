@@ -1,11 +1,17 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox">
+		<a href="#/nationalFeaturedProfessional.html" class="changeLeft changeButton">国家级特色专业统计</a>
+		<a class="changeRight green changeButton">国家级特色专业明细</a>
+	</div>
+</div>
 <div class="enterBox">
 	<table class="topTable">
 		<tr>
 			<th>学校名称:</th>
 			<td>
-				<input class="commonput">
+				<input class="commonput" style="width:191px;">
 			</td>
-			<th>创建时间:</th>
+			<th>专业名称:</th>
 			<td>
 				<div class="commonselect">
 					<select class="selBox">
@@ -14,7 +20,9 @@
 					</select>
 				</div>
 			</td>
-			<th>占地面积:</th>
+			<th>
+				批准批次:
+			</th>
 			<td>
 				<div class="commonselect">
 					<select class="selBox">
@@ -28,35 +36,14 @@
 			</td>
 		</tr>
 		<tr>
-			<th>建筑面积:</th>
-			<td>
-				<div class="commonselect">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th>一级博士点</th>
+			<th></th>
 			<td></td>
-			<th>一级硕士点</th>
+			<th></th>
+			<td></td>
+			<th></th>
 			<td></td>
 			<td>
 				<a class="resetBtn rightMinBtn">重置</a>
-			</td>
-		</tr>
-		<tr>
-			<th>附属医院:</th>
-			<td>
-				<input class="commonput" style="width:80px;">
-				至
-				<input class="commonput" style="width:80px;">
-			</td>
-			<th></th>
-			<td></td>
-			<th></th>
-			<td></td>
-			<td>
 			</td>
 		</tr>
 	</table>
@@ -67,21 +54,18 @@
 			<tr class="tableTitle">
 				<th>序号</th>
 				<th>学校名称</th>
-				<th>平台大类</th>
-				<th>平台类型</th>
-				<th>平台类型</th>
+				<th>批准批次</th>
+				<th>专业名称</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>1</td>
 				<td>北京大学</td>
-				<td>人文社科</td>
-				<td>国家级人文社科</td>
-				<td>中国古文献研究中心</td>
+				<td>第一批</td>
+				<td>理论语言学</td>
 			</tr>
 		</tbody>
-		
 	</table>
 </div>
 <div class="M-box"></div>
@@ -100,6 +84,7 @@ $('.M-box').pagination({
     }
 });
 </script>
+
 
 
 
