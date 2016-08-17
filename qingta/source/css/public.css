@@ -66,9 +66,6 @@ body {
 .mainContainer .changeBarContainer .changeBarBox .green {
   background-color: #00da96;
 }
-.mainContainer .underContent {
-  display: none;
-}
 .mainContainer .undershow {
   display: block;
 }
