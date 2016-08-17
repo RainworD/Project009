@@ -42,10 +42,10 @@
   font-size: 14px;
 }
 .M-box .active {
-  background: #3cc;
+  background: #33cccc;
   color: #fff;
   font-size: 14px;
-  border: 1px solid #3cc;
+  border: 1px solid #33cccc;
 }
 .M-box a {
   background-color: #fff;
@@ -92,8 +92,8 @@
   width: 100px;
   height: 40px;
   border-radius: 5px;
-  border: 1px solid #3cc;
-  color: #3cc;
+  border: 1px solid #33cccc;
+  color: #33cccc;
   line-height: 38px;
   text-align: center;
   cursor: pointer;
