@@ -73,8 +73,18 @@
 			<tr>
 				<td>1</td>
 				<td>语言学</td>
-				<td><span class="txt">少数民族地区中小学少数民族地区中小学少数民族地区中小学</span><i class="fa fa-angle-double-right fa-lg arrowDown"></i><div class="lookMore"><span></span><i class="rectangle"></i>
-				</div></td>
+				<td>
+					<div class="showMoreContent">
+						<span class="txt">少数民族地区中小学少数民族地区中小学少数民族地区中小学</span>
+						<!-- <div class="showMoreBtn"> -->
+							<!-- <i class="fa fa-ellipsis-h fa-lg arrowDown"></i> -->
+						<div class="lookMore">
+							<span></span>
+							<i class="rectangle"></i>
+						</div>
+						<!-- </div> -->
+					</div>
+				</td>
 				<td>2015年</td>
 				<td>规划基金项目</td>
 				<td>郑宇民</td>
@@ -107,16 +117,16 @@ $('.M-box').pagination({
         location.href="__ROOT__/main.html?page="+index
     }
 });
-	$(".arrowDown").bind("click",function(){
-		var className=$(this).siblings('.lookMore').attr("class");
-		var txt=$(this).parent("td").children(".txt").text();
+	$(".showMoreContent").bind("click",function(){
+		var className=$(this).find('.lookMore').attr("class");
+		var txt=$(this).find(".txt").text();
 		var array=className.split(" ");
 		if(array.length>1){
-			$(this).siblings('.lookMore').removeClass("showMore");
+			$(this).find('.lookMore').removeClass("showMore");
 		}
 		else{
-			$(this).siblings('.lookMore').addClass("showMore");
-			$(this).siblings('.lookMore').children("span").text(txt);
+			$(this).find('.lookMore').addClass("showMore");
+			$(this).find('.lookMore').children("span").text(txt);
 		}
 	})
 </script>

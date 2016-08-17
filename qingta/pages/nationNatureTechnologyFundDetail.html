@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft green changeButton" href="#/nationNatureTechnologyFund.html">国家自然科学基金统计</a>
-		<a class="changeRight changeButton" href="#/nationNatureTechnologyFundDetail.html">国家自然科学基金明细</a>
+		<a class="changeLeft changeButton" href="#/nationNatureTechnologyFund.html">国家自然科学基金统计</a>
+		<a class="changeRight changeButton green" href="#/nationNatureTechnologyFundDetail.html">国家自然科学基金明细</a>
 	</div>
 </div>
 <div class="enterBox">
@@ -11,16 +11,15 @@
 			<td>
 				<div class="commonInputBox"  style="width:191px;">
 					<input class="commonput">
-					<div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div>
+					<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
 				</div>
 			</td>
-			<th>依托单位 :</th>
+			<th>项目名称 :</th>
 			<td>
-				<div class="commonInputBox"  style="width:191px;">
+				<div class="commonInputBox" style="width:191px;">
 					<input class="commonput">
-					<div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div>
 				</div>
-			</td>	
+			</td>
 			<th>资助类别 :</th>
 			<td>
 				<div class="commonselect"  style="width:191px;">
@@ -29,12 +28,25 @@
 						<option>2</option>
 					</select>
 				</div>
-			</td>	
+			</td>
 			<td style="width: 120px">
 				<a class="searchBtn rightMinBtn">查询</a>
 			</td>
 		</tr>
 		<tr>
+			<th>项目负责人 :</th>
+			<td class="commonPlus">
+				<div class="commonInputBox" style="width:191px;">
+					<input class="commonput">
+				</div>
+			</td>	
+			<th>依托单位 :</th>
+			<td>
+				<div class="commonInputBox"  style="width:191px;">
+					<input class="commonput">
+					<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
+				</div>
+			</td>	
 			<th>批准年度<span style="color:red">*</span> :</th>
 			<td>
 				<div class="commonputBox" style="width:77px;margin-right:8px;">
@@ -45,6 +57,9 @@
 					<input class="commonput" style="width:100%;">
 				</div>
 			</td>
+			<td><a class="resetBtn rightMinBtn">重置</a></td>
+		</tr>
+		<tr>
 			<th>批准金额 :</th>
 			<td>
 				<div class="commonputBox" style="width:77px;margin-right:8px;">
@@ -57,7 +72,9 @@
 			</td>
 			<td colspan="2" style="padding-left:40px;">
 			</td>
-			<td><a class="resetBtn rightMinBtn">重置</a></td>
+			<td colspan="2" style="padding-left:40px;">
+			</td>
+			<td></td>
 		</tr>
 	</table>
 </div>
@@ -66,35 +83,41 @@
 		<thead>
 			<tr class="tableTitle">
 				<th>序号</th>
+				<th>项目批准号</th>
 				<th>申请代码</th>
-				<th>依托代码</th>
-				<th>资助类别/th>
+				<th>项目名称</th>
+				<th>资助类别</th>
+				<th>项目负责人</th>
+				<th>依托单位</th>
 				<th>批准年度</th>
 				<th>批准金额</th>
-				<th>项目数</th>
-				<th>批准金额</th>
+				<th>项目起止年月</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>1</td>
-				<td>汇总统计</td>
-				<td>北京大学</td>
-				<td>汇总统计</td>
-				<td>2016-2016</td>
-				<td>0-2000</td>
-				<td>6700</td>
-				<td>27,000.00</td>
+				<td>59875001</td>
+				<td>E0609878</td>
+				<td>化肥农药和农药减施增效综合研发</td>
+				<td>面上项目</td>
+				<td>左铁钏</td>
+				<td>北京工业大学</td>
+				<td>2015</td>
+				<td>12</td>
+				<td>1999-01至2001-12</td>
 			</tr>
 			<tr>
 				<td>2</td>
-				<td>汇总统计</td>
-				<td>南开大学</td>
-				<td>汇总统计</td>
-				<td>2016-2016</td>
-				<td>0-2000</td>
-				<td>6700</td>
-				<td>28,000.00</td>
+				<td>59875002</td>
+				<td>E0604521</td>
+				<td>化肥农药和农药减施增效综合研发2</td>
+				<td>面上项目</td>
+				<td>左名雪</td>
+				<td>北京师范大学</td>
+				<td>2015</td>
+				<td>12</td>
+				<td>1999-01至2001-12</td>
 			</tr>
 		</tbody>
 	</table>
