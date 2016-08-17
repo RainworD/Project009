@@ -33,10 +33,10 @@ body {
   width: 100%;
 }
 .mainContainer .changeBarContainer .changeBarBox {
-  width: 300px;
+  width: 340px;
   background-color: #c7c7c7;
-  height: 40px;
-  line-height: 40px;
+  height: 36px;
+  line-height: 36px;
   color: #fff;
   margin: 20px;
   border-radius: 6px;
@@ -49,12 +49,12 @@ body {
   height: inherit;
 }
 .mainContainer .changeBarContainer .changeBarBox .changeLeft {
-  padding-left: 25px;
+  padding-left: 20px;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 .mainContainer .changeBarContainer .changeBarBox .changeRight {
-  padding-right: 25px;
+  padding-right: 20px;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
@@ -281,22 +281,14 @@ body {
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td,
 .mainContainer .rightBox .rightContent .enterBox .topTable th {
-  padding: 5px;
+  padding: 10px 5px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td label {
-  display: block;
-  position: absolute;
-  top: 5px;
+  padding-right: 10px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td label .radioInput {
   display: inline-block;
   vertical-align: middle;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td .label1 {
-  left: -80px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td .label2 {
-  left: 40px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td span {
   display: inline-block;
@@ -390,14 +382,15 @@ body {
   color: #3cc;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable th {
-  width: 90px;
-  text-align: left;
+  width: 100px;
+  text-align: right;
   font-weight: normal;
 }
 .mainContainer .rightBox .rightContent .tableContent {
-  padding: 20px 15px;
+  padding: 20px;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable {
+  table-layout: fixed;
   border-spacing: 0;
   border: 1px solid #d9d9d9;
   border-collapse: collapse;
@@ -425,6 +418,10 @@ body {
   border: 1px solid #d9d9d9;
   text-align: center;
   position: relative;
+  line-height: 28px;
+  padding: 0 5px;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable td .txt {
   display: block;
@@ -468,6 +465,8 @@ body {
   font-weight: normal;
   border: 1px solid #d9d9d9;
   text-align: center;
+  line-height: 28px;
+  padding: 0 5px;
 }
 .mainContainer .rightBox .rightContent .commonputBox {
   display: inline-block;
