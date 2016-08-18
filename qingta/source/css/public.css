@@ -41,6 +41,7 @@ body {
   margin: 15px;
   border-radius: 6px;
   margin-left: 0;
+  margin-bottom: 10px;
 }
 .mainContainer .changeBarContainer .changeBarBox .changeButton {
   padding: 0 10px;
@@ -72,7 +73,6 @@ body {
   color: #fff;
   height: 30px;
   line-height: 30px;
-  width: 100px;
   border-radius: 3px;
   text-align: center;
 }
@@ -266,9 +266,10 @@ body {
   width: 100%;
   height: auto;
   overflow: hidden;
+  padding: 10px;
+  border: 1px dashed #bdbdbd;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable {
-  border: 1px dashed #bdbdbd;
   width: 100%;
   padding: 20px;
   table-layout: fixed;
@@ -276,7 +277,7 @@ body {
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td,
 .mainContainer .rightBox .rightContent .enterBox .topTable th {
-  padding: 15px 5px;
+  padding: 5px 5px;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable td label {
   padding-right: 10px;
@@ -327,6 +328,12 @@ body {
   padding-left: 5px;
   border-radius: 5px;
 }
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .commonput:focus {
+  border: 1px solid #1e90ff;
+  -moz-box-shadow: 1px 1px 5px #1e90ff;
+  -webkit-box-shadow: 1px 1px 5px #1e90ff;
+  box-shadow: 1px 1px 5px #1e90ff;
+}
 .mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox {
   position: absolute;
   top: 0px;
@@ -353,6 +360,12 @@ body {
   padding-left: 5px;
   border-radius: 5px;
   padding-right: 5px;
+}
+.mainContainer .rightBox .rightContent .enterBox .topTable .commonput:focus {
+  border: 1px solid #1e90ff;
+  -moz-box-shadow: 1px 1px 5px #1e90ff;
+  -webkit-box-shadow: 1px 1px 5px #1e90ff;
+  box-shadow: 1px 1px 5px #1e90ff;
 }
 .mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox {
   position: relative;
@@ -392,10 +405,10 @@ body {
   border: 1px solid #d9d9d9;
   border-collapse: collapse;
 }
-.mainContainer .rightBox .rightContent .tableContent .infoTable tr:nth-child(odd) {
+.mainContainer .rightBox .rightContent .tableContent .infoTable tr:nth-child(even) {
   background-color: #f8f8f8;
 }
-.mainContainer .rightBox .rightContent .tableContent .infoTable tr:nth-child(even) {
+.mainContainer .rightBox .rightContent .tableContent .infoTable tr:nth-child(odd) {
   background-color: #fff;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTable .tableTitle {
@@ -408,7 +421,7 @@ body {
 .mainContainer .rightBox .rightContent .tableContent .infoTable td {
   border: 1px solid #d9d9d9;
   text-align: center;
-  padding: 5px;
+  padding: 7px;
   word-break: break-all;
   word-wrap: break-word;
 }
@@ -453,12 +466,11 @@ body {
   font-weight: normal;
   border: 1px solid #d9d9d9;
   text-align: center;
-  padding: 5px;
+  padding: 7px;
 }
 .mainContainer .rightBox .rightContent .commonputBox {
   display: inline-block;
   width: 150px;
-  overflow: hidden;
   height: 30px;
   position: relative;
   vertical-align: middle;

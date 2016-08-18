@@ -17,6 +17,7 @@ body{
 			margin: 15px;
 			border-radius: 6px;
 			margin-left: 0;
+			margin-bottom: 10px;
 			.changeButton{
 				padding: 0 10px;
 				width: 50%;
@@ -45,7 +46,7 @@ body{
 		color:#fff;
 		height: 30px;
 		line-height: 30px;
-		width: 100px;
+		// width: 100px;
 		border-radius: 3px;
 		text-align: center;
 	}
@@ -246,14 +247,15 @@ body{
 				width: 100%;				
 				height: auto;
 				overflow: hidden;
+				padding: 10px;
+				border: 1px dashed #bdbdbd;
 				.topTable{
-					border: 1px dashed #bdbdbd;
 					width: 100%;
 					padding: 20px;
 					table-layout: fixed;
 					border-collapse: collapse;
 					td,th{
-						padding:15px 5px;
+						padding:5px 5px;
 					}
 					td{
 						label{
@@ -353,6 +355,12 @@ body{
 							padding-left: 5px;
 							border-radius: 5px;
 						}
+						.commonput:focus{
+							border:1px solid #1e90ff;
+							-moz-box-shadow: 1px 1px 5px #1e90ff; 
+							-webkit-box-shadow: 1px 1px 5px #1e90ff; 
+							box-shadow: 1px 1px 5px #1e90ff;
+						}
 						.showDetailBox{
 							position: absolute;
 							top: 0px;
@@ -380,6 +388,12 @@ body{
 						padding-left: 5px;
 						border-radius: 5px;
 						padding-right: 5px;
+					}
+					.commonput:focus{
+						border:1px solid #1e90ff;
+						-moz-box-shadow: 1px 1px 5px #1e90ff; 
+						-webkit-box-shadow: 1px 1px 5px #1e90ff; 
+						box-shadow: 1px 1px 5px #1e90ff;
 					}
 					.commonInputBox{
 						position: relative;	
@@ -440,10 +454,10 @@ body{
 					border-spacing: 0;
 					border: 1px solid #d9d9d9;
 					border-collapse: collapse;
-					tr:nth-child(odd){
+					tr:nth-child(even){
 						background-color: #f8f8f8;
 					}
-					tr:nth-child(even){
+					tr:nth-child(odd){
 						background-color: #fff;
 					}
 					.tableTitle{
@@ -459,7 +473,7 @@ body{
 				.infoTable td{
 					border: 1px solid #d9d9d9;
 					text-align: center;
-					padding: 5px;
+					padding: 7px;
 					word-break: break-all; 
 					word-wrap:break-word;
 					.showMoreContent{
@@ -509,13 +523,13 @@ body{
 					font-weight: normal;
 					border: 1px solid #d9d9d9;
 					text-align: center;
-					padding:5px;
+					padding:7px;
 				}
 			}
 			.commonputBox{
 				display: inline-block;
 				width: 150px;
-				overflow: hidden;
+				// overflow: hidden;
 				height: 30px;
 				position: relative;
 				vertical-align: middle;

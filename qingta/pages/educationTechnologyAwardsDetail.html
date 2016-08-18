@@ -1,25 +1,28 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/nationtTechnologyAcademic.html">中国工程院院士统计</a>
-		<a class="changeRight green changeButton" href="#/nationtTechnologyAcademicDetail.html">中国工程院院士明细</a>
+		<a class="changeLeft changeButton" href="#/educationTechnologyAwards.html">教育部科技奖统计</a>
+		<a class="changeRight green changeButton" href="#/educationTechnologyAwardsDetail.html">教育部科技奖明细</a>
 	</div>
 </div>
 <div class="enterBox">
 	<table class="topTable">
 		<tr>
-			<th style="width:74px;">姓名 :</th>
+			<th style="width:74px;">奖项类型 :</th> 
+			<td>
+				<div class="commonselect"  style="width:191px;">
+					<select class="selBox">
+						<option>1</option>
+						<option>2</option>
+					</select>
+				</div>
+			</td>
+			<th>项目名称 :</th>
 			<td>
 				<div class="commonInputBox" style="width:191px;">
 					<input class="commonput">
 				</div>
 			</td>
-			<th>专业 :</th>
-			<td>
-				<div class="commonInputBox" style="width:191px;">
-					<input class="commonput">
-				</div>
-			</td>
-			<th>当选年度<span style="color:red">*</span> :</th>
+			<th>获奖年度<span style="color:red">*</span> :</th>
 			<td style="width:185px;">
 				<div class="commonselect" style="width:66px;margin-right:8px;">
 					<select class="selBox">
@@ -40,7 +43,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th>学部 :</th>
+			<th>获奖级别 :</th>
 			<td>
 				<div class="commonselect"  style="width:191px;">
 					<select class="selBox">
@@ -49,23 +52,44 @@
 					</select>
 				</div>
 			</td>
-			<th>当选工作单位 :</th>
+			<th>完成人 :</th>
 			<td>
 				<div class="commonInputBox" style="width:191px;">
 					<input class="commonput">
 				</div>
-			</td>	
-			<th>当选年龄 :</th>
+			</td>
+			<th>完成单位 :</th>
 			<td>
-				<div class="commonputBox" style="width:66px;margin-right:8px;">
-					<input class="commonput" style="width:100%;">
-				</div>
-				至
-				<div class="commonputBox" style="width:66px;margin-left:8px;">
-					<input class="commonput" style="width:100%;">
+				<div class="commonInputBox" style="width:171px;">
+					<input class="commonput">
 				</div>
 			</td>
 			<td><a class="resetBtn rightMinBtn">重置</a></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="padding-left:40px;"></td>
+			<th></th>
+			<td style="padding-top:0;">
+				<label for="box1">
+					<input type="checkbox" id="box1">
+					第一完成人
+				</label>
+				<label for="box2">
+					<input type="checkbox" id="box2">
+					参与人
+				</label>
+			</td>
+			<td colspan="2" style="padding-left:90px;">
+				<label for="box1">
+					<input type="checkbox" id="box1">
+					第一完成单位
+				</label>
+				<label for="box2">
+					<input type="checkbox" id="box2">
+					参与单位
+				</label>
+			</td>
+			<td></td>
 		</tr>
 	</table>
 </div>
@@ -74,34 +98,44 @@
 		<thead>
 			<tr class="tableTitle">
 				<th>序号</th>
-				<th>当选年度</th>
-				<th>当选工作单位</th>
-				<th>姓名</th>
-				<th>专业</th>
-				<th>学部</th>
-				<th>当选年龄</th>	
+				<th>项目编号</th>
+				<th>奖项类型</th>
+				<th>项目名称</th>
+				<th>获奖年度</th>
+				<th>获奖级别</th>
+				<th>第一完成人</th>
+				<th>参与人</th>
+				<th>第一单位</th>
+				<th>参与单位</th>
+				<th>推荐单位</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td>1</td>
-				<td>2009</td>
-				<td>中国科学院理论物理研究所</td>
-				<td>孙昌璞</td>
-				<td>男</td>
-				<td>理论物理</td>
-				<td>数学物理学部</td>
-				<td>46</td>
+				<td>J-217-1-01</td>
+				<td>国家科技进步奖</td>				
+				<td>上海光源国家重大科学工程</td>
+				<td>2015年</td>
+				<td>特等奖</td>
+				<td>赵虹</td>
+				<td>李友勇</td>
+				<td>河南科技学院</td>
+				<td>浙江大学</td>
+				<td>河南省</td>
 			</tr>
 			<tr>
 				<td>2</td>
-				<td>2007</td>
-				<td>四川大学</td>
-				<td>李安明</td>
-				<td>男</td>
-				<td>数学</td>
-				<td>数学物理学部</td>
-				<td>62</td>
+				<td>J-217-1-01</td>
+				<td>国家科技进步奖</td>				
+				<td>上海光源国家重大科学工程</td>
+				<td>2015年</td>
+				<td>一等奖</td>
+				<td>李浩</td>
+				<td>李友勇</td>
+				<td>河南科技学院</td>
+				<td>浙江大学</td>
+				<td>河南省</td>
 			</tr>
 		</tbody>
 	</table>
