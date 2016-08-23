@@ -24,12 +24,16 @@ function eventBind(){
 		var showflag=$(this).next(".downContent").attr("class");
 		var array=showflag.split(" ");
 		if(array.length>1){
+			$(this).parent().prev().removeClass("white");
 			$(this).next(".downContent").removeClass("show");
 			$(this).removeClass("btnColor");
+			$(this).children(".downflag").removeClass("fa-minus");
 		}
 		else{
+			$(this).parent().prev().addClass("white");
 			$(this).next(".downContent").addClass("show");
 			$(this).addClass("btnColor");
+			$(this).children(".downflag").addClass("fa-minus");
 		}
 	})
 	$(".rightBox").on("click",".leftImg",function(){

@@ -26,6 +26,7 @@
   margin: 10px 0;
   position: relative;
   text-align: center;
+  text-align: right;
   zoom: 1;
 }
 .M-box:before,
@@ -38,6 +39,7 @@
   overflow: hidden;
 }
 .M-box span {
+  text-align: center;
   color: #bdbdbd;
   font-size: 14px;
 }
@@ -48,6 +50,7 @@
   border: 1px solid #33cccc;
 }
 .M-box a {
+  text-align: center;
   background-color: #fff;
   border: 1px solid #ebebeb;
   color: #bdbdbd;

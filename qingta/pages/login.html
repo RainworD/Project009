@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../source/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/font-awesome-4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../source/css/public.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/init.css">
+	<script type="text/javascript" src="../source/js/jquery-1.7.2.js"></script>
+</head>
+<style type="text/css">
+	body{
+		background-color: #00cd99;
+	}
+	.loginContainer{
+		width: 100%;
+	}
+	.loginContent{
+		width: 100%;
+		position: relative;
+	}
+	.topTitle{
+		position: absolute;
+		top: 15px;
+		left:30px;
+		color: #fff;
+		font-size:18px;
+		font-weight: bold;
+	}
+	.rightBox{
+		position: absolute;
+		top: 90px;
+		right: 140px;
+		width: 300px;
+		height: 300px;
+	}
+	.rightTop{
+		font-size: 12px;
+		text-align: center;
+		color:#fff;
+		height: 40px;
+		line-height: 40px;
+		background-color: #006666;
+		border-top-left-radius: 6px;
+		border-top-right-radius: 6px;
+	}
+	.rightContent{
+		padding: 13px;
+		width: 100%;
+		background-color: #fff;
+	}
+	.enterAccountBox{
+		margin-top: 10px;
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		border:1px solid #d7d7d7;
+		position: relative;
+		border-radius: 5px;
+	}
+	.enterAccount{
+		border:none;
+		padding-left: 10px;
+		width: 100%;
+		padding-right:30px;
+	}
+	.enterpwBox{
+		position: relative;
+		margin-top: 13px;
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		border:1px solid #d7d7d7;
+		border-radius: 5px;
+	}
+	.enterpw{
+		border:none;
+		padding-left:10px;
+		width: 100%;
+		padding-right: 30px;
+	}
+	.bottomBox{
+		padding-top: 10px;
+		position: relative;
+		height: 40px;
+	}
+	label{
+		position: absolute;
+		left: 0;
+		color: #d7d7d7;
+		font-size: 12px;
+	}
+	.rememberMe{
+		border:1px solid #6c9f9f;
+	}
+	.forgetpw{
+		color: #d7d7d7;
+		position: absolute;
+		right: 0;
+		font-size: 12px;
+	}
+	.loginBtn{
+		margin-top: 25px;
+		width: 100%;
+		display:block;
+		height: 40px;
+		text-align: center;
+		color:#fff;
+		line-height: 40px;
+		background-color: #00cd99;
+	}
+	.inputBtn{
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 30px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		color: #d7d7d7;
+	}
+</style>
+<body>
+	<div class="loginContainer">
+		<div class="loginContent">
+			<div class="topTitle">
+				<i class="fa fa-bar-chart fa-lg topBtn "></i>青塔高等教育数据云平台
+			</div>
+			<div class="leftBox">
+				
+			</div>
+			<div class="rightBox">
+				<div class="rightTop">
+					登录数据云平台
+				</div>
+				<div class="rightContent">
+					<div class="enterAccountBox">
+						<input type="text" class="enterAccount" placeholder="账号">
+						<i class="fa fa-bar-chart fa-lg inputBtn "></i>
+					</div>
+					<div class="enterpwBox">
+						<input type="text" class="enterpw" placeholder="密码">
+						<i class="fa fa-bar-chart fa-lg inputBtn "></i>
+					</div>
+					<div class="bottomBox">
+						<label for="rememberMe">
+							<input type="checkbox" class="rememberMe" id="rememberMe" >
+							记住我
+						</label>
+						<a class="forgetpw">
+							忘记密码？
+						</a>
+					</div>
+					<a class="loginBtn">
+						登录
+					</a>
+				</div>	
+			</div>
+		</div>
+	</div>
+</body>
