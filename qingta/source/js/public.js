@@ -32,9 +32,21 @@ function eventBind(){
 		else{
 			$(this).parent().prev().addClass("white");
 			$(this).next(".downContent").addClass("show");
+			$(this).parents(".section").siblings('.section').find(".downContent").removeClass("show");
+			$(this).parents(".section").siblings('.section').find(".downBtn").removeClass("btnColor");
+			$(this).parents(".section").siblings('.section').find(".downflag").removeClass("fa-minus");
+			$(this).parents(".section").siblings('.section').find(".linka").removeClass("activeClass");
+			$(this).parents(".section").siblings('.section').find(".leftImg").removeClass("white");
 			$(this).addClass("btnColor");
 			$(this).children(".downflag").addClass("fa-minus");
 		}
+	})
+	// $(".singleLink").bind("click",function(){
+	// 	$(this).children('.downBtn').addClass("white");
+	// 	$(this).parents('.section').siblings().find(".downBtn").removeClass("white");
+	// })
+	$(".section").on("click",".linka",function(){
+		$(this).addClass("activeClass").siblings().removeClass("activeClass");
 	})
 	$(".rightBox").on("click",".leftImg",function(){
 		var showflag1=$(this).parents(".rightBox").attr("class");
@@ -48,6 +60,11 @@ function eventBind(){
 			$(".rightBox").addClass("rightnew");
 		}		
 	})
+	// $(".small").delegate(".leftImg","click",function(){
+	// 	alert("111");
+	// 	$(this).addClass(".newLeftImg");
+	// 	$(this).parent(".section").siblings().children(".leftImg").removeClass(".newLeftImg");
+	// })
 	$(window).bind('load hashchange', loadContent);
 }
 function loadContent() {

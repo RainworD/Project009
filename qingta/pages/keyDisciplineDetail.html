@@ -81,6 +81,75 @@ $('.M-box').pagination({
         location.href="__ROOT__/main.html?page="+index
     }
 });
+$(".showDetail").bind("click",function(){
+		$(".mask").show();
+		$(".unitsChoose").show();
+	})
+	$(".leftColumnBtn").bind("click",function(){
+		var array=$(this).next().find(".showMoreCollege").attr("class").split(" ");
+		console.log(array);
+		if (array.length>1) {
+			$(this).next().find(".showMoreCollege").removeClass("showMoreCollegeActive");
+			$(this).children(".showCollege").show().siblings().hide();
+		}
+		else{
+			$(this).next().find(".showMoreCollege").addClass("showMoreCollegeActive");
+			$(this).children(".unShowCollege").show().siblings().hide();
+		}
+	})
+	$(".cancelBtn").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+	})
+	$(".leftColumnProvinces").on("click",".provinceItems",function(){
+		var flag=$(this).find(".provinces").prop("checked");
+		console.log(flag);
+		if(flag){
+			$(this).next().find(".commonCollege").prop("checked",true);
+		}
+		else{
+			$(this).next().find(".commonCollege").prop("checked",false);
+		}
+	})
+	$(".collegeItems").on("click",".commonCollege",function(){
+		var flag2=$(this).prop("checked");
+		var flag3=$(this).siblings(".commonCollege").prop("checked");
+		console.log(flag3);
+		if (flag2&&flag3) {
+			alert("aaa");
+			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",true);
+		}
+		else{
+			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",false);
+		}
+	})
+	$(".moveRight").bind("click",function(){
+		var array=[];
+		var len=$(".commonCollege").length;
+		for (var i =0; i<len; i++) {
+			var myflag=$(".commonCollege").eq(i).prop("checked");
+			var name=$(".commonCollege").eq(i).next().text();
+			if(myflag){
+				array.push(name);
+			}
+		}
+		for (var j=0;j<array.length;j++) {
+			var hasSame=false;
+			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
+			for (var k=0;k<findLi.length;k++) {
+				var txt=findLi.eq(k).text();
+				if(txt==array[j]){
+					hasSame = true;
+                	break;
+				}
+			}
+			if(!hasSame){
+	            var liItems=$('<li class="chooseItems"></li>');
+				liItems.append(array[j]);
+				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
+	        }
+		}
+	})
 </script>
 
 

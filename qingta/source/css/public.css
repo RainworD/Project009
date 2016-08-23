@@ -32,6 +32,322 @@ body {
 .mainContainer {
   width: 100%;
   height: 100%;
+  position: relative;
+}
+.mainContainer .commonInputBox {
+  position: relative;
+  width: 150px;
+}
+.mainContainer .commonInputBox .commonput {
+  padding-right: 30px;
+  border: none;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #bdbdbd;
+  padding-left: 5px;
+  border-radius: 5px;
+}
+.mainContainer .commonInputBox .commonput:focus {
+  border: 1px solid #3cc;
+  -moz-box-shadow: 0 0 8px #3cc;
+  -webkit-box-shadow: 0 0 8px #3cc;
+  box-shadow: 0 0 8px #3cc;
+}
+.mainContainer .commonselect {
+  display: inline-block;
+  width: 150px;
+  max-width: 100%;
+  height: 30px;
+  position: relative;
+  vertical-align: middle;
+}
+.mainContainer .commonselect .selBox {
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  padding-left: 10px;
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  height: 30px;
+  line-height: 28px;
+  background: transparent;
+  cursor: pointer;
+}
+.mainContainer .commonselect .selBox:focus {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border: 1px solid #3cc;
+  -moz-box-shadow: 0 0 8px #3cc;
+  -webkit-box-shadow: 0 0 8px #3cc;
+  box-shadow: 0 0 8px #3cc;
+}
+.mainContainer .commonselect:before {
+  position: absolute;
+  right: 8px;
+  top: 7px;
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f107";
+  color: #aaa;
+  cursor: pointer;
+}
+.mainContainer .infoTable {
+  color: #555;
+  border-spacing: 0;
+  border: 1px solid #d9d9d9;
+  border-collapse: collapse;
+}
+.mainContainer .infoTable tbody {
+  font-size: 12px;
+}
+.mainContainer .infoTable tbody tr:nth-child(even) {
+  background-color: #fafafa;
+  background-color: #f3f3f3;
+}
+.mainContainer .infoTable tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+.mainContainer .infoTable tbody tr:hover {
+  background-color: #fffcf3;
+}
+.mainContainer .infoTable tbody .addSomeData td {
+  text-align: center;
+}
+.mainContainer .infoTable tbody .addSomeData td input {
+  border: none;
+  height: 100%;
+  background-color: transparent;
+  width: 100%;
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+}
+.mainContainer .infoTable .tableTitle {
+  background-color: #fff;
+  border-bottom: 1px solid #32cdcd;
+  color: #fff;
+}
+.mainContainer .infoTable td {
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  padding: 10px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.mainContainer .infoTable td .clickForMore {
+  display: block;
+  padding: 5px;
+  background-color: #3cc;
+  color: #fff;
+  border-radius: 5px;
+}
+.mainContainer .infoTable td .addLine {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  margin: auto;
+  background-color: #3cc;
+}
+.mainContainer .infoTable td .removeData {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background-color: #f33;
+  color: #fff;
+  margin: auto;
+}
+.mainContainer .infoTable td .showMoreContent {
+  position: relative;
+}
+.mainContainer .infoTable td .showMoreContent .txt {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.mainContainer .infoTable td .showMoreContent .arrowDown {
+  font-size: 15px;
+  color: #999;
+}
+.mainContainer .infoTable td .showMoreContent .lookMore {
+  display: none;
+  position: absolute;
+  width: 200px;
+  padding: 10px;
+  top: 25px;
+  left: -100px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  z-index: 2;
+  line-height: 20px;
+}
+.mainContainer .infoTable td .showMoreContent .lookMore .rectangle {
+  border-bottom: 6px solid rgba(0, 0, 0, 0.8);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  position: absolute;
+  top: -6px;
+  left: 100px;
+}
+.mainContainer .infoTable td .showMoreContent .showMore {
+  display: block;
+}
+.mainContainer .infoTable th {
+  font-weight: normal;
+  font-weight: bold;
+  color: #000;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #32cdcd;
+}
+.mainContainer .topTable {
+  width: 100%;
+  padding: 20px;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.mainContainer .topTable td,
+.mainContainer .topTable th {
+  padding: 10px 5px;
+}
+.mainContainer .topTable td label {
+  padding-right: 10px;
+}
+.mainContainer .topTable td label .radioInput {
+  display: inline-block;
+  vertical-align: middle;
+}
+.mainContainer .topTable td span {
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+}
+.mainContainer .topTable td .downTxt {
+  background-color: #fff;
+  z-index: 1;
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 150px;
+  border: 1px solid #ccc;
+}
+.mainContainer .topTable td .downTxt .downTxtItem {
+  padding-left: 10px;
+  height: 30px;
+  line-height: 30px;
+}
+.mainContainer .topTable td .downTxt .downTxtItem:hover {
+  background-color: #3cc;
+  color: #fff;
+}
+.mainContainer .topTable td .showTxt {
+  display: block;
+  border-top: none;
+}
+.mainContainer .topTable .commonInputBox {
+  position: relative;
+  width: 150px;
+}
+.mainContainer .topTable .commonInputBox .commonput {
+  padding-right: 30px;
+  border: none;
+  width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #bdbdbd;
+  padding-left: 5px;
+  border-radius: 5px;
+}
+.mainContainer .topTable .commonInputBox .commonput:focus {
+  border: 1px solid #3cc;
+  -moz-box-shadow: 0 0 8px #3cc;
+  -webkit-box-shadow: 0 0 8px #3cc;
+  box-shadow: 0 0 8px #3cc;
+}
+.mainContainer .topTable .commonInputBox .showDetailBox {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  line-height: 32px;
+}
+.mainContainer .topTable .commonInputBox .showDetailBox .showDetail {
+  cursor: pointer;
+  color: #ebebeb;
+  font-size: 18px;
+}
+.mainContainer .topTable .commonInputBox .showDetailBox .showDetail:hover {
+  color: #3cc;
+}
+.mainContainer .topTable .commonput {
+  border: none;
+  width: 150px;
+  max-width: 100%;
+  height: 30px;
+  line-height: 30px;
+  border: 1px solid #bdbdbd;
+  padding-left: 5px;
+  border-radius: 5px;
+  padding-right: 5px;
+}
+.mainContainer .topTable .commonput:focus {
+  border: 1px solid #3cc;
+  -moz-box-shadow: 0 0 8px #3cc;
+  -webkit-box-shadow: 0 0 8px #3cc;
+  box-shadow: 0 0 8px #3cc;
+}
+.mainContainer .topTable .commonInputBox {
+  position: relative;
+  width: 150px;
+}
+.mainContainer .topTable .commonInputBox .commonput {
+  width: 100%;
+}
+.mainContainer .topTable .commonInputBox .showDetailBox {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 30px;
+  height: 30px;
+  line-height: 32px;
+  text-align: center;
+}
+.mainContainer .topTable .commonInputBox .showDetailBox .showDetail {
+  cursor: pointer;
+  color: #ebebeb;
+  font-size: 18px;
+}
+.mainContainer .topTable .commonInputBox .showDetailBox .showDetail:hover {
+  color: #3cc;
+}
+.mainContainer .topTable th {
+  width: 105px;
+  text-align: right;
+  font-weight: normal;
+}
+.mainContainer .addDataBtn {
+  cursor: pointer;
+  float: left;
+  display: block;
+  background-color: #4ec1ff;
+  padding: 0px 10px;
+  height: 36px;
+  line-height: 36px;
+  color: #fff;
+  border-radius: 6px;
+  margin-left: 20px;
+  min-width: 100px;
+  text-align: center;
 }
 .mainContainer .changeBarContainer .changeBarBox {
   display: inline-block;
@@ -83,6 +399,8 @@ body {
   border-radius: 6px;
   margin-left: 0;
   margin-bottom: 15px;
+  min-width: 100px;
+  text-align: center;
 }
 .mainContainer .changeBarContainer:after {
   display: block;
@@ -156,6 +474,10 @@ body {
 .mainContainer .leftBox .leftList .section .sectionList {
   position: relative;
 }
+.mainContainer .leftBox .leftList .section .sectionList .singleLink {
+  display: inline-block;
+  width: 100%;
+}
 .mainContainer .leftBox .leftList .section .sectionList .downBtn {
   cursor: pointer;
   height: 45px;
@@ -224,6 +546,13 @@ body {
   background-color: #293846;
   color: #fafafa;
 }
+.mainContainer .leftBox .leftList .section .sectionList .downContent .downList .activeClass {
+  cursor: pointer;
+  background-color: #414750;
+  color: #3cc;
+  background-color: #293846;
+  color: #fafafa;
+}
 .mainContainer .leftBox .leftList .section .sectionList .show {
   display: block;
 }
@@ -254,6 +583,14 @@ body {
   font-size: 14px;
 }
 .mainContainer .small .leftList .section .leftImg:hover {
+  color: #fff;
+  background-color: #233645;
+}
+.mainContainer .small .leftList .section .newLeftImg {
+  color: #fff;
+  background-color: #233645;
+}
+.mainContainer .small .leftList .section .leftImg:active {
   color: #fff;
   background-color: #233645;
 }
@@ -295,6 +632,26 @@ body {
   overflow: visible;
   padding-left: 240px;
 }
+.mainContainer .rightBox .searchBar {
+  margin: 5px 0;
+  margin-bottom: 20px;
+}
+.mainContainer .rightBox .searchBar .commonInputBox {
+  float: left;
+  height: 36px;
+  line-height: 36px;
+  width: 30%;
+}
+.mainContainer .rightBox .searchBar .commonInputBox .commonput {
+  height: 100%;
+  width: 100%;
+  padding-left: 15px;
+}
+.mainContainer .rightBox .searchBar:after {
+  display: block;
+  content: '';
+  clear: both;
+}
 .mainContainer .rightBox .topBar {
   height: 45px;
   line-height: 45px;
@@ -321,6 +678,40 @@ body {
   min-width: 1000px;
   padding: 0 20px;
 }
+.mainContainer .rightBox .rightContent .faqContent {
+  padding: 10px;
+}
+.mainContainer .rightBox .rightContent .faqContent .faqItem {
+  margin: 10px 0;
+}
+.mainContainer .rightBox .rightContent .faqContent .faqItem .faqPlus {
+  cursor: pointer;
+  color: #bfaeae;
+  width: 30px;
+  text-align: center;
+  display: inline-block;
+  line-height: 35px;
+  height: 35px;
+}
+.mainContainer .rightBox .rightContent .faqContent .faqItem .faqPlus .faqflag {
+  font-size: 14px;
+  line-height: 5px;
+}
+.mainContainer .rightBox .rightContent .faqContent .faqItem span {
+  height: 35px;
+  line-height: 35px;
+  display: inline-block;
+  font-size: 16px;
+  color: #7979a2;
+}
+.mainContainer .rightBox .rightContent .faqContent .faqItem .faqHide {
+  color: #b8bbc1;
+  padding-left: 30px;
+  display: none;
+}
+.mainContainer .rightBox .rightContent .faqContent .faqItem .show {
+  display: block;
+}
 .mainContainer .rightBox .rightContent .enterBox {
   width: 100%;
   height: auto;
@@ -337,213 +728,9 @@ body {
   /*Opera*/
 
 }
-.mainContainer .rightBox .rightContent .enterBox .topTable {
-  width: 100%;
-  padding: 20px;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td,
-.mainContainer .rightBox .rightContent .enterBox .topTable th {
-  padding: 10px 5px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td label {
-  padding-right: 10px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td label .radioInput {
-  display: inline-block;
-  vertical-align: middle;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td span {
-  display: inline-block;
-  height: 30px;
-  line-height: 30px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td .downTxt {
-  background-color: #fff;
-  z-index: 1;
-  display: none;
-  position: absolute;
-  top: 30px;
-  left: 0;
-  width: 150px;
-  border: 1px solid #ccc;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td .downTxt .downTxtItem {
-  padding-left: 10px;
-  height: 30px;
-  line-height: 30px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td .downTxt .downTxtItem:hover {
-  background-color: #3cc;
-  color: #fff;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable td .showTxt {
-  display: block;
-  border-top: none;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox {
-  position: relative;
-  width: 150px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .commonput {
-  padding-right: 30px;
-  border: none;
-  width: 100%;
-  height: 30px;
-  line-height: 30px;
-  border: 1px solid #bdbdbd;
-  padding-left: 5px;
-  border-radius: 5px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .commonput:focus {
-  border: 1px solid #3cc;
-  -moz-box-shadow: 0 0 8px #3cc;
-  -webkit-box-shadow: 0 0 8px #3cc;
-  box-shadow: 0 0 8px #3cc;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 30px;
-  height: 30px;
-  line-height: 32px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox .showDetail {
-  cursor: pointer;
-  color: #ebebeb;
-  font-size: 18px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox .showDetail:hover {
-  color: #3cc;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonput {
-  border: none;
-  width: 150px;
-  max-width: 100%;
-  height: 30px;
-  line-height: 30px;
-  border: 1px solid #bdbdbd;
-  padding-left: 5px;
-  border-radius: 5px;
-  padding-right: 5px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonput:focus {
-  border: 1px solid #3cc;
-  -moz-box-shadow: 0 0 8px #3cc;
-  -webkit-box-shadow: 0 0 8px #3cc;
-  box-shadow: 0 0 8px #3cc;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox {
-  position: relative;
-  width: 150px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .commonput {
-  width: 100%;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 30px;
-  height: 30px;
-  line-height: 32px;
-  text-align: center;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox .showDetail {
-  cursor: pointer;
-  color: #ebebeb;
-  font-size: 18px;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable .commonInputBox .showDetailBox .showDetail:hover {
-  color: #3cc;
-}
-.mainContainer .rightBox .rightContent .enterBox .topTable th {
-  width: 105px;
-  text-align: right;
-  font-weight: normal;
-}
 .mainContainer .rightBox .rightContent .tableContent {
   width: 100%;
   padding: 20px 0px;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable {
-  color: #555;
-  border-spacing: 0;
-  border: 1px solid #d9d9d9;
-  border-collapse: collapse;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable tbody {
-  font-size: 12px;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable tbody tr:nth-child(even) {
-  background-color: #fafafa;
-  background-color: #f3f3f3;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable tbody tr:nth-child(odd) {
-  background-color: #fff;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable tbody tr:hover {
-  background-color: #fffcf3;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable .tableTitle {
-  background-color: #fff;
-  border-bottom: 1px solid #32cdcd;
-  color: #fff;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable td {
-  border: 1px solid #d9d9d9;
-  text-align: center;
-  padding: 10px;
-  word-break: break-all;
-  word-wrap: break-word;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable td .showMoreContent {
-  position: relative;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable td .showMoreContent .txt {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable td .showMoreContent .arrowDown {
-  font-size: 15px;
-  color: #999;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable td .showMoreContent .lookMore {
-  display: none;
-  position: absolute;
-  width: 200px;
-  padding: 10px;
-  top: 25px;
-  left: -100px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  z-index: 2;
-  line-height: 20px;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable td .showMoreContent .lookMore .rectangle {
-  border-bottom: 6px solid rgba(0, 0, 0, 0.8);
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  position: absolute;
-  top: -6px;
-  left: 100px;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable td .showMoreContent .showMore {
-  display: block;
-}
-.mainContainer .rightBox .rightContent .tableContent .infoTable th {
-  font-weight: normal;
-  font-weight: bold;
-  color: #000;
-  border: 1px solid #d9d9d9;
-  text-align: center;
-  padding: 10px;
-  border-bottom: 1px solid #32cdcd;
 }
 .mainContainer .rightBox .rightContent .commonputBox {
   display: inline-block;
@@ -600,6 +787,260 @@ body {
   padding-left: 40px;
 }
 .mainContainer:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.mainContainer .mask {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+.mainContainer .unitsChoose {
+  display: none;
+  background-color: #fff;
+  width: 720px;
+  margin: -270px 0 0 -360px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  height: 540px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  z-index: 1;
+}
+.mainContainer .unitsChoose .unitsContainer {
+  position: relative;
+  padding: 20px;
+}
+.mainContainer .unitsChoose .unitsContainer .cancelBtn {
+  width: 30px;
+  position: absolute;
+  top: 10px;
+  right: 0;
+  color: #bdbdbd;
+  cursor: pointer;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsHeader {
+  width: 100%;
+  border-bottom: 2px dashed #bdbdbd;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsHeader .unitsTitle {
+  padding-bottom: 10px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent {
+  width: 100%;
+  padding-top: 0px;
+  padding-bottom: 20px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel {
+  width: 100%;
+  height: 380px;
+  position: relative;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn {
+  width: 45%;
+  float: left;
+  min-height: 380px;
+  border: 1px solid #cfcfcf;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox {
+  padding: 10px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar {
+  width: 100%;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed #bdbdbd;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar .searchBox {
+  border: none;
+  border: 1px solid #cfcfcf;
+  width: 210px;
+  display: block;
+  float: left;
+  margin-right: 10px;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar .leftSearchBtn {
+  display: block;
+  float: left;
+  width: 60px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #fff;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  text-align: center;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent {
+  padding: 20px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnBtn {
+  float: left;
+  width: 40px;
+  padding-right: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: #ccc;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnBtn .unShowCollege,
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnBtn .showCollege {
+  display: none;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnBtn .addShow {
+  display: inline-block;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces {
+  padding-left: 10px;
+  float: left;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .provinceItems {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .provinceItems label {
+  display: inline-block;
+  vertical-align: middle;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .showMoreCollege {
+  display: none;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .showMoreCollege .collegeItems {
+  padding-left: 20px;
+  cursor: pointer;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .showMoreCollegeActive {
+  display: block;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .middleColumn {
+  width: 10%;
+  line-height: 380px;
+  float: left;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .middleColumn .btnBox {
+  height: 50px;
+  margin-top: 165px;
+  text-align: center;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .middleColumn .btnBox .moveRight {
+  display: block;
+  font-size: 23px;
+  color: #bdbdbd;
+  padding-bottom: 20px;
+  cursor: pointer;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .middleColumn .btnBox .moveLeft {
+  display: block;
+  font-size: 23px;
+  color: #bdbdbd;
+  cursor: pointer;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .middleColumn .btnBox .lightGreen {
+  background-color: #3cc;
+  color: #fff;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .middleColumn .btnBox .moveLeft:hover {
+  color: #666;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .middleColumn .btnBox .moveRight:hover {
+  color: #666;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn {
+  width: 45%;
+  float: left;
+  border: 1px solid #cfcfcf;
+  min-height: 380px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent {
+  padding: 10px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent .rightColumnBar {
+  padding: 10px;
+  border-bottom: 2px dashed #bdbdbd;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent .chooseAlready {
+  padding: 10px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .showTotalData .infoTable {
+  table-layout: fixed;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .showTotalData .ESITop {
+  padding: 15px 0;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .showTotalData .ESITop .ESITitle {
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  background-color: #3cc;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .showTotalData .ESITop .editData {
+  display: block;
+  float: right;
+  height: 30px;
+  line-height: 28px;
+  border: 1px solid #ccc;
+  color: #3cc;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .showTotalData .ESITop .editData .editBtn {
+  font-size: 14px;
+  padding-right: 3px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .showTotalData .ESITop:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .showTotalData .ESIContent {
+  width: 100%;
+  padding-bottom: 30px;
+  border-bottom: 2px dashed #bdbdbd;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn {
+  position: absolute;
+  right: 0px;
+  bottom: 20px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn .forSure,
+.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn .forConsole {
+  display: block;
+  float: right;
+  width: 80px;
+  text-align: center;
+  margin-right: 20px;
+  border-radius: 3px;
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn .forSure {
+  background-color: #00cc99;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn .forConsole {
+  background-color: #33ccff;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn:after {
   display: block;
   content: '';
   clear: both;

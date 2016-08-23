@@ -1,0 +1,54 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox" style="background-color:#fff;">
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">FAQ</a>
+	</div>
+	<div class="addDataBtn">新增</div>
+</div>
+<div class="searchBar">
+	<div class="commonInputBox">
+		<input type="text" placeholder="请输入您要搜索的问题" class="commonput">
+	</div>
+	<div class="addDataBtn" style="background-color:#3cc">查询</div>
+</div>
+<div class="enterBox" style="min-height: 400px;">
+	<div class="faqContent">
+		<div class="faqItem">
+			<div class="faqPlus">
+				<i class="fa fa-plus fa-lg faqflag"></i>
+			</div>
+			<span>如何对系统用户进行管理？</span>
+			<div class="faqHide">
+				<p class="faqPara">
+					1系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出。
+				</p>
+			</div>
+		</div>
+		<div class="faqItem">
+			<div class="faqPlus">
+				<i class="fa fa-plus fa-lg faqflag"></i>
+			</div>
+			<span>如何导出可视化数据分析的图表和各类明细数据的统计分析内容？</span>
+			<div class="faqHide">
+				<p class="faqPara">
+					2系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出。
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".faqPlus").bind("click",function(){
+		var className=$(this).siblings(".faqHide").attr("class");
+		var array=className.split(" ");
+		if(array.length>1){
+			$(this).children(".faqflag").removeClass("fa-minus");
+			$(this).siblings('.faqHide').removeClass("show");
+		}
+		else{
+			$(this).children(".faqflag").addClass("fa-minus");
+			$(this).siblings('.faqHide').addClass("show");
+			$(this).parent(".faqItem").siblings().children(".faqHide").removeClass("show");
+			$(this).parent(".faqItem").siblings().find(".faqflag").removeClass("fa-minus");
+		}
+	})
+</script>
