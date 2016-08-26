@@ -1,6 +1,6 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox" style="background-color:#fff;">
-		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">用户管理</a>
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">系统用户管理</a>
 	</div>
 </div>
 <div class="enterBox">
@@ -38,6 +38,7 @@
 		<thead>
 			<tr class="tableTitle">
 				<th>序号</th>
+				<th>学校名称</th>
 				<th>账户名称</th>
 				<th>用户姓名</th>
 				<th>所属部门</th>
@@ -51,6 +52,7 @@
 		<tbody>
 			<tr>
 				<td>1</td>
+				<td>浙江大学</td>
 				<td>zjupj</td>
 				<td>张三</td>
 				<td>校长办公室</td>
@@ -62,6 +64,7 @@
 			</tr>
 			<tr>
 				<td>2</td>
+				<td>兰州大学</td>
 				<td>zjupj</td>
 				<td>李四</td>
 				<td>校长办公室</td>
@@ -88,6 +91,14 @@
 			<div class="showTotalData">
 				<div class="ESIContent" style="padding-top: 30px;">
 					<table class="ESITable topTable">
+						<tr>
+							<th>学校名称 :</th>
+							<td colspan="3">
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput">
+								</div>
+							</td>
+						</tr>
 						<tr>
 							<th>账户名称 :</th>
 							<td>
@@ -161,8 +172,7 @@
 <script type="text/javascript">
 	$(".manageBtn,.addUserBtn").bind("click",function(){
 		$(".mask").show();
-		popAlertBox(".unitsChoose");
-		dragBox(".unitsChoose");
+		$(".unitsChoose").show();
 	})
 	$(".cancelBtn").bind("click",function(){
 		$(".mask").hide();
@@ -170,35 +180,5 @@
 	})
 	$(".forConsole").bind("click",function(){
 		$(this).parents('.unitsContent').find("input").val("");
-	})
-	$(".forSure").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-		// var que1=$(this).parents(".unitsContent").find(".commonput").eq(0).val();
-		// var ans=$(this).parents(".unitsContent").find(".commontextBox").val();
-		// var insertItem=$('<tr>'+
-		// 					'<td></td>'+
-		// 					'<td></td>'+
-		// 					'<td></td>'+
-		// 					'<td></td>'+
-		// 					'<td></td>'+
-		// 					'<td></td>'+
-		// 					'<td></td>'+
-		// 					'<td></td>'+
-		// 					'<td></td>'+
-		// 					'<td><a class="manageBtn commonFor">管理</a></td>'+
-		// 				'</tr>');
-		// for(i=0;i<=4;i++){
-		// 	var que=$(this).parents(".unitsContent").find(".commonput").eq(i).val();
-		// 	insertItem.children("td").eq(i+1).text(que);
-		// }
-		// var que2=$(this).parents(".unitsContent").find(".selBox").val();
-		// insertItem.children("td").eq(6).text(que2);
-		// insertItem.children("td").eq(7).text("正常");
-		// if(que!=""&&ans!=""){
-		// 	insertItem.children("span").text(que);
-		// 	insertItem.find(".faqPara").text(ans);
-		// 	$(".faqContent").append(insertItem);
-		// }
 	})
 </script>

@@ -139,7 +139,7 @@ body {
   word-break: break-all;
   word-wrap: break-word;
 }
-.mainContainer .infoTable td .clickForMore {
+.mainContainer .infoTable td .commonFor {
   display: block;
   padding: 5px;
   background-color: #3cc;
@@ -147,12 +147,14 @@ body {
   border-radius: 5px;
 }
 .mainContainer .infoTable td .addLine {
+  display: inline-block;
   cursor: pointer;
   width: 20px;
   height: 20px;
   color: #fff;
   margin: auto;
   background-color: #3cc;
+  margin: 5px;
 }
 .mainContainer .infoTable td .removeData {
   cursor: pointer;
@@ -161,6 +163,11 @@ body {
   background-color: #f33;
   color: #fff;
   margin: auto;
+  display: inline-block;
+}
+.mainContainer .infoTable td .pointManager {
+  color: #4ec1ff;
+  border-bottom: 1px solid #4ec1ff;
 }
 .mainContainer .infoTable td .showMoreContent {
   position: relative;
@@ -274,19 +281,26 @@ body {
   box-shadow: 0 0 8px #3cc;
 }
 .mainContainer .topTable .commonInputBox .showDetailBox {
+  border: 1px solid #ebebeb;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 30px;
-  height: 30px;
-  line-height: 32px;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 3px;
+  text-align: center;
 }
 .mainContainer .topTable .commonInputBox .showDetailBox .showDetail {
   cursor: pointer;
   color: #ebebeb;
-  font-size: 18px;
+  font-size: 16px;
 }
-.mainContainer .topTable .commonInputBox .showDetailBox .showDetail:hover {
+.mainContainer .topTable .commonInputBox .showDetailBox:hover {
+  color: #3cc;
+  border: 1px solid #3cc;
+}
+.mainContainer .topTable .commonInputBox .showDetailBox:hover .showDetail {
   color: #3cc;
 }
 .mainContainer .topTable .commonput {
@@ -314,20 +328,26 @@ body {
   width: 100%;
 }
 .mainContainer .topTable .commonInputBox .showDetailBox {
+  border: 1px solid #ebebeb;
   position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 30px;
-  height: 30px;
-  line-height: 32px;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 3px;
   text-align: center;
 }
 .mainContainer .topTable .commonInputBox .showDetailBox .showDetail {
   cursor: pointer;
   color: #ebebeb;
-  font-size: 18px;
+  font-size: 16px;
 }
-.mainContainer .topTable .commonInputBox .showDetailBox .showDetail:hover {
+.mainContainer .topTable .commonInputBox .showDetailBox:hover {
+  color: #3cc;
+  border: 1px solid #3cc;
+}
+.mainContainer .topTable .commonInputBox .showDetailBox:hover .showDetail {
   color: #3cc;
 }
 .mainContainer .topTable th {
@@ -792,8 +812,11 @@ body {
   clear: both;
 }
 .mainContainer .mask {
+  height: 100%;
+  width: 100%;
   display: none;
-  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 2;
@@ -802,18 +825,66 @@ body {
   display: none;
   background-color: #fff;
   width: 720px;
-  margin: -270px 0 0 -360px;
   position: fixed;
-  left: 50%;
-  top: 50%;
-  height: 540px;
-  overflow: auto;
+  max-height: 530px;
   border: 1px solid #ccc;
-  z-index: 1;
+  z-index: 3;
+  cursor: move;
 }
 .mainContainer .unitsChoose .unitsContainer {
   position: relative;
-  padding: 20px;
+  padding-bottom: 70px;
+}
+.mainContainer .unitsChoose .unitsContainer .forLogOut {
+  background-color: #f33;
+  display: block;
+  width: 80px;
+  text-align: center;
+  margin-right: 20px;
+  border-radius: 3px;
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  z-index: 1;
+}
+.mainContainer .unitsChoose .unitsContainer .bottomBtn {
+  padding: 0 20px;
+  background-color: #fff;
+  width: 100%;
+  position: absolute;
+  right: 0px;
+  bottom: 20px;
+}
+.mainContainer .unitsChoose .unitsContainer .bottomBtn p {
+  padding-top: 20px;
+  width: 100%;
+  border-top: 2px dashed #ebebeb;
+}
+.mainContainer .unitsChoose .unitsContainer .bottomBtn p .forSure,
+.mainContainer .unitsChoose .unitsContainer .bottomBtn p .forConsole {
+  display: block;
+  float: right;
+  width: 80px;
+  text-align: center;
+  margin-right: 20px;
+  border-radius: 3px;
+  color: #fff;
+  height: 30px;
+  line-height: 30px;
+}
+.mainContainer .unitsChoose .unitsContainer .bottomBtn p .forSure {
+  background-color: #00cc99;
+}
+.mainContainer .unitsChoose .unitsContainer .bottomBtn p .forConsole {
+  background-color: #33ccff;
+}
+.mainContainer .unitsChoose .unitsContainer .bottomBtn p:after {
+  display: block;
+  content: '';
+  clear: both;
 }
 .mainContainer .unitsChoose .unitsContainer .cancelBtn {
   width: 30px;
@@ -824,16 +895,30 @@ body {
   cursor: pointer;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsHeader {
+  cursor: move;
+  padding: 20px;
   width: 100%;
-  border-bottom: 2px dashed #bdbdbd;
+  padding-bottom: 0;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsHeader .unitsTitle {
   padding-bottom: 10px;
+  border-bottom: 2px dashed #ebebeb;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent {
+  padding: 20px;
   width: 100%;
   padding-top: 0px;
   padding-bottom: 20px;
+  max-height: 400px;
+  overflow: auto;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .commonInputBox .commonput {
+  border: 1px solid #ddd;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .infoTable .beChoosen {
+  cursor: pointer;
+  background-color: #f33;
+  color: #fff;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel {
   width: 100%;
@@ -859,7 +944,7 @@ body {
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar .searchBox {
   border: none;
   border: 1px solid #cfcfcf;
-  width: 210px;
+  width: 200px;
   display: block;
   float: left;
   margin-right: 10px;
@@ -914,10 +999,7 @@ body {
   display: inline-block;
   vertical-align: middle;
 }
-.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .showMoreCollege {
-  display: none;
-}
-.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .showMoreCollege .collegeItems {
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .collegeItems {
   padding-left: 20px;
   cursor: pointer;
 }
@@ -962,6 +1044,7 @@ body {
   float: left;
   border: 1px solid #cfcfcf;
   min-height: 380px;
+  cursor: default;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent {
   padding: 10px;
@@ -972,6 +1055,18 @@ body {
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent .chooseAlready {
   padding: 10px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent .chooseAlready .chooseAlreadyList .chooseItems {
+  height: 30px;
+  line-height: 30px;
+  width: auto;
+  margin: 5px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent .chooseAlready .chooseAlreadyList .addSomeColor {
+  background-color: #ffefd5;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel:after {
   display: block;
@@ -1015,33 +1110,44 @@ body {
 .mainContainer .unitsChoose .unitsContainer .unitsContent .showTotalData .ESIContent {
   width: 100%;
   padding-bottom: 30px;
-  border-bottom: 2px dashed #bdbdbd;
 }
-.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn {
-  position: absolute;
-  right: 0px;
-  bottom: 20px;
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter {
+  padding: 30px 40px;
 }
-.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn .forSure,
-.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn .forConsole {
-  display: block;
-  float: right;
-  width: 80px;
-  text-align: center;
-  margin-right: 20px;
-  border-radius: 3px;
-  color: #fff;
-  height: 30px;
-  line-height: 30px;
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter .leftItem {
+  float: left;
+  width: 15%;
 }
-.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn .forSure {
-  background-color: #00cc99;
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter .leftItem2 {
+  padding-top: 25px;
 }
-.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn .forConsole {
-  background-color: #33ccff;
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter .rightItem {
+  float: left;
+  width: 85%;
 }
-.mainContainer .unitsChoose .unitsContainer .unitsContent .bottomBtn:after {
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter:after {
   display: block;
   content: '';
   clear: both;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter .rightItem1 {
+  height: 30px;
+  line-height: 30px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter .rightItem2 {
+  margin-top: 25px;
+  height: 240px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter .rightItem2 .commontextBox {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  padding: 5px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .faqEnter .rightItem2 .commontextBox:focus {
+  border: 1px solid #3cc;
+  -moz-box-shadow: 0 0 8px #3cc;
+  -webkit-box-shadow: 0 0 8px #3cc;
+  box-shadow: 0 0 8px #3cc;
 }

@@ -11,31 +11,27 @@
 			<th style="width:102px;">项目名称 :</th>
 			<td style="width:19.5%;">
 				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
+					<input class="commonput nameput">
 				</div>
 			</td>
 			<th style="width:10.6%;">项目类型 :</th>
 			<td style="width:19.5%;">
-				<div class="commonselect" style="width:100%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
+				<div class="commonInputBox"  style="width:100%">
+					<input class="commonput projectType">
+					<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 				</div>
 			</td>	
 			<th style="width:10.6%;">入选年度<span style="color:red">*</span> :</th>
 			<td style="width:19.8%">
 				<div class="commonselect" style="width:42.1%;margin-right:1%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
+					<select class="selBox yearName1">
+						<option>2016</option>
 					</select>
 				</div>
 				<span style="text-align: center;width:9%;">至</span>
 				<div class="commonselect" style="width:42.1%;margin-left:1%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
+					<select class="selBox yearName2">
+						<option>2016</option>
 					</select>
 				</div>
 			</td>
@@ -48,24 +44,24 @@
 			<th>项目牵头单位 :</th>
 			<td class="commonPlus">
 				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
+					<input class="commonput projectUnits">
 					<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
 				</div>
 			</td>
 			<th>项目负责人 :</th>
 			<td class="commonPlus">
 				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
+					<input class="commonput projectManager">
 				</div>
 			</td>
 			<th>中央财政经费 :</th>
 			<td style="width:203px;">
 				<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-					<input class="commonput" style="width:100%;">
+					<input class="commonput nationFee1" style="width:100%;">
 				</div>
 				<span style="text-align: center;width:9%;">至</span>
 				<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-					<input class="commonput" style="width:100%;">
+					<input class="commonput nationFee2" style="width:100%;">
 				</div>
 			</td>
 			<th style="width:3%"></th>
@@ -75,11 +71,11 @@
 			<th>项目总经费 :</th>
 			<td style="width:203px;">
 				<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-					<input class="commonput" style="width:100%;">
+					<input class="commonput projectFee1" style="width:100%;">
 				</div>
 				<span style="text-align: center;width:9%;">至</span>
 				<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-					<input class="commonput" style="width:100%;">
+					<input class="commonput projectFee2" style="width:100%;">
 				</div>
 			</td>
 			<td colspan="2" style="padding-left:70px;">
@@ -99,7 +95,11 @@
 	</table>
 </div>
 <div class="tableContent">
-	<table class="infoTable">
+	<!-- <div class="searchUndo">
+		<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+		<img class="getInfoImg" src="../source/img/info.png"></img>
+	</div> -->
+	<table class="infoTable infoTable1">
 		<thead>
 			<tr class="tableTitle">
 				<th>序号</th>
@@ -115,32 +115,35 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>1</td>
-				<td>2016YFC1100100</td>
-				<td>生物材料表面/界面及表面的改性研究</td>
-				<td>化肥农药和农药减施增效综合研发</td>
-				<td>2016</td>
-				<td>浙江大学</td>
-				<td>高长有</td>
-				<td>1400</td>
-				<td>1400</td>
-				<td>4.5</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>2016YFC1100200</td>
-				<td>生物材料表面/界面及表面的改性研究</td>
-				<td>化肥农药和农药减施增效综合研发</td>
-				<td>2016</td>
-				<td>中国科学院硅酸盐研究所</td>
-				<td>常江</td>
-				<td>1400</td>
-				<td>1400</td>
-				<td>4.5</td>
-			</tr>
 		</tbody>
 	</table>
+</div>
+<div class="mask"></div>
+<div class="unitsChoose">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader">
+			<p class="unitsTitle">项目类型选择</p>
+		</div>
+		<div class="unitsContent" style="padding-top:20px">
+			<table class="infoTable infoTable2" style="cursor: pointer;">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>项目类型名称</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<p class="bottomBtn">
+			<a class="forSure">确定</a>
+			<a class="forConsole">取消</a>
+		</p>
+	</div>
 </div>
 <div class="M-box"></div>
 <script type="text/javascript">
@@ -154,91 +157,102 @@
 		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
 		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
 	    callback:function(index){
-	        location.href="__ROOT__/main.html?page="+index
+	        console.log(index);
 	    }
 	});
-	$(".arrowDown").bind("click",function(){
-		var className=$(this).siblings('.lookMore').attr("class");
-		var txt=$(this).parent("td").children(".txt").text();
-		var array=className.split(" ");
-		if(array.length>1){
-			$(this).siblings('.lookMore').removeClass("showMore");
-		}
-		else{
-			$(this).siblings('.lookMore').addClass("showMore");
-			$(this).siblings('.lookMore').children("span").text(txt);
-		}
-	})
-	$(".changeBarBox").on("click",".changeButton",function(){
-		$(this).addClass("green").siblings().removeClass("green");
-	})
-	$(".showDetail").bind("click",function(){
+	$(".showDetailBox").bind("click",function(){
 		$(".mask").show();
-		$(".unitsChoose").show();
+		popAlertBox(".unitsChoose");
+		dragBox(".unitsChoose");
 	})
-	$(".leftColumnBtn").bind("click",function(){
-		var array=$(this).next().find(".showMoreCollege").attr("class").split(" ");
-		console.log(array);
-		if (array.length>1) {
-			$(this).next().find(".showMoreCollege").removeClass("showMoreCollegeActive");
-			$(this).children(".showCollege").show().siblings().hide();
-		}
-		else{
-			$(this).next().find(".showMoreCollege").addClass("showMoreCollegeActive");
-			$(this).children(".unShowCollege").show().siblings().hide();
-		}
-	})
-	$(".cancelBtn").bind("click",function(){
+	$(".unitsChoose").on("click",".cancelBtn",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();
 	})
-	$(".leftColumnProvinces").on("click",".provinceItems",function(){
-		var flag=$(this).find(".provinces").prop("checked");
-		console.log(flag);
-		if(flag){
-			$(this).next().find(".commonCollege").prop("checked",true);
-		}
-		else{
-			$(this).next().find(".commonCollege").prop("checked",false);
-		}
+	$(".forConsole").bind("click",function(){
+		$(this).parent('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
 	})
-	$(".collegeItems").on("click",".commonCollege",function(){
-		var flag2=$(this).prop("checked");
-		var flag3=$(this).siblings(".commonCollege").prop("checked");
-		console.log(flag3);
-		if (flag2&&flag3) {
-			alert("aaa");
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",true);
-		}
-		else{
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",false);
-		}
+	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
+		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
 	})
-	$(".moveRight").bind("click",function(){
-		var array=[];
-		var len=$(".commonCollege").length;
-		for (var i =0; i<len; i++) {
-			var myflag=$(".commonCollege").eq(i).prop("checked");
-			var name=$(".commonCollege").eq(i).next().text();
-			if(myflag){
-				array.push(name);
+	$(".forSure").bind("click",function(){
+		$(".unitsChoose").hide();
+		$(".mask").hide();
+		var txt;
+		var mytr=$(this).parent('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr");
+		for(i=0;i<mytr.length;i++){
+			var className=mytr.eq(i).attr("class");
+			if(className=="beChoosen"){
+				txt=mytr.eq(i).children("td").last().text();
+				mytr.eq(i).removeClass("beChoosen");
 			}
 		}
-		for (var j=0;j<array.length;j++) {
-			var hasSame=false;
-			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
-			for (var k=0;k<findLi.length;k++) {
-				var txt=findLi.eq(k).text();
-				if(txt==array[j]){
-					hasSame = true;
-                	break;
+		if(txt!=""){
+			$(".projectType").val(txt);
+		}
+	})
+</script>
+<script type="text/javascript">
+	$(".searchBtn").bind("click",function(){
+		var name=$(".nameput").val();
+		var type=$(".projectType").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var projectentity=$(".projectUnits").val();
+		var manager=$(".projectManager").val();
+		var totalmoney1=$(".projectFee1").val();
+		var totalmoney2=$(".projectFee2").val();
+		var centermoney1=$(".nationFee1").val();
+		var centermoney2=$(".nationFee2").val();
+		var params={
+			"name":name,
+			"type":type,
+			"year1":year1,
+			"year2":year2,
+			"projectentity":projectentity,
+			"manager":manager,
+			"totalmoney1":totalmoney1,
+			"totalmoney2":totalmoney2,
+			"centermoney1":centermoney1,
+			"centermoney2":centermoney2
+		}
+		$.post('http://114.55.173.19/askNKRP', params, function(data) {
+			var result=data.result;
+			$(".infoTable1").children('tbody').empty();
+			if(data.state==1){
+				for (i=0;i<result.length;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).text(i+1);
+					for (var j=0;j<result[i].length;j++) {
+						var mytd=$('<td></td>');
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+						mytd.text(result[i][j]);
+						searchInfo.append(mytd);
+					}
+					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 			}
-			if(!hasSame){
-	            var liItems=$('<li class="chooseItems"></li>');
-				liItems.append(array[j]);
-				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
-	        }
-		}
+			else{
+				alert("没有符合查询条件的记录！")
+			}
+		});
 	})
+	$.get('http://114.55.173.19/LandNKRPstatype', function(data) {
+		var result=data.result;
+		if(data.state==1){
+			for (var i = 0;i<result.length;i++) {
+				var mytr=$('<tr>'+
+								'<td></td>'+
+								'<td></td>'+
+							'</tr>');
+				mytr.children('td').eq(0).text(i+1);
+				mytr.children('td').eq(1).text(result[i]);
+				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
+			}
+		}
+	});
 </script>

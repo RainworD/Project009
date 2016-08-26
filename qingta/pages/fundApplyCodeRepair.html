@@ -1,0 +1,180 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox" style="background-color:#fff;">
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">基金-申请代码维护</a>
+	</div>
+	<div class="addDataBtn" style="margin-right:0;">新增数据</div>
+</div>
+<div class="enterBox">
+	<table class="topTable">
+		<tr>
+			<th style="width:120px;">申请代码编号 :</th>
+			<td style="width:19.5%;">
+				<div class="commonInputBox" style="width:100%;">
+					<input class="commonput">
+				</div>
+			</td> 
+			<th style="width:10.6%;">申请代码名称 :</th>
+			<td style="width:19.5%;">
+				<div class="commonInputBox" style="width:100%;">
+					<input class="commonput">
+				</div>
+			</td> 
+			<th style="width:10.6%;">级次 :</th>
+			<td style="width:19.5%;">
+				<div class="commonselect"  style="width:100%;">
+					<select class="selBox">
+						<option>1</option>
+						<option>2</option>
+					</select>
+				</div>
+			</td>
+			<th style="width:3%"></th>
+			<td style="width: 9.3%">
+				<a class="searchBtn rightMinBtn">查询</a>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="padding-left:40px;"></td>
+			<td colspan="2" style="padding-left:40px;"></td>
+			<td colspan="2" style="padding-left:40px;"></td>
+			<th style="width:3%"></th>
+			<td><a class="resetBtn rightMinBtn addUserBtn">重置</a></td>
+		</tr>
+	</table>
+</div>
+<div class="tableContent">
+	<table class="infoTable">
+		<thead>
+			<tr class="tableTitle">
+				<th>序号</th>
+				<th>申请代码编码</th>
+				<th>申请代码名称</th>
+				<th>级次</th>
+				<th>是否叶子节点</th>
+				<th>维护</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>A</td>
+				<td>数理科学部</td>
+				<td>一级</td>
+				<td>否</td>
+				<td>
+					<div class="addLine">
+						<i class="fa fa-edit fa-lg removeBtn "></i>
+					</div>
+					<div class="removeData">
+						<i class="fa fa-times fa-lg removeBtn "></i>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>B</td>
+				<td>化学科学部</td>
+				<td>一级</td>
+				<td>否</td>
+				<td>
+					<div class="addLine">
+						<i class="fa fa-edit fa-lg removeBtn "></i>
+					</div>
+					<div class="removeData">
+						<i class="fa fa-times fa-lg removeBtn "></i>
+					</div>
+				</td>
+			</tr>
+		</tbody>		
+	</table>
+</div>
+<div class="mask"></div>
+<div class="unitsChoose" style="height:350px;">
+	<div class="unitsContainer" style="padding-bottom: 35px;">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader">
+			<p class="unitsTitle">申请代码维护</p>
+		</div>
+		<div class="unitsContent">
+			<div class="showTotalData">
+				<div class="ESIContent" style="padding-top: 40px;">
+					<table class="ESITable topTable">
+						<tr>
+							<th style="width:110px;">申请代码编码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput">
+								</div>
+							</td>
+							<th style="width:110px;">申请代码名称 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>级次 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox">
+										<option>1</option>
+										<option>2</option>
+									</select>
+								</div>
+							</td>
+							<th style="width:80px;">上级编码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"></td>
+							<th style="width:80px;"></th>
+							<td>
+								<label for="box1">
+									<input type="checkbox" id="box1">
+									叶子节点
+								</label>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<p class="bottomBtn" style="bottom: 0;">
+				<a class="forSure">保存</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".manageBtn,.addDataBtn").bind("click",function(){
+		$(".mask").show();
+		$(".unitsChoose").show();
+	})
+	$(".cancelBtn").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+	})
+	$(".forConsole").bind("click",function(){
+		$(this).parents('.unitsContent').find("input").val("");
+	})
+	$(".infoTable").delegate(".removeData","click",function(){
+		if(confirm("您确定删除该行数据吗？")){
+			$(this).parents('tr').remove();
+		}
+	})
+	$(".infoTable").delegate(".addLine","click",function(){		
+		$(".mask").show();
+		$(".unitsChoose").show();
+	})
+	$(".forSure").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+	})
+</script>

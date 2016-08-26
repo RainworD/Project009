@@ -2,7 +2,7 @@
 	<div class="changeBarBox" style="background-color:#fff;">
 		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">FAQ</a>
 	</div>
-	<div class="addDataBtn">新增</div>
+	<div class="addDataBtn" style="margin-right:0;">新增</div>
 </div>
 <div class="searchBar">
 	<div class="commonInputBox">
@@ -36,8 +36,46 @@
 		</div>
 	</div>
 </div>
+<div class="mask"></div>
+<div class="unitsChoose">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader">
+			<p class="unitsTitle">FAQ问题管理</p>
+		</div>
+		<div class="unitsContent">
+			<div class="faqEnter">
+				<p class="leftItem">问题描述 :</p>
+				<div class="commonInputBox rightItem1 rightItem">
+					<input class="commonput">
+				</div>
+				<p class="leftItem leftItem2">账户名称 :</p>
+				<div class="commonInputBox  rightItem2 rightItem">
+					<textarea class="commontextBox"></textarea>
+				</div>
+			</div>
+			<p class="bottomBtn">
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
-	$(".faqPlus").bind("click",function(){
+	$(".addDataBtn").bind("click",function(){
+		$(".unitsContent").find(".commonput").val("");
+		$(".unitsContent").find(".commontextBox").val("");
+		$(".mask").show();
+		popAlertBox(".unitsChoose");
+		dragBox(".unitsChoose");
+	})
+	$(".cancelBtn").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+	})
+	$(".faqContent").delegate(".faqPlus","click",function(){
 		var className=$(this).siblings(".faqHide").attr("class");
 		var array=className.split(" ");
 		if(array.length>1){
@@ -50,5 +88,30 @@
 			$(this).parent(".faqItem").siblings().children(".faqHide").removeClass("show");
 			$(this).parent(".faqItem").siblings().find(".faqflag").removeClass("fa-minus");
 		}
+	})
+	$(".forSure").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+		var que=$(this).parents(".unitsContent").find(".commonput").val();
+		var ans=$(this).parents(".unitsContent").find(".commontextBox").val();
+		var insertItem=$('<div class="faqItem">'+
+							'<div class="faqPlus">'+
+								'<i class="fa fa-plus fa-lg faqflag"></i>'+
+							'</div>'+
+							'<span></span>'+
+							'<div class="faqHide">'+
+								'<p class="faqPara">'+
+								'</p>'+
+							'</div>'+
+						'</div>');
+		if(que!=""&&ans!=""){
+			insertItem.children("span").text(que);
+			insertItem.find(".faqPara").text(ans);
+			$(".faqContent").append(insertItem);
+		}
+	})
+	$(".forConsole").bind("click",function(){
+		$(this).parents(".unitsContent").find(".commonput").val("");
+		$(this).parents(".unitsContent").find(".commontextBox").val("");
 	})
 </script>

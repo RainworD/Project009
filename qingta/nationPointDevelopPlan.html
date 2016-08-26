@@ -12,14 +12,14 @@
 			<td style="width:19.5%;">
 				<div class="commonInputBox"  style="width:100%">
 					<input class="commonput">
-					<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 				</div>
 			</td>
 			<th style="width:10.6%;">项目类型 :</th>
 			<td style="width:19.5%;">
 				<div class="commonInputBox"  style="width:100%">
 					<input class="commonput projectType">
-					<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 				</div>
 			</td>	
 			<th style="width:10.6%;">入选年度 <span style="color:red">*</span> :</th>
@@ -190,7 +190,7 @@
 		<div class="cancelBtn">
 			<i class="fa fa-close showCollege"></i>
 		</div>
-		<div class="unitsHeader unitsHeader1">
+		<div class="unitsHeader">
 			<p class="unitsTitle">项目牵头单位选择</p>
 		</div>
 		<div class="unitsContent">
@@ -202,12 +202,12 @@
 							<a class="leftSearchBtn">查询</a>
 						</div>
 						<div class="leftColumnContent">
-<!-- 							<div class="leftColumnBtn">
+							<div class="leftColumnBtn">
 								<i class="fa fa-plus-square-o showCollege addShow"></i>
 								<i class="fa fa-minus-square-o unShowCollege"></i>
-							</div> -->
+							</div>
 							<div class="leftColumnProvinces">
-								<!-- <p class="provinceItems">
+								<p class="provinceItems">
 									<label for="province1">
 										黑龙江
 										<input id="province1" type="checkbox" class="provinces">
@@ -228,49 +228,7 @@
 											</label>
 										</li>
 									</p>
-								</div> -->
-								<ul id="tree">
-									<li class="provinceItems">
-										<label for="province1">
-											黑龙江
-											<input id="province1" type="checkbox" class="provinces">
-										</label>
-										<ul class="collegeItems">
-											<li>
-												<label for="college1">
-													<span>东北农业大学</span>
-													<input id="college1" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-											<li>
-												<label for="college2">
-													<span>东北石油大学</span>
-													<input id="college2" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<label for="province1">
-											浙江
-											<input id="province1" type="checkbox" class="provinces">
-										</label>
-										<ul>
-											<li>
-												<label for="college1">
-													<span>浙江大学</span>
-													<input id="college1" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-											<li>
-												<label for="college2">
-													<span>浙江工业大学</span>
-													<input id="college2" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-										</ul>
-									</li>
-								</ul>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -294,15 +252,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="bottomBtn">
-				<p>
-					<a class="forSure">确定</a>
-					<a class="forConsole">取消</a>
-				</p>
-		</div>
+			<p class="bottomBtn">
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
 		</div>
 	</div>
 </div>
+<div class="mask mask2"></div>
 <div class="unitsChoose unitsChoose2">
 	<div class="unitsContainer">
 		<div class="cancelBtn">
@@ -323,12 +280,10 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="bottomBtn">
-			<p>
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
-			</p>
-		</div>
+		<p class="bottomBtn">
+			<a class="forSure">确定</a>
+			<a class="forConsole">取消</a>
+		</p>
 	</div>
 </div>
 <div class="M-box"></div>
@@ -336,58 +291,21 @@
 	var flagnew=false;
 	var myleft;
 	var mytop;
-	var projectUnits=[];
 	var len=$(".infoTable1 tbody").children("tr").length;
-	// $("#tree").treeview();
-	$("#tree").treeview({
-		persist: "location",
-		collapsed: true,
-		unique: true
-	});
-	for (var i =0;i<len;i++) {
-		$(".infoTable1 tbody").children("tr").eq(i).children().eq(1).css("text-align","left");
-		$(".infoTable1 tbody").children("tr").eq(i).children().eq(2).css("text-align","left");
-	}
-	$(".showDetailBox1").bind("click",function(){
-		$(".mask").show();
+	$(".showDetail").bind("click",function(){
+		$(".mask1").show();
 		popAlertBox(".unitsChoose1");
-		dragBox(".unitsChoose1");
-	})
-	$(".showDetailBox2").bind("click",function(){
-		$(".mask").show();
-		popAlertBox(".unitsChoose2");
-		dragBox(".unitsChoose2");
+		flagnew=true;
+
 	})
 	$(".unitsChoose1").on("click",".cancelBtn",function(){
 		$(".mask").hide();
 		$(".unitsChoose1").hide();
 	})
-	$(".unitsChoose2").on("click",".cancelBtn",function(){
-		$(".mask").hide();
-		$(".unitsChoose2").hide();
-	})
-	$(".unitsChoose2").on("click",".forConsole",function(){
-		$(this).parent('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
-	})
-	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
-		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
-	})
-	$(".unitsChoose2").on("click",".forSure",function(){
-		$(".unitsChoose2").hide();
-		$(".mask").hide();
-		var txt;
-		var mytr=$(this).parent('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr");
-		for(i=0;i<mytr.length;i++){
-			var className=mytr.eq(i).attr("class");
-			if(className=="beChoosen"){
-				txt=mytr.eq(i).children("td").last().text();
-				mytr.eq(i).removeClass("beChoosen");
-			}
-		}
-		if(txt!=""){
-			$(".projectType").val(txt);
-		}
-	})
+	for (var i =0;i<len;i++) {
+		$(".infoTable1 tbody").children("tr").eq(i).children().eq(1).css("text-align","left");
+		$(".infoTable1 tbody").children("tr").eq(i).children().eq(2).css("text-align","left");
+	}
 	$('.M-box').pagination({
 		totalData:100,
 	    showData:10,
@@ -401,11 +319,36 @@
 	        location.href="__ROOT__/main.html?page="+index
 	    }
 	});
+	$(".arrowDown").bind("click",function(){
+		var className=$(this).siblings('.lookMore').attr("class");
+		var txt=$(this).parent("td").children(".txt").text();
+		var array=className.split(" ");
+		if(array.length>1){
+			$(this).siblings('.lookMore').removeClass("showMore");
+		}
+		else{
+			$(this).siblings('.lookMore').addClass("showMore");
+			$(this).siblings('.lookMore').children("span").text(txt);
+		}
+	})
 	$(".changeBarBox").on("click",".changeButton",function(){
 		$(this).addClass("green").siblings().removeClass("green");
 	})
+	$(".leftColumnBtn").bind("click",function(){
+		var array=$(this).next().find(".showMoreCollege").attr("class").split(" ");
+		console.log(array);
+		if (array.length>1) {
+			$(this).next().find(".showMoreCollege").removeClass("showMoreCollegeActive");
+			$(this).children(".showCollege").show().siblings().hide();
+		}
+		else{
+			$(this).next().find(".showMoreCollege").addClass("showMoreCollegeActive");
+			$(this).children(".unShowCollege").show().siblings().hide();
+		}
+	})
 	$(".leftColumnProvinces").on("click",".provinceItems",function(){
 		var flag=$(this).find(".provinces").prop("checked");
+		console.log(flag);
 		if(flag){
 			$(this).next().find(".commonCollege").prop("checked",true);
 		}
@@ -414,37 +357,23 @@
 		}
 	})
 	$(".collegeItems").on("click",".commonCollege",function(){
-		var len=$(".commonCollege").length;
-		var trueArray=[];
-		for(i=0;i<len;i++){
-			var getTrue=$(".commonCollege").eq(i).prop("checked");
-			if(getTrue){
-				trueArray.length++;
-			}
-		}
-		if(trueArray.length==len){
+		var flag2=$(this).prop("checked");
+		var flag3=$(this).siblings(".commonCollege").prop("checked");
+		console.log(flag3);
+		if (flag2&&flag3) {
+			alert("aaa");
 			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",true);
 		}
 		else{
 			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",false);
 		}
-		// var flag2=$(this).prop("checked");
-		// var flag3=$(".commonCollege").prop("checked");
-		// console.log(flag3);
-		// if (flag2&&flag3) {
-		// 	$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",true);
-		// }
-		// else{
-		// 	$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",false);
-		//}
 	})
 	$(".moveRight").bind("click",function(){
 		var array=[];
 		var len=$(".commonCollege").length;
 		for (var i =0; i<len; i++) {
 			var myflag=$(".commonCollege").eq(i).prop("checked");
-			var name=$(".commonCollege").eq(i).prev().text();
-			console.log(name);
+			var name=$(".commonCollege").eq(i).next().text();
 			if(myflag){
 				array.push(name);
 			}
@@ -466,32 +395,44 @@
 	        }
 		}
 	})
-	$(".rightColumn .chooseAlreadyList").delegate('.chooseItems', 'click', function(event) {
-		var txt=$(this).text();
-		var className=$(this).attr("class");
-		var array=className.split(" ");
-		if(array.length>1){
-			$(this).removeClass("addSomeColor");
-		}
-		else{
-			$(this).addClass("addSomeColor");
-		}
+	var ismousedown=false;
+	var downX,downY;
+		// $(".unitsChoose").click(function(){}).mousedown(function(e){
+	$(".unitsChoose").bind("mousedown",function(e){
+		ismousedown=true;
+		myleft=$(".unitsChoose").position().left;
+		mytop=$(".unitsChoose").position().top;
+		// console.log("left1:"+myleft);
+		// console.log("top1:"+mytop);
+		downX=e.pageX;
+		downY=e.pageY;
+		// console.log(downX);
+		// console.log(downY);
 	})
-	$(".moveLeft,.unitsChoose1 .forSure").bind("click",function(){
-		projectUnits.length=0;
-		var rightChoosen=$(".rightColumn").find(".chooseAlreadyList").children('.chooseItems');
-		var hasSome=false;
-		for (var i=0;i<rightChoosen.length;i++) {
-			var className=rightChoosen.eq(i).attr("class");
-			var myarray=className.split(" ");
-			console.log(myarray);
-			if(myarray.length>1){
-				var txt1=rightChoosen.eq(i).text();
-				projectUnits.push(rightChoosen.eq(i).text());
-				rightChoosen.eq(i).remove();
+	$(document).bind("mousemove",function(e){
+			if(ismousedown){
+				console.log(e.pageX)
+				console.log(downX)
+				_mytop=e.pageY-downY + mytop;
+				_myleft=e.pageX-downX + myleft;
+
+				var tag=$(".unitsChoose");
+				// if(myleft<0){
+				// 	myleft=0;
+				// }
+				// if(mytop<0){
+				// 	mytop=0;
+				// }
+				console.log("left2:"+myleft);
+				console.log("top2:"+mytop);
+				$(".unitsChoose").css("left",_myleft);
+				$(".unitsChoose").css("top",_mytop);
 			}
-		}
-		console.log(projectUnits);
+	});
+	$(document).bind("mouseup",function(){
+		ismousedown=false;
+		mytop=$(".unitsChoose").position().top;
+		myleft=$(".unitsChoose").position().left;
 	})
 </script>
 <script type="text/javascript">
