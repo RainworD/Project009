@@ -125,3 +125,152 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 		myleft=$(selector).position().left;
 	})
 }
+function dragBoxUnitsChoose(selector){
+	var projectUnits=[];
+	$(selector).on("click",".cancelBtn",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
+	$(".leftColumnProvinces").on("click",".provinceItems",function(){
+		var flag=$(this).find(".provinces").prop("checked");
+		if(flag){
+			$(this).children().find(".commonCollege").prop("checked",true);
+		}
+		else{
+			$(this).children().find(".commonCollege").prop("checked",false);
+		}
+	})
+	$(".collegeItems").on("click",".commonCollege",function(){
+		var myinput=$(this).parents(".provinceItems").find(".commonCollege");
+		var len=myinput.length;
+		console.log(len);
+		var trueArray=[];
+		for(i=0;i<len;i++){
+			var getTrue=myinput.eq(i).prop("checked");
+			console.log(getTrue);
+			if(getTrue){
+				trueArray.length++;
+			}
+		}
+		if(trueArray.length==len){
+			$(this).parents().prev().find(".provinces").prop("checked",true);
+		}
+		else{
+			$(this).parents().prev().find(".provinces").prop("checked",false);
+		}
+	})
+	$(".moveRight").bind("click",function(){
+		var array=[];
+		var len=$(".commonCollege").length;
+		for (var i =0; i<len; i++) {
+			var myflag=$(".commonCollege").eq(i).prop("checked");
+			var name=$(".commonCollege").eq(i).prev().text();
+			console.log(name);
+			if(myflag){
+				array.push(name);
+			}
+		}
+		for (var j=0;j<array.length;j++) {
+			var hasSame=false;
+			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
+			for (var k=0;k<findLi.length;k++) {
+				var txt=findLi.eq(k).text();
+				if(txt==array[j]){
+					hasSame = true;
+                	break;
+				}
+			}
+			if(!hasSame){
+	            var liItems=$('<li class="chooseItems"></li>');
+				liItems.append(array[j]);
+				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
+	        }
+		}
+	})
+	$(".rightColumn .chooseAlreadyList").delegate('.chooseItems', 'click', function(event) {
+		var txt=$(this).text();
+		var className=$(this).attr("class");
+		var array=className.split(" ");
+		if(array.length>1){
+			$(this).removeClass("addSomeColor");
+		}
+		else{
+			$(this).addClass("addSomeColor");
+		}
+	})
+	$(".moveLeft,selector .forSure").bind("click",function(){
+		projectUnits.length=0;
+		var rightChoosen=$(".rightColumn").find(".chooseAlreadyList").children('.chooseItems');
+		var hasSome=false;
+		for (var i=0;i<rightChoosen.length;i++) {
+			var className=rightChoosen.eq(i).attr("class");
+			var myarray=className.split(" ");
+			console.log(myarray);
+			if(myarray.length>1){
+				var txt1=rightChoosen.eq(i).text();
+				projectUnits.push(rightChoosen.eq(i).text());
+				rightChoosen.eq(i).remove();
+			}
+		}
+		console.log(projectUnits);
+		var mylen=$(".commonCollege").length;
+		for (var i=0;i<mylen;i++) {
+			var matchtxt=$(".commonCollege").eq(i).prev().text();
+			for (var j =0; j<projectUnits.length;j++) {
+				if(matchtxt==projectUnits[j]){
+					$(".commonCollege").eq(i).prop("checked",false);
+				}
+			}
+		}
+	})
+	$(selector).on("click",".forSure",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
+}
+function dragBoxSortsChoose(selector){
+	$(selector).on("click",".cancelBtn",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
+	$(selector).on("click",".forConsole",function(){
+		$(this).parent('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
+	})
+	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
+		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
+	})
+	$(selector).on("click",".forSure",function(){
+		$(selector).hide();
+		$(".mask").hide();
+		var txt;
+		var mytr=$(this).parent('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr");
+		for(i=0;i<mytr.length;i++){
+			var className=mytr.eq(i).attr("class");
+			if(className=="beChoosen"){
+				txt=mytr.eq(i).children("td").last().text();
+				mytr.eq(i).removeClass("beChoosen");
+			}
+		}
+		if(txt!=""){
+			$(".projectType").val(txt);
+		}
+	})
+}
+function topBarControl(){
+	$(".changeBarContainer").on("click",".hideBtn",function(){
+		var className=$(this).parent(".changeBarContainer").next().attr("class");
+		var array=className.split(" ");
+		if(array.length>1){
+			$(this).parent(".changeBarContainer").next().removeClass('hideBox');
+			$(this).text("隐藏查询条件");
+		}
+		else{
+			$(this).parent(".changeBarContainer").next().addClass('hideBox');
+			$(this).text("显示查询条件");
+		}	
+	})
+	var myheight1=$(window).height();
+	var myheight2=$(".enterBox").css("height");
+	var decHeight=parseInt(myheight1)-parseInt(myheight2)-125;
+	$(".tableContent").css("min-height",decHeight);
+}

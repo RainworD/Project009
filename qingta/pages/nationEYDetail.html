@@ -3,172 +3,105 @@
 		<a class="changeLeft changeButton" href="#/nationEY.html">国家优青统计</a>
 		<a class="changeRight green changeButton" href="#/nationEYDetail.html">国家优青明细</a>
 	</div>
+	<p class="hideBtn">隐藏查询条件</p>
 </div>
 <div class="enterBox">
-	<table class="topTable">
-		<tr>
-			<th style="width:80px;">依托单位 :</th>
-			<td style="width:19.5%;">
-				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
-					<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
-				</div>
-			</td>
-			<th style="width:10.6%;">申请人:</th>
-			<td style="width:19.5%;"> 
-				<div class="commonselect"  style="width:100%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div> 
-			</td>
-			<th style="width:10.6%;">批准年度<span style="color:red">*</span> :</th>
-			<td style="width:19.5%;">
-				<div class="commonselect" style="width:42.1%;margin-right:1%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-				<span style="text-align: center;width:9%;">至</span>
-				<div class="commonselect" style="width:42.1%;margin-left:1%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th style="width:3%"></th>
-			<td style="width: 9.3%">
-				<a class="searchBtn rightMinBtn">查询</a>
-			</td>
-		</tr>
-		<tr>
-			<th>研究领域 :</th>
-			<td>
-				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
-				</div>
-			</td>
-			<td colspan="2" style="padding-left:40px;">
-			<td colspan="2" style="padding-left:40px;">
-			</td>
-			<th style="width:3%"></th>
-			<td><a class="resetBtn rightMinBtn">重置</a></td>
-		</tr>
-	</table>
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">依托单位 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput">
+						<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
+					</div>
+				</td>
+				<th style="width:10.6%;">申请人:</th>
+				<td>
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput">
+					</div>
+				</td>
+				<th style="width:10.6%;">批准年度<span style="color:red">*</span> :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:42.1%;margin-right:1%;">
+						<select class="selBox">
+							<option>1</option>
+							<option>2</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:9%;">至</span>
+					<div class="commonselect" style="width:42.1%;margin-left:1%;">
+						<select class="selBox">
+							<option>1</option>
+							<option>2</option>
+						</select>
+					</div>
+				</td>
+				<th style="width:10.6%">研究领域 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2">
+					<a class="searchBtn rightMinBtn" style="width:40%;float:right;margin:2%;">查询</a>
+					<a class="resetBtn rightMinBtn" style="width:40%;float:right;margin:2%;">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
 <div class="tableContent">
-	<table class="infoTable">
-		<thead>
-			<tr class="tableTitle">
-				<th>序号</th>
-				<th>申请人</th>
-				<th>性别</th>
-				<th>批准年度</th>
-				<th>研究领域</th>
-				<th>依托单位</th>
-				<th>批准金额</th>
-				<th>项目起止年月</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>邹卫国</td>
-				<td>男</td>
-				<td>2015-2015</td>
-				<td>机器学习</td>
-				<td>清华大学</td>
-				<td>100</td>
-				<td>2014-01至2016-12</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>邹如强</td>
-				<td>男</td>
-				<td>2015-2015</td>
-				<td>机器学习</td>
-				<td>清华大学</td>
-				<td>100</td>
-				<td>2014-01至2016-12</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-<div class="mask"></div>
-<div class="unitsChoose">
-	<div class="unitsContainer">
-		<div class="cancelBtn">
-			<i class="fa fa-close showCollege"></i>
-		</div>
-		<div class="unitsHeader">
-			<p class="unitsTitle">项目牵头单位选择</p>
-		</div>
-		<div class="unitsContent">
-			<div class="totalModel">
-				<div class="leftColumn">
-					<div class="leftColumnBox">
-						<div class="leftColumnBar">
-							<input class="searchBox">
-							<a class="leftSearchBtn">查询</a>
-						</div>
-						<div class="leftColumnContent">
-							<div class="leftColumnBtn">
-								<i class="fa fa-plus-square-o showCollege addShow"></i>
-								<i class="fa fa-minus-square-o unShowCollege"></i>
-							</div>
-							<div class="leftColumnProvinces">
-								<p class="provinceItems">
-									<label for="province1">
-										<input id="province1" type="checkbox" class="provinces">
-										黑龙江
-									</label>							
-								</p>
-								<div class="showMoreCollege">
-									<ul class="collegeItems">
-										<li>
-											<label for="college1">
-												<input id="college1" type="checkbox" class="commonCollege">
-											<span>东北农业大学</span>
-											</label>
-										</li>
-										<li>
-											<label for="college2">
-												<input id="college2" type="checkbox" class="commonCollege">
-											<span>东北石油大学</span>
-											</label>
-										</li>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="middleColumn">
-					<div class="btnBox">
-						<i class="fa fa-long-arrow-right moveRight"></i>
-						<i class="fa fa-long-arrow-left moveLeft"></i>
-					</div>
-				</div>
-				<div class="rightColumn">
-					<div class="rightColumnContent">
-						<p class="rightColumnBar">
-							已选单位：
-						</p>
-						<div class="chooseAlready">
-							<ul class="chooseAlreadyList">
-								
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<p class="bottomBtn">
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">国家自然科学基金统计数据</span>
+				<span class="topRight">共查询出1189条数据记录，本页显示20条</span>
 			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>申请人</th>
+						<th>性别</th>
+						<th>批准年度</th>
+						<th>研究领域</th>
+						<th>依托单位</th>
+						<th>批准金额</th>
+						<th>项目起止年月</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>邹卫国</td>
+						<td>男</td>
+						<td>2015-2015</td>
+						<td>机器学习</td>
+						<td>清华大学</td>
+						<td>100</td>
+						<td>2014-01至2016-12</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>邹如强</td>
+						<td>男</td>
+						<td>2015-2015</td>
+						<td>机器学习</td>
+						<td>清华大学</td>
+						<td>100</td>
+						<td>2014-01至2016-12</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>
@@ -187,88 +120,5 @@
 	        location.href="__ROOT__/main.html?page="+index
 	    }
 	});
-	$(".arrowDown").bind("click",function(){
-		var className=$(this).siblings('.lookMore').attr("class");
-		var txt=$(this).parent("td").children(".txt").text();
-		var array=className.split(" ");
-		if(array.length>1){
-			$(this).siblings('.lookMore').removeClass("showMore");
-		}
-		else{
-			$(this).siblings('.lookMore').addClass("showMore");
-			$(this).siblings('.lookMore').children("span").text(txt);
-		}
-	})
-	$(".changeBarBox").on("click",".changeButton",function(){
-		$(this).addClass("green").siblings().removeClass("green");
-	})
-	$(".showDetail").bind("click",function(){
-		$(".mask").show();
-		$(".unitsChoose").show();
-	})
-	$(".leftColumnBtn").bind("click",function(){
-		var array=$(this).next().find(".showMoreCollege").attr("class").split(" ");
-		console.log(array);
-		if (array.length>1) {
-			$(this).next().find(".showMoreCollege").removeClass("showMoreCollegeActive");
-			$(this).children(".showCollege").show().siblings().hide();
-		}
-		else{
-			$(this).next().find(".showMoreCollege").addClass("showMoreCollegeActive");
-			$(this).children(".unShowCollege").show().siblings().hide();
-		}
-	})
-	$(".cancelBtn").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-	})
-	$(".leftColumnProvinces").on("click",".provinceItems",function(){
-		var flag=$(this).find(".provinces").prop("checked");
-		console.log(flag);
-		if(flag){
-			$(this).next().find(".commonCollege").prop("checked",true);
-		}
-		else{
-			$(this).next().find(".commonCollege").prop("checked",false);
-		}
-	})
-	$(".collegeItems").on("click",".commonCollege",function(){
-		var flag2=$(this).prop("checked");
-		var flag3=$(this).siblings(".commonCollege").prop("checked");
-		console.log(flag3);
-		if (flag2&&flag3) {
-			alert("aaa");
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",true);
-		}
-		else{
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",false);
-		}
-	})
-	$(".moveRight").bind("click",function(){
-		var array=[];
-		var len=$(".commonCollege").length;
-		for (var i =0; i<len; i++) {
-			var myflag=$(".commonCollege").eq(i).prop("checked");
-			var name=$(".commonCollege").eq(i).next().text();
-			if(myflag){
-				array.push(name);
-			}
-		}
-		for (var j=0;j<array.length;j++) {
-			var hasSame=false;
-			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
-			for (var k=0;k<findLi.length;k++) {
-				var txt=findLi.eq(k).text();
-				if(txt==array[j]){
-					hasSame = true;
-                	break;
-				}
-			}
-			if(!hasSame){
-	            var liItems=$('<li class="chooseItems"></li>');
-				liItems.append(array[j]);
-				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
-	        }
-		}
-	})
+	topBarControl();
 </script>
