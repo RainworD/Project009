@@ -139,10 +139,12 @@
 				</tbody>
 			</table>
 		</div>
-		<p class="bottomBtn">
-			<a class="forSure">确定</a>
-			<a class="forConsole">取消</a>
-		</p>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
 	</div>
 </div>
 <div class="M-box"></div>
@@ -255,4 +257,8 @@
 			}
 		}
 	});
+	var myheight1=$(window).height();
+	var myheight2=$(".enterBox").height();
+	var decHeight=myheight1-myheight2-125;
+	$(".tableContent").css("min-height",decHeight);
 </script>

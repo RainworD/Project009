@@ -107,7 +107,7 @@ body {
 }
 .mainContainer .infoTable tbody tr:nth-child(even) {
   background-color: #fafafa;
-  background-color: #f3f3f3;
+  background-color: #f9f9f9;
 }
 .mainContainer .infoTable tbody tr:nth-child(odd) {
   background-color: #fff;
@@ -223,7 +223,7 @@ body {
 }
 .mainContainer .topTable td,
 .mainContainer .topTable th {
-  padding: 10px 5px;
+  padding: 5px 5px;
 }
 .mainContainer .topTable td label {
   padding-right: 10px;
@@ -369,6 +369,11 @@ body {
   min-width: 100px;
   text-align: center;
 }
+.mainContainer .changeBarContainer {
+  padding: 0 20px;
+  position: relative;
+  border-top: 1px solid #eff0f4;
+}
 .mainContainer .changeBarContainer .changeBarBox {
   display: inline-block;
   background-color: #c7c7c7;
@@ -378,7 +383,6 @@ body {
   margin: 20px;
   border-radius: 6px;
   margin-left: 0;
-  margin-bottom: 15px;
   float: left;
 }
 .mainContainer .changeBarContainer .changeBarBox .changeButton {
@@ -404,7 +408,7 @@ body {
   clear: both;
 }
 .mainContainer .changeBarContainer .changeBarBox .green {
-  background-color: #00da96;
+  background-color: #33d5ac;
 }
 .mainContainer .changeBarContainer .addDataBtn {
   cursor: pointer;
@@ -422,6 +426,14 @@ body {
   min-width: 100px;
   text-align: center;
 }
+.mainContainer .changeBarContainer .hideBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #8ebcd3;
+  font-size: 12px;
+  cursor: pointer;
+}
 .mainContainer .changeBarContainer:after {
   display: block;
   content: '';
@@ -437,9 +449,11 @@ body {
 }
 .mainContainer .searchBtn {
   background-color: #00db97;
+  background-color: #00cc99;
 }
 .mainContainer .resetBtn {
   background-color: #4ec1ff;
+  background-color: #c9c9c9;
 }
 .mainContainer .leftBox {
   z-index: 2;
@@ -675,17 +689,23 @@ body {
 .mainContainer .rightBox .topBar {
   height: 45px;
   line-height: 45px;
-  background-color: #3cc;
-  padding-left: 40px;
+  background-color: #eefefb;
+  padding-left: 55px;
   position: relative;
-  color: #fff;
+  color: #153037;
 }
 .mainContainer .rightBox .topBar .leftImg {
-  width: 40px;
+  width: 35px;
+  height: 30px;
+  line-height: 30px;
   text-align: center;
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 8px;
+  left: 10px;
+  border-radius: 5px;
+  background-color: #00ce99;
+  color: #fff;
+  cursor: pointer;
 }
 .mainContainer .rightBox .topBar .leftImg .showBtn {
   font-size: 23px;
@@ -696,7 +716,6 @@ body {
 }
 .mainContainer .rightBox .rightContent {
   min-width: 1000px;
-  padding: 0 20px;
 }
 .mainContainer .rightBox .rightContent .faqContent {
   padding: 10px;
@@ -737,8 +756,10 @@ body {
   height: auto;
   overflow: hidden;
   padding: 10px;
-  border: 2px dashed #eee;
+  padding: 0 20px;
   border-radius: 6px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eff0f4;
   /*IE*/
 
   /*Firefox*/
@@ -748,9 +769,54 @@ body {
   /*Opera*/
 
 }
+.mainContainer .rightBox .rightContent .enterBox .topTableBox {
+  width: 100%;
+  border-top: 2px dashed #eee;
+  padding-top: 15px;
+}
+.mainContainer .rightBox .rightContent .hideBox {
+  display: none;
+}
 .mainContainer .rightBox .rightContent .tableContent {
   width: 100%;
-  padding: 20px 0px;
+  background-color: #f8f9fd;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTableBox {
+  width: 100%;
+  padding: 20px;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTableBox .infoTableTop {
+  background-color: #fff;
+  border: 1px solid #eff0f4;
+  border-bottom: none;
+  padding: 0 10px;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTableBox .infoTableTop .infoTablePara {
+  position: relative;
+  border-bottom: 2px dashed #eee;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTableBox .infoTableTop .infoTablePara .topLeft {
+  float: left;
+  font-size: 14px;
+  color: #777;
+  padding: 10px 0;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTableBox .infoTableTop .infoTablePara .topRight {
+  float: right;
+  font-size: 14px;
+  color: #777;
+  padding: 10px 0;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTableBox .infoTableTop .infoTablePara:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.mainContainer .rightBox .rightContent .tableContent .infoTableBox .infoTableContent {
+  background-color: #fff;
+  padding: 20px 10px;
+  border: 1px solid #eff0f4;
+  border-top: none;
 }
 .mainContainer .rightBox .rightContent .commonputBox {
   display: inline-block;
@@ -991,8 +1057,6 @@ body {
   float: left;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .provinceItems {
-  display: inline-block;
-  vertical-align: middle;
   cursor: pointer;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnProvinces .provinceItems label {

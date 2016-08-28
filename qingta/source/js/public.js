@@ -41,10 +41,6 @@ function eventBind(){
 			$(this).children(".downflag").addClass("fa-minus");
 		}
 	})
-	// $(".singleLink").bind("click",function(){
-	// 	$(this).children('.downBtn').addClass("white");
-	// 	$(this).parents('.section').siblings().find(".downBtn").removeClass("white");
-	// })
 	$(".section").on("click",".linka",function(){
 		$(this).addClass("activeClass").siblings().removeClass("activeClass");
 	})

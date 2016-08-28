@@ -23,11 +23,12 @@
   font-weight: 600px;
 }
 .M-box {
-  margin: 10px 0;
+  padding: 10px 0;
   position: relative;
   text-align: center;
   text-align: right;
   zoom: 1;
+  background-color: #f8f9fd;
 }
 .M-box:before,
 .M-box:after {
