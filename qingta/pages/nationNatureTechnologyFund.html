@@ -12,38 +12,35 @@
 				<th style="width:82px;">申请代码 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%;">
-						<input class="commonput">
+						<input class="commonput applyCode">
 					</div>
 				</td>
 				<th style="width:10.6%;">依托单位 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%;">
-						<input class="commonput">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>	
 				<th style="width:10.6%;">资助类别 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
-							<option>1</option>
-							<option>2</option>
+						<select class="selBox projectType">
+							<option>面上项目</option>
 						</select>
 					</div>
 				</td>
 				<th style="width:10.6%;">批准年度<span style="color:red">*</span> :</th>
 				<td style="width:18.3%;">
-					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox">
-							<option>1</option>
-							<option>2</option>
+					<div class="commonselect" style="width:42.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2016</option>
 						</select>
 					</div>
-					<span style="text-align: center;width:9%;">至</span>
-					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox">
-							<option>1</option>
-							<option>2</option>
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonselect" style="width:42.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2016</option>
 						</select>
 					</div>
 				</td>
@@ -51,19 +48,19 @@
 			<tr>				
 				<th>批准金额 :</th>
 				<td>
-					<div class="commonputBox" style="width:41.1%;margin-right:1%;">
-						<input class="commonput" style="width:100%;">
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
+						<input class="commonput nationFee1" style="width:100%;">
 					</div>
-					<span style="text-align: center;width:9%;">至</span>
-					<div class="commonputBox" style="width:41.1%;margin-left:1%;">
-						<input class="commonput" style="width:100%;">
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
+						<input class="commonput nationFee2" style="width:100%;">
 					</div>
 				</td>
 				<td colspan="2"></td>
 				<td colspan="2"></td>
 				<td colspan="2">
-					<a class="searchBtn rightMinBtn" style="width:40%;float:right;margin:2%;">查询</a>
-					<a class="resetBtn rightMinBtn" style="width:40%;float:right;margin:2%;">重置</a>
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
 			</tr>
 		</table>
@@ -74,7 +71,6 @@
 		<div class="infoTableTop">
 			<p class="infoTablePara">
 				<span class="topLeft">国家自然科学基金统计数据</span>
-				<span class="topRight">共查询出1189条数据记录，本页显示20条</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -88,34 +84,15 @@
 						<th>批准年度</th>
 						<th>批准金额</th>
 						<th>项目数</th>
-						<th>批准金额</th>
+						<th>批准金额汇总</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>汇总统计</td>
-						<td>北京大学</td>
-						<td>汇总统计</td>
-						<td>2016-2016</td>
-						<td>0-2000</td>
-						<td>6700</td>
-						<td>27,000.00</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>汇总统计</td>
-						<td>南开大学</td>
-						<td>汇总统计</td>
-						<td>2016-2016</td>
-						<td>0-2000</td>
-						<td>6700</td>
-						<td>28,000.00</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+	<div class="M-box"></div>
 </div>
 <div class="mask"></div>
 <div class="unitsChoose">
@@ -137,46 +114,6 @@
 						<div class="leftColumnContent">
 							<div class="leftColumnProvinces">
 								<ul id="tree">
-									<li class="provinceItems">
-										<label for="province1">
-											黑龙江
-											<input id="province1" type="checkbox" class="provinces">
-										</label>
-										<ul class="collegeItems">
-											<li>
-												<label for="college1">
-													<span>东北农业大学</span>
-													<input id="college1" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-											<li>
-												<label for="college2">
-													<span>东北石油大学</span>
-													<input id="college2" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-										</ul>
-									</li>
-									<li class="provinceItems">
-										<label for="province2">
-											浙江
-											<input id="province2" type="checkbox" class="provinces">
-										</label>
-										<ul class="collegeItems">
-											<li>
-												<label for="college3">
-													<span>浙江大学</span>
-													<input id="college3" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-											<li>
-												<label for="college4">
-													<span>浙江工业大学</span>
-													<input id="college4" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-										</ul>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -210,7 +147,6 @@
 		</div>
 	</div>
 </div>
-<div class="M-box"></div>
 <script type="text/javascript">
 	$('.M-box').pagination({
 		totalData:100,
@@ -225,23 +161,6 @@
 	        location.href="__ROOT__/main.html?page="+index
 	    }
 	});
-	$("#tree").treeview({
-		persist: "location",
-		collapsed: true,
-		unique: true
-	});
-	$(".arrowDown").bind("click",function(){
-		var className=$(this).siblings('.lookMore').attr("class");
-		var txt=$(this).parent("td").children(".txt").text();
-		var array=className.split(" ");
-		if(array.length>1){
-			$(this).siblings('.lookMore').removeClass("showMore");
-		}
-		else{
-			$(this).siblings('.lookMore').addClass("showMore");
-			$(this).siblings('.lookMore').children("span").text(txt);
-		}
-	})
 	$(".showDetailBox").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
@@ -249,4 +168,106 @@
 	})
 	dragBoxUnitsChoose(".unitsChoose");
 	topBarControl();
+</script>
+<script type="text/javascript">
+	$.when(getUnits()).done(function(data){
+		$("#tree").treeview({
+			persist: "location",
+			collapsed: true,
+			unique: true
+		});
+	});	
+	var pageIndex=1;
+	$(".searchBtn").bind("click",function(){
+		var type=$(".projectType").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var projectentitys=projectUnits;
+		console.log(projectUnits);
+		var money1=$(".nationFee1").val();
+		var money2=$(".nationFee2").val();
+		var orderby=$("input[name='selBar']:checked").val();
+		var applicationcode	=$(".applyCode").val();		
+		var params={
+			"type":type,
+			"year1":year1,
+			"year2":year2,
+			"projectentitys":projectentitys,
+			"money1":money1,
+			"money2":money2,
+			"applicationcode":applicationcode,
+			"pageIndex":pageIndex,
+			"orderby":orderby,
+		}
+		$.post('http://114.55.173.19/askNNSFsta', params, function(data) {
+			var result=data.result;
+			$(".infoTable1").children('tbody').empty();
+			var count=data.count;
+			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			addCount.children('span').eq(0).text(count);
+			if(count<20){
+				addCount.children('span').eq(1).text(count);
+			}
+			else{
+				addCount.children('span').eq(1).text("20");
+			}
+			var lee=$(".tableContent .infoTablePara").children('.topRight');
+			if(lee){
+				lee.empty();
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			else{
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			if(data.state==1){
+				for (i=0;i<result.length;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).text(i+1);
+					for (var j=0;j<result[i].length;j++) {
+						var mytd=$('<td></td>');
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+						if(j==3){
+							result[i][j]=year1+'-'+year2;
+						}
+						if(j==4||j==6){
+							var ex = /^\d+$/;
+							if(ex.test(result[i][j])){
+								mytd.text(result[i][j]);
+							}
+							else{
+								var newNum=(result[i][j]).toFixed(2);
+								console.log(newNum);
+								mytd.text(newNum);
+							}
+						}
+						if(j==5){
+							if(money1==""){
+								result[i][j]='0-'+year2;
+							}
+							else if(money2==""){
+								result[i][j]=year1+'-不限';
+							}
+							else{
+								result[i][j]=year1+'-'+year2;
+							}
+							
+						}
+						else{
+							mytd.text(result[i][j]);
+						}
+						searchInfo.append(mytd);
+					}
+					$(".infoTable1").children('tbody').append(searchInfo);
+				}
+			}
+			else{
+				alert("没有符合查询条件的记录！")
+			}
+		});
+		pageIndex++;
+	})
 </script>

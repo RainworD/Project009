@@ -208,7 +208,6 @@ body {
 }
 .mainContainer .infoTable th {
   font-weight: normal;
-  font-weight: bold;
   color: #000;
   border: 1px solid #d9d9d9;
   text-align: center;
@@ -354,6 +353,7 @@ body {
   width: 105px;
   text-align: right;
   font-weight: normal;
+  color: #777;
 }
 .mainContainer .addDataBtn {
   cursor: pointer;
@@ -444,8 +444,11 @@ body {
   color: #fff;
   height: 30px;
   line-height: 30px;
+  width: 100px;
   border-radius: 3px;
   text-align: center;
+  float: right;
+  margin: 2%;
 }
 .mainContainer .searchBtn {
   background-color: #00db97;

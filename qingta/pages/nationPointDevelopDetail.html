@@ -25,13 +25,13 @@
 				</td>	
 				<th style="width:10.6%">入选年度<span style="color:red">*</span> :</th>
 				<td style="width:18.3%">
-					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+					<div class="commonselect" style="width:42.1%;margin-right:1%;">
 						<select class="selBox yearName1">
 							<option>2016</option>
 						</select>
 					</div>
-					<span style="text-align: center;width:9%;">至</span>
-					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonselect" style="width:42.1%;margin-left:1%;">
 						<select class="selBox yearName2">
 							<option>2016</option>
 						</select>
@@ -54,42 +54,27 @@
 				</td>
 				<th>中央财政经费 :</th>
 				<td>
-					<div class="commonputBox" style="width:41.1%;margin-right:1%;">
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
 						<input class="commonput nationFee1" style="width:100%;">
 					</div>
-					<span style="text-align: center;width:9%;">至</span>
-					<div class="commonputBox" style="width:41.1%;margin-left:1%;">
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
 						<input class="commonput nationFee2" style="width:100%;">
 					</div>
 				</td>
 				<th>项目总经费 :</th>
 				<td>
-					<div class="commonputBox" style="width:41.1%;margin-right:1%;">
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
 						<input class="commonput projectFee1" style="width:100%;">
 					</div>
-					<span style="text-align: center;width:9%;">至</span>
-					<div class="commonputBox" style="width:41.1%;margin-left:1%;">
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
 						<input class="commonput projectFee2" style="width:100%;">
 					</div>
 				</td>
 				<td colspan="2">
-					<label for="countFirst" class="label1">
-						<input type="radio" id="countFirst" name="selBar1" class="radioInput" checked="checked">
-						按数量排序
-					</label>
-					<label for="feeFirst" class="label2">
-						<input type="radio" id="feeFirst" name="selBar1" class="radioInput">
-						按项目总经费排序
-					</label>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2"></td>
-				<td colspan="2"></td>
-				<td colspan="2"></td>
-				<td colspan="2">
-					<a class="searchBtn rightMinBtn" style="width:40%;float:right;margin:2%;">查询</a>
-					<a class="resetBtn rightMinBtn" style="width:40%;float:right;margin:2%;">重置</a>
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
 			</tr>
 		</table>
@@ -104,7 +89,6 @@
 		<div class="infoTableTop">
 			<p class="infoTablePara">
 				<span class="topLeft">国家自然科学基金明细数据</span>
-				<span class="topRight">共查询出1189条数据记录，本页显示20条</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -113,8 +97,8 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>编号</th>
-						<th>项目名称</th>
-						<th>项目类型</th>
+						<th style="width: 20%">项目名称</th>
+						<th style="width: 20%">项目类型</th>
 						<th>入选年度</th>
 						<th>牵头单位</th>
 						<th>负责人</th>
@@ -128,6 +112,7 @@
 			</table>
 		</div>
 	</div>
+	<div class="M-box"></div>
 </div>
 <div class="mask"></div>
 <div class="unitsChoose">
@@ -158,7 +143,6 @@
 		</div>
 	</div>
 </div>
-<div class="M-box"></div>
 <script type="text/javascript">
 	$('.M-box').pagination({
 		totalData:100,
@@ -203,11 +187,28 @@
 			"totalmoney1":totalmoney1,
 			"totalmoney2":totalmoney2,
 			"centermoney1":centermoney1,
-			"centermoney2":centermoney2
+			"centermoney2":centermoney2,
 		}
 		$.post('http://114.55.173.19/askNKRP', params, function(data) {
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
+			var count=data.count;
+			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			addCount.children('span').eq(0).text(count);
+			if(count<20){
+				addCount.children('span').eq(1).text(count);
+			}
+			else{
+				addCount.children('span').eq(1).text("20");
+			}
+			var lee=$(".tableContent .infoTablePara").children('.topRight');
+			if(lee){
+				lee.empty();
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			else{
+				$(".tableContent .infoTablePara").append(addCount);
+			}
 			if(data.state==1){
 				for (i=0;i<result.length;i++) {
 					var searchInfo=$('<tr>'+
@@ -244,8 +245,4 @@
 			}
 		}
 	});
-	var myheight1=$(window).height();
-	var myheight2=$(".enterBox").height();
-	var decHeight=myheight1-myheight2-125;
-	$(".tableContent").css("min-height",decHeight);
 </script>
