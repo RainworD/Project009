@@ -253,86 +253,145 @@
 		var centermoney1=$(".nationFee1").val();
 		var centermoney2=$(".nationFee2").val();
 		var orderby=$("input[name='selBar']:checked").val();
-		var params={
-			"type":type,
-			"year1":year1,
-			"year2":year2,
-			"entitys":entitys,
-			"totalmoney1":totalmoney1,
-			"totalmoney2":totalmoney2,
-			"centermoney1":centermoney1,
-			"centermoney2":centermoney2,
-			"orderby":orderby
-		}
-		$.ajax({
-			url: '/askNKRPsta',
-			type: 'POST',
-			data:params,
-			traditional:true
-		})
-		.done(function(data) {
-			var result=data.result;
-			$(".infoTable1").children('tbody').empty();
-			var count=data.count;
-			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-			addCount.children('span').eq(0).text(count);
-			if(count<20){
-				addCount.children('span').eq(1).text(count);
-			}
-			else{
-				addCount.children('span').eq(1).text("20");
-			}
-			var lee=$(".tableContent .infoTablePara").children('.topRight');
-			if(lee){
-				lee.empty();
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			else{
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			if(data.state==1){
-				for (var i=0,len=result.length;i<len;i++) {
-					var searchInfo=$('<tr>'+
-						'<td></td>'+
-					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length;j++) {
-						var mytd=$('<td></td>');
-						if(result[i][j]==null){
-							result[i][j]="";
-						}
-						else if(j==2){
-							result[i][j]=year1+'-'+year2;
-						}
-						else if(j==4||j==5){
-							var ex = /^\d+$/;
-							if(ex.test(result[i][j])){
-								mytd.text(result[i][j]);
+		// var params={
+		// 	"type":type,
+		// 	"year1":year1,
+		// 	"year2":year2,
+		// 	"entitys":entitys,
+		// 	"totalmoney1":totalmoney1,
+		// 	"totalmoney2":totalmoney2,
+		// 	"centermoney1":centermoney1,
+		// 	"centermoney2":centermoney2,
+		// 	"orderby":orderby
+		// }
+		$.when(askNKRPsta(entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby)).done(function(data){
+			if(data.state == 1){
+				var result=data.result;
+				$(".infoTable1").children('tbody').empty();
+				var count=data.count;
+				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+				addCount.children('span').eq(0).text(count);
+				if(count<20){
+					addCount.children('span').eq(1).text(count);
+				}
+				else{
+					addCount.children('span').eq(1).text("20");
+				}
+				var lee=$(".tableContent .infoTablePara").children('.topRight');
+				if(lee){
+					lee.empty();
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				else{
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				if(data.state==1){
+					for (var i=0,len=result.length;i<len;i++) {
+						var searchInfo=$('<tr>'+
+							'<td></td>'+
+						'</tr>');
+						searchInfo.children('td').eq(0).text(i+1);
+						for (var j=0;j<result[i].length;j++) {
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
 							}
-							else{
-								var newNum=(result[i][j]).toFixed(2);
-								result[i][j]=newNum;
+							else if(j==2){
+								result[i][j]=year1+'-'+year2;
 							}
+							else if(j==4||j==5){
+								var ex = /^\d+$/;
+								if(ex.test(result[i][j])){
+									mytd.text(result[i][j]);
+								}
+								else{
+									var newNum=(result[i][j]).toFixed(2);
+									result[i][j]=newNum;
+								}
+							}
+							mytd.text(result[i][j]);
+							searchInfo.append(mytd);
 						}
-						mytd.text(result[i][j]);
-						searchInfo.append(mytd);
+						$(".infoTable1").children('tbody').append(searchInfo);
 					}
-					$(".infoTable1").children('tbody').append(searchInfo);
+				}
+				else{
+					alert("没有符合查询条件的记录！");
+					count=0;
+					addCount.children('span').eq(0).text(count);
+					addCount.children('span').eq(1).text(count);
 				}
 			}
-			else{
-				alert("没有符合查询条件的记录！");
-				count=0;
-				addCount.children('span').eq(0).text(count);
-				addCount.children('span').eq(1).text(count);
-			}
 		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			console.log("complete");
-		});
+		// $.ajax({
+		// 	url: '/askNKRPsta',
+		// 	type: 'POST',
+		// 	data:params,
+		// 	traditional:true
+		// })
+		// .done(function(data) {
+		// 	var result=data.result;
+		// 	$(".infoTable1").children('tbody').empty();
+		// 	var count=data.count;
+		// 	var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+		// 	addCount.children('span').eq(0).text(count);
+		// 	if(count<20){
+		// 		addCount.children('span').eq(1).text(count);
+		// 	}
+		// 	else{
+		// 		addCount.children('span').eq(1).text("20");
+		// 	}
+		// 	var lee=$(".tableContent .infoTablePara").children('.topRight');
+		// 	if(lee){
+		// 		lee.empty();
+		// 		$(".tableContent .infoTablePara").append(addCount);
+		// 	}
+		// 	else{
+		// 		$(".tableContent .infoTablePara").append(addCount);
+		// 	}
+		// 	if(data.state==1){
+		// 		for (var i=0,len=result.length;i<len;i++) {
+		// 			var searchInfo=$('<tr>'+
+		// 				'<td></td>'+
+		// 			'</tr>');
+		// 			searchInfo.children('td').eq(0).text(i+1);
+		// 			for (var j=0;j<result[i].length;j++) {
+		// 				var mytd=$('<td></td>');
+		// 				if(result[i][j]==null){
+		// 					result[i][j]="";
+		// 				}
+		// 				else if(j==2){
+		// 					result[i][j]=year1+'-'+year2;
+		// 				}
+		// 				else if(j==4||j==5){
+		// 					var ex = /^\d+$/;
+		// 					if(ex.test(result[i][j])){
+		// 						mytd.text(result[i][j]);
+		// 					}
+		// 					else{
+		// 						var newNum=(result[i][j]).toFixed(2);
+		// 						result[i][j]=newNum;
+		// 					}
+		// 				}
+		// 				mytd.text(result[i][j]);
+		// 				searchInfo.append(mytd);
+		// 			}
+		// 			$(".infoTable1").children('tbody').append(searchInfo);
+		// 		}
+		// 	}
+		// 	else{
+		// 		alert("没有符合查询条件的记录！");
+		// 		count=0;
+		// 		addCount.children('span').eq(0).text(count);
+		// 		addCount.children('span').eq(1).text(count);
+		// 	}
+		// })
+		// .fail(function() {
+		// 	console.log("error");
+		// })
+		// .always(function() {
+		// 	console.log("complete");
+		// });
 		
 		// $.post('/askNKRPsta', params, function(data) {
 		// 	var result=data.result;

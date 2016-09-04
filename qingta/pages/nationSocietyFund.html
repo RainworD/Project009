@@ -283,7 +283,7 @@
 			data: params,
 			traditional:true
 		})
-		.done(function() {
+		.done(function(data) {
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
 			var count=data.count;

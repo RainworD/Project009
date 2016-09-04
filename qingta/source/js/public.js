@@ -180,7 +180,6 @@ function dragBoxUnitsChoose(selector){
 		$(selector).hide();
 	})
 	$(".leftColumnProvinces").on("click",".provinceItems",function(){
-		console.log("111")
 		var flag=$(this).find(".provinces").prop("checked");
 		if(flag){
 			$(this).children().find(".commonCollege").prop("checked",true);
@@ -218,7 +217,7 @@ function dragBoxUnitsChoose(selector){
 			$(".commonCollege:checked").each(function(index, el) {
 				array.push($(el).prev().text());
 				$(el).attr("disabled","disabled");
-				$(el).parents().prev().attr("disabled","disabled");
+				$(el).parents(".collegeItems").prev().attr("disabled","disabled");
 			});
 			console.log(array);
 		// }
@@ -270,12 +269,13 @@ function dragBoxUnitsChoose(selector){
 		console.log(mylen);
 		console.log($(".commonCollege:checked"));
 		// var mylen=array.length;
-		for (var i=0;i<mylen;i++) {
-			var matchtxt=$(".commonCollege:checked").eq(i).prev().text();
+		for (var k=0;k<mylen;k++) {
+			var matchtxt=$(".commonCollege:checked").eq(k).prev().text();
+			console.log(matchtxt);
 			for (var j =0; j<toLeftUnits.length;j++) {
 				if(matchtxt==toLeftUnits[j]){
-					$(".commonCollege:checked").eq(i).prop("checked",false).removeAttr('disabled');
-					$(".commonCollege:checked").eq(i).parents().prev().removeAttr("disabled");
+					$(".commonCollege:checked").eq(k).prop("checked",false).removeAttr('disabled');
+					$(".commonCollege:checked").eq(k).parents().prev().removeAttr("disabled");
 				}
 			}
 		}
@@ -288,6 +288,7 @@ function dragBoxUnitsChoose(selector){
 			var pushItem=$(".chooseAlreadyList").children('.chooseItems').eq(i).text();
 			projectUnits.push(pushItem);
 		}
+		console.log(projectUnits);
 		$(".unitsEnter").val(projectUnits);
 	})
 }
@@ -359,7 +360,7 @@ function topBarControl(){
 	$(".tableContent").css("min-height",decHeight);
 }
 function getUnits(){
-    var ajax =$.get('http://114.55.173.19/LandEntity', function(data) {
+    var ajax =$.get('/LandEntity', function(data) {
 			var result=data.result;
 			for (var i=0;i<result.length;i++ ) {
 				var insertProvince=$('<li class="provinceItems">'+

@@ -12,7 +12,7 @@
 				<th style="width:80px;">学校名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput" style="padding-right:30px;">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>	
@@ -285,7 +285,13 @@
 			"subject":subject,
 			"pageindex":pageindex
 		}
-		$.post('/askHSSsta', params, function(data) {
+		$.ajax({
+			url: '/askHSSsta',
+			type: 'POST',
+			data: params,
+			traditional:true
+		})
+		.done(function(data) {
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
 			var count=data.count;
@@ -331,6 +337,60 @@
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
 			}
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
 		});
+		
+		// $.post('/askHSSsta', params, function(data) {
+		// 	var result=data.result;
+		// 	$(".infoTable1").children('tbody').empty();
+		// 	var count=data.count;
+		// 	var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+		// 	addCount.children('span').eq(0).text(count);
+		// 	if(count<20){
+		// 		addCount.children('span').eq(1).text(count);
+		// 	}
+		// 	else{
+		// 		addCount.children('span').eq(1).text("20");
+		// 	}
+		// 	var lee=$(".tableContent .infoTablePara").children('.topRight');
+		// 	if(lee){
+		// 		lee.empty();
+		// 		$(".tableContent .infoTablePara").append(addCount);
+		// 	}
+		// 	else{
+		// 		$(".tableContent .infoTablePara").append(addCount);
+		// 	}
+		// 	if(data.state==1){
+		// 		for (var i=0,len=result.length;i<len;i++) {
+		// 			var searchInfo=$('<tr>'+
+		// 				'<td></td>'+
+		// 			'</tr>');
+		// 			searchInfo.children('td').eq(0).text(i+1);
+		// 			for (var j=0;j<result[i].length;j++) {
+		// 				var mytd=$('<td></td>');
+		// 				if(result[i][j]==null){
+		// 					result[i][j]="";
+		// 				}
+		// 				else if(j==3){
+		// 					result[i][j]=year1+'-'+year2;
+		// 				}
+		// 				mytd.text(result[i][j]);
+		// 				searchInfo.append(mytd);
+		// 			}
+		// 			$(".infoTable1").children('tbody').append(searchInfo);
+		// 		}
+		// 	}
+		// 	else{
+		// 		alert("没有符合查询条件的记录！");
+		// 		count=0;
+		// 		addCount.children('span').eq(0).text(count);
+		// 		addCount.children('span').eq(1).text(count);
+		// 	}
+		// });
 	})
 </script>
