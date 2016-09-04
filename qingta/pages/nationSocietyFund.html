@@ -12,45 +12,83 @@
 				<th style="width:80px;">学科分类 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
-							<option>1</option>
-							<option>2</option>
-						</select>
+						<select class="selBox subjectType" style="padding-right: 30px;">
+						</select> 
 					</div>
 				</td>	
-				<th style="width:10.6%;">项目类型 :</th>
+				<th style="width:10.6%;">项目类别 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%">
-						<input class="commonput projectType">
-						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox projectType" style="padding-right: 30px;">
+						</select> 
 					</div>
 				</td>
 				<th style="width:10.6%;">依托单位 :</th>
-				<td class="commonPlus" style="width:18.3%;">
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
-				</td>	
-				<th style="width:10.6%;">立项时间<span style="color:red">*</span> :</th>
-				<td style="width:18.3%;">
-					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput" style="width:100%;">
+				</td>
+				<th style="width:10.6%;">立项时间 :</th>
+				<td style="width:19.3%">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+							<option>1999</option>
+							<option>1998</option>
+							<option>1997</option>
+						</select>
 					</div>
-					<span style="text-align: center;width:8%;">至</span>
-					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput" style="width:100%;">
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+							<option>1999</option>
+							<option>1998</option>
+							<option>1997</option>
+						</select>
 					</div>
+					<span style="color:red;width: 1%;">*</span>
 				</td>
 			</tr>
-			<tr>
-				
+			<tr>				
 				<th>所属系统 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
-							<option>1</option>
-							<option>2</option>
+						<select class="selBox systemBelong" style="padding-right: 30px;">
 						</select>
 					</div>
 				</td>
@@ -68,12 +106,11 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">国家自然科学基金明细数据</span>
-				<span class="topRight">共查询出1189条数据记录，本页显示20条</span>
+				<span class="topLeft">国家社科基金统计数据</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
-			<table class="infoTable">
+			<table class="infoTable infoTable1">
 				<thead>
 					<tr class="tableTitle">
 						<th>序号</th>
@@ -86,26 +123,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>汇总统计</td>
-						<td>北京大学</td>
-						<td>汇总统计</td>
-						<td>2016-2016</td>
-						<td>0-2000</td>
-						<td>6700</td>
-						<td>27,000.00</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>汇总统计</td>
-						<td>南开大学</td>
-						<td>汇总统计</td>
-						<td>2016-2016</td>
-						<td>0-2000</td>
-						<td>6700</td>
-						<td>28,000.00</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -132,46 +149,6 @@
 						<div class="leftColumnContent">
 							<div class="leftColumnProvinces">
 								<ul id="tree">
-									<li class="provinceItems">
-										<label for="province1">
-											黑龙江
-											<input id="province1" type="checkbox" class="provinces">
-										</label>
-										<ul class="collegeItems">
-											<li>
-												<label for="college1">
-													<span>东北农业大学</span>
-													<input id="college1" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-											<li>
-												<label for="college2">
-													<span>东北石油大学</span>
-													<input id="college2" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-										</ul>
-									</li>
-									<li class="provinceItems">
-										<label for="province2">
-											浙江
-											<input id="province2" type="checkbox" class="provinces">
-										</label>
-										<ul class="collegeItems">
-											<li>
-												<label for="college3">
-													<span>浙江大学</span>
-													<input id="college3" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-											<li>
-												<label for="college4">
-													<span>浙江工业大学</span>
-													<input id="college4" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-										</ul>
-									</li>
 								</ul>
 							</div>
 						</div>
@@ -202,34 +179,6 @@
 					<a class="forConsole">取消</a>
 				</p>
 			</div>
-		</div>
-	</div>
-</div>
-<div class="unitsChoose unitsChoose2">
-	<div class="unitsContainer">
-		<div class="cancelBtn">
-			<i class="fa fa-close showCollege"></i>
-		</div>
-		<div class="unitsHeader">
-			<p class="unitsTitle">项目类型选择</p>
-		</div>
-		<div class="unitsContent" style="padding-top:20px">
-			<table class="infoTable infoTable2" style="cursor: pointer;">
-				<thead>
-					<tr class="tableTitle">
-						<th>序号</th>
-						<th>项目类型名称</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-		</div>
-		<div class="bottomBtn">
-			<p>
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
-			</p>
 		</div>
 	</div>
 </div>
@@ -265,5 +214,126 @@
 	dragBoxUnitsChoose(".unitsChoose1");
 	dragBoxSortsChoose(".unitsChoose2");
 	topBarControl();
-
+</script>
+<script type="text/javascript">
+	$.get('http://114.55.173.19/LandNSSFtype', function(data) {
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".projectType").append(newopt);
+				}
+			}
+		}
+	});
+	$.get('http://114.55.173.19/LandNSSFsystem', function(data) {
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".systemBelong").append(newopt);
+				}
+			}
+		}
+	});
+	$.get('http://114.55.173.19/LandNSSFsubject', function(data) {
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".subjectType").append(newopt);
+				}
+			}
+		}
+	});
+	$.when(getUnits()).done(function(data){
+		$("#tree").treeview({
+			persist: "location",
+			collapsed: true,
+			unique: true
+		});
+	});	
+	$(".searchBtn").bind("click",function(){
+		var type=$(".projectType").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var projectentitys=projectUnits;
+		var system=$(".systemBelong").val();
+		var subject=$(".subjectType").val();
+		var params={
+			"type":type,
+			"year1":year1,
+			"year2":year2,
+			"projectentitys":projectentitys,
+			"system":system,
+			"subject":subject,
+		}
+		$.post('http://114.55.173.19/askNSSFsta', params, function(data) {
+			var result=data.result;
+			$(".infoTable1").children('tbody').empty();
+			var count=data.count;
+			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			addCount.children('span').eq(0).text(count);
+			if(count<20){
+				addCount.children('span').eq(1).text(count);
+			}
+			else{
+				addCount.children('span').eq(1).text("20");
+			}
+			var lee=$(".tableContent .infoTablePara").children('.topRight');
+			if(lee){
+				lee.empty();
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			else{
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			if(data.state==1){
+				for (i=0;i<result.length;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).text(i+1);
+					for (var j=0;j<result[i].length;j++) {
+						var mytd=$('<td></td>');
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+						else if(j==4){
+							result[i][j]=year1+'-'+year2;
+						}
+						// else if(j==4||j==5){
+						// 	var ex = /^\d+$/;
+						// 	if(ex.test(result[i][j])){
+						// 		mytd.text(result[i][j]);
+						// 	}
+						// 	else{
+						// 		var newNum=(result[i][j]).toFixed(2);
+						// 		console.log(newNum);
+						// 		mytd.text(newNum);
+						// 	}
+						// }
+						mytd.text(result[i][j]);
+						searchInfo.append(mytd);
+					}
+					$(".infoTable1").children('tbody').append(searchInfo);
+				}
+			}
+			else{
+				alert("没有符合查询条件的记录！");
+				count=0;
+				addCount.children('span').eq(0).text(count);
+				addCount.children('span').eq(1).text(count);
+			}
+		});
+	})
 </script>

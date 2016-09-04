@@ -13,35 +13,38 @@
 				<th style="width:102px;">项目名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput nameput">
+						<input class="commonput nameput" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 				<th style="width:12%">项目类型 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%">
-						<input class="commonput projectType">
+						<input class="commonput projectType" style="padding-right:30px;">
 						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>	
-				<th style="width:10.6%">入选年度<span style="color:red">*</span> :</th>
-				<td style="width:18.3%">
-					<div class="commonselect" style="width:42.1%;margin-right:1%;">
+				<th style="width:10.6%">入选年度 :</th>
+				<td style="width:19.3%">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
 							<option>2016</option>
 						</select>
 					</div>
-					<span style="text-align: center;width:8%;">至</span>
-					<div class="commonselect" style="width:42.1%;margin-left:1%;">
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
 							<option>2016</option>
 						</select>
 					</div>
+					<span style="color:red;width: 1%;">*</span>
 				</td>
 				<th style="width:12%">项目牵头单位 :</th>
 				<td class="commonPlus" style="width:18.3%">
 					<div class="commonInputBox" style="width:100%;">
 						<input class="commonput projectUnits">
-						<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
 					</div>
 				</td>
 			</tr>
@@ -55,21 +58,21 @@
 				<th>中央财政经费 :</th>
 				<td>
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput nationFee1" style="width:100%;">
+						<input class="commonput nationFee1" style="width:100%;" placeholder="(万元)">
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput nationFee2" style="width:100%;">
+						<input class="commonput nationFee2" style="width:100%;" placeholder="(万元)">
 					</div>
 				</td>
 				<th>项目总经费 :</th>
 				<td>
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput projectFee1" style="width:100%;">
+						<input class="commonput projectFee1" style="width:100%;" placeholder="(万元)">
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput projectFee2" style="width:100%;">
+						<input class="commonput projectFee2" style="width:100%;" placeholder="(万元)">
 					</div>
 				</td>
 				<td colspan="2">
@@ -210,7 +213,7 @@
 				$(".tableContent .infoTablePara").append(addCount);
 			}
 			if(data.state==1){
-				for (i=0;i<result.length;i++) {
+				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
 						'<td></td>'+
 					'</tr>');
@@ -227,7 +230,10 @@
 				}
 			}
 			else{
-				alert("没有符合查询条件的记录！")
+				alert("没有符合查询条件的记录！");
+				count=0;
+				addCount.children('span').eq(0).text(count);
+				addCount.children('span').eq(1).text(count);
 			}
 		});
 	})
@@ -245,4 +251,37 @@
 			}
 		}
 	});
+	function OnInput (event) {
+        var sub=$(".nameput").val();
+        getWholeList(sub);
+        $(".showElse").addClass('showBtn');
+    }
+    function OnPropChanged (event) {
+       var sub=$(".nameput").val();
+       getWholeList(sub);
+       $(".showElse").addClass('showBtn');
+    }
+    $(".showElse").delegate('li', 'click', function() {
+    	$(".showElse").removeClass("showBtn");
+    	var txt=$(this).text();
+    	$(".nameput").val(txt);
+    });
+	function getWholeList(sub){
+		$.post('http://114.55.173.19/LandNKRPname', {"sub":sub }, function(data, textStatus, xhr) {
+			$(".showElse").empty();
+			var state=data.state;
+    		var result=data.result;
+    		if (state==1) {
+    			var len=result.length;
+    			for (var i=0;i<len;i++) {
+    				var mytd=$('<li></li>');
+    				mytd.text(result[i]);
+    				$(".showElse").append(mytd);
+    			}	    			
+    		}
+    		else{
+    			$(".showElse").removeClass('showBtn');
+    		}
+		});
+	}
 </script>

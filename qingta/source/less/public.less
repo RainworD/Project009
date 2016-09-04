@@ -11,9 +11,29 @@ body{
 	position: relative;
 	.commonInputBox{
 		position: relative;	
-		width: 150px;					
+		width: 150px;
+		.showElse{
+			display: none;
+			position: absolute;
+			top: 29px;
+			left:0;
+			background-color: #fff;
+			z-index: 1;
+			width: 320px;
+			border:1px solid #bdbdbd;
+			li{
+				padding: 5px;
+				cursor: pointer;
+			}
+			li:hover{
+				background-color:#fffcf3;
+			}
+		}
+		.showBtn{
+			display: block;
+		}					
 		.commonput{
-			padding-right:30px;
+			// padding-right:30px;
 			border:none;
 			width: 100%;
 			height: 30px;
@@ -270,7 +290,7 @@ body{
 			position: relative;	
 			width: 150px;					
 			.commonput{
-				padding-right:30px;
+				// padding-right:30px;
 				border:none;
 				width: 100%;
 				height: 30px;
@@ -773,7 +793,7 @@ body{
 			.enterBox{
 				width: 100%;				
 				height: auto;
-				overflow: hidden;
+				// overflow: hidden;
 				padding: 10px;
 				padding: 0 20px;
 				border-radius:6px;
@@ -851,7 +871,7 @@ body{
 				// 		position: relative;	
 				// 		width: 150px;					
 				// 		.commonput{
-				// 			padding-right:30px;
+							// padding-right:30px;
 				// 			border:none;
 				// 			width: 100%;
 				// 			height: 30px;

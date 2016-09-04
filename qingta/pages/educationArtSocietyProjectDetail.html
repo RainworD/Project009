@@ -8,56 +8,98 @@
 <div class="enterBox">
 	<div class="topTableBox">
 		<table class="topTable">
-			<tr>
-				<th style="width:80px;">学科分类 :</th>
-				<td style="width:19.5%;">
+			<tr> 
+				<th style="width:10.6%;">项目类型 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput projectType">
+						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td>
+				<th style="width:80px;">学科门类 :</th>
+				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
-							<option>1</option>
-							<option>2</option>
+						<select class="selBox subjectType">
+						</select> 
+					</div>
+				</td>
+				<th style="width:10.6%;">批准年度 :</th>
+				<td style="width:19.3%">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
 						</select>
 					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span style="color:red;width: 1%;">*</span>
 				</td>
 				<th style="width:10.6%;">项目名称 :</th>
 				<td style="width:19.5%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
-					</div>
-				</td>
-				<th style="width:10.6%;">批准年度<span style="color:red">*</span> :</th>
-				<td style="width:19.5%;">
-					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput" style="width:100%;">
-					</div>
-					<span style="text-align: center;width:8%;">至</span>
-					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput" style="width:100%;">
-					</div>
-				</td>
-				<th style="width:10.6%;">项目类别 :</th>
-				<td style="width:19.5%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
-							<option>1</option>
-							<option>2</option>
-						</select>
+						<input class="commonput projectName" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 			</tr>
-			<tr>		
+			<tr>
+				<th style="width:10.6%;">项目类别 :</th>			
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox projectClass">
+						</select>
+					</div>
+				</td>		
 				<th>学校名称 :</th>
 				<td>
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput schoolName">
 					</div>
 				</td>
 				<th>申请人 :</th>
 				<td>
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput applyName">
 					</div>
 				</td>
-				<td colspan="2" style="padding-left:70px;"></td>
 				<td colspan="2">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
@@ -70,47 +112,60 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">国家自然科学基金统计数据</span>
-				<span class="topRight">共查询出1189条数据记录，本页显示20条</span>
+				<span class="topLeft">教育部人文社科明细数据</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
-			<table class="infoTable">
+			<table class="infoTable infoTable1">
 				<thead>
 					<tr class="tableTitle">
 						<th>序号</th>
-						<th>学科分类</th>
+						<th>项目批准号</th>
+						<th>项目类型</th>
+						<th>学科门类</th>
 						<th>项目名称</th>
 						<th>批准年度</th>
 						<th>项目类别</th>
 						<th>学校名称</th>
 						<th>申请人</th>
+						<th>备注</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>语言学</td>
-						<td>社会主义核心价值观的家庭文化培育</td>
-						<td>2015</td>
-						<td>规划基金项目</td>
-						<td>阿贝师范高等专科学校</td>
-						<td>郑宇明</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>语言学</td>
-						<td>社会主义核心价值观的家庭文化培育</td>
-						<td>2016</td>
-						<td>规划基金项目</td>
-						<td>阿贝师范高等专科学校</td>
-						<td>孙成正</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 	<div class="M-box"></div>
+</div>
+<div class="mask"></div>
+<div class="unitsChoose unitsChoose2">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader">
+			<p class="unitsTitle">项目类型选择</p>
+		</div>
+		<div class="unitsContent" style="padding-top:20px">
+			<table class="infoTable infoTable2" style="cursor: pointer;">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>项目类型名称</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
 </div>
 <script type="text/javascript">
 	$('.M-box').pagination({
@@ -126,5 +181,143 @@
 	        location.href="__ROOT__/main.html?page="+index
 	    }
 	});
+	$(".showDetailBox2").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
+	})
+	dragBoxSortsChoose(".unitsChoose2");
 	topBarControl();
+</script>
+<script type="text/javascript">
+	$.get('http://114.55.173.19/LandHSSsubject', function(data) {
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".subjectType").append(newopt);
+				}
+			}
+		}
+	});
+	$.get('http://114.55.173.19/LandHSStype', function(data) {
+		var result=data.result;
+		if(data.state==1){
+			for (var i = 0;i<result.length;i++) {
+				var mytr=$('<tr>'+
+								'<td></td>'+
+								'<td></td>'+
+							'</tr>');
+				mytr.children('td').eq(0).text(i+1);
+				mytr.children('td').eq(1).text(result[i]);
+				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
+			}
+		}
+	});
+	var pageindex=1;
+	$(".searchBtn").bind("click",function(){
+		var type=$(".projectType").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entity=$(".schoolName").val();
+		var _class=$(".projectClass").val();
+		var subject=$(".subjectType").val();
+		var manager=$(".applyName").val();
+		var name=$(".projectName").val();
+		var pageindex1=pageindex;
+		var params={
+			"type":type,
+			"year1":year1,
+			"year2":year2,
+			"entity":entity,
+			"_class":_class,
+			"subject":subject,
+			"pageindex1":pageindex1,
+			"name":name,
+			"manager":manager,
+		}
+		$.post('http://114.55.173.19/askHSS', params, function(data) {
+			var result=data.result;
+			$(".infoTable1").children('tbody').empty();
+			var count=data.count;
+			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			addCount.children('span').eq(0).text(count);
+			if(count<20){
+				addCount.children('span').eq(1).text(count);
+			}
+			else{
+				addCount.children('span').eq(1).text("20");
+			}
+			var lee=$(".tableContent .infoTablePara").children('.topRight');
+			if(lee){
+				lee.empty();
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			else{
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			if(data.state==1){
+				for (var i=0,len=result.length;i<len;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).text(i+1);
+					for (var j=0;j<result[i].length;j++) {
+						var mytd=$('<td></td>');
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+						else if(j==4){
+							result[i][j]=year1+'-'+year2;
+						}
+						mytd.text(result[i][j]);
+						searchInfo.append(mytd);
+					}
+					$(".infoTable1").children('tbody').append(searchInfo);
+				}
+			}
+			else{
+				alert("没有符合查询条件的记录！");
+				count=0;
+				addCount.children('span').eq(0).text(count);
+				addCount.children('span').eq(1).text(count);
+			}
+		});
+	})
+	function OnInput (event) {
+        var sub=$(".projectName").val();
+        getWholeList(sub);
+        $(".showElse").addClass('showBtn');
+    }
+    function OnPropChanged (event) {
+       var sub=$(".projectName").val();
+       getWholeList(sub);
+       $(".showElse").addClass('showBtn');
+    }
+    $(".showElse").delegate('li', 'click', function() {
+    	$(".showElse").removeClass("showBtn");
+    	var txt=$(this).text();
+    	$(".projectName").val(txt);
+    });
+	function getWholeList(sub){
+		$.post('http://114.55.173.19/LandHSSname', {"sub":sub }, function(data, textStatus, xhr) {
+			$(".showElse").empty();
+			var state=data.state;
+    		var result=data.result;
+    		if (state==1) {
+    			var len=result.length;
+    			for (var i=0;i<len;i++) {
+    				var mytd=$('<li></li>');
+    				mytd.text(result[i]);
+    				$(".showElse").append(mytd);
+    			}	    			
+    		}
+    		else{
+    			$(".showElse").removeClass('showBtn');
+    		}
+		});
+	}
 </script>

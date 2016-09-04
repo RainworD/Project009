@@ -7,6 +7,7 @@ var projectUnits=[];
 init();
 function init(){
 	eventBind();
+	matchLeft();
 	function changeHeight(){
 		var myheight=$(window).height();
 		$(".leftBox").css("min-height",myheight);
@@ -15,10 +16,43 @@ function init(){
 	  	window.onresize = changeHeight;  
 	  	changeHeight();  
 	}
-	$(".alink").bind("click",function(){
-		var myhash=$(this).attr("href");
-		window.location.hash=myhash;
-	})
+	function matchLeft(){
+		var search=window.location.href;
+		var	mysearch=search.split("?");
+		var search2=mysearch[1].split("=");
+		var myid=search2[1];
+		console.log(myid);
+		var topid,secondid;
+		if(myid>=100){
+			topid=myid%100;
+			secondid=topid%10;
+			console.log(topid);
+			console.log(secondid-1);
+		}
+		else{
+			topid=Math.floor(myid/10);
+			secondid=myid%10;
+			console.log(topid);
+			console.log(secondid-1);
+		}
+		for (var i = 0,len=$(".downBtn").length;i<len;i++) {
+			var matchid=$(".downBtn").eq(i).attr("data-id");
+			console.log(matchid);
+			if(matchid==topid){
+				$(".downBtn").eq(i).addClass("btnColor");
+				$(".downBtn").eq(i).next(".downContent").addClass('show');
+				$(".downBtn").eq(i).next(".downContent").find(".linka").eq(secondid-1).addClass("activeClass");
+			}
+		}
+	}
+
+	// $(".linka").bind("click",function(){
+	// 	var myhash=$(this).attr("href");
+	// 	var id=$(this).attr("data-id");
+	// 	console.log(id);
+	// 	window.location.hash=myhash+"?id="+id;
+	// 	window.location.hash=myhash;
+	// })
 }
 function eventBind(){
 	$(".downBtn").bind("click",function(){
@@ -41,6 +75,14 @@ function eventBind(){
 			$(this).addClass("btnColor");
 			$(this).children(".downflag").addClass("fa-minus");
 		}
+	})
+	$(".leftImg").bind("click mouseover",function(){
+		$(this).addClass("white");
+		$(this).parent(".section").siblings('.section').find(".downContent").removeClass("show");
+		$(this).parent(".section").siblings('.section').find(".leftImg").removeClass("white");
+		$(this).next().children('.downBtn').addClass('btnColor');
+		$(this).next().children('.downContent').addClass('show');
+		$(this).parent(".section").siblings('.section').find(".downBtn").removeClass("btnColor");
 	})
 	$(".section").on("click",".linka",function(){
 		$(this).addClass("activeClass").siblings().removeClass("activeClass");
