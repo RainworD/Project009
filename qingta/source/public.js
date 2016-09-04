@@ -3,60 +3,21 @@ var ADMIN_CONFIG = {
 	"homePage": "commonDataAnalysis.html",
 	"contentSelector": "#rightContent",
 };
-var projectUnits=[];
 init();
 function init(){
 	eventBind();
-	matchLeft();
 	function changeHeight(){
 		var myheight=$(window).height();
 		$(".leftBox").css("min-height",myheight);
-		// var myheight1=$(".leftList").height();
-		// var myheight2=$(".enterBox").css("height");
-		// var decHeight=myheight1-parseInt(myheight2)-80;
-		// $(".tableContent").css("min-height",decHeight);
 	}
 	window.onload=function(){  
 	  	window.onresize = changeHeight;  
 	  	changeHeight();  
 	}
-	function matchLeft(){
-		var search=window.location.href;
-		var	mysearch=search.split("?");
-		var search2=mysearch[1].split("=");
-		var myid=search2[1];
-		console.log(myid);
-		var topid,secondid;
-		if(myid>=100){
-			topid=myid%100;
-			secondid=topid%10;
-			console.log(topid);
-			console.log(secondid-1);
-		}
-		else{
-			topid=Math.floor(myid/10);
-			secondid=myid%10;
-			console.log(topid);
-			console.log(secondid-1);
-		}
-		for (var i = 0,len=$(".downBtn").length;i<len;i++) {
-			var matchid=$(".downBtn").eq(i).attr("data-id");
-			console.log(matchid);
-			if(matchid==topid){
-				$(".downBtn").eq(i).addClass("btnColor");
-				$(".downBtn").eq(i).next(".downContent").addClass('show');
-				$(".downBtn").eq(i).next(".downContent").find(".linka").eq(secondid-1).addClass("activeClass");
-			}
-		}
-	}
-
-	// $(".linka").bind("click",function(){
-	// 	var myhash=$(this).attr("href");
-	// 	var id=$(this).attr("data-id");
-	// 	console.log(id);
-	// 	window.location.hash=myhash+"?id="+id;
-	// 	window.location.hash=myhash;
-	// })
+	$(".alink").bind("click",function(){
+		var myhash=$(this).attr("href");
+		window.location.hash=myhash;
+	})
 }
 function eventBind(){
 	$(".downBtn").bind("click",function(){
@@ -82,15 +43,6 @@ function eventBind(){
 	})
 	$(".section").on("click",".linka",function(){
 		$(this).addClass("activeClass").siblings().removeClass("activeClass");
-	})
-	$(".leftBox").on("click",".leftImg",function(){
-		$(this).addClass("white");
-		$(this).parent(".section").siblings('.section').find(".downContent").removeClass("show");
-		$(this).parent(".section").siblings('.section').find(".leftImg").removeClass("white");
-		$(this).next().children('.downBtn').addClass('btnColor');
-		$(this).next().children('.downContent').addClass('show');
-		$(this).parent(".section").siblings('.section').find(".downBtn").removeClass("btnColor");
-		$(this).parent(".section").siblings('.section').find(".linka").removeClass("activeClass");
 	})
 	$(".rightBox").on("click",".leftImg",function(){
 		var showflag1=$(this).parents(".rightBox").attr("class");
@@ -174,13 +126,12 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	})
 }
 function dragBoxUnitsChoose(selector){
-	// var array=[];
+	var projectUnits=[];
 	$(selector).on("click",".cancelBtn",function(){
 		$(".mask").hide();
 		$(selector).hide();
 	})
 	$(".leftColumnProvinces").on("click",".provinceItems",function(){
-		console.log("111")
 		var flag=$(this).find(".provinces").prop("checked");
 		if(flag){
 			$(this).children().find(".commonCollege").prop("checked",true);
@@ -189,9 +140,7 @@ function dragBoxUnitsChoose(selector){
 			$(this).children().find(".commonCollege").prop("checked",false);
 		}
 	})
-	$(".leftColumnProvinces").on("click",".commonCollege",function(e){
-		e.stopPropagation();
-		console.log("222")
+	$(".collegeItems").on("click",".commonCollege",function(){
 		var myinput=$(this).parents(".provinceItems").find(".commonCollege");
 		var len=myinput.length;
 		console.log(len);
@@ -204,24 +153,23 @@ function dragBoxUnitsChoose(selector){
 			}
 		}
 		if(trueArray.length==len){
-			$(this).parents().prev().prop("checked",true);
+			$(this).parents().prev().find(".provinces").prop("checked",true);
 		}
 		else{
-			$(this).parents().prev().prop("checked",false);
+			$(this).parents().prev().find(".provinces").prop("checked",false);
 		}
 	})
 	$(".moveRight").bind("click",function(){
 		var array=[];
-		// var len=$(".commonCollege").length;
-		// for (var i =0; i<len; i++) {
-
-			$(".commonCollege:checked").each(function(index, el) {
-				array.push($(el).prev().text());
-				$(el).attr("disabled","disabled");
-				$(el).parents().prev().attr("disabled","disabled");
-			});
-			console.log(array);
-		// }
+		var len=$(".commonCollege").length;
+		for (var i =0; i<len; i++) {
+			var myflag=$(".commonCollege").eq(i).prop("checked");
+			var name=$(".commonCollege").eq(i).prev().text();
+			console.log(name);
+			if(myflag){
+				array.push(name);
+			}
+		}
 		for (var j=0;j<array.length;j++) {
 			var hasSame=false;
 			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
@@ -250,32 +198,27 @@ function dragBoxUnitsChoose(selector){
 			$(this).addClass("addSomeColor");
 		}
 	})
-	$(".moveLeft").bind("click",function(){
-		var toLeftUnits=[];
-		toLeftUnits.length=0;
+	$(".moveLeft,selector .forSure").bind("click",function(){
+		projectUnits.length=0;
 		var rightChoosen=$(".rightColumn").find(".chooseAlreadyList").children('.chooseItems');
 		var hasSome=false;
-		for (var i=0,len=rightChoosen.length;i<len;i++) {
+		for (var i=0;i<rightChoosen.length;i++) {
 			var className=rightChoosen.eq(i).attr("class");
 			var myarray=className.split(" ");
 			console.log(myarray);
 			if(myarray.length>1){
 				var txt1=rightChoosen.eq(i).text();
-				toLeftUnits.push(txt1);
+				projectUnits.push(rightChoosen.eq(i).text());
 				rightChoosen.eq(i).remove();
 			}
 		}
-		console.log(toLeftUnits);
-		var mylen=$(".commonCollege:checked").length;
-		console.log(mylen);
-		console.log($(".commonCollege:checked"));
-		// var mylen=array.length;
+		console.log(projectUnits);
+		var mylen=$(".commonCollege").length;
 		for (var i=0;i<mylen;i++) {
-			var matchtxt=$(".commonCollege:checked").eq(i).prev().text();
-			for (var j =0; j<toLeftUnits.length;j++) {
-				if(matchtxt==toLeftUnits[j]){
-					$(".commonCollege:checked").eq(i).prop("checked",false).removeAttr('disabled');
-					$(".commonCollege:checked").eq(i).parents().prev().removeAttr("disabled");
+			var matchtxt=$(".commonCollege").eq(i).prev().text();
+			for (var j =0; j<projectUnits.length;j++) {
+				if(matchtxt==projectUnits[j]){
+					$(".commonCollege").eq(i).prop("checked",false);
 				}
 			}
 		}
@@ -283,12 +226,6 @@ function dragBoxUnitsChoose(selector){
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
-		var mylen=$(".chooseAlreadyList").children('.chooseItems').length;
-		for (var i=0;i<mylen;i++) {
-			var pushItem=$(".chooseAlreadyList").children('.chooseItems').eq(i).text();
-			projectUnits.push(pushItem);
-		}
-		$(".unitsEnter").val(projectUnits);
 	})
 }
 function dragBoxSortsChoose(selector){
@@ -297,7 +234,7 @@ function dragBoxSortsChoose(selector){
 		$(selector).hide();
 	})
 	$(selector).on("click",".forConsole",function(){
-		$(this).parents('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
+		$(this).parent('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
 	})
 	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
 		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
@@ -306,41 +243,20 @@ function dragBoxSortsChoose(selector){
 		$(selector).hide();
 		$(".mask").hide();
 		var txt;
-		var mytr=$(this).parents('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr");
+		var mytr=$(this).parent('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr");
 		for(i=0;i<mytr.length;i++){
 			var className=mytr.eq(i).attr("class");
 			if(className=="beChoosen"){
 				txt=mytr.eq(i).children("td").last().text();
-				// mytr.eq(i).removeClass("beChoosen");
+				mytr.eq(i).removeClass("beChoosen");
 			}
 		}
 		if(txt!=""){
-			$(".projectType").val(txt);;
-			if($(".projectClass")){
-				$.post('/LandHSStypetoclass', {"sub": txt}, function(data, textStatus, xhr) {
-					$(".projectClass").empty();
-					var state=data.state;
-					var result=data.result;
-					if(state==1){
-						for (var i=0;i<result.length;i++) {
-							var newopt=$('<option></option>');
-							if (result[i]) {
-								newopt.text(result[i]);
-								$(".projectClass").append(newopt);
-							}
-						}
-					} 
-				});
-			}
+			$(".projectType").val(txt);
 		}
 	})
 }
 function topBarControl(){
-	$(".resetBtn").bind("click",function(){
-		if(confirm("你确定重置所有查询条件？")){
-			$(this).parents(".topTable").find("input").val("");
-		}	
-	})
 	$(".changeBarContainer").on("click",".hideBtn",function(){
 		var className=$(this).parent(".changeBarContainer").next().attr("class");
 		var array=className.split(" ");
@@ -355,39 +271,6 @@ function topBarControl(){
 	})
 	var myheight1=$(window).height();
 	var myheight2=$(".enterBox").css("height");
-	var decHeight=parseInt(myheight1)-parseInt(myheight2)-80;
+	var decHeight=parseInt(myheight1)-parseInt(myheight2)-125;
 	$(".tableContent").css("min-height",decHeight);
 }
-function getUnits(){
-    var ajax =$.get('http://114.55.173.19/LandEntity', function(data) {
-			var result=data.result;
-			for (var i=0;i<result.length;i++ ) {
-				var insertProvince=$('<li class="provinceItems">'+
-									// '<label for="province2">'+
-										'<span></span>'+
-										'<input type="checkbox" class="provinces">'+
-									// '</label>'+
-									'<ul class="collegeItems">'+
-									'</ul>'+
-								'</li>');
-				
-				for (var j=0;j<result[i].length;j++) {
-					if(j==0){
-						insertProvince.children('span').text(result[i][0]);
-					}
-					else{
-						var insertItem=$('<li>'+
-									// '<label for="college3">'+
-										'<span></span>'+
-										'<input type="checkbox" class="commonCollege">'+
-									// '</label>'+
-								'</li>');
-						insertItem.children('span').text(result[i][j]);
-						insertProvince.children('.collegeItems').append(insertItem);
-					}
-				}
-				$("#tree").append(insertProvince);
-			}
-		});
-    return ajax;
-	}

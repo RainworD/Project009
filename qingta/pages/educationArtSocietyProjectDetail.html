@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/educationArtSocietyProject.html" style="padding-left:5px;">教育部人文社科项目统计</a>
-		<a class="changeRight green changeButton" href="#/educationArtSocietyProjectDetail.html" style="padding-right:5px;">教育部人文社科项目明细</a>
+		<a class="changeLeft changeButton" href="#/educationArtSocietyProject.html?id=34" style="padding-left:5px;">教育部人文社科项目统计</a>
+		<a class="changeRight green changeButton" href="#/educationArtSocietyProjectDetail.html?id=34" style="padding-right:5px;">教育部人文社科项目明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -190,7 +190,7 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
-	$.get('http://114.55.173.19/LandHSSsubject', function(data) {
+	$.get('/LandHSSsubject', function(data) {
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
@@ -203,7 +203,7 @@
 			}
 		}
 	});
-	$.get('http://114.55.173.19/LandHSStype', function(data) {
+	$.get('/LandHSStype', function(data) {
 		var result=data.result;
 		if(data.state==1){
 			for (var i = 0;i<result.length;i++) {
@@ -239,7 +239,7 @@
 			"name":name,
 			"manager":manager,
 		}
-		$.post('http://114.55.173.19/askHSS', params, function(data) {
+		$.post('/askHSS', params, function(data) {
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
 			var count=data.count;
@@ -303,7 +303,7 @@
     	$(".projectName").val(txt);
     });
 	function getWholeList(sub){
-		$.post('http://114.55.173.19/LandHSSname', {"sub":sub }, function(data, textStatus, xhr) {
+		$.post('/LandHSSname', {"sub":sub }, function(data, textStatus, xhr) {
 			$(".showElse").empty();
 			var state=data.state;
     		var result=data.result;

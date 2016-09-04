@@ -1003,7 +1003,7 @@ body {
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .infoTable .beChoosen {
   cursor: pointer;
-  background-color: #f33;
+  background-color: #ffdab9;
   color: #fff;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel {

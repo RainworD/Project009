@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft green changeButton" href="#/nationSocietyFund.html">国家社科基金统计</a>
-		<a class="changeRight changeButton" href="#/nationSocietyFundDetail.html">国家社科基金明细</a>
+		<a class="changeLeft green changeButton" href="#/nationSocietyFund.html?id=33">国家社科基金统计</a>
+		<a class="changeRight changeButton" href="#/nationSocietyFundDetail.html?id=33">国家社科基金明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -216,7 +216,7 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
-	$.get('http://114.55.173.19/LandNSSFtype', function(data) {
+	$.get('/LandNSSFtype', function(data) {
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
@@ -229,7 +229,7 @@
 			}
 		}
 	});
-	$.get('http://114.55.173.19/LandNSSFsystem', function(data) {
+	$.get('/LandNSSFsystem', function(data) {
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
@@ -242,7 +242,7 @@
 			}
 		}
 	});
-	$.get('http://114.55.173.19/LandNSSFsubject', function(data) {
+	$.get('/LandNSSFsubject', function(data) {
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
@@ -277,7 +277,13 @@
 			"system":system,
 			"subject":subject,
 		}
-		$.post('http://114.55.173.19/askNSSFsta', params, function(data) {
+		$.ajax({
+			url: '/askNSSFsta',
+			type: 'POST',
+			data: params,
+			traditional:true
+		})
+		.done(function() {
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
 			var count=data.count;
@@ -334,6 +340,70 @@
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
 			}
-		});
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});	
+		// $.post('/askNSSFsta', params, function(data) {
+			// 	var result=data.result;
+			// 	$(".infoTable1").children('tbody').empty();
+			// 	var count=data.count;
+			// 	var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			// 	addCount.children('span').eq(0).text(count);
+			// 	if(count<20){
+			// 		addCount.children('span').eq(1).text(count);
+			// 	}
+			// 	else{
+			// 		addCount.children('span').eq(1).text("20");
+			// 	}
+			// 	var lee=$(".tableContent .infoTablePara").children('.topRight');
+			// 	if(lee){
+			// 		lee.empty();
+			// 		$(".tableContent .infoTablePara").append(addCount);
+			// 	}
+			// 	else{
+			// 		$(".tableContent .infoTablePara").append(addCount);
+			// 	}
+			// 	if(data.state==1){
+			// 		for (i=0;i<result.length;i++) {
+			// 			var searchInfo=$('<tr>'+
+			// 				'<td></td>'+
+			// 			'</tr>');
+			// 			searchInfo.children('td').eq(0).text(i+1);
+			// 			for (var j=0;j<result[i].length;j++) {
+			// 				var mytd=$('<td></td>');
+			// 				if(result[i][j]==null){
+			// 					result[i][j]="";
+			// 				}
+			// 				else if(j==4){
+			// 					result[i][j]=year1+'-'+year2;
+			// 				}
+			// 				// else if(j==4||j==5){
+			// 				// 	var ex = /^\d+$/;
+			// 				// 	if(ex.test(result[i][j])){
+			// 				// 		mytd.text(result[i][j]);
+			// 				// 	}
+			// 				// 	else{
+			// 				// 		var newNum=(result[i][j]).toFixed(2);
+			// 				// 		console.log(newNum);
+			// 				// 		mytd.text(newNum);
+			// 				// 	}
+			// 				// }
+			// 				mytd.text(result[i][j]);
+			// 				searchInfo.append(mytd);
+			// 			}
+			// 			$(".infoTable1").children('tbody').append(searchInfo);
+			// 		}
+			// 	}
+			// 	else{
+			// 		alert("没有符合查询条件的记录！");
+			// 		count=0;
+			// 		addCount.children('span').eq(0).text(count);
+			// 		addCount.children('span').eq(1).text(count);
+			// 	}
+		// });
 	})
 </script>

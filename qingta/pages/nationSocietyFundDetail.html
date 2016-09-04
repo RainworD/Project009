@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/nationSocietyFund.html">国家社科基金统计</a>
-		<a class="changeRight changeButton green" href="#/nationSocietyFundDetail.html">国家社科基金明细</a>
+		<a class="changeLeft changeButton" href="#/nationSocietyFund.html?id=33">国家社科基金统计</a>
+		<a class="changeRight changeButton green" href="#/nationSocietyFundDetail.html?id=33">国家社科基金明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -155,7 +155,7 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
-	$.get('http://114.55.173.19/LandNSSFtype', function(data) {
+	$.get('/LandNSSFtype', function(data) {
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
@@ -168,7 +168,7 @@
 			}
 		}
 	});
-	$.get('http://114.55.173.19/LandNSSFsubject', function(data) {
+	$.get('/LandNSSFsubject', function(data) {
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
@@ -201,7 +201,7 @@
 			"manager":manager,
 			"pageindex1":pageIndex
 		}
-		$.post('http://114.55.173.19/askNSSF', params, function(data) {
+		$.post('/askNSSF', params, function(data) {
 			var result=data.result;
 			$(".infoTable").children('tbody').empty();
 			var count=data.count;
@@ -265,7 +265,7 @@
     	$(".nameput").val(txt);
     });
 	function getWholeList(sub){
-		$.post('http://114.55.173.19/LandNSSFname', {"sub":sub }, function(data, textStatus, xhr) {
+		$.post('/LandNSSFname', {"sub":sub }, function(data, textStatus, xhr) {
 			$(".showElse").empty();
 			var state=data.state;
     		var result=data.result;
