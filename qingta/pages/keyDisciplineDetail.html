@@ -1,72 +1,78 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a href="#/keyDiscipline.html" class="changeLeft changeButton">国家重点学科统计</a>
-		<a class="changeRight green changeButton">国家重点学科评估明细</a>
+		<a href="#/keyDiscipline.html?id=51" class="changeLeft changeButton">国家重点学科评估统计</a>
+		<a href="#/keyDisciplineDetail.html?id=51" class="changeRight green changeButton">国家重点学科评估明细</a>
 	</div>
+	<p class="hideBtn">隐藏查询条件</p>
 </div>
 <div class="enterBox">
-	<table class="topTable">
-		<tr>
-			<th style="width:80px;">学校名称 :</th>
-			<td style="width:19.5%;">
-				<div class="commonInputBox"  style="width:100%;">
-					<input class="commonput">
-					<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
-				</div>
-			</td>
-			<th style="width:10.6%;">重点学科类型 :</th>
-			<td style="width:19.5%;">
-				<div class="commonselect" style="width:100%;"> 
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th style="width:10.6%;">重点学科名称 :</th>
-			<td style="width:19.5%;">
-				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
-				</div>
-			</td>
-			<th style="width:3%"></th>
-			<td style="width: 9.3%">
-				<a class="searchBtn rightMinBtn">查询</a>
-			</td>
-		</tr>
-		<tr>
-			<th></th>
-			<td></td>
-			<th></th>
-			<td></td>
-			<th></th>
-			<td></td>
-			<th style="width:3%"></th>
-			<td><a class="resetBtn rightMinBtn">重置</a></td>
-		</tr>
-	</table>
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">学校名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput schoolName">
+					</div>
+				</td>
+				<th style="width:10.6%;">重点学科类型 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:100%;"> 
+						<select class="selBox subjectType">
+							<option>国家重点培育学科</option>
+							<option>国家二级重点学科</option>
+							<option>国家一级重点学科</option>
+						</select>
+					</div>
+				</td>
+				<th style="width:10.6%;">重点学科名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput subjectName">
+					</div>
+				</td>
+				<td colspan="2" style="width:23.3%;">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
 <div class="tableContent">
-	<table class="infoTable">
-		<thead>
-			<tr class="tableTitle">
-				<th>序号</th>
-				<th>学校名称</th>
-				<th>重点学科类型</th>
-				<th>重点学科名称</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>北京大学</td>
-				<td>国家一级重点学科</td>
-				<td>哲学</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">国家重点学科明细数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>学校名称</th>
+						<th>重点学科类型</th>
+						<th>重点学科名称</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
 </div>
-<div class="M-box"></div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
 <script>
 $('.M-box').pagination({
 	totalData:100,
@@ -81,74 +87,61 @@ $('.M-box').pagination({
         location.href="__ROOT__/main.html?page="+index
     }
 });
-$(".showDetail").bind("click",function(){
-		$(".mask").show();
-		$(".unitsChoose").show();
-	})
-	$(".leftColumnBtn").bind("click",function(){
-		var array=$(this).next().find(".showMoreCollege").attr("class").split(" ");
-		console.log(array);
-		if (array.length>1) {
-			$(this).next().find(".showMoreCollege").removeClass("showMoreCollegeActive");
-			$(this).children(".showCollege").show().siblings().hide();
-		}
-		else{
-			$(this).next().find(".showMoreCollege").addClass("showMoreCollegeActive");
-			$(this).children(".unShowCollege").show().siblings().hide();
-		}
-	})
-	$(".cancelBtn").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-	})
-	$(".leftColumnProvinces").on("click",".provinceItems",function(){
-		var flag=$(this).find(".provinces").prop("checked");
-		console.log(flag);
-		if(flag){
-			$(this).next().find(".commonCollege").prop("checked",true);
-		}
-		else{
-			$(this).next().find(".commonCollege").prop("checked",false);
-		}
-	})
-	$(".collegeItems").on("click",".commonCollege",function(){
-		var flag2=$(this).prop("checked");
-		var flag3=$(this).siblings(".commonCollege").prop("checked");
-		console.log(flag3);
-		if (flag2&&flag3) {
-			alert("aaa");
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",true);
-		}
-		else{
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",false);
-		}
-	})
-	$(".moveRight").bind("click",function(){
-		var array=[];
-		var len=$(".commonCollege").length;
-		for (var i =0; i<len; i++) {
-			var myflag=$(".commonCollege").eq(i).prop("checked");
-			var name=$(".commonCollege").eq(i).next().text();
-			if(myflag){
-				array.push(name);
-			}
-		}
-		for (var j=0;j<array.length;j++) {
-			var hasSame=false;
-			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
-			for (var k=0;k<findLi.length;k++) {
-				var txt=findLi.eq(k).text();
-				if(txt==array[j]){
-					hasSame = true;
-                	break;
+topBarControl();
+</script>
+<script type="text/javascript">
+	var pageIndex=1;
+	$(".searchBtn").bind("click",function(){
+		var entity=$(".schoolName").val();
+		var name=$(".subjectName").val();
+		var type=$(".subjectType").val();
+		var pageindex=pageIndex;
+		$.when(askNKS(entity,type,name,pageindex)).done(function(data){
+			if(data.state == 1){
+				var result=data.result;
+				$(".infoTable1").children('tbody').empty();
+				var count=data.count;
+				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+				addCount.children('span').eq(0).text(count);
+				if(count<20){
+					addCount.children('span').eq(1).text(count);
+				}
+				else{
+					addCount.children('span').eq(1).text("20");
+				}
+				var lee=$(".tableContent .infoTablePara").children('.topRight');
+				if(lee){
+					lee.empty();
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				else{
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				if(data.state==1){
+					for (var i=0,len=result.length;i<len;i++) {
+						var searchInfo=$('<tr>'+
+							'<td></td>'+
+						'</tr>');
+						searchInfo.children('td').eq(0).text(i+1);
+						for (var j=0;j<result[i].length;j++) {
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
+							}
+							mytd.text(result[i][j]);
+							searchInfo.append(mytd);
+						}
+						$(".infoTable1").children('tbody').append(searchInfo);
+					}
+				}
+				else{
+					alert("没有符合查询条件的记录！");
+					count=0;
+					addCount.children('span').eq(0).text(count);
+					addCount.children('span').eq(1).text(count);
 				}
 			}
-			if(!hasSame){
-	            var liItems=$('<li class="chooseItems"></li>');
-				liItems.append(array[j]);
-				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
-	        }
-		}
+		})
 	})
 </script>
 

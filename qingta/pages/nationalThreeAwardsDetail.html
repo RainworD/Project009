@@ -1,223 +1,200 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/nationalThreeAwards.html">国家三大奖统计</a>
-		<a class="changeRight green changeButton" href="#/nationalThreeAwardsDetail.html">国家三大奖明细</a>
+		<a class="changeLeft changeButton" href="#/nationalThreeAwards.html?id=61">国家科技奖统计</a>
+		<a class="changeRight green changeButton" href="#/nationalThreeAwardsDetail.html?id=61">国家科技奖明细</a>
 	</div>
+	<p class="hideBtn">隐藏查询条件</p> 
 </div>
 <div class="enterBox">
-	<table class="topTable"> 
-		<tr>
-			<th style="width:80px;">奖项类型 :</th> 
-			<td style="width:19.5%;">
-				<div class="commonselect"  style="width:100%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th style="width:10.6%;">项目名称 :</th>
-			<td style="width:19.5%;">
-				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
-				</div>
-			</td>
-			<th style="width:10.6%;">获奖年度<span style="color:red">*</span> :</th>
-			<td style="width:19.5%;">
-				<div class="commonselect" style="width:42.1%;margin-right:1%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-				<span style="text-align: center;width:9%;">至</span>
-				<div class="commonselect" style="width:42.1%;margin-left:1%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th style="width:3%"></th>
-			<td style="width: 9.3%">
-				<a class="searchBtn rightMinBtn">查询</a>
-			</td>
-		</tr>
-		<tr>
-			<th>获奖级别 :</th>
-			<td>
-				<div class="commonselect"  style="width:100%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th>完成人 :</th>
-			<td>
-				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
-				</div>
-			</td>
-			<th>完成单位 :</th>
-			<td>
-				<div class="commonInputBox" style="width:100%">
-					<input class="commonput">
-				</div>
-			</td>
-			<th style="width:3%"></th>
-			<td><a class="resetBtn rightMinBtn">重置</a></td>
-		</tr>
-		<tr>
-			<td colspan="2" style="padding-left:40px;"></td>
-			<th></th>
-			<td style="padding-top:0;">
-				<label for="box1">
-					<input type="checkbox" id="box1" checked="checked">
-					第一完成人
-				</label>
-				<label for="box2">
-					<input type="checkbox" id="box2" checked="checked">
-					参与人
-				</label>
-			</td>
-			<td colspan="2" style="padding-left:90px;">
-				<label for="box1">
-					<input type="checkbox" id="box1" checked="checked">
-					第一完成单位
-				</label>
-				<label for="box2">
-					<input type="checkbox" id="box2" checked="checked">
-					参与单位
-				</label>
-			</td>
-			<td></td>
-		</tr>
-	</table>
-</div>
-<div class="tableContent">
-	<table class="infoTable">
-		<thead>
-			<tr class="tableTitle">
-				<th>序号</th>
-				<th>项目编号</th>
-				<th>奖项类型</th>
-				<th>项目名称</th>
-				<th>获奖年度</th>
-				<th>获奖级别</th>
-				<th>第一完成人</th>
-				<th>参与人</th>
-				<th>第一单位</th>
-				<th>参与单位</th>
-				<th>推荐单位</th>
-			</tr>
-		</thead>
-		<tbody>
+	<div class="topTableBox">
+		<table class="topTable"> 
 			<tr>
-				<td>1</td>
-				<td>J-217-1-01</td>
-				<td>国家科技进步奖</td>				
-				<td>上海光源国家重大科学工程</td>
-				<td>2015年</td>
-				<td>特等奖</td>
-				<td>赵虹</td>
-				<td>李友勇</td>
-				<td>河南科技学院</td>
-				<td>浙江大学</td>
-				<td>河南省</td>
+				<th style="width:80px;">奖项类型 :</th> 
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox">
+							<option>1</option>
+							<option>2</option>
+						</select>
+					</div>
+				</td>
+				<th style="width:10.6%;">项目名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput">
+					</div>
+				</td>
+				<th style="width:10.6%;">获奖年度 :</th>
+				<td style="width:19.3%">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span style="color:red;width: 1%">*</span>
+				</td>	
+				<th style="width:10.6%;">获奖级别 :</th>
+				<td style="width:18.3%">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox">
+							<option>1</option>
+							<option>2</option>
+						</select>
+					</div>
+				</td>
 			</tr>
 			<tr>
-				<td>2</td>
-				<td>J-217-1-01</td>
-				<td>国家科技进步奖</td>				
-				<td>上海光源国家重大科学工程</td>
-				<td>2015年</td>
-				<td>一等奖</td>
-				<td>李浩</td>
-				<td>李友勇</td>
-				<td>河南科技学院</td>
-				<td>浙江大学</td>
-				<td>河南省</td>
+				<th>完成人 :</th>
+				<td>
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput">
+					</div>
+				</td>
+				<th>完成单位 :</th>
+				<td>
+					<div class="commonInputBox" style="width:100%">
+						<input class="commonput">
+					</div>
+				</td>
+				<td colspan="2"></td>
+				<td colspan="2">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
 			</tr>
-		</tbody>
-	</table>
-</div>
-<div class="mask"></div>
-<div class="unitsChoose">
-	<div class="unitsContainer">
-		<div class="cancelBtn">
-			<i class="fa fa-close showCollege"></i>
-		</div>
-		<div class="unitsHeader">
-			<p class="unitsTitle">项目牵头单位选择</p>
-		</div>
-		<div class="unitsContent">
-			<div class="totalModel">
-				<div class="leftColumn">
-					<div class="leftColumnBox">
-						<div class="leftColumnBar">
-							<input class="searchBox">
-							<a class="leftSearchBtn">查询</a>
-						</div>
-						<div class="leftColumnContent">
-							<div class="leftColumnBtn">
-								<i class="fa fa-plus-square-o showCollege addShow"></i>
-								<i class="fa fa-minus-square-o unShowCollege"></i>
-							</div>
-							<div class="leftColumnProvinces">
-								<p class="provinceItems">
-									<label for="province1">
-										<input id="province1" type="checkbox" class="provinces">
-										黑龙江
-									</label>							
-								</p>
-								<div class="showMoreCollege">
-									<ul class="collegeItems">
-										<li>
-											<label for="college1">
-												<input id="college1" type="checkbox" class="commonCollege">
-											<span>东北农业大学</span>
-											</label>
-										</li>
-										<li>
-											<label for="college2">
-												<input id="college2" type="checkbox" class="commonCollege">
-											<span>东北石油大学</span>
-											</label>
-										</li>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="middleColumn">
-					<div class="btnBox">
-						<i class="fa fa-long-arrow-right moveRight"></i>
-						<i class="fa fa-long-arrow-left moveLeft"></i>
-					</div>
-				</div>
-				<div class="rightColumn">
-					<div class="rightColumnContent">
-						<p class="rightColumnBar">
-							已选单位：
-						</p>
-						<div class="chooseAlready">
-							<ul class="chooseAlreadyList">
-								
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-			<p class="bottomBtn">
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
-			</p>
-		</div>
+			<tr>
+				<th></th>
+				<td style="padding-top:0;">
+					<label for="box1">
+						<input type="checkbox" id="box1" checked="checked">
+						第一完成人
+					</label>
+					<label for="box2">
+						<input type="checkbox" id="box2" checked="checked">
+						参与人
+					</label>
+				</td>
+				<td colspan="2" style="padding-left:90px;">
+					<label for="box1">
+						<input type="checkbox" id="box1" checked="checked">
+						第一完成单位
+					</label>
+					<label for="box2">
+						<input type="checkbox" id="box2" checked="checked">
+						参与单位
+					</label>
+				</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+		</table>
 	</div>
 </div>
-<div class="M-box"></div>
+<div class="tableContent" style="display: block">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">国家科技奖明细数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>项目编号</th>
+						<th>奖项类型</th>
+						<th>项目名称</th>
+						<th>获奖年度</th>
+						<th>获奖级别</th>
+						<th>第一完成人</th>
+						<th>参与人</th>
+						<th>第一单位</th>
+						<th>参与单位</th>
+						<th>推荐单位</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>J-217-1-01</td>
+						<td>国家科技进步奖</td>				
+						<td>上海光源国家重大科学工程</td>
+						<td>2015年</td>
+						<td>特等奖</td>
+						<td>赵虹</td>
+						<td>李友勇</td>
+						<td>河南科技学院</td>
+						<td>浙江大学</td>
+						<td>河南省</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>J-217-1-01</td>
+						<td>国家科技进步奖</td>				
+						<td>上海光源国家重大科学工程</td>
+						<td>2015年</td>
+						<td>一等奖</td>
+						<td>李浩</td>
+						<td>李友勇</td>
+						<td>河南科技学院</td>
+						<td>浙江大学</td>
+						<td>河南省</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
 <script type="text/javascript">
 	$('.M-box').pagination({
 		totalData:100,
@@ -232,88 +209,5 @@
 	        location.href="__ROOT__/main.html?page="+index
 	    }
 	});
-	$(".arrowDown").bind("click",function(){
-		var className=$(this).siblings('.lookMore').attr("class");
-		var txt=$(this).parent("td").children(".txt").text();
-		var array=className.split(" ");
-		if(array.length>1){
-			$(this).siblings('.lookMore').removeClass("showMore");
-		}
-		else{
-			$(this).siblings('.lookMore').addClass("showMore");
-			$(this).siblings('.lookMore').children("span").text(txt);
-		}
-	})
-	$(".changeBarBox").on("click",".changeButton",function(){
-		$(this).addClass("green").siblings().removeClass("green");
-	})
-	$(".showDetail").bind("click",function(){
-		$(".mask").show();
-		$(".unitsChoose").show();
-	})
-	$(".leftColumnBtn").bind("click",function(){
-		var array=$(this).next().find(".showMoreCollege").attr("class").split(" ");
-		console.log(array);
-		if (array.length>1) {
-			$(this).next().find(".showMoreCollege").removeClass("showMoreCollegeActive");
-			$(this).children(".showCollege").show().siblings().hide();
-		}
-		else{
-			$(this).next().find(".showMoreCollege").addClass("showMoreCollegeActive");
-			$(this).children(".unShowCollege").show().siblings().hide();
-		}
-	})
-	$(".cancelBtn").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-	})
-	$(".leftColumnProvinces").on("click",".provinceItems",function(){
-		var flag=$(this).find(".provinces").prop("checked");
-		console.log(flag);
-		if(flag){
-			$(this).next().find(".commonCollege").prop("checked",true);
-		}
-		else{
-			$(this).next().find(".commonCollege").prop("checked",false);
-		}
-	})
-	$(".collegeItems").on("click",".commonCollege",function(){
-		var flag2=$(this).prop("checked");
-		var flag3=$(this).siblings(".commonCollege").prop("checked");
-		console.log(flag3);
-		if (flag2&&flag3) {
-			alert("aaa");
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",true);
-		}
-		else{
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",false);
-		}
-	})
-	$(".moveRight").bind("click",function(){
-		var array=[];
-		var len=$(".commonCollege").length;
-		for (var i =0; i<len; i++) {
-			var myflag=$(".commonCollege").eq(i).prop("checked");
-			var name=$(".commonCollege").eq(i).next().text();
-			if(myflag){
-				array.push(name);
-			}
-		}
-		for (var j=0;j<array.length;j++) {
-			var hasSame=false;
-			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
-			for (var k=0;k<findLi.length;k++) {
-				var txt=findLi.eq(k).text();
-				if(txt==array[j]){
-					hasSame = true;
-                	break;
-				}
-			}
-			if(!hasSame){
-	            var liItems=$('<li class="chooseItems"></li>');
-				liItems.append(array[j]);
-				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
-	        }
-		}
-	})
+	topBarControl();
 </script>

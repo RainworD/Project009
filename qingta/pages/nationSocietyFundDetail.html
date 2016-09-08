@@ -9,18 +9,20 @@
 	<div class="topTableBox">
 		<table class="topTable">
 			<tr>
-				<th style="width:80px;">学科分类 :</th>
+				<th style="width:80px;">依托单位 :</th>
 				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox subjectType" style="padding-right: 30px;">
-						</select> 
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput unitsBelong" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 				<th style="width:10.6%;">项目名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput nameput" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
-						<ul class="showElse">
+						<input class="commonput nameput" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
+						<ul class="showElse2">
 							
 						</ul>
 					</div>
@@ -87,11 +89,11 @@
 				</td>
 			</tr>
 			<tr>					
-				<th>依托单位 :</th>
+				<th>学科分类 :</th>
 				<td>
-					<div class="commonInputBox"  style="width:100%;">
-						<input class="commonput unitsBelong">
-						<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox subjectType" style="padding-right: 30px;">
+						</select> 
 					</div>
 				</td>
 				<th>项目负责人 :</th>
@@ -137,6 +139,16 @@
 		</div>
 	</div>
 </div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
 <div class="M-box"></div>
 <script type="text/javascript">
 	$('.M-box').pagination({
@@ -155,32 +167,32 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
-	$.get('/LandNSSFtype', function(data) {
+	$.when(LandNSSFtype()).done(function(data){
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
 			for (var i=0;i<result.length;i++) {
 				var newopt=$('<option></option>');
-				if(result[i]){
+				if (result[i]) {
 					newopt.text(result[i]);
 					$(".projectType").append(newopt);
 				}
 			}
 		}
-	});
-	$.get('/LandNSSFsubject', function(data) {
+	})
+	$.when(LandNSSFsubject()).done(function(data){
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
 			for (var i=0;i<result.length;i++) {
 				var newopt=$('<option></option>');
-				if(result[i]){
+				if (result[i]) {
 					newopt.text(result[i]);
 					$(".subjectType").append(newopt);
 				}
 			}
 		}
-	});
+	})
 	var pageIndex=1;
 	$(".searchBtn").bind("click",function(){
 		var type=$(".projectType").val();
@@ -190,18 +202,8 @@
 		var name=$(".nameput").val();
 		var entity=$(".unitsBelong").val();
 		var manager=$(".manager").val();
-		var pageindex1=pageIndex;
-		var params={
-			"type":type,
-			"year1":year1,
-			"year2":year2,
-			"subject":subject,
-			"name":name,
-			"entity":entity,
-			"manager":manager,
-			"pageindex1":pageIndex
-		}
-		$.post('/askNSSF', params, function(data) {
+		var pageindex=pageIndex;
+		$.when(askNSSF(subject,name,type,manager,entity,year1,year2,pageindex)).done(function(data){
 			var result=data.result;
 			$(".infoTable").children('tbody').empty();
 			var count=data.count;
@@ -240,6 +242,20 @@
 					}
 					$(".infoTable").children('tbody').append(searchInfo);
 				}
+				getPages(0);
+				$('.M-box').pagination({
+					totalData:count,
+				    showData:20,
+				    current:1,
+				    count:2,
+				    jump:true,
+					coping:true,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				    callback:function(index){
+				        getPages(index-1);
+				    }
+				});
 			}
 			else{
 				alert("没有符合查询条件的记录！");
@@ -249,24 +265,39 @@
 			}
 		});
 	})
-	function OnInput (event) {
+	function OnInput2 (event) {
         var sub=$(".nameput").val();
-        getWholeList(sub);
-        $(".showElse").addClass('showBtn');
+        getWholeList2(sub);
+        $(".showElse2").addClass('showBtn');
+    }
+    function OnPropChanged2 (event) {
+       var sub=$(".nameput").val();
+       getWholeList2(sub);
+       $(".showElse2").addClass('showBtn');
+    }
+    $(".showElse2").delegate('li', 'click', function() {
+    	$(".showElse2").removeClass("showBtn");
+    	var txt=$(this).text();
+    	$(".nameput").val(txt);
+    });
+    function OnInput (event) {
+        var sub=$(".unitsBelong").val();
+    	getWholeList(sub);
+    	$(".showElse").addClass('showBtn');     
     }
     function OnPropChanged (event) {
-       var sub=$(".nameput").val();
-       getWholeList(sub);
-       $(".showElse").addClass('showBtn');
+       	var sub=$(".unitsBelong").val();
+    	getWholeList(sub);
+    	$(".showElse").addClass('showBtn');     
     }
     $(".showElse").delegate('li', 'click', function() {
     	$(".showElse").removeClass("showBtn");
     	var txt=$(this).text();
-    	$(".nameput").val(txt);
+    	$(".unitsBelong").val(txt);
     });
-	function getWholeList(sub){
+	function getWholeList2(sub){
 		$.post('/LandNSSFname', {"sub":sub }, function(data, textStatus, xhr) {
-			$(".showElse").empty();
+			$(".showElse2").empty();
 			var state=data.state;
     		var result=data.result;
     		if (state==1) {
@@ -274,12 +305,30 @@
     			for (var i=0;i<len;i++) {
     				var mytd=$('<li></li>');
     				mytd.text(result[i]);
-    				$(".showElse").append(mytd);
+    				$(".showElse2").append(mytd);
     			}	    			
     		}
     		else{
-    			$(".showElse").removeClass('showBtn');
+    			$(".showElse2").removeClass('showBtn');
     		}
 		});
+	}
+	function getWholeList(sub){
+		$.when(Landentity0(sub)).done(function(data){
+			$(".showElse").empty();
+			var state=data.state;
+			var result=data.result;
+			if (state==1) {
+				var len=result.length;
+				for (var i=0;i<len;i++) {
+					var mytd=$('<li></li>');
+					mytd.text(result[i]);
+					$(".showElse").append(mytd);
+				}	    			
+			}
+			else{
+				$(".showElse").removeClass('showBtn');
+			}
+		})
 	}
 </script>

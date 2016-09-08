@@ -22,6 +22,30 @@
   color: #757575;
   font-weight: 600px;
 }
+.veryCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+.verticalCenter {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+}
+.horizontalCenter {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+}
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 ul,
 li {
   list-style: none;
@@ -38,22 +62,36 @@ body {
   position: relative;
   width: 150px;
 }
-.mainContainer .commonInputBox .showElse {
+.mainContainer .commonInputBox .showElse,
+.mainContainer .commonInputBox .showElse2 {
   display: none;
   position: absolute;
   top: 29px;
   left: 0;
   background-color: #fff;
   z-index: 1;
-  width: 320px;
+  width: 100%;
   border: 1px solid #bdbdbd;
 }
-.mainContainer .commonInputBox .showElse li {
+.mainContainer .commonInputBox .showElse li,
+.mainContainer .commonInputBox .showElse2 li {
   padding: 5px;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
-.mainContainer .commonInputBox .showElse li:hover {
+.mainContainer .commonInputBox .showElse li:hover,
+.mainContainer .commonInputBox .showElse2 li:hover {
   background-color: #fffcf3;
+  overflow: visible;
+  width: auto;
+}
+.mainContainer .commonInputBox .showElse:hover {
+  width: auto;
+}
+.mainContainer .commonInputBox .showElse2:hover {
+  width: auto;
 }
 .mainContainer .commonInputBox .showBtn {
   display: block;
@@ -227,6 +265,7 @@ body {
 }
 .mainContainer .infoTable th {
   font-weight: normal;
+  white-space: nowrap;
   color: #000;
   border: 1px solid #d9d9d9;
   text-align: center;
@@ -241,7 +280,11 @@ body {
 }
 .mainContainer .topTable td,
 .mainContainer .topTable th {
+  white-space: nowrap;
   padding: 5px 5px;
+}
+.mainContainer .topTable td {
+  white-space: nowrap;
 }
 .mainContainer .topTable td label {
   padding-right: 10px;
@@ -690,6 +733,7 @@ body {
 .mainContainer .rightBox .searchBar {
   margin: 5px 0;
   margin-bottom: 20px;
+  padding: 0 20px;
 }
 .mainContainer .rightBox .searchBar .commonInputBox {
   float: left;
@@ -800,6 +844,7 @@ body {
 .mainContainer .rightBox .rightContent .tableContent {
   width: 100%;
   background-color: #f8f9fd;
+  display: none;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTableBox {
   width: 100%;
@@ -837,6 +882,34 @@ body {
   padding: 20px 10px;
   border: 1px solid #eff0f4;
   border-top: none;
+}
+.mainContainer .rightBox .rightContent .searchUndo,
+.mainContainer .rightBox .rightContent .beforeSearch {
+  background-color: #fff;
+  display: block;
+  width: 100%;
+  min-height: 400px;
+  margin: 100px 0;
+}
+.mainContainer .rightBox .rightContent .searchUndo .enterSearchInfo,
+.mainContainer .rightBox .rightContent .beforeSearch .enterSearchInfo {
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.mainContainer .rightBox .rightContent .searchUndo .getInfoImg,
+.mainContainer .rightBox .rightContent .beforeSearch .getInfoImg {
+  display: block;
+  margin: auto;
+}
+.mainContainer .rightBox .rightContent .beforeSearch {
+  display: none;
+}
+.mainContainer .rightBox .rightContent .tableShow {
+  display: block;
+}
+.mainContainer .rightBox .rightContent .searchDo {
+  display: none;
 }
 .mainContainer .rightBox .rightContent .commonputBox {
   display: inline-block;
@@ -1234,4 +1307,19 @@ body {
   -moz-box-shadow: 0 0 8px #3cc;
   -webkit-box-shadow: 0 0 8px #3cc;
   box-shadow: 0 0 8px #3cc;
+}
+.mainContainer .nowrapTable th {
+  white-space: normal;
+}
+.nowrap {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.twoLine {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }

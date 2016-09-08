@@ -9,18 +9,20 @@
 	<div class="topTableBox">
 		<table class="topTable">
 			<tr> 
+				<th style="width:80px;">学校名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput schoolName" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
 				<th style="width:10.6%;">项目类型 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%">
 						<input class="commonput projectType">
 						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
-					</div>
-				</td>
-				<th style="width:80px;">学科门类 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox subjectType">
-						</select> 
 					</div>
 				</td>
 				<th style="width:10.6%;">批准年度 :</th>
@@ -73,27 +75,29 @@
 				<th style="width:10.6%;">项目名称 :</th>
 				<td style="width:19.5%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput projectName" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
-						<ul class="showElse">
+						<input class="commonput projectName" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
+						<ul class="showElse2">
 							
 						</ul>
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<th style="width:10.6%;">项目类别 :</th>			
-				<td style="width:18.3%;">
+				<th>学科门类 :</th>
+				<td>
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox subjectType">
+						</select> 
+					</div>
+				</td>
+				<th>项目类别 :</th>			
+				<td>
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox projectClass">
+							<option>请先选择项目类型</option>
 						</select>
 					</div>
 				</td>		
-				<th>学校名称 :</th>
-				<td>
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput schoolName">
-					</div>
-				</td>
 				<th>申请人 :</th>
 				<td>
 					<div class="commonInputBox" style="width:100%;">
@@ -137,6 +141,16 @@
 		</div>
 	</div>
 	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
 </div>
 <div class="mask"></div>
 <div class="unitsChoose unitsChoose2">
@@ -190,20 +204,7 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
-	$.get('/LandHSSsubject', function(data) {
-		var state=data.state;
-		var result=data.result;
-		if(state==1){
-			for (var i=0;i<result.length;i++) {
-				var newopt=$('<option></option>');
-				if (result[i]) {
-					newopt.text(result[i]);
-					$(".subjectType").append(newopt);
-				}
-			}
-		}
-	});
-	$.get('/LandHSStype', function(data) {
+	$.when(LandHSStype()).done(function(data){
 		var result=data.result;
 		if(data.state==1){
 			for (var i = 0;i<result.length;i++) {
@@ -216,8 +217,21 @@
 				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
 			}
 		}
-	});
-	var pageindex=1;
+	})
+	$.when(LandNSSFsubject()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".subjectType").append(newopt);
+				}
+			}
+		}
+	})
+	var pageIndex=1;
 	$(".searchBtn").bind("click",function(){
 		var type=$(".projectType").val();
 		var year1=$(".yearName1").val();
@@ -227,19 +241,8 @@
 		var subject=$(".subjectType").val();
 		var manager=$(".applyName").val();
 		var name=$(".projectName").val();
-		var pageindex1=pageindex;
-		var params={
-			"type":type,
-			"year1":year1,
-			"year2":year2,
-			"entity":entity,
-			"_class":_class,
-			"subject":subject,
-			"pageindex1":pageindex1,
-			"name":name,
-			"manager":manager,
-		}
-		$.post('/askHSS', params, function(data) {
+		var pageindex=pageIndex;
+		$.when(askHSS(subject,name,type,manager,entity,year1,year2,_class,pageindex)).done(function(data){
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
 			var count=data.count;
@@ -278,6 +281,20 @@
 					}
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
+				getPages(0);
+				$('.M-box').pagination({
+					totalData:count,
+				    showData:20,
+				    current:1,
+				    count:2,
+				    jump:true,
+					coping:true,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				    callback:function(index){
+				        getPages(index-1);
+				    }
+				});
 			}
 			else{
 				alert("没有符合查询条件的记录！");
@@ -290,21 +307,21 @@
 	function OnInput (event) {
         var sub=$(".projectName").val();
         getWholeList(sub);
-        $(".showElse").addClass('showBtn');
+        $(".showElse2").addClass('showBtn');
     }
     function OnPropChanged (event) {
        var sub=$(".projectName").val();
        getWholeList(sub);
-       $(".showElse").addClass('showBtn');
+       $(".showElse2").addClass('showBtn');
     }
-    $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
+    $(".showElse2").delegate('li', 'click', function() {
+    	$(".showElse2").removeClass("showBtn");
     	var txt=$(this).text();
     	$(".projectName").val(txt);
     });
 	function getWholeList(sub){
 		$.post('/LandHSSname', {"sub":sub }, function(data, textStatus, xhr) {
-			$(".showElse").empty();
+			$(".showElse2").empty();
 			var state=data.state;
     		var result=data.result;
     		if (state==1) {
@@ -312,12 +329,45 @@
     			for (var i=0;i<len;i++) {
     				var mytd=$('<li></li>');
     				mytd.text(result[i]);
-    				$(".showElse").append(mytd);
+    				$(".showElse2").append(mytd);
     			}	    			
     		}
     		else{
-    			$(".showElse").removeClass('showBtn');
+    			$(".showElse2").removeClass('showBtn');
     		}
 		});
+	}
+	function OnInput (event) {
+        var sub=$(".schoolName").val();
+    	getWholeList(sub);
+    	$(".showElse").addClass('showBtn');     
+    }
+    function OnPropChanged (event) {
+       	var sub=$(".schoolName").val();
+    	getWholeList(sub);
+    	$(".showElse").addClass('showBtn');     
+    }
+    $(".showElse").delegate('li', 'click', function() {
+    	$(".showElse").removeClass("showBtn");
+    	var txt=$(this).text();
+    	$(".schoolName").val(txt);
+    });
+    function getWholeList(sub){
+		$.when(Landentity0(sub)).done(function(data){
+			$(".showElse").empty();
+			var state=data.state;
+			var result=data.result;
+			if (state==1) {
+				var len=result.length;
+				for (var i=0;i<len;i++) {
+					var mytd=$('<li></li>');
+					mytd.text(result[i]);
+					$(".showElse").append(mytd);
+				}	    			
+			}
+			else{
+				$(".showElse").removeClass('showBtn');
+			}
+		})
 	}
 </script>

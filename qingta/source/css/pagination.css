@@ -22,11 +22,36 @@
   color: #757575;
   font-weight: 600px;
 }
+.veryCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+.verticalCenter {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+}
+.horizontalCenter {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+}
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
 .M-box {
   padding: 10px 0;
   position: relative;
   text-align: center;
   text-align: right;
+  margin-right: 20px;
   zoom: 1;
   background-color: #f8f9fd;
 }

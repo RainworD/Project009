@@ -1,10 +1,10 @@
 
-<div class="changeBarContainer" style="padding:0 20px">
+<div class="changeBarContainer" style="padding:0 20px"> 
 	<div class="changeBarBox">
 		<a class="changeLeft green changeButton" href="#/nationPointDevelopPlan.html?id=31">国家重点研发计划统计</a>
 		<a class="changeRight changeButton" href="#/nationPointDevelopDetail.html?id=31">国家重点研发计划明细</a>
-	</div>
-	<p class="hideBtn">隐藏查询条件</p>
+	</div> 
+	<p class="hideBtn">隐藏查询条件</p> 
 </div>
 <div class="enterBox">
 	<div class="topTableBox">
@@ -29,24 +29,56 @@
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
 							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
 							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
 						</select>
 					</div>
-					<span style="color:red;width: 1%;">*</span>
+					<span style="color:red;width: 1%">*</span>
 				</td>
 				<th style="width:12%;">中央财政经费 :</th>
 				<td style="width:18.3%">
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="(万元)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="(万元)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
 			</tr>
@@ -54,11 +86,11 @@
 				<th>项目总经费 :</th>
 				<td>
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput projectFee1" style="width:100%;ime-mode:disabled;" placeholder="(万元)"  onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput projectFee1" style="width:100%;ime-mode:disabled;" placeholder="万元"  onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput projectFee2" style="width:100%;ime-mode:disabled;" placeholder="(万元)"  onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput projectFee2" style="width:100%;ime-mode:disabled;" placeholder="万元"  onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
 				<td colspan="2" style="padding-left: 3%;">
@@ -84,7 +116,7 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">国家自然科学基金统计数据</span>
+				<span class="topLeft">国家重点研发计划统计&nbsp;（金额单位：万元）</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -106,6 +138,16 @@
 		</div>
 	</div>
 	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
 </div>
 <div class="mask mask1"></div>
 <div class="unitsChoose unitsChoose1">
@@ -189,19 +231,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$('.M-box').pagination({
-		totalData:100,
-	    showData:10,
-	    current:1,
-	    count:2,
-	    jump:true,
-		coping:true,
-		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-	    callback:function(index){
-	        location.href="__ROOT__/main.html?page="+index
-	    }
-	});
 	var len=$(".infoTable1 tbody").children("tr").length;
 	for (var i =0;i<len;i++) {
 		$(".infoTable1 tbody").children("tr").eq(i).children().eq(1).css("text-align","left");
@@ -229,20 +258,20 @@
 			unique: true
 		});
 	});	
-	$.get('/LandNKRPstatype', function(data) {
-		var result=data.result;
-		if(data.state==1){
-			for (var i = 0;i<result.length;i++) {
-				var mytr=$('<tr>'+
-								'<td></td>'+
-								'<td></td>'+
-							'</tr>');
-				mytr.children('td').eq(0).text(i+1);
-				mytr.children('td').eq(1).text(result[i]);
-				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
+	$.when(LandNKRPstatype()).done(function(data){
+			var result=data.result;
+			if(data.state==1){
+				for (var i = 0;i<result.length;i++) {
+					var mytr=$('<tr>'+
+									'<td></td>'+
+									'<td></td>'+
+								'</tr>');
+					mytr.children('td').eq(0).text(i+1);
+					mytr.children('td').eq(1).text(result[i]);
+					$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
+				}
 			}
-		}
-	});
+	})
 	$(".searchBtn").bind("click",function(){
 		var type=$(".projectType").val();
 		var year1=$(".yearName1").val();
@@ -253,17 +282,6 @@
 		var centermoney1=$(".nationFee1").val();
 		var centermoney2=$(".nationFee2").val();
 		var orderby=$("input[name='selBar']:checked").val();
-		// var params={
-		// 	"type":type,
-		// 	"year1":year1,
-		// 	"year2":year2,
-		// 	"entitys":entitys,
-		// 	"totalmoney1":totalmoney1,
-		// 	"totalmoney2":totalmoney2,
-		// 	"centermoney1":centermoney1,
-		// 	"centermoney2":centermoney2,
-		// 	"orderby":orderby
-		// }
 		$.when(askNKRPsta(entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby)).done(function(data){
 			if(data.state == 1){
 				var result=data.result;
@@ -314,6 +332,20 @@
 						}
 						$(".infoTable1").children('tbody').append(searchInfo);
 					}
+					getPages(0);
+					$('.M-box').pagination({
+						totalData:count,
+					    showData:20,
+					    current:1,
+					    count:2,
+					    jump:true,
+						coping:true,
+						prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+						nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+					    callback:function(index){
+					        getPages(index-1);
+					    }
+					});
 				}
 				else{
 					alert("没有符合查询条件的记录！");
@@ -323,132 +355,5 @@
 				}
 			}
 		})
-		// $.ajax({
-		// 	url: '/askNKRPsta',
-		// 	type: 'POST',
-		// 	data:params,
-		// 	traditional:true
-		// })
-		// .done(function(data) {
-		// 	var result=data.result;
-		// 	$(".infoTable1").children('tbody').empty();
-		// 	var count=data.count;
-		// 	var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-		// 	addCount.children('span').eq(0).text(count);
-		// 	if(count<20){
-		// 		addCount.children('span').eq(1).text(count);
-		// 	}
-		// 	else{
-		// 		addCount.children('span').eq(1).text("20");
-		// 	}
-		// 	var lee=$(".tableContent .infoTablePara").children('.topRight');
-		// 	if(lee){
-		// 		lee.empty();
-		// 		$(".tableContent .infoTablePara").append(addCount);
-		// 	}
-		// 	else{
-		// 		$(".tableContent .infoTablePara").append(addCount);
-		// 	}
-		// 	if(data.state==1){
-		// 		for (var i=0,len=result.length;i<len;i++) {
-		// 			var searchInfo=$('<tr>'+
-		// 				'<td></td>'+
-		// 			'</tr>');
-		// 			searchInfo.children('td').eq(0).text(i+1);
-		// 			for (var j=0;j<result[i].length;j++) {
-		// 				var mytd=$('<td></td>');
-		// 				if(result[i][j]==null){
-		// 					result[i][j]="";
-		// 				}
-		// 				else if(j==2){
-		// 					result[i][j]=year1+'-'+year2;
-		// 				}
-		// 				else if(j==4||j==5){
-		// 					var ex = /^\d+$/;
-		// 					if(ex.test(result[i][j])){
-		// 						mytd.text(result[i][j]);
-		// 					}
-		// 					else{
-		// 						var newNum=(result[i][j]).toFixed(2);
-		// 						result[i][j]=newNum;
-		// 					}
-		// 				}
-		// 				mytd.text(result[i][j]);
-		// 				searchInfo.append(mytd);
-		// 			}
-		// 			$(".infoTable1").children('tbody').append(searchInfo);
-		// 		}
-		// 	}
-		// 	else{
-		// 		alert("没有符合查询条件的记录！");
-		// 		count=0;
-		// 		addCount.children('span').eq(0).text(count);
-		// 		addCount.children('span').eq(1).text(count);
-		// 	}
-		// })
-		// .fail(function() {
-		// 	console.log("error");
-		// })
-		// .always(function() {
-		// 	console.log("complete");
-		// });
-		
-		// $.post('/askNKRPsta', params, function(data) {
-		// 	var result=data.result;
-		// 	$(".infoTable1").children('tbody').empty();
-		// 	var count=data.count;
-		// 	var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-		// 	addCount.children('span').eq(0).text(count);
-		// 	if(count<20){
-		// 		addCount.children('span').eq(1).text(count);
-		// 	}
-		// 	else{
-		// 		addCount.children('span').eq(1).text("20");
-		// 	}
-		// 	var lee=$(".tableContent .infoTablePara").children('.topRight');
-		// 	if(lee){
-		// 		lee.empty();
-		// 		$(".tableContent .infoTablePara").append(addCount);
-		// 	}
-		// 	else{
-		// 		$(".tableContent .infoTablePara").append(addCount);
-		// 	}
-		// 	if(data.state==1){
-		// 		for (var i=0,len=result.length;i<len;i++) {
-		// 			var searchInfo=$('<tr>'+
-		// 				'<td></td>'+
-		// 			'</tr>');
-		// 			searchInfo.children('td').eq(0).text(i+1);
-		// 			for (var j=0;j<result[i].length;j++) {
-		// 				var mytd=$('<td></td>');
-		// 				if(result[i][j]==null){
-		// 					result[i][j]="";
-		// 				}
-		// 				else if(j==2){
-		// 					result[i][j]=year1+'-'+year2;
-		// 				}
-		// 				else if(j==4||j==5){
-		// 					var ex = /^\d+$/;
-		// 					if(ex.test(result[i][j])){
-		// 						mytd.text(result[i][j]);
-		// 					}
-		// 					else{
-		// 						var newNum=(result[i][j]).toFixed(2);
-		// 						result[i][j]=newNum;
-		// 					}
-		// 				}
-		// 				mytd.text(result[i][j]);
-		// 				searchInfo.append(mytd);
-		// 			}
-		// 			$(".infoTable1").children('tbody').append(searchInfo);
-		// 		}
-		// 	}
-		// 	else{
-		// 		alert("没有符合查询条件的记录！");
-		// 		count=0;
-		// 		addCount.children('span').eq(0).text(count);
-		// 		addCount.children('span').eq(1).text(count);
-		// 	}
-		// });
 	})
 </script>

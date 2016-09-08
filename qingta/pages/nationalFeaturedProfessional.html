@@ -1,79 +1,227 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft green changeButton">国家级特色专业统计</a>
-		<a href="#/nationalFeaturedProfessionalDetail.html" class="changeRight changeButton">国家级特色专业明细</a>
+		<a href="#/nationalFeaturedProfessional.html?id=52" class="changeLeft green changeButton">国家级特色专业统计</a>
+		<a href="#/nationalFeaturedProfessionalDetail.html?id=52" class="changeRight changeButton">国家级特色专业明细</a>
+	</div> 
+	<p class="hideBtn">隐藏查询条件</p> 
+</div>
+<div class="enterBox"> 
+	<div class="topTableBox">
+		<table class="topTable"> 
+			<tr>
+				<th style="width:80px;">学校名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<div class="commonInputBox"  style="width:100%">
+							<input class="commonput unitsEnter" style="padding-right:30px;">
+							<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						</div>
+					</div>
+				</td>
+				<th style="width:10.6%;">批准批次 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:95%;">
+						<select class="selBox indexNum">
+							<option>第一批</option>
+							<option>第二批</option>
+							<option>第三批</option>
+							<option>第四批</option>
+							<option>第五批</option>
+						</select>
+					</div>
+					<span style="color:red;width:2%">*</span>
+				</td>
+				<td colspan="2"></td>
+				<td colspan="2">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
 	</div>
 </div>
-<div class="enterBox">
-	<table class="topTable"> 
-		<tr>
-			<th style="width:80px;">学校名称 :</th>
-			<td style="width:19.5%;">
-				<div class="commonInputBox"  style="width:100%;">
-					<input class="commonput">
-					<div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div>
-				</div>
-			</td>
-			<th style="width:10.6%;">批准批次<span style="color:red">*</span> :</th>
-			<td style="width:19.5%;">
-				<div class="commonselect"  style="width:100%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th style="width:10.6%;"></th>
-			<td style="width:19.5%;"></td>
-			<th style="width:3%"></th>
-			<td style="width: 9.3%">
-				<a class="searchBtn rightMinBtn">查询</a>
-			</td>
-		</tr>
-		<tr>
-			<th></th>
-			<td></td>
-			<th></th>
-			<td></td>
-			<th></th>
-			<td></td>
-			<th style="width:3%"></th>
-			<td><a class="resetBtn rightMinBtn">重置</a></td>
-		</tr>
-	</table>
-</div>
 <div class="tableContent">
-	<table class="infoTable">
-		<thead>
-			<tr class="tableTitle">
-				<th>序号</th>
-				<th>学校名称</th>
-				<th>批准批次</th>
-				<th>课程数量</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>北京大学</td>
-				<td>第一批</td>
-				<td>46</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>清华大学</td>
-				<td>第一批</td>
-				<td>47</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>合计</td>
-				<td></td>
-				<td>93</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">国家级特色专业统计数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>学校名称</th>
+						<th>批准批次</th>
+						<th>课程数量</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
 </div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<div class="mask mask1"></div>
+<div class="unitsChoose unitsChoose1">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目牵头单位选择</p>
+		</div>
+		<div class="unitsContent">
+			<div class="totalModel">
+				<div class="leftColumn" style="cursor:default">
+					<div class="leftColumnBox">
+						<div class="leftColumnBar">
+							<input class="searchBox">
+							<a class="leftSearchBtn">查询</a>
+						</div>
+						<div class="leftColumnContent">
+							<div class="leftColumnProvinces">
+								<ul id="tree">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="middleColumn">
+					<div class="btnBox">
+						<i class="fa fa-long-arrow-right moveRight"></i>
+						<i class="fa fa-long-arrow-left moveLeft"></i>
+					</div>
+				</div>
+				<div class="rightColumn">
+					<div class="rightColumnContent">
+						<p class="rightColumnBar">
+							已选单位：
+						</p>
+						<div class="chooseAlready">
+							<ul class="chooseAlreadyList">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure">确定</a>
+					<a class="forConsole">取消</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$('.M-box').pagination({
+		totalData:100,
+	    showData:10,
+	    current:1,
+	    count:2,
+	    jump:true,
+		coping:true,
+		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+	    callback:function(index){
+	        location.href="__ROOT__/main.html?page="+index
+	    }
+	});
+	$(".showDetailBox1").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
+	})
+	dragBoxUnitsChoose(".unitsChoose1");
+	topBarControl();
+</script>
+<script type="text/javascript">
+	$.when(getUnits()).done(function(data){
+		$("#tree").treeview({
+			persist: "location",
+			collapsed: true,
+			unique: true
+		});
+	});	
+	var pageIndex=1;
+	$(".searchBtn").bind("click",function(){
+		var entitys=projectUnits;
+		var pageindex=pageIndex;
+		var _index=$(".indexNum").val();
+		$.when(askNSsta(entitys,_index,pageindex)).done(function(data){
+			var result=data.result;
+			$(".infoTable1").children('tbody').empty();
+			var count=data.count;
+			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			addCount.children('span').eq(0).text(count);
+			if(count<20){
+				addCount.children('span').eq(1).text(count);
+			}
+			else{
+				addCount.children('span').eq(1).text("20");
+			}
+			var lee=$(".tableContent .infoTablePara").children('.topRight');
+			if(lee){
+				lee.empty();
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			else{
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			if(data.state==1){
+				for (var i=0,len=result.length;i<len;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).text(i+1);
+					for (var j=0;j<result[i].length;j++) {
+						var mytd=$('<td></td>');
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+						mytd.html(text);
+						searchInfo.append(mytd);
+					}
+					$(".infoTable1").children('tbody').append(searchInfo);				
+				}
+				getPages(0);
+				$('.M-box').pagination({
+					totalData:count,
+				    showData:20,
+				    current:1,
+				    count:2,
+				    jump:true,
+					coping:true,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				    callback:function(index){
+				        getPages(index-1);
+				    }
+				});
+			}
+			else{
+				alert("没有符合查询条件的记录！");
+				count=0;
+				addCount.children('span').eq(0).text(count);
+				addCount.children('span').eq(1).text(count);
+			}			
+		})
+	})
+</script>
 
 
 

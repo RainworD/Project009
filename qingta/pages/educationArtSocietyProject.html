@@ -83,6 +83,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox projectClass">
+							<option>请先选择项目类型</option>
 						</select>
 					</div>
 				</td>
@@ -104,7 +105,7 @@
 			</p>
 		</div>
 		<div class="infoTableContent">
-			<table class="infoTable">
+			<table class="infoTable infoTable1">
 				<thead>
 					<tr class="tableTitle">
 						<th>序号</th>
@@ -122,6 +123,16 @@
 		</div>
 	</div>
 	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
 </div>
 <div class="mask"></div>
 <div class="unitsChoose unitsChoose1">
@@ -233,7 +244,7 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
-	$.get('/LandHSSsubject', function(data) {
+	$.when(LandHSSsubject()).done(function(data){
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
@@ -245,7 +256,7 @@
 				}
 			}
 		}
-	});
+	})
 	$.when(getUnits()).done(function(data){
 		$("#tree").treeview({
 			persist: "location",
@@ -253,7 +264,7 @@
 			unique: true
 		});
 	});	
-	$.get('/LandHSStype', function(data) {
+	$.when(LandHSStype()).done(function(data){
 		var result=data.result;
 		if(data.state==1){
 			for (var i = 0;i<result.length;i++) {
@@ -266,7 +277,7 @@
 				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
 			}
 		}
-	});
+	})
 	var pageindex=1;
 	$(".searchBtn").bind("click",function(){
 		var type=$(".projectType").val();
@@ -276,22 +287,7 @@
 		var _class=$(".projectClass").val();
 		var subject=$(".subjectType").val();
 		var pageindex=pageindex;
-		var params={
-			"type":type,
-			"year1":year1,
-			"year2":year2,
-			"entitys":entitys,
-			"_class":_class,
-			"subject":subject,
-			"pageindex":pageindex
-		}
-		$.ajax({
-			url: '/askHSSsta',
-			type: 'POST',
-			data: params,
-			traditional:true
-		})
-		.done(function(data) {
+		$.when(askHSSsta(entitys,type,year1,year2,_class,subject,pageindex)).done(function(data){
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
 			var count=data.count;
@@ -330,6 +326,20 @@
 					}
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
+				getPages(0);
+				$('.M-box').pagination({
+					totalData:count,
+				    showData:20,
+				    current:1,
+				    count:2,
+				    jump:true,
+					coping:true,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				    callback:function(index){
+				        getPages(index-1);
+				    }
+				});
 			}
 			else{
 				alert("没有符合查询条件的记录！");
@@ -338,59 +348,5 @@
 				addCount.children('span').eq(1).text(count);
 			}
 		})
-		.fail(function() {
-			console.log("error");
-		})
-		.always(function() {
-			console.log("complete");
-		});
-		
-		// $.post('/askHSSsta', params, function(data) {
-		// 	var result=data.result;
-		// 	$(".infoTable1").children('tbody').empty();
-		// 	var count=data.count;
-		// 	var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-		// 	addCount.children('span').eq(0).text(count);
-		// 	if(count<20){
-		// 		addCount.children('span').eq(1).text(count);
-		// 	}
-		// 	else{
-		// 		addCount.children('span').eq(1).text("20");
-		// 	}
-		// 	var lee=$(".tableContent .infoTablePara").children('.topRight');
-		// 	if(lee){
-		// 		lee.empty();
-		// 		$(".tableContent .infoTablePara").append(addCount);
-		// 	}
-		// 	else{
-		// 		$(".tableContent .infoTablePara").append(addCount);
-		// 	}
-		// 	if(data.state==1){
-		// 		for (var i=0,len=result.length;i<len;i++) {
-		// 			var searchInfo=$('<tr>'+
-		// 				'<td></td>'+
-		// 			'</tr>');
-		// 			searchInfo.children('td').eq(0).text(i+1);
-		// 			for (var j=0;j<result[i].length;j++) {
-		// 				var mytd=$('<td></td>');
-		// 				if(result[i][j]==null){
-		// 					result[i][j]="";
-		// 				}
-		// 				else if(j==3){
-		// 					result[i][j]=year1+'-'+year2;
-		// 				}
-		// 				mytd.text(result[i][j]);
-		// 				searchInfo.append(mytd);
-		// 			}
-		// 			$(".infoTable1").children('tbody').append(searchInfo);
-		// 		}
-		// 	}
-		// 	else{
-		// 		alert("没有符合查询条件的记录！");
-		// 		count=0;
-		// 		addCount.children('span').eq(0).text(count);
-		// 		addCount.children('span').eq(1).text(count);
-		// 	}
-		// });
 	})
 </script>

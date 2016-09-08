@@ -12,22 +12,33 @@ body{
 	.commonInputBox{
 		position: relative;	
 		width: 150px;
-		.showElse{
+		.showElse,.showElse2{
 			display: none;
 			position: absolute;
 			top: 29px;
 			left:0;
 			background-color: #fff;
 			z-index: 1;
-			width: 320px;
+			width:100%;
 			border:1px solid #bdbdbd;
 			li{
 				padding: 5px;
 				cursor: pointer;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
 			}
 			li:hover{
 				background-color:#fffcf3;
+				overflow: visible;
+				width: auto;
 			}
+		}
+		.showElse:hover{
+			width:auto;
+		}
+		.showElse2:hover{
+			width:auto;
 		}
 		.showBtn{
 			display: block;
@@ -225,7 +236,7 @@ body{
 	}
 	.infoTable th{
 		font-weight: normal;
-		// font-weight: bold;
+		white-space: nowrap;
 		color: #000;
 		border: 1px solid #d9d9d9;
 		text-align: center;
@@ -238,9 +249,11 @@ body{
 		table-layout: fixed;
 		border-collapse: collapse;
 		td,th{
+			white-space: nowrap;
 			padding:5px 5px;
 		}
 		td{
+			white-space: nowrap;
 			label{
 				padding-right: 10px;
 				.radioInput{
@@ -712,6 +725,7 @@ body{
 		.searchBar{
 			margin: 5px 0;
 			margin-bottom: 20px;
+			padding: 0 20px;
 			.commonInputBox{
 				float: left;
 				height: 36px;
@@ -977,6 +991,8 @@ body{
 			.tableContent{
 				width: 100%;
 				background-color: #f8f9fd;
+				display: none;
+				// display: block;
 				.infoTableBox{
 					width: 100%;
 					padding:20px;
@@ -1010,6 +1026,31 @@ body{
 						border-top:none;
 					}
 				}
+			}
+			.searchUndo,.beforeSearch{
+				background-color: #fff;
+				display: block;
+				width: 100%;
+				min-height: 400px;
+				margin: 100px 0;
+				.enterSearchInfo{
+					color: #555;
+					text-align: center;
+					margin-bottom: 20px;
+				}
+				.getInfoImg{
+					display: block;
+					margin: auto;
+				}
+			}
+			.beforeSearch{
+				display: none;
+			}
+			.tableShow{
+				display: block;
+			}
+			.searchDo{
+				display: none;
 			}
 			.commonputBox{
 				display: inline-block;
@@ -1406,4 +1447,15 @@ body{
 	    }
 
 	}
+	.nowrapTable{
+		th{
+			white-space: normal;
+		}
+	}
+}
+.nowrap{
+	.ellipsis;
+}
+.twoLine{
+	.mutilEllipsis(2);
 }

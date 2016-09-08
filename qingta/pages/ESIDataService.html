@@ -4,52 +4,62 @@
 	</div>
 	<div class="addDataBtn" style="margin-right: 0;">新增数据</div>
 </div>
-<div class="tableContent">
-	<table class="infoTable">
-		<thead>
-			<tr class="tableTitle">
-				<th>序号</th>
-				<th>单位名称</th>
-				<th>时间</th>
-				<th>全国排名</th>
-				<th>全球排名</th>
-				<th>入学学科数</th>
-				<th>总论文数</th>
-				<th>总引用数</th>
-				<th>篇均引用数</th>
-				<th>高倍引论文数</th>
-				<th>更多</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>北京大学</td>
-				<td>2016年7月</td>
-				<td>2</td>
-				<td>149</td>
-				<td>18</td>
-				<td>61233</td>
-				<td>597489</td>
-				<td>9.72</td>
-				<td>681</td>
-				<td><a class="clickForMore commonFor">点击查阅</a></td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>天津大学</td>
-				<td>2016年8月</td>
-				<td>3</td>
-				<td>156</td>
-				<td>18</td>
-				<td>61233</td>
-				<td>597489</td>
-				<td>9.72</td>
-				<td>790</td>
-				<td><a class="clickForMore commonFor">点击查阅</a></td>
-			</tr>
-		</tbody>
-	</table>
+<div class="tableContent" style="display: block;">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">ESI数据维护</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>单位名称</th>
+						<th>时间</th>
+						<th>全国排名</th>
+						<th>全球排名</th>
+						<th>入学学科数</th>
+						<th>总论文数</th>
+						<th>总引用数</th>
+						<th>篇均引用数</th>
+						<th>高倍引论文数</th>
+						<th>更多</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>北京大学</td>
+						<td>2016年7月</td>
+						<td>2</td>
+						<td>149</td>
+						<td>18</td>
+						<td>61233</td>
+						<td>597489</td>
+						<td>9.72</td>
+						<td>681</td>
+						<td><a class="clickForMore commonFor">点击查阅</a></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>天津大学</td>
+						<td>2016年8月</td>
+						<td>3</td>
+						<td>156</td>
+						<td>18</td>
+						<td>61233</td>
+						<td>597489</td>
+						<td>9.72</td>
+						<td>790</td>
+						<td><a class="clickForMore commonFor">点击查阅</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
 </div>
 <div class="mask"></div>
 <div class="unitsChoose">
@@ -149,7 +159,7 @@
 							<p class="ESITitle">入选学科数据</p>
 							<a class="editData addData"><i class="fa fa-plus fa-lg editBtn "></i>增加</a>
 						</div>
-						<table class="infoTable">
+						<table class="infoTable" style="table-layout:inherit">
 							<thead>
 								<tr class="tableTitle">
 									<th>序号</th>
@@ -236,15 +246,29 @@
 					</div>
 				</div>
 			</div>
-			<p class="bottomBtn">
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
-			</p>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure">确定</a>
+					<a class="forConsole">取消</a>
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
-<div class="M-box"></div>
 <script type="text/javascript">
+	$('.M-box').pagination({
+		totalData:100,
+	    showData:10,
+	    current:1,
+	    count:2,
+	    jump:true,
+		coping:true,
+		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+	    callback:function(index){
+	        location.href="__ROOT__/main.html?page="+index
+	    }
+	});
 	$(".addDataBtn,.clickForMore").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose");

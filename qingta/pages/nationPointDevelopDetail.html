@@ -10,11 +10,20 @@
 	<div class="topTableBox">
 		<table class="topTable">
 			<tr>
-				<th style="width:102px;">项目名称 :</th>
+				<th style="width:102px;">项目牵头单位 :</th>
+				<td class="commonPlus" style="width:18.3%">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput projectUnits" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%;">项目名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput nameput" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
-						<ul class="showElse">
+						<input class="commonput nameput" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
+						<ul class="showElse2">
 							
 						</ul>
 					</div>
@@ -31,22 +40,48 @@
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
 							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
 							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
 						</select>
 					</div>
-					<span style="color:red;width: 1%;">*</span>
-				</td>
-				<th style="width:12%">项目牵头单位 :</th>
-				<td class="commonPlus" style="width:18.3%">
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput projectUnits">
-					</div>
-				</td>
+					<span style="color:red;width: 1%">*</span>
+				</td>				
 			</tr>
 			<tr>				
 				<th>项目负责人 :</th>
@@ -58,21 +93,21 @@
 				<th>中央财政经费 :</th>
 				<td>
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="(万元)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="(万元)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
 				<th>项目总经费 :</th>
 				<td>
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput projectFee1" style="width:100%;ime-mode:disabled;" placeholder="(万元)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput projectFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput projectFee2" style="width:100%;ime-mode:disabled;" placeholder="(万元)" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput projectFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
 				<td colspan="2">
@@ -84,14 +119,10 @@
 	</div>
 </div>
 <div class="tableContent">
-	<!-- <div class="searchUndo">
-		<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
-		<img class="getInfoImg" src="../source/img/info.png"></img>
-	</div> -->
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">国家自然科学基金明细数据</span>
+				<span class="topLeft">国家自然科学基金明细数据&nbsp;（金额单位：万元）</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -116,6 +147,16 @@
 		</div>
 	</div>
 	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
 </div>
 <div class="mask"></div>
 <div class="unitsChoose">
@@ -147,19 +188,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$('.M-box').pagination({
-		totalData:100,
-	    showData:10,
-	    current:1,
-	    count:2,
-	    jump:true,
-		coping:true,
-		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-	    callback:function(index){
-	        console.log(index);
-	    }
-	});
 	$(".showDetailBox").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
@@ -180,19 +208,7 @@
 		var totalmoney2=$(".projectFee2").val();
 		var centermoney1=$(".nationFee1").val();
 		var centermoney2=$(".nationFee2").val();
-		var params={
-			"name":name,
-			"type":type,
-			"year1":year1,
-			"year2":year2,
-			"projectentity":projectentity,
-			"manager":manager,
-			"totalmoney1":totalmoney1,
-			"totalmoney2":totalmoney2,
-			"centermoney1":centermoney1,
-			"centermoney2":centermoney2,
-		}
-		$.post('/askNKRP', params, function(data) {
+		$.when(askNKRP(projectentity,type,name,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,manager)).done(function(data){
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
 			var count=data.count;
@@ -223,11 +239,34 @@
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
-						mytd.text(result[i][j]);
+						var text = result[i][j];
+						if(j==0){
+
+							text = madeNowrapText(result[i][j]);
+						}
+						else if(j==1){
+							text = madeTwoLineText(result[i][j]);
+						}
+						else{}
+						mytd.html(text);
 						searchInfo.append(mytd);
 					}
-					$(".infoTable1").children('tbody').append(searchInfo);
+					$(".infoTable1").children('tbody').append(searchInfo);				
 				}
+				getPages(0);
+				$('.M-box').pagination({
+					totalData:count,
+				    showData:20,
+				    current:1,
+				    count:2,
+				    jump:true,
+					coping:true,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				    callback:function(index){
+				        getPages(index-1);
+				    }
+				});
 			}
 			else{
 				alert("没有符合查询条件的记录！");
@@ -235,9 +274,10 @@
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
 			}
-		});
+			
+		})
 	})
-	$.get('/LandNKRPstatype', function(data) {
+	$.when(LandNKRPstatype()).done(function(data){
 		var result=data.result;
 		if(data.state==1){
 			for (var i = 0;i<result.length;i++) {
@@ -250,25 +290,58 @@
 				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
 			}
 		}
-	});
-	function OnInput (event) {
+	})
+	function OnInput2 (event) {
         var sub=$(".nameput").val();
-        getWholeList(sub);
-        $(".showElse").addClass('showBtn');
+    	getWholeList2(sub);
+    	$(".showElse2").addClass('showBtn'); 
+    }
+    function OnPropChanged2 (event) {
+       	var sub=$(".nameput").val();
+    	getWholeList2(sub);
+    	$(".showElse2").addClass('showBtn');
+    }
+    $(".showElse2").delegate('li', 'click', function() {
+    	$(".showElse2").removeClass("showBtn");
+    	var txt=$(this).text();
+    	$(".nameput").val(txt);
+    });
+    function OnInput (event) {
+        var sub=$(".projectUnits").val();
+    	getWholeList(sub);
+    	$(".showElse").addClass('showBtn');     
     }
     function OnPropChanged (event) {
-       var sub=$(".nameput").val();
-       getWholeList(sub);
-       $(".showElse").addClass('showBtn');
+       	var sub=$(".projectUnits").val();
+    	getWholeList(sub);
+    	$(".showElse").addClass('showBtn');     
     }
     $(".showElse").delegate('li', 'click', function() {
     	$(".showElse").removeClass("showBtn");
     	var txt=$(this).text();
-    	$(".nameput").val(txt);
+    	$(".projectUnits").val(txt);
     });
-	function getWholeList(sub){
-		$.post('/LandNKRPname', {"sub":sub }, function(data, textStatus, xhr) {
+    function getWholeList(sub){
+		$.when(Landentity0(sub)).done(function(data){
 			$(".showElse").empty();
+			var state=data.state;
+			var result=data.result;
+			if (state==1) {
+				var len=result.length;
+				for (var i=0;i<len;i++) {
+					var mytd=$('<li></li>');
+					mytd.text(result[i]);
+					$(".showElse").append(mytd);
+				}	    			
+			}
+			else{
+				$(".showElse").removeClass('showBtn');
+			}
+		})
+	}
+	function getWholeList2(sub){
+		$.when(LandNKRPname(sub)).done(function(data){
+			$(".showElse2").empty();
 			var state=data.state;
     		var result=data.result;
     		if (state==1) {
@@ -276,12 +349,12 @@
     			for (var i=0;i<len;i++) {
     				var mytd=$('<li></li>');
     				mytd.text(result[i]);
-    				$(".showElse").append(mytd);
+    				$(".showElse2").append(mytd);
     			}	    			
     		}
     		else{
-    			$(".showElse").removeClass('showBtn');
+    			$(".showElse2").removeClass('showBtn');
     		}
-		});
+		})
 	}
 </script>

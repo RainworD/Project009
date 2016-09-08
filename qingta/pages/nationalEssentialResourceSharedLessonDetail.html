@@ -1,76 +1,85 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a href="#/nationalEssentialResourceSharedLesson.html" class="changeLeft changeButton">国家级精品资源共享课统计</a>
+		<a href="#/nationalEssentialResourceSharedLesson.html?id=53" class="changeLeft changeButton">国家级精品资源共享课统计</a>
 		<a class="changeRight green changeButton">国家级精品资源共享课明细</a>
-	</div>
+	</div> 
+	<p class="hideBtn">隐藏查询条件</p>
 </div>
 <div class="enterBox">
-	<table class="topTable">
-		<tr>
-			<th style="width:100px;">学校名称 :</th>
-			<td style="width:19.5%;">
-				<div class="commonInputBox"  style="width:100%;">
-					<input class="commonput">
-					<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
-				</div>
-			</td>
-			<th style="width:10.6%;">入选年度<span style="color:red">*</span> :</th>
-			<td style="width:19.5%;">
-				<div class="commonselect" style="width:100%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th style="width:10.6%;">课程名称 :</th>
-			<td style="width:19.5%;">
-				<input class="commonput" style="width:100%;">
-			</td>
-			<th style="width:3%"></th>
-			<td style="width: 9.3%">
-				<a class="searchBtn rightMinBtn">查询</a>
-			</td>
-		</tr>
-		<tr>
-			<th>课程负责人 :</th>
-			<td>
-				<input class="commonput" style="width:100%;">
-			</td>
-			<th></th>
-			<td></td>
-			<th></th>
-			<td></td>
-			<th style="width:3%"></th>
-			<td><a class="resetBtn rightMinBtn">重置</a></td>
-		</tr>
-	</table>
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:100px;">学校名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput">
+						<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
+					</div>
+				</td>
+				<th style="width:10.6%;">入选年度<span style="color:red">*</span> :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:100%;">
+						<select class="selBox">
+							<option>1</option>
+							<option>2</option>
+						</select>
+					</div>
+				</td>
+				<th style="width:10.6%;">课程名称 :</th>
+				<td style="width:18.3%;">
+					<input class="commonput" style="width:100%;">
+				</td>
+				<th style="width:10.6%;">课程负责人 :</th>
+				<td style="width:18.3%;">
+					<input class="commonput" style="width:100%;">
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
 <div class="tableContent">
-	<table class="infoTable">
-		<thead>
-			<tr class="tableTitle">
-				<th>序号</th>
-				<th>学校名称</th>
-				<th>入选年度</th>
-				<th>课程名称</th>
-				<th>课程负责人</th>
-				<th>备注</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>北京大学</td>
-				<td>2016</td>
-				<td>理论语言学</td>
-				<td>陈保亚</td>
-				<td>第一批</td>
-			</tr>
-		</tbody>
-	</table>
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">国家自然科学基金统计数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>学校名称</th>
+						<th>入选年度</th>
+						<th>课程名称</th>
+						<th>课程负责人</th>
+						<th>备注</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>北京大学</td>
+						<td>2016</td>
+						<td>理论语言学</td>
+						<td>陈保亚</td>
+						<td>第一批</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
 </div>
-<div class="M-box"></div>
 <script>
 $('.M-box').pagination({
 	totalData:100,
@@ -85,6 +94,7 @@ $('.M-box').pagination({
         location.href="__ROOT__/main.html?page="+index
     }
 });
+topBarControl();
 </script>
 
 

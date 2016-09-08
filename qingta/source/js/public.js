@@ -28,8 +28,8 @@ function init(){
 		console.log(myid);
 		var topid,secondid;
 		if(myid>=100){
-			topid=myid%100;
-			secondid=topid%10;
+			topid=Math.floor(myid/10);
+			secondid=myid%100%10;
 			console.log(topid);
 			console.log(secondid-1);
 		}
@@ -303,6 +303,29 @@ function dragBoxSortsChoose(selector){
 	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
 		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
 	})
+	$(".unitsChoose .infoTable2 tbody").on("dblclick","tr",function(){
+		// $(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
+		$(this).parents(".unitsChoose").hide();
+		$(".mask").hide();
+		var txt=$(this).children("td").last().text();
+		$(".projectType").val(txt);
+		if($(".projectClass").length){
+			$.post('/LandHSStypetoclass', {"sub": txt}, function(data, textStatus, xhr) {
+				$(".projectClass").empty();
+				var state=data.state;
+				var result=data.result;
+				if(state==1){
+					for (var i=0;i<result.length;i++) {
+						var newopt=$('<option></option>');
+						if (result[i]) {
+							newopt.text(result[i]);
+							$(".projectClass").append(newopt);
+						}
+					}
+				} 
+			});
+		}
+	})
 	$(selector).on("click",".forSure",function(){
 		$(selector).hide();
 		$(".mask").hide();
@@ -316,8 +339,8 @@ function dragBoxSortsChoose(selector){
 			}
 		}
 		if(txt!=""){
-			$(".projectType").val(txt);;
-			if($(".projectClass")){
+			$(".projectType").val(txt);
+			if($(".projectClass").length){
 				$.post('/LandHSStypetoclass', {"sub": txt}, function(data, textStatus, xhr) {
 					$(".projectClass").empty();
 					var state=data.state;
@@ -335,6 +358,7 @@ function dragBoxSortsChoose(selector){
 			}
 		}
 	})
+
 }
 function topBarControl(){
 	$(".resetBtn").bind("click",function(){
@@ -359,36 +383,138 @@ function topBarControl(){
 	var decHeight=parseInt(myheight1)-parseInt(myheight2)-80;
 	$(".tableContent").css("min-height",decHeight);
 }
+var setting = {
+	check:{
+		chkStyle:"checkbox",
+		enable:true,
+		chkboxType:{ "Y": "ps", "N": "ps" }
+	}
+};
 function getUnits(){
     var ajax =$.get('/LandEntity', function(data) {
-			var result=data.result;
-			for (var i=0;i<result.length;i++ ) {
-				var insertProvince=$('<li class="provinceItems">'+
-									// '<label for="province2">'+
-										'<span></span>'+
-										'<input type="checkbox" class="provinces">'+
-									// '</label>'+
-									'<ul class="collegeItems">'+
-									'</ul>'+
-								'</li>');
-				
-				for (var j=0;j<result[i].length;j++) {
-					if(j==0){
-						insertProvince.children('span').text(result[i][0]);
-					}
-					else{
-						var insertItem=$('<li>'+
-									// '<label for="college3">'+
-										'<span></span>'+
-										'<input type="checkbox" class="commonCollege">'+
-									// '</label>'+
-								'</li>');
-						insertItem.children('span').text(result[i][j]);
-						insertProvince.children('.collegeItems').append(insertItem);
-					}
+		var result=data.result;
+		var zNodes=[];
+		var array=[];
+		for (var i=0,len=result.length;i<len;i++ ) {
+			var obj=new Object();
+			for (var j=0,mylen=result[i].length;j<mylen;j++) {
+				if(j==0){
+					obj.name=result[i][0];
 				}
-				$("#tree").append(insertProvince);
+				else{
+					var obj2=new Object();
+					obj2.name=result[i][j];
+					array.push(obj2);
+					obj.children=array;
+				}
 			}
-		});
+		zNodes.push(obj);
+		}
+	//var zNodes =[
+		// 	{ name:"父节点1 - 展开", open:true,
+		// 		children: [
+		// 			{ name:"父节点11 - 折叠",
+		// 				children: [
+		// 					{ name:"叶子节点111"},
+		// 					{ name:"叶子节点112"},
+		// 					{ name:"叶子节点113"},
+		// 					{ name:"叶子节点114"}
+		// 				]},
+		// 			{ name:"父节点12 - 折叠",
+		// 				children: [
+		// 					{ name:"叶子节点121"},
+		// 					{ name:"叶子节点122"},
+		// 					{ name:"叶子节点123"},
+		// 					{ name:"叶子节点124"}
+		// 				]},
+		// 			{ name:"父节点13 - 没有子节点", isParent:true}
+		// 		]},
+		// 	{ name:"父节点2 - 折叠",
+		// 		children: [
+		// 			{ name:"父节点21 - 展开", open:true,
+		// 				children: [
+		// 					{ name:"叶子节点211"},
+		// 					{ name:"叶子节点212"},
+		// 					{ name:"叶子节点213"},
+		// 					{ name:"叶子节点214"}
+		// 				]},
+		// 			{ name:"父节点22 - 折叠",
+		// 				children: [
+		// 					{ name:"叶子节点221"},
+		// 					{ name:"叶子节点222"},
+		// 					{ name:"叶子节点223"},
+		// 					{ name:"叶子节点224"}
+		// 				]},
+		// 			{ name:"父节点23 - 折叠",
+		// 				children: [
+		// 					{ name:"叶子节点231"},
+		// 					{ name:"叶子节点232"},
+		// 					{ name:"叶子节点233"},
+		// 					{ name:"叶子节点234"}
+		// 				]}
+		// 		]},
+		// 	{ name:"父节点3 - 没有子节点", children: [
+		// 					{ name:"叶子节点231"},
+		// 					{ name:"叶子节点232"},
+		// 					{ name:"叶子节点233"},
+		// 					{ name:"叶子节点234"}
+		// 				]
+		// 		}
+
+	// ];
+
+		for (var i=0;i<zNodes.length;i++) {
+				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+				$.fn.zTree.init($("#tree"), setting, zNodes);
+			}
+			var rootObj=$.fn.zTree.getZTreeObj("tree");
+			var rootNodes=$.fn.zTree.getZTreeObj("tree").getNodes();
+			var array=rootObj.transformToArray(rootNodes);
+			for (var i=0;i<array.length;i++) {
+				array[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+			}
+		rootObj.refresh();
+		// for (var i=0;i<result.length;i++ ) {
+		// 	var insertProvince=$('<li class="provinceItems">'+
+		// 						// '<label for="province2">'+
+		// 							'<span></span>'+
+		// 							'<input type="checkbox" class="provinces">'+
+		// 						// '</label>'+
+		// 						'<ul class="collegeItems">'+
+		// 						'</ul>'+
+		// 					'</li>');
+			
+		// 	for (var j=0;j<result[i].length;j++) {
+		// 		if(j==0){
+		// 			insertProvince.children('span').text(result[i][0]);
+		// 		}
+		// 		else{
+		// 			var insertItem=$('<li>'+
+		// 						// '<label for="college3">'+
+		// 							'<span></span>'+
+		// 							'<input type="checkbox" class="commonCollege">'+
+		// 						// '</label>'+
+		// 					'</li>');
+		// 			insertItem.children('span').text(result[i][j]);
+		// 			insertProvince.children('.collegeItems').append(insertItem);
+		// 		}
+		// 	}
+		// 	$("#tree").append(insertProvince);
+		// }
+	});
     return ajax;
+}
+function madeNowrapText(text){
+	return "<span class='nowrap'>"+text+"<span>";
+}
+function madeTwoLineText(text){
+	return "<span class='twoLine'>"+text+"<span>";
+}
+function getPages(index){
+	var tr=$(".infoTable1 tbody tr");
+	tr.hide();
+	for (var i=20*index;i<20*(index+1);i++) {
+		console.log(i);
+		tr.eq(i).show();
 	}
+}

@@ -2,112 +2,203 @@
 	<div class="changeBarBox" style="background-color:#fff;">
 		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">高校科技活动科技经费明细</a>
 	</div>
+	<p class="hideBtn">隐藏查询条件</p>
 </div>
 <div class="enterBox">
-	<table class="topTable">
-		<tr>
-			<th style="width:80px;">学校名称 :</th>
-			<td style="width:19.5%;">
-				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput">
-					<div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div>
-				</div>
-			</td> 
-			<th style="width:10.6%;">当年拨入总计 :</th>
-			<td style="width:19.5%;">
-				<input class="commonput" style="width:42.1%;margin-right:1%;">
-				<span style="text-align: center;width:9%;">至</span>
-				<input class="commonput" style="width:42.1%;margin-left:1%;">
-			</td>
-			<th style="width:10.6%;">科研经费合计 :</th>
-			<td style="width:19.5%;">
-				<input class="commonput" style="width:42.1%;margin-right:1%;">
-				<span style="text-align: center;width:9%;">至</span>
-				<input class="commonput" style="width:42.1%;margin-left:1%;">
-			</td>
-			<th style="width:3%"></th>
-			<td style="width: 9.3%">
-				<a class="searchBtn rightMinBtn">查询</a>
-			</td>
-		</tr>
-		<tr>
-			<th><span style="color:red">*</span>经费年度 :</th>
-			<td style="width:19.5%;">
-				<div class="commonselect" style="width:42.1%;margin-right:1%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-				<span style="text-align: center;width:9%;">至</span>
-				<div class="commonselect" style="width:42.1%;margin-left:1%;">
-					<select class="selBox">
-						<option>1</option>
-						<option>2</option>
-					</select>
-				</div>
-			</td>
-			<th>当年内部支出 :</th>
-			<td>
-				<input class="commonput" style="width:42.1%;margin-right:1%;">
-				<span style="text-align: center;width:9%;">至</span>
-				<input class="commonput" style="width:42.1%;margin-left:1%;">
-			</td>
-			<th></th>
-			<td>
-				
-			</td>
-			<th style="width:3%"></th>
-			<td><a class="resetBtn rightMinBtn">重置</a></td>
-		</tr>
-	</table>
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:110px;">学校名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
+						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td> 
+				<th style="width:10.6%;">当年拨入总计 :</th>
+				<td style="width:18.3%;">
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
+						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+					</div>
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
+						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+				</td>
+				<th style="width:10.6%;">科研经费合计 :</th>
+				<td style="width:18.3%;">
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
+						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+					</div>
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
+						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+				</td>
+				<th style="width:10.6%;">经费年度 :</th>
+				<td style="width:19.3%">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span style="color:red;width: 1%">*</span>
+				</td>
+			</tr>
+			<tr>
+				<th>当年内部支出 :</th>
+				<td>
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
+						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+					</div>
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
+						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+				</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>
 <div class="tableContent">
-	<table class="infoTable">
-		<thead>
-			<tr class="tableTitle">
-				<th rowspan="2">序号</th>
-				<th rowspan="2">学校名称</th>
-				<th rowspan="2">年度</th>
-				<th rowspan="2">科研经费合计（万元）</th>
-				<th colspan="4">当年拨入（万元）</th>
-				<th rowspan="2">当年内部支出（万元）</th>
-			</tr>
-			<tr class="tableTitle">
-				<th>总计</th>
-				<th>政府资金</th>
-				<th>企事业单位委托＊＊</th>
-				<th>其他</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>北京大学</td>
-				<td>2016</td>
-				<td>1188600.08</td>
-				<td>261811.90</td>
-				<td>342527.41</td>
-				<td>1531127.49</td>
-				<td>1202527.49</td>
-				<td>1202527.49</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>清华大学</td>
-				<td>2016</td>
-				<td>1188600.08</td>
-				<td>261811.90</td>
-				<td>342527.41</td>
-				<td>1531127.49</td>
-				<td>1202527.49</td>
-				<td>1202527.49</td>
-			</tr>
-		</tbody>
-		
-	</table>
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">高校科技活动科技经费明细数据&nbsp;（金额单位：万元）</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th rowspan="2">序号</th>
+						<th rowspan="2">学校名称</th>
+						<th rowspan="2">年度</th>
+						<th rowspan="2">科研经费合计（万元）</th>
+						<th colspan="4">当年拨入（万元）</th>
+						<th rowspan="2">当年内部支出（万元）</th>
+					</tr>
+					<tr class="tableTitle">
+						<th>总计</th>
+						<th>政府资金</th>
+						<th>企事业单位委托＊＊</th>
+						<th>其他</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>				
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
 </div>
-<div class="M-box"></div>
+<div class="mask mask1"></div>
+<div class="unitsChoose unitsChoose1">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目牵头单位选择</p>
+		</div>
+		<div class="unitsContent">
+			<div class="totalModel">
+				<div class="leftColumn" style="cursor:default">
+					<div class="leftColumnBox">
+						<div class="leftColumnBar">
+							<input class="searchBox">
+							<a class="leftSearchBtn">查询</a>
+						</div>
+						<div class="leftColumnContent">
+							<div class="leftColumnProvinces">
+								<ul id="tree">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="middleColumn">
+					<div class="btnBox">
+						<i class="fa fa-long-arrow-right moveRight"></i>
+						<i class="fa fa-long-arrow-left moveLeft"></i>
+					</div>
+				</div>
+				<div class="rightColumn">
+					<div class="rightColumnContent">
+						<p class="rightColumnBar">
+							已选单位：
+						</p>
+						<div class="chooseAlready">
+							<ul class="chooseAlreadyList">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure">确定</a>
+					<a class="forConsole">取消</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
 <script>
 $('.M-box').pagination({
 	totalData:100,
@@ -122,75 +213,22 @@ $('.M-box').pagination({
         location.href="__ROOT__/main.html?page="+index
     }
 });
-$(".showDetail").bind("click",function(){
+$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
-		$(".unitsChoose").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
 	})
-	$(".leftColumnBtn").bind("click",function(){
-		var array=$(this).next().find(".showMoreCollege").attr("class").split(" ");
-		console.log(array);
-		if (array.length>1) {
-			$(this).next().find(".showMoreCollege").removeClass("showMoreCollegeActive");
-			$(this).children(".showCollege").show().siblings().hide();
-		}
-		else{
-			$(this).next().find(".showMoreCollege").addClass("showMoreCollegeActive");
-			$(this).children(".unShowCollege").show().siblings().hide();
-		}
-	})
-	$(".cancelBtn").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-	})
-	$(".leftColumnProvinces").on("click",".provinceItems",function(){
-		var flag=$(this).find(".provinces").prop("checked");
-		console.log(flag);
-		if(flag){
-			$(this).next().find(".commonCollege").prop("checked",true);
-		}
-		else{
-			$(this).next().find(".commonCollege").prop("checked",false);
-		}
-	})
-	$(".collegeItems").on("click",".commonCollege",function(){
-		var flag2=$(this).prop("checked");
-		var flag3=$(this).siblings(".commonCollege").prop("checked");
-		console.log(flag3);
-		if (flag2&&flag3) {
-			alert("aaa");
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",true);
-		}
-		else{
-			$(this).parents(".showMoreCollege").prev().find(".provinces").prop("checked",false);
-		}
-	})
-	$(".moveRight").bind("click",function(){
-		var array=[];
-		var len=$(".commonCollege").length;
-		for (var i =0; i<len; i++) {
-			var myflag=$(".commonCollege").eq(i).prop("checked");
-			var name=$(".commonCollege").eq(i).next().text();
-			if(myflag){
-				array.push(name);
-			}
-		}
-		for (var j=0;j<array.length;j++) {
-			var hasSame=false;
-			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
-			for (var k=0;k<findLi.length;k++) {
-				var txt=findLi.eq(k).text();
-				if(txt==array[j]){
-					hasSame = true;
-                	break;
-				}
-			}
-			if(!hasSame){
-	            var liItems=$('<li class="chooseItems"></li>');
-				liItems.append(array[j]);
-				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
-	        }
-		}
-	})
+	dragBoxUnitsChoose(".unitsChoose1");
+	topBarControl();
+</script>
+<script type="text/javascript">
+	$.when(getUnits()).done(function(data){
+		$("#tree").treeview({
+			persist: "location",
+			collapsed: true,
+			unique: true
+		});
+	});	
 </script>
 
 
