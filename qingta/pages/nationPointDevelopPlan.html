@@ -69,9 +69,9 @@
 							<option>2000</option>
 						</select>
 					</div>
-					<span style="color:red;width: 1%">*</span>
+					<span class="starAfter">*</span>
 				</td>
-				<th style="width:12%;">中央财政经费 :</th>
+				<th style="width:12%;">中央财政经费 :</th> 
 				<td style="width:18.3%">
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
 						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
@@ -168,7 +168,7 @@
 						</div>
 						<div class="leftColumnContent">
 							<div class="leftColumnProvinces">
-								<ul id="tree">
+								<ul id="tree" class="ztree">
 								</ul>
 							</div>
 						</div>
@@ -252,25 +252,24 @@
 </script>
 <script type="text/javascript">
 	$.when(getUnits()).done(function(data){
-		$("#tree").treeview({
-			persist: "location",
-			collapsed: true,
-			unique: true
-		});
-	});	
+		for (var i=0;i<zNodes.length;i++) {
+		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+		$.fn.zTree.init($("#tree"), setting, zNodes);
+		}
+	})
 	$.when(LandNKRPstatype()).done(function(data){
-			var result=data.result;
-			if(data.state==1){
-				for (var i = 0;i<result.length;i++) {
-					var mytr=$('<tr>'+
-									'<td></td>'+
-									'<td></td>'+
-								'</tr>');
-					mytr.children('td').eq(0).text(i+1);
-					mytr.children('td').eq(1).text(result[i]);
-					$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
-				}
+		var result=data.result;
+		if(data.state==1){
+			for (var i = 0;i<result.length;i++) {
+				var mytr=$('<tr>'+
+								'<td></td>'+
+								'<td></td>'+
+							'</tr>');
+				mytr.children('td').eq(0).text(i+1);
+				mytr.children('td').eq(1).text(result[i]);
+				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
 			}
+		}
 	})
 	$(".searchBtn").bind("click",function(){
 		var type=$(".projectType").val();

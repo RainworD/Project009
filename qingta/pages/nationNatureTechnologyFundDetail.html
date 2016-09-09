@@ -99,7 +99,7 @@
 							<option>1997</option>
 						</select>
 					</div>
-					<span style="color:red;width:1%;">*</span>
+					<span class="starAfter">*</span>
 				</td>
 				<th>批准金额 :</th>
 				<td>
@@ -176,8 +176,9 @@
 			}
 		}
 	})
-	var pageIndex=1;
-	$(".searchBtn").bind("click",function(){
+	var pageindex;
+	function getDataBox(){
+		var dataBox=[];
 		var type=$(".projectType").val();
 		var manager=$(".projectManager").val();
 		var name=$(".nameput").val();
@@ -186,9 +187,10 @@
 		var money1=$(".nationFee1").val();
 		var money2=$(".nationFee2").val();
 		var applicationcode	=$(".applyCode").val();	
+		pageindex=1;
 		var entity=$(".unitsEnter").val();	
-		var pageindex=pageIndex;
 		$.when(askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,applicationcode)).done(function(data){
+			console.log(pageindex);
 			var result=data.result;
 			$(".infoTable1").children('tbody').empty();
 			var count=data.count;
@@ -213,7 +215,8 @@
 					var searchInfo=$('<tr>'+
 						'<td></td>'+
 					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
+					searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+					// console.log((i+1)+20*(pageindex-1)*50);
 					for (var j=0;j<result[i].length;j++) {
 						var mytd=$('<td></td>');
 						if(result[i][j]==null){
@@ -253,6 +256,13 @@
 					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
 				    callback:function(index){
 				        getPages(index-1);
+				        if(index>50){
+				        	var _index=Math.ceil(index/50);
+							pageindex=_index;
+							index=index%50;
+				        	var result=askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,applicationcode);
+				        	getPages(index-1);
+				        }
 				    }
 				});
 			}
@@ -263,7 +273,18 @@
 				addCount.children('span').eq(1).text(count);
 			}
 		})	
+	}
+	
+	$(".searchBtn").bind("click",function(){
+		getDataBox();
 	})
+	// function getPages(index){
+	// var tr=$(".infoTable1 tbody tr");
+	// 	tr.hide();
+	// 	for (var i=20*index;i<20*(index+1);i++) {
+	// 		tr.eq(i).show();
+	// 	}
+	// }
 	function OnInput2 (event) {
         var sub=$(".nameput").val();
     	getWholeList2(sub);

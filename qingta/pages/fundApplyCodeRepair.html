@@ -170,10 +170,16 @@
 </div>
 <script type="text/javascript">
 	topBarControl();
+	// $(".manageBtn,.addDataBtn").bind("click",function(){
+	// 	$(".mask").show();
+	// 	$(".unitsChoose").show(); 
+	// })
 	$(".manageBtn,.addDataBtn").bind("click",function(){
 		$(".mask").show();
-		$(".unitsChoose").show();
+		popAlertBox(".unitsChoose");
+		dragBox(".unitsChoose");
 	})
+	dragBoxUnitsChoose(".unitsChoose1");
 	$(".cancelBtn").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();

@@ -12,6 +12,8 @@ function successHandle(data){
    if(data.state==1){
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
     $(".tableContent").addClass('tableShow');
+    return data.result;
+    console.log(data.result);
    }
    else{
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");

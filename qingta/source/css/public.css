@@ -241,16 +241,17 @@ body {
   color: #999;
 }
 .mainContainer .infoTable td .showMoreContent .lookMore {
+  width: 200px;
   display: none;
   position: absolute;
-  width: 200px;
   padding: 10px;
-  top: 25px;
-  left: -100px;
+  top: 46px;
+  left: -92px;
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   z-index: 2;
   line-height: 20px;
+  text-align: left;
 }
 .mainContainer .infoTable td .showMoreContent .lookMore .rectangle {
   border-bottom: 6px solid rgba(0, 0, 0, 0.8);
@@ -258,10 +259,13 @@ body {
   border-right: 6px solid transparent;
   position: absolute;
   top: -6px;
-  left: 100px;
+  left: 40%;
 }
 .mainContainer .infoTable td .showMoreContent .showMore {
   display: block;
+}
+.mainContainer .leftClass {
+  text-align: left;
 }
 .mainContainer .infoTable th {
   font-weight: normal;
@@ -297,6 +301,12 @@ body {
   display: inline-block;
   height: 30px;
   line-height: 30px;
+  vertical-align: middle;
+}
+.mainContainer .topTable td .starAfter {
+  color: red;
+  width: 1%;
+  line-height: 33px;
 }
 .mainContainer .topTable td .downTxt {
   background-color: #fff;
@@ -1317,6 +1327,7 @@ body {
   white-space: nowrap;
 }
 .twoLine {
+  text-align: left;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

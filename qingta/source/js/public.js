@@ -25,23 +25,17 @@ function init(){
 		var	mysearch=search.split("?");
 		var search2=mysearch[1].split("=");
 		var myid=search2[1];
-		console.log(myid);
 		var topid,secondid;
 		if(myid>=100){
 			topid=Math.floor(myid/10);
 			secondid=myid%100%10;
-			console.log(topid);
-			console.log(secondid-1);
 		}
 		else{
 			topid=Math.floor(myid/10);
 			secondid=myid%10;
-			console.log(topid);
-			console.log(secondid-1);
 		}
 		for (var i = 0,len=$(".downBtn").length;i<len;i++) {
 			var matchid=$(".downBtn").eq(i).attr("data-id");
-			console.log(matchid);
 			if(matchid==topid){
 				$(".downBtn").eq(i).addClass("btnColor");
 				$(".downBtn").eq(i).next(".downContent").addClass('show');
@@ -53,12 +47,12 @@ function init(){
 	// $(".linka").bind("click",function(){
 	// 	var myhash=$(this).attr("href");
 	// 	var id=$(this).attr("data-id");
-	// 	console.log(id);
 	// 	window.location.hash=myhash+"?id="+id;
 	// 	window.location.hash=myhash;
 	// })
 }
 function eventBind(){
+	$(window).bind('load hashchange', loadContent);
 	$(".downBtn").bind("click",function(){
 		var showflag=$(this).next(".downContent").attr("class");
 		var array=showflag.split(" ");
@@ -119,7 +113,6 @@ function eventBind(){
 			$(this).siblings('.lookMore').children("span").text(txt);
 		}
 	})
-	$(window).bind('load hashchange', loadContent);
 }
 function loadContent() {
 	$(document).unbind("mousedown");
@@ -157,12 +150,8 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	})
 	$(document).bind("mousemove",function(e){
 			if(ismousedown){
-				console.log(e.pageX)
-				console.log(downX)
 				_mytop=e.pageY-downY + mytop;
 				_myleft=e.pageX-downX + myleft;
-				console.log("left2:"+myleft);
-				console.log("top2:"+mytop);
 				$(selector).css("left",_myleft);
 				$(selector).css("top",_mytop);
 			}
@@ -190,14 +179,11 @@ function dragBoxUnitsChoose(selector){
 	})
 	$(".leftColumnProvinces").on("click",".commonCollege",function(e){
 		e.stopPropagation();
-		console.log("222")
 		var myinput=$(this).parents(".provinceItems").find(".commonCollege");
 		var len=myinput.length;
-		console.log(len);
 		var trueArray=[];
 		for(i=0;i<len;i++){
 			var getTrue=myinput.eq(i).prop("checked");
-			console.log(getTrue);
 			if(getTrue){
 				trueArray.length++;
 			}
@@ -210,30 +196,20 @@ function dragBoxUnitsChoose(selector){
 		}
 	})
 	$(".moveRight").bind("click",function(){
-		var array=[];
-		// var len=$(".commonCollege").length;
-		// for (var i =0; i<len; i++) {
-
-			$(".commonCollege:checked").each(function(index, el) {
-				array.push($(el).prev().text());
-				$(el).attr("disabled","disabled");
-				$(el).parents(".collegeItems").prev().attr("disabled","disabled");
-			});
-			console.log(array);
-		// }
-		for (var j=0;j<array.length;j++) {
+		getTreeNodes();
+		for (var i =0;i<checkedArray.length;i++ ) {
 			var hasSame=false;
 			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
 			for (var k=0;k<findLi.length;k++) {
 				var txt=findLi.eq(k).text();
-				if(txt==array[j]){
+				if(txt==checkedArray[i]){
 					hasSame = true;
                 	break;
 				}
 			}
 			if(!hasSame){
-	            var liItems=$('<li class="chooseItems"></li>');
-				liItems.append(array[j]);
+	           	var liItems=$('<li class="chooseItems"></li>');
+				liItems.append(checkedArray[i]);
 				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
 	        }
 		}
@@ -253,42 +229,65 @@ function dragBoxUnitsChoose(selector){
 		var toLeftUnits=[];
 		toLeftUnits.length=0;
 		var rightChoosen=$(".rightColumn").find(".chooseAlreadyList").children('.chooseItems');
-		var hasSome=false;
 		for (var i=0,len=rightChoosen.length;i<len;i++) {
 			var className=rightChoosen.eq(i).attr("class");
 			var myarray=className.split(" ");
-			console.log(myarray);
 			if(myarray.length>1){
 				var txt1=rightChoosen.eq(i).text();
 				toLeftUnits.push(txt1);
 				rightChoosen.eq(i).remove();
 			}
 		}
-		console.log(toLeftUnits);
-		var mylen=$(".commonCollege:checked").length;
-		console.log(mylen);
-		console.log($(".commonCollege:checked"));
-		// var mylen=array.length;
-		for (var k=0;k<mylen;k++) {
-			var matchtxt=$(".commonCollege:checked").eq(k).prev().text();
-			console.log(matchtxt);
+		for (var m=0;m<_array.length;m++) {
 			for (var j =0; j<toLeftUnits.length;j++) {
-				if(matchtxt==toLeftUnits[j]){
-					$(".commonCollege:checked").eq(k).prop("checked",false).removeAttr('disabled');
-					$(".commonCollege:checked").eq(k).parents().prev().removeAttr("disabled");
+				if(_array[m].name==toLeftUnits[j]){
+					_array[m].chkDisabled=false;
+					_array[m].checked=false;
+					_array.splice(m,1);
+					cancelCheckedState();
 				}
 			}
 		}
+		checkedArray.length=0;
+		for (var n=0;n<_array.length;n++) {
+			if(_array[n].isParent){
+			}
+			else{
+				checkedArray.push(_array[n].name);
+			}
+		}
+		// var mylen=$(".commonCollege:checked").length;
+		// // var mylen=array.length;
+		// for (var k=0;k<mylen;k++) {
+		// 	var matchtxt=$(".commonCollege:checked").eq(k).prev().text();
+		// 	for (var j =0; j<toLeftUnits.length;j++) {
+		// 		if(matchtxt==toLeftUnits[j]){
+		// 			$(".commonCollege:checked").eq(k).prop("checked",false).removeAttr('disabled');
+		// 			$(".commonCollege:checked").eq(k).parents().prev().removeAttr("disabled");
+		// 		}
+		// 	}
+		// }
 	})
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
+		var chooseAlready=$(".unitsEnter").val().split(",");
 		var mylen=$(".chooseAlreadyList").children('.chooseItems').length;
+		var _len=chooseAlready.length;
+		var hasSame=false;
 		for (var i=0;i<mylen;i++) {
 			var pushItem=$(".chooseAlreadyList").children('.chooseItems').eq(i).text();
-			projectUnits.push(pushItem);
+			for (var j=0;j<_len;j++) {
+				var txt=chooseAlready[j];
+				if(txt==pushItem){
+					hasSame = true;
+                 	break;
+				}
+			}
+			if(!hasSame){
+				projectUnits.push(pushItem);
+			}
 		}
-		console.log(projectUnits);
 		$(".unitsEnter").val(projectUnits);
 	})
 }
@@ -384,19 +383,27 @@ function topBarControl(){
 	$(".tableContent").css("min-height",decHeight);
 }
 var setting = {
-	check:{
-		chkStyle:"checkbox",
-		enable:true,
-		chkboxType:{ "Y": "ps", "N": "ps" }
-	}
-};
+		check:{
+			chkStyle:"checkbox",
+			enable:true,
+			chkboxType:{ "Y": "ps", "N": "ps" }
+		},
+		data:{
+			key:{
+				children:"children",
+				name:"name"
+			}
+		},
+	};
+var zNodes=[];
+var checkedArray=[];
+var _array=[];
 function getUnits(){
     var ajax =$.get('/LandEntity', function(data) {
 		var result=data.result;
-		var zNodes=[];
-		var array=[];
 		for (var i=0,len=result.length;i<len;i++ ) {
-			var obj=new Object();
+			var obj={};
+			var array=[];
 			for (var j=0,mylen=result[i].length;j<mylen;j++) {
 				if(j==0){
 					obj.name=result[i][0];
@@ -408,73 +415,23 @@ function getUnits(){
 					obj.children=array;
 				}
 			}
-		zNodes.push(obj);
+			zNodes.push(obj);
 		}
-	//var zNodes =[
-		// 	{ name:"父节点1 - 展开", open:true,
-		// 		children: [
-		// 			{ name:"父节点11 - 折叠",
-		// 				children: [
-		// 					{ name:"叶子节点111"},
-		// 					{ name:"叶子节点112"},
-		// 					{ name:"叶子节点113"},
-		// 					{ name:"叶子节点114"}
-		// 				]},
-		// 			{ name:"父节点12 - 折叠",
-		// 				children: [
-		// 					{ name:"叶子节点121"},
-		// 					{ name:"叶子节点122"},
-		// 					{ name:"叶子节点123"},
-		// 					{ name:"叶子节点124"}
-		// 				]},
-		// 			{ name:"父节点13 - 没有子节点", isParent:true}
-		// 		]},
-		// 	{ name:"父节点2 - 折叠",
-		// 		children: [
-		// 			{ name:"父节点21 - 展开", open:true,
-		// 				children: [
-		// 					{ name:"叶子节点211"},
-		// 					{ name:"叶子节点212"},
-		// 					{ name:"叶子节点213"},
-		// 					{ name:"叶子节点214"}
-		// 				]},
-		// 			{ name:"父节点22 - 折叠",
-		// 				children: [
-		// 					{ name:"叶子节点221"},
-		// 					{ name:"叶子节点222"},
-		// 					{ name:"叶子节点223"},
-		// 					{ name:"叶子节点224"}
-		// 				]},
-		// 			{ name:"父节点23 - 折叠",
-		// 				children: [
-		// 					{ name:"叶子节点231"},
-		// 					{ name:"叶子节点232"},
-		// 					{ name:"叶子节点233"},
-		// 					{ name:"叶子节点234"}
-		// 				]}
-		// 		]},
-		// 	{ name:"父节点3 - 没有子节点", children: [
-		// 					{ name:"叶子节点231"},
-		// 					{ name:"叶子节点232"},
-		// 					{ name:"叶子节点233"},
-		// 					{ name:"叶子节点234"}
-		// 				]
-		// 		}
-
-	// ];
-
-		for (var i=0;i<zNodes.length;i++) {
-				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-				$.fn.zTree.init($("#tree"), setting, zNodes);
-			}
-			var rootObj=$.fn.zTree.getZTreeObj("tree");
-			var rootNodes=$.fn.zTree.getZTreeObj("tree").getNodes();
-			var array=rootObj.transformToArray(rootNodes);
-			for (var i=0;i<array.length;i++) {
-				array[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-			}
-		rootObj.refresh();
-		// for (var i=0;i<result.length;i++ ) {
+	// for (var i=0;i<zNodes.length;i++) {
+	// 	zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+	// 	$.fn.zTree.init($("#tree"), setting, zNodes);
+	// }
+	// var rootObj=$.fn.zTree.getZTreeObj("tree");
+	// var rootNodes=$.fn.zTree.getZTreeObj("tree").getNodes();
+	// var array1=rootObj.transformToArray(rootNodes);
+	// for (var i=0;i<array1.length;i++) {
+	// 	array1[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+	// }
+	// rootObj.refresh();
+	// getSelect();
+	// function getSelect(){
+	// }
+	// for (var i=0;i<result.length;i++ ) {
 		// 	var insertProvince=$('<li class="provinceItems">'+
 		// 						// '<label for="province2">'+
 		// 							'<span></span>'+
@@ -500,21 +457,78 @@ function getUnits(){
 		// 		}
 		// 	}
 		// 	$("#tree").append(insertProvince);
-		// }
+	// }//最初版本
 	});
     return ajax;
+}
+function getTreeNodes(){
+	var rootObj=$.fn.zTree.getZTreeObj("tree");
+	var hasSame=false;
+	checkedArray.length=0;
+	if(_array.length){
+		var _array1=rootObj.getCheckedNodes();
+		var _len1=_array1.length;
+		for (var k=1;k<_len1;k++) {
+			_array.push(_array1[k]);
+		}
+	}
+	else{
+		_array=rootObj.getCheckedNodes();
+	}
+	for (var i=0;i<_array.length;i++) {
+		if(_array[i].isParent){
+		}
+		else{
+			// for (var j=0;j<checkedArray.length;j++) {
+			// 	if(_array[i].name==checkedArray[j]){
+			// 		hasSame=true;
+			// 		break;
+			// 	}
+			// }
+			// if(!hasSame){
+				checkedArray.push(_array[i].name);
+				_array[i].chkDisabled=true;
+				rootObj.refresh();
+			// }
+		}
+	}
+}
+function cancelCheckedState(){
+	var rootObj=$.fn.zTree.getZTreeObj("tree");
+	rootObj.refresh();
 }
 function madeNowrapText(text){
 	return "<span class='nowrap'>"+text+"<span>";
 }
 function madeTwoLineText(text){
-	return "<span class='twoLine'>"+text+"<span>";
+	return '<div class="showMoreContent">'+
+						'<span class="twoLine">'+text+'</span>'+
+						'<div class="lookMore">'+
+							'<span></span>'+
+							'<i class="rectangle"></i>'+
+						'</div>'+
+					'</div>';
+	// return "<span class='twoLine'>"+text+"<span>";
 }
 function getPages(index){
 	var tr=$(".infoTable1 tbody tr");
 	tr.hide();
 	for (var i=20*index;i<20*(index+1);i++) {
-		console.log(i);
 		tr.eq(i).show();
 	}
 }
+$("body").on("click",".showMoreContent",function(){
+	$(this).find('.lookMore').children("span").text("");
+	var className=$(this).find('.lookMore').attr("class");
+	var txt=$(this).find(".twoLine").text();
+	var array=className.split(" ");
+	if(array.length>1){
+		$(this).find('.lookMore').removeClass("showMore");
+	}
+	else{
+		$(".lookMore").removeClass("showMore");
+		$(this).find('.lookMore').addClass("showMore");
+
+		$(this).find('.lookMore').children("span").text(txt);
+	}
+})
