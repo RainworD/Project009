@@ -193,6 +193,7 @@ body{
 		}
 		.showMoreContent{
 			position: relative;
+			cursor: pointer;
 			.txt{
 				display: block;
 				white-space:nowrap; 
@@ -209,12 +210,12 @@ body{
 				color: #999;
 			}
 			.lookMore{
-				width: 200px;
+				width: 100%;
 				display: none;
 				position: absolute;
 				padding: 10px;
 				top:46px;
-				left:-92px;
+				left:0px;
 				background:rgba(0,0,0,0.8);
 				color: #fff;
 				z-index: 2;
@@ -226,7 +227,7 @@ body{
 					border-right: 6px solid transparent;
 					position: absolute;
 					top: -6px;
-					left:40%;
+					left:48%;
 				}
 			}
 			.showMore{
@@ -1002,7 +1003,7 @@ body{
 				width: 100%;
 				background-color: #f8f9fd;
 				display: none;
-				// display: block;
+				display: block;
 				.infoTableBox{
 					width: 100%;
 					padding:20px;
@@ -1040,6 +1041,7 @@ body{
 			.searchUndo,.beforeSearch{
 				background-color: #fff;
 				display: block;
+				display: none;
 				width: 100%;
 				min-height: 400px;
 				margin: 100px 0;

@@ -137,7 +137,7 @@
 						</div>
 						<div class="leftColumnContent">
 							<div class="leftColumnProvinces">
-								<ul id="tree">
+								<ul id="tree" class="ztree">
 								</ul>
 							</div>
 						</div>
@@ -182,12 +182,11 @@
 </script>
 <script type="text/javascript">
 	$.when(getUnits()).done(function(data){
-		$("#tree").treeview({
-			persist: "location",
-			collapsed: true,
-			unique: true
-		});
-	});	
+		for (var i=0;i<zNodes.length;i++) {
+		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+		$.fn.zTree.init($("#tree"), setting, zNodes);
+		}
+	})	
 	var pageIndex=1;
 	$(".searchBtn").bind("click",function(){
 		var year1=$(".yearName1").val();

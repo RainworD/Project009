@@ -7,21 +7,30 @@
 </div>
 <div class="enterBox">
 	<div class="topTableBox">
-		<table class="topTable">
+		<table class="topTable"> 
 			<tr>
+				<th style="width:80px;">依托单位 :</th>
+				<td class="commonPlus" style="width:18.3%">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput projectUnits" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%">申请代码 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput applyCode" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
 				<th style="width:80px;">申请人 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
-					</div>
-				</td>
-				<th style="width:10.6%;">性别 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox gender">
-							<option>男</option>
-							<option>女</option>
-						</select>
+						<input class="commonput applyer">
 					</div>
 				</td>
 				<th style="width:10.6%;">批准年度 :</th>
@@ -71,18 +80,15 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<th style="width:10.6%;">研究领域 :</th>
-				<td style="width:18.3%;">
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
-					</div>
-				</td>
 			</tr>
 			<tr>			
-				<th>依托单位 :</th>
+				<th>研究领域 :</th>
 				<td>
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput studyArea">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 				<td colspan="2"></td>
@@ -95,7 +101,7 @@
 		</table>
 	</div>
 </div>
-<div class="tableContent">
+<div class="tableContent" style="display: block">
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
@@ -107,42 +113,17 @@
 				<thead>
 					<tr class="tableTitle">
 						<th>序号</th>
-						<th>申请人</th>
-						<th>性别</th>
-						<th>学位</th>
-						<th>专业技术职务</th>
-						<th>批准年度</th>
-						<th>研究领域</th>
 						<th>依托单位</th>
-						<th>项目起止时间</th>
-						<th>资助经费</th>
+						<th>申请代码</th>
+						<th>申请代码名称</th>
+						<th>申请人</th>
+						<th>批准年度</th>
+						<th>研究领域</th>						
+						<th>批准金额</th>
+						<th>项目起止年月</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>王汉生</td>
-						<td>男</td>
-						<td>博士</td>
-						<td>教授</td>
-						<td>2016-2016</td>
-						<td>光束调控及应用</td>
-						<td>北京大学</td>
-						<td>2016-2019</td>
-						<td>100</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>刘胡兰</td>
-						<td>女</td>
-						<td>博士</td>
-						<td>教授</td>
-						<td>2016-2016</td>
-						<td>光束调控及应用</td>
-						<td>清华大学</td>
-						<td>2016-2019</td>
-						<td>100</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -160,18 +141,64 @@
 	</p>
 </div>
 <script type="text/javascript">
-	$('.M-box').pagination({
-		totalData:100,
-	    showData:10,
-	    current:1,
-	    count:2,
-	    jump:true,
-		coping:true,
-		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-	    callback:function(index){
-	        location.href="__ROOT__/main.html?page="+index
-	    }
-	});
 	topBarControl();
+	var pageIndex=1;
+	$(".searchBtn").bind("click",function(){
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var applicationcode=$(".applyCode").val();
+		var entity=$(".projectUnits").val();
+		var manager=$(".applyer").val();
+		var research=$(".searchArea").val();
+		var pageindex=pageIndex;
+		$.when(askEY(entity,applicationcode,research,manager,year1,year2,pageindex)).done(function(data){
+			if(data.state == 1){
+				var result=data.result;
+				$(".infoTable1").children('tbody').empty();
+				var count=data.count;
+				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+				addCount.children('span').eq(0).text(count);
+				if(count<20){
+					addCount.children('span').eq(1).text(count);
+				}
+				else{
+					addCount.children('span').eq(1).text("20");
+				}
+				var lee=$(".tableContent .infoTablePara").children('.topRight');
+				if(lee){
+					lee.empty();
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				else{
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				if(data.state==1){
+					for (var i=0,len=result.length;i<len;i++) {
+						var searchInfo=$('<tr>'+
+							'<td></td>'+
+						'</tr>');
+						searchInfo.children('td').eq(0).text(i+1);
+						for (var j=0;j<result[i].length;j++) {
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
+							}
+							mytd.text(result[i][j]);
+							searchInfo.append(mytd);
+						}
+						$(".infoTable1").children('tbody').append(searchInfo);
+					}
+				}
+				else{
+					alert("没有符合查询条件的记录！");
+					count=0;
+					addCount.children('span').eq(0).text(count);
+					addCount.children('span').eq(1).text(count);
+				}
+			}
+		})
+	})
+	doForSearch(".projectUnits","/Landentity0");
+	doForSearch(".applyCode","/LandOYapplicationcode");
+	doForSearch(".studyArea","/LandOYresearch");
 </script>

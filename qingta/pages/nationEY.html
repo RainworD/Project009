@@ -14,6 +14,13 @@
 					<div class="commonInputBox"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div> 
+				</td>
+				<th style="width:10.6%">申请代码 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput applyCode">
+						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td> 
 				<th style="width:10.6%;">批准年度 :</th>
@@ -63,8 +70,7 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<td colspan="2"></td>
-				<td colspan="2">
+				<td colspan="2" style="width: 23.8%">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
@@ -72,7 +78,7 @@
 		</table>
 	</div>
 </div>
-<div class="tableContent">
+<div class="tableContent" style="display: block">
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
@@ -85,26 +91,13 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>依托单位</th>
+						<th>申请代码</th>
 						<th>批准年度</th>
-						<th>当选人数</th>
-						<th>资助经费汇总</th>
+						<th>项目数</th>
+						<th>批准金额汇总</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>北京大学</td>
-						<td>2001-2016</td>				
-						<td>141</td>
-						<td>57</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>清华大学</td>
-						<td>2001-2016</td>				
-						<td>141</td>
-						<td>57</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -121,8 +114,8 @@
 		<span class="sr-only">Loading...</span>
 	</p>
 </div>
-<div class="mask"></div>
-<div class="unitsChoose">
+<div class="mask mask1"></div>
+<div class="unitsChoose unitsChoose1">
 	<div class="unitsContainer">
 		<div class="cancelBtn">
 			<i class="fa fa-close showCollege"></i>
@@ -140,47 +133,7 @@
 						</div>
 						<div class="leftColumnContent">
 							<div class="leftColumnProvinces">
-								<ul id="tree">
-									<li class="provinceItems">
-										<label for="province1">
-											黑龙江
-											<input id="province1" type="checkbox" class="provinces">
-										</label>
-										<ul class="collegeItems">
-											<li>
-												<label for="college1">
-													<span>东北农业大学</span>
-													<input id="college1" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-											<li>
-												<label for="college2">
-													<span>东北石油大学</span>
-													<input id="college2" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-										</ul>
-									</li>
-									<li class="provinceItems">
-										<label for="province2">
-											浙江
-											<input id="province2" type="checkbox" class="provinces">
-										</label>
-										<ul class="collegeItems">
-											<li>
-												<label for="college3">
-													<span>浙江大学</span>
-													<input id="college3" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-											<li>
-												<label for="college4">
-													<span>浙江工业大学</span>
-													<input id="college4" type="checkbox" class="commonCollege">
-												</label>
-											</li>
-										</ul>
-									</li>
+								<ul id="tree" class="ztree">
 								</ul>
 							</div>
 						</div>
@@ -215,24 +168,12 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$('.M-box').pagination({
-		totalData:100,
-	    showData:10,
-	    current:1,
-	    count:2,
-	    jump:true,
-		coping:true,
-		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-	    callback:function(index){
-	        location.href="__ROOT__/main.html?page="+index
-	    }
-	});
-	$("#tree").treeview({
-		persist: "location",
-		collapsed: true,
-		unique: true
-	});
+	$.when(getUnits()).done(function(data){
+		for (var i=0;i<zNodes.length;i++) {
+		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+		$.fn.zTree.init($("#tree"), setting, zNodes);
+		}
+	})	
 	$(".showDetailBox").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose");

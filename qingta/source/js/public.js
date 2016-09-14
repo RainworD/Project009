@@ -40,6 +40,8 @@ function init(){
 				$(".downBtn").eq(i).addClass("btnColor");
 				$(".downBtn").eq(i).next(".downContent").addClass('show');
 				$(".downBtn").eq(i).next(".downContent").find(".linka").eq(secondid-1).addClass("activeClass");
+				$(".downBtn").eq(i).children(".downflag").addClass("fa-minus");
+
 			}
 		}
 	}
@@ -142,11 +144,20 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	myleft=$(selector).position().left;
 	mytop=$(selector).position().top;
 	$(selector).bind("mousedown",function(e){
-		ismousedown=true;
-		myleft=$(selector).position().left;
-		mytop=$(selector).position().top;
-		downX=e.pageX;
-		downY=e.pageY;
+		var targ = $(e.target);
+		// var name=targ.className;
+		var flag=targ.closest('.unitsContent');
+		if(flag.length){
+			// alert("111");
+			ismousedown=false;
+		}
+		else{
+			ismousedown=true;
+			myleft=$(selector).position().left;
+			mytop=$(selector).position().top;
+			downX=e.pageX;
+			downY=e.pageY;
+		}
 	})
 	$(document).bind("mousemove",function(e){
 			if(ismousedown){
@@ -510,14 +521,15 @@ function madeTwoLineText(text){
 					'</div>';
 	// return "<span class='twoLine'>"+text+"<span>";
 }
-function getPages(index){
-	var tr=$(".infoTable1 tbody tr");
-	tr.hide();
-	for (var i=20*index;i<20*(index+1);i++) {
-		tr.eq(i).show();
-	}
-}
-$("body").on("click",".showMoreContent",function(){
+// function getPages(index){
+// 	var tr=$(".infoTable1 tbody tr");
+// 	tr.hide();
+// 	for (var i=20*index;i<20*(index+1);i++) {
+// 		tr.eq(i).show();
+// 	}
+// }
+$("body").on("click",".showMoreContent",function(event){
+	event.stopPropagation();
 	$(this).find('.lookMore').children("span").text("");
 	var className=$(this).find('.lookMore').attr("class");
 	var txt=$(this).find(".twoLine").text();
@@ -531,4 +543,74 @@ $("body").on("click",".showMoreContent",function(){
 
 		$(this).find('.lookMore').children("span").text(txt);
 	}
+})
+function doForSearch(selector,url){
+	$(selector).bind('input propertychange', function(event) {
+		var sub=$(selector).val();
+		getWholeList(sub,url,selector);
+		$(selector).siblings('.showElse').addClass('showBtn'); 
+		event.stopPropagation();
+	})
+	$(selector).siblings('.showElse').delegate('li', 'click', function() {
+		$(selector).siblings('.showElse').removeClass("showBtn");
+		var txt=$(this).text();
+		$(selector).val(txt);
+	});
+}
+function getWholeList(sub,url,selector){
+	// $.post(url, {"name": sub}, function(data, textStatus, xhr) {
+	// 	$(selector).siblings('.showElse').empty();
+	// 	var state=data.state;
+	// 	var result=data.data;
+	// 	if (state==0) {
+	// 		var len=result.length;
+	// 		for (var i=0;i<len;i++) {
+	// 			var mytd=$('<li></li>');
+	// 			mytd.text(result[i]);
+	// 			$(selector).siblings('.showElse').append(mytd);
+	// 		}
+
+	// 	}
+	// 	else{
+	// 		$(selector).siblings('.showElse').removeClass('showBtn');
+	// 	}
+	// });
+	// $.post(url, {"unit": sub}, function(data, textStatus, xhr) {
+	// 	$(selector).siblings('.showElse').empty();
+	// 	var state=data.state;
+	// 	var result=data.data;
+	// 	if (state==0) {
+	// 		var len=result.length;
+	// 		for (var i=0;i<len;i++) {
+	// 			var mytd=$('<li></li>');
+	// 			mytd.text(result[i]);
+	// 			$(selector).siblings('.showElse').append(mytd);
+	// 		}
+
+	// 	}
+	// 	else{
+	// 		$(selector).siblings('.showElse').removeClass('showBtn');
+	// 	}
+	// });
+	$.post(url, {"sub": sub}, function(data, textStatus, xhr) {
+		$(selector).siblings('.showElse').empty();
+		var state=data.state;
+		var result=data.result;
+		if (state==1) {
+			var len=result.length;
+			for (var i=0;i<len;i++) {
+				var mytd=$('<li></li>');
+				mytd.text(result[i]);
+				$(selector).siblings('.showElse').append(mytd);
+			}
+
+		}
+		else{
+			$(selector).siblings('.showElse').removeClass('showBtn');
+		}
+	});
+}
+$(document).bind("click",function(){
+	$(".showElse").removeClass('showBtn');
+	$(".lookMore").removeClass('showMore');
 })

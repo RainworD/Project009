@@ -1,30 +1,22 @@
 <div class="changeBarContainer">
-	<div class="changeBarBox">
-		<a class="changeLeft green changeButton" href="#/nationalOYP.html?id=44">国家杰出青年基金统计</a>
-		<a class="changeRight changeButton" href="#/nationalOYPDetail.html?id=44">国家杰出青年基金明细</a>
+	<div class="changeBarBox" style="background-color:#fff;">
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">科技成果与技术转让</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
 <div class="enterBox">
-	<div class="topTableBox">
+	<div class="topTableBox"> 
 		<table class="topTable">
 			<tr>
-				<th style="width:80px;">依托单位 :</th>
+				<th style="width:105px;">学校名称 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td> 
-				<th style="width:10.6%">申请代码 :</th>
-				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%;">
-						<input class="commonput applyCode">
-						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
-					</div>
-				</td>
-				<th style="width:10.6%;">批准年度 :</th>
-				<td style="width:18.3%;">
+				<th style="width:10.6%;">公布年度 :</th>
+				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
 							<option>2016</option>
@@ -70,7 +62,30 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<td colspan="2" width="23.3%">
+				<td colspan="2"  style="width:26%"></td>
+				<td colspan="2"  style="width:26%"></td>
+			</tr>
+			<tr>
+				<td colspan="4" style="padding-left: 3%;">
+					<label for="countFirst" class="label1">
+						<input type="radio" id="countFirst" name="selBar" class="radioInput" checked="checked" value="2">
+						按专著数量排序
+					</label>
+					<label for="feeFirst" class="label2">
+						<input type="radio" id="feeFirst" name="selBar" class="radioInput" value="1">
+						按论文数量排序
+					</label>
+					<label for="feeFirst" class="label2">
+						<input type="radio" id="feeFirst" name="selBar" class="radioInput" value="1">
+						按鉴定成果数量排序
+					</label>
+					<label for="feeFirst" class="label2">
+						<input type="radio" id="feeFirst" name="selBar" class="radioInput" value="1">
+						按转让收入排序
+					</label>
+				</td>
+				<td colspan="2"></td>
+				<td colspan="2">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
@@ -78,41 +93,40 @@
 		</table>
 	</div>
 </div>
-<div class="tableContent" style="display: block">
+<div class="tableContent">
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">国家杰出青年基金统计数据&nbsp;（金额单位：万元）</span>
+				<span class="topLeft">科技成果与技术转让数据&nbsp;（金额单位：千元）</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
 			<table class="infoTable infoTable1">
 				<thead>
 					<tr class="tableTitle">
-						<th>序号</th>
-						<th>依托单位</th>
-						<th>申请代码</th>
-						<th>批准年度</th>
-						<th>项目数</th>
-						<th>批准金额汇总</th>
+						<th rowspan="2">序号</th>
+						<th rowspan="2">学校名称</th>
+						<th rowspan="2">预算年度</th>
+						<th colspan="2">专著</th>
+						<th colspan="2">学术论文（篇）</th>
+						<th rowspan="2">鉴定成果数（项）</th>
+						<th colspan="2">技术转让</th>
+					</tr>
+					<tr class="tableTitle">
+						<th>数量（部）</th>
+						<th>字数（千字）</th>
+						<th>合计</th>
+						<th>其中：国外及全国性刊物发表</th>
+						<th>签订合同数（项）</th>
+						<th>当年实际收入</th>
 					</tr>
 				</thead>
 				<tbody>
-				</tbody>
+				</tbody>				
 			</table>
 		</div>
 	</div>
 	<div class="M-box"></div>
-</div>
-<div class="searchUndo">
-	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
-	<img class="getInfoImg" src="../source/img/info.png"></img>
-</div>
-<div class="beforeSearch">
-	<p class="enterSearchInfo">
-		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-		<span class="sr-only">Loading...</span>
-	</p>
 </div>
 <div class="mask mask1"></div>
 <div class="unitsChoose unitsChoose1">
@@ -167,18 +181,45 @@
 		</div>
 	</div>
 </div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<script type="text/javascript">
+	$(".showDetailBox1").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
+	})
+	dragBoxUnitsChoose(".unitsChoose1");
+	topBarControl();
+</script>
 <script type="text/javascript">
 	$.when(getUnits()).done(function(data){
 		for (var i=0;i<zNodes.length;i++) {
 		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
 		$.fn.zTree.init($("#tree"), setting, zNodes);
 		}
-	})	
-	$(".showDetailBox").bind("click",function(){
-		$(".mask").show();
-		popAlertBox(".unitsChoose");
-		dragBox(".unitsChoose");
 	})
-	dragBoxUnitsChoose(".unitsChoose");
-	topBarControl();
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

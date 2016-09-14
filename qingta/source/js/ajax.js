@@ -496,7 +496,7 @@ function LandNNSFtype(){//自然科学基金资助类别
 }
 function askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,applicationcode){//自然科学基金查询
     var ajax = $.ajax({
-        url: "/askNNSF",
+        url: "../source/json/local.json",
         type: "POST",
         traditional:true,
         beforeSend:beforeHandle,
@@ -721,6 +721,351 @@ function askMSD(entity,subject,turn,place1,place2,score1,score2,pageindex){//教
         "score2":score2,//学科分数右
         "pageindex":pageindex,//分页数
 
+        }
+    });
+    return ajax;
+}
+function getStatistics(first_unit,participate_unit,first_year,last_year,unit,level){//国家科技奖统计
+    var ajax = $.ajax({
+        url: "/NationalScience/getStatistics",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            "first_unit":first_unit,
+            "participate_unit":participate_unit,
+            "first_year":first_year,
+            "last_year":last_year,
+            "unit":unit,
+            "level":level,
+        }
+    });
+    return ajax;
+}
+function getDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//国家科技奖统计
+    var ajax = $.ajax({
+        url: "/NationalScience/getDetail",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            "type":type,
+            "user":user,
+            "first_user":first_user,
+            "participate_user":participate_user,
+            "participate_unit":participate_unit,
+            "first_year":first_year,
+            "last_year":last_year,
+            "level":level,
+            "name":name,
+            "unit":unit,
+            "level":level,
+            "start":start,
+            "rows":rows
+        }
+    });
+    return ajax;
+}
+function getSearchUnits(sub){//科技奖单位搜索
+    var ajax = $.ajax({
+        url: "/NationalScience/getUnitLike",
+        type: "POST",
+        data:{
+            "unit":sub
+        }
+    });
+    return ajax;
+}
+function getSearchProject(sub){//科技奖项目搜索
+    var ajax = $.ajax({
+        url: "/NationalScience/getNameLike",
+        type: "POST",
+        data:{
+            "name":sub
+        }
+    });
+    return ajax;
+}
+function getEducationSearchUnits(sub){//教育奖单位搜索
+    var ajax = $.ajax({
+        url: "/EducationScience/getUnitLike",
+        type: "POST",
+        data:{
+            "unit":sub
+        }
+    });
+    return ajax;
+}
+function getEducationSearchProject(sub){//教育奖项目搜索
+    var ajax = $.ajax({
+        url: "/EducationScience/getNameLike",
+        type: "POST",
+        data:{
+            "name":sub
+        }
+    });
+    return ajax;
+}
+function getLearnSearchUnits(sub){//教学成果奖单位搜索
+    var ajax = $.ajax({
+        url: "/LearnScience/getUnitLike",
+        type: "POST",
+        data:{
+            "unit":sub
+        }
+    });
+    return ajax;
+}
+function getLearnSearchProject(sub){//教学成果名称搜索
+    var ajax = $.ajax({
+        url: "/LearnScience/getNameLike",
+        type: "POST",
+        data:{
+            "name":sub
+        }
+    });
+    return ajax;
+}
+function educationScienceSta(first_unit,participate_unit,first_year,last_year,unit,level){//教育部科技奖统计
+    var ajax = $.ajax({
+        url: "/EducationScience/getStatistics",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            "first_unit":first_unit,
+            "participate_unit":participate_unit,
+            "first_year":first_year,
+            "last_year":last_year,
+            "unit":unit,
+            "level":level,
+        }
+    });
+    return ajax;
+}
+function educationScience(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教育科技奖明细
+    var ajax = $.ajax({
+        url: "/EducationScience/getDetail",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            "type":type,
+            "user":user,
+            "first_user":first_user,
+            "participate_user":participate_user,
+            "participate_unit":participate_unit,
+            "first_year":first_year,
+            "last_year":last_year,
+            "level":level,
+            "name":name,
+            "unit":unit,
+            "level":level,
+            "start":start,
+            "rows":rows
+        }
+    });
+    return ajax;
+}
+function LearnScienceSta(first_unit,participate_unit,first_year,last_year,unit){//教育部科技奖统计
+    var ajax = $.ajax({
+        url: "/LearnScience/getStatistics",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            "first_unit":first_unit,
+            "participate_unit":participate_unit,
+            "first_year":first_year,
+            "last_year":last_year,
+            "unit":unit,
+        }
+    });
+    return ajax;
+}
+function LearnScience(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教育科技奖明细
+    var ajax = $.ajax({
+        url: "/LearnScience/getDetail",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            "type":type,
+            "user":user,
+            "first_user":first_user,
+            "participate_user":participate_user,
+            "participate_unit":participate_unit,
+            "first_year":first_year,
+            "last_year":last_year,
+            "level":level,
+            "name":name,
+            "unit":unit,
+            "level":level,
+            "start":start,
+            "rows":rows
+        }
+    });
+    return ajax;
+}
+function askOY(entity,applicationcode,research,manager,year1,year2,pageindex){//杰青明细
+    var ajax = $.ajax({
+        url: "/askOY",
+        type: "POST",
+        data:{
+        "entity": entity,//学科
+        "applicationcode": applicationcode,//学部
+        "research": research,//学部
+        "manager": manager,//性别
+        "year1":year1,//当选年度左侧
+        "year2":year2,//当选年度右侧
+        "pageindex":pageindex,//分页数
+        }
+    });
+    return ajax;
+}
+function askEY(entity,applicationcode,research,manager,year1,year2,pageindex){//优青明细
+    var ajax = $.ajax({
+        url: "/askEY",
+        type: "POST",
+        data:{
+        "entity": entity,//学科
+        "applicationcode": applicationcode,//学部
+        "research": research,//学部
+        "manager": manager,//性别
+        "year1":year1,//当选年度左侧
+        "year2":year2,//当选年度右侧
+        "pageindex":pageindex,//分页数
+        }
+    });
+    return ajax;
+}
+function askNSFCIG(entity,research,head,year1,year2,money1,money2,pageindex){
+    var ajax = $.ajax({
+        url: "/askNSFCIG",
+        type: "POST",
+        data:{
+        "entity": entity, //当选单位
+        "research":research,//姓名
+        "head":head,//人才类型
+        "year1":year1,//公布年度左侧
+        "year2":year2,//公布年度右侧
+        "money1":money1,//当选批次左侧
+        "money2":money2,//当选批次右侧
+        "pageindex":pageindex,//分页数
+
+        }
+    });
+    return ajax;
+}
+function askIT(entity,research,head,year1,year2,pageindex){
+    var ajax = $.ajax({
+        url: "/askIT",
+        type: "POST",
+        data:{
+        "entity": entity, //当选单位
+        "research":research,//姓名
+        "head":head,//人才类型
+        "year1":year1,//公布年度左侧
+        "year2":year2,//公布年度右侧
+        "pageindex":pageindex,//分页数
+        }
+    });
+    return ajax;
+}
+function askVC(entity,name,manager,year1,year2,_index1,_index2,pageindex){//公开课明细
+    var ajax = $.ajax({
+        url: "/askVC",
+        type: "POST",
+        data:{
+        "entity": entity, //选择的学校列表
+        "name":name,//当选批次
+        "manager":manager,//分页数
+        "year1":year1,//公布年度左侧
+        "year2":year2,//公布年度右侧
+        "_index1":_index1,
+        "_index2":_index2,
+        "pageindex":pageindex
+        }
+    });
+    return ajax;
+}
+function askNSC(entity,year1,year2,name,manager,pageindex){//共享课明细
+    var ajax = $.ajax({
+        url: "/askNSC",
+        type: "POST",
+        data:{
+        "entity": entity, //选择的学校列表
+        "year1":year1,//当选批次
+        "year2":year2,//分页数
+        "name":name,
+        "manager":manager,
+        "pageindex":pageindex
+        }
+    });
+    return ajax;
+}
+ function LandEYresearch(sub){//优青研究领域搜索
+    var ajax = $.ajax({
+        url: "/LandEYresearch",
+        type: "POST",// or GET
+        data:{
+            "sub":sub
+        }
+    });
+    return ajax;
+}
+function LandEYapplicationcode(sub){//优青申请代码搜索
+    var ajax = $.ajax({
+        url: "/LandEYapplicationcode",
+        type: "POST",// or GET
+        data:{
+            "sub":sub
+        }
+    });
+    return ajax;
+}
+function LandOYapplicationcode(sub){//杰青申请代码搜索
+    var ajax = $.ajax({
+        url: "/LandOYapplicationcode",
+        type: "POST",// or GET
+        data:{
+            "sub":sub
+        }
+    });
+    return ajax;
+}
+function LandOYresearch(sub){//杰青研究领域搜索
+    var ajax = $.ajax({
+        url: "/LandOYresearch",
+        type: "POST",// or GET
+        data:{
+            "sub":sub
+        }
+    });
+    return ajax;
+}
+function LandITresearch(sub){//教育部创新研究领域搜索
+    var ajax = $.ajax({
+        url: "/LandITresearch",
+        type: "POST",// or GET
+        data:{
+            "sub":sub
+        }
+    });
+    return ajax;
+}
+function LandNSFCIGresearch(sub){
+    var ajax = $.ajax({
+        url: "/LandNSFCIGresearch",
+        type: "POST",// or GET
+        data:{
+            "sub":sub
         }
     });
     return ajax;

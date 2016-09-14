@@ -9,16 +9,19 @@
 	<div class="topTableBox">
 		<table class="topTable">
 			<tr>
-				<th style="width:80px;">群体名称 :</th>
-				<td style="width:18.3%;">
+				<th style="width:80px;">依托单位 :</th>
+				<td class="commonPlus" style="width:18.3%">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput projectUnits" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 				<th style="width:10.6%;">项目负责人 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput applyer">
 					</div>
 				</td>
 				<th style="width:10.6%;">批准年度 :</th>
@@ -68,11 +71,13 @@
 					</div>
 					<span style="color:red;width: 1%">*</span>
 				</td>
-				<th  style="width:10.6%;">依托单位 :</th>
+				<th  style="width:10.6%;">群体名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
-						<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
+						<input class="commonput groupName">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 			</tr>
@@ -117,22 +122,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>2015</td>
-						<td>信息科学</td>
-						<td>胡又凡</td>
-						<td>北京大学</td>
-						<td>735</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>2016</td>
-						<td>信息科学</td>
-						<td>杨远超</td>
-						<td>清华大学</td>
-						<td>650</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -150,18 +139,78 @@
 	</p>
 </div>
 <script type="text/javascript">
-	$('.M-box').pagination({
-		totalData:100,
-	    showData:10,
-	    current:1,
-	    count:2,
-	    jump:true,
-		coping:true,
-		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-	    callback:function(index){
-	        location.href="__ROOT__/main.html?page="+index
-	    }
-	});
 	topBarControl();
+	var pageIndex=1;
+	$(".searchBtn").bind("click",function(){ 
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var money1=$(".nationFee1").val();
+		var money2=$(".nationFee2").val();
+		var entity=$(".projectUnits").val();
+		var head=$(".applyer").val();
+		var research=$(".groupName").val();
+		var pageindex=pageIndex;
+		$.when(askNSFCIG(entity,research,head,year1,year2,money1,money2,pageindex)).done(function(data){
+			if(data.state == 1){
+				var result=data.result;
+				$(".infoTable1").children('tbody').empty();
+				var count=data.count;
+				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+				addCount.children('span').eq(0).text(count);
+				if(count<20){
+					addCount.children('span').eq(1).text(count);
+				}
+				else{
+					addCount.children('span').eq(1).text("20");
+				}
+				var lee=$(".tableContent .infoTablePara").children('.topRight');
+				if(lee){
+					lee.empty();
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				else{
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				if(data.state==1){
+					for (var i=0,len=result.length;i<len;i++) {
+						var searchInfo=$('<tr>'+
+							'<td></td>'+
+						'</tr>');
+						searchInfo.children('td').eq(0).text(i+1);
+						for (var j=0;j<result[i].length;j++) {
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
+							}
+							mytd.text(result[i][j]);
+							searchInfo.append(mytd);
+						}
+						$(".infoTable1").children('tbody').append(searchInfo);
+					}
+					getPages(0);
+					$('.M-box').pagination({
+						totalData:count,
+					    showData:20,
+					    current:1,
+					    count:2,
+					    jump:true,
+						coping:true,
+						prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+						nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+					    callback:function(index){
+					        getPages(index-1);
+					    }
+					});
+				}
+				else{
+					alert("没有符合查询条件的记录！");
+					count=0;
+					addCount.children('span').eq(0).text(count);
+					addCount.children('span').eq(1).text(count);
+				}
+			}
+		})
+	})
+	doForSearch(".projectUnits","/Landentity0");
+	doForSearch(".groupName","/LandNSFCIGresearch");
 </script>

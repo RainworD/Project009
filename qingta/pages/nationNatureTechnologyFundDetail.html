@@ -50,7 +50,7 @@
 				</td>	
 				<th>批准年度 :</th>
 				<td style="width:19.3%;">
-					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+					<div class="commonselect" style="width:42.8%;margin-right:1%;">
 						<select class="selBox yearName1">
 							<option>2016</option>
 							<option>2015</option>
@@ -75,7 +75,7 @@
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
-					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+					<div class="commonselect" style="width:42.8%;margin-left:1%;">
 						<select class="selBox yearName2">
 							<option>2016</option>
 							<option>2015</option>
@@ -103,11 +103,11 @@
 				</td>
 				<th>批准金额 :</th>
 				<td>
-					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
+					<div class="commonputBox" style="width:42.8%;margin-right:1%;">
 						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
-					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
+					<div class="commonputBox" style="width:42.8%;margin-left:1%;">
 						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
@@ -161,8 +161,7 @@
 </div>
 <script type="text/javascript">
 	topBarControl();
-</script>
-<script type="text/javascript">
+
 	$.when(LandNNSFtype()).done(function(data){
 		var state=data.state;
 		var result=data.result;
@@ -176,10 +175,10 @@
 			}
 		}
 	})
-	var pageindex;
+	var dataBox={};
+	var newindex=1;
 	function getDataBox(){
-		var dataBox=[];
-		var type=$(".projectType").val();
+		var pageindex;
 		var manager=$(".projectManager").val();
 		var name=$(".nameput").val();
 		var year1=$(".yearName1").val();
@@ -187,104 +186,113 @@
 		var money1=$(".nationFee1").val();
 		var money2=$(".nationFee2").val();
 		var applicationcode	=$(".applyCode").val();	
-		pageindex=1;
-		var entity=$(".unitsEnter").val();	
-		$.when(askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,applicationcode)).done(function(data){
-			console.log(pageindex);
-			var result=data.result;
+		var entity=$(".unitsEnter").val();
+		var type=$(".projectType").val();
+		ajaxMorePages(1,1);
+		function ajaxMorePages(pageindex,newindex){
+			$.when(askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,applicationcode)).done(function(data){
+				var result=data.result;
+				dataBox[pageindex]=result;
+				var count=data.count;
+				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+				addCount.children('span').eq(0).text(count);
+				if(count<20){
+					addCount.children('span').eq(1).text(count);
+				}
+				else{
+		
+					addCount.children('span').eq(1).text("20");
+				}
+				var lee=$(".tableContent .infoTablePara").children('.topRight');
+				if(lee){
+					lee.empty();
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				else{
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				if(data.state==1){
+					getMoreResults(result,pageindex,year1,year2,money1,money2,count,newindex)
+				}
+				else{
+					alert("没有符合查询条件的记录！");
+					count=0;
+					addCount.children('span').eq(0).text(count);
+					addCount.children('span').eq(1).text(count);
+				}
+			})
+		}	
+		function getMoreResults(result,pageindex,year1,year2,money1,money2,count,newindex){
 			$(".infoTable1").children('tbody').empty();
-			var count=data.count;
-			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-			addCount.children('span').eq(0).text(count);
-			if(count<20){
-				addCount.children('span').eq(1).text(count);
-			}
-			else{
-				addCount.children('span').eq(1).text("20");
-			}
-			var lee=$(".tableContent .infoTablePara").children('.topRight');
-			if(lee){
-				lee.empty();
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			else{
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			if(data.state==1){
-				for (var i=0,len=result.length;i<len;i++) {
-					var searchInfo=$('<tr>'+
-						'<td></td>'+
-					'</tr>');
-					searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
-					// console.log((i+1)+20*(pageindex-1)*50);
-					for (var j=0;j<result[i].length;j++) {
-						var mytd=$('<td></td>');
-						if(result[i][j]==null){
-							result[i][j]="";
+			var eq=newindex%50;
+			for (var i=(eq-1)*20;i<eq*20;i++) {
+				var searchInfo=$('<tr>'+
+					'<td></td>'+
+				'</tr>');
+				searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+				// console.log((i+1)+20*(pageindex-1)*50);
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					else if(j==6){
+						result[i][j]=year1+'-'+year2;
+					}
+					else if(j==7){
+						if(money1==""&&money2!=""){
+							result[i][j]='0-'+money2;
 						}
-						else if(j==6){
+						else if(money2==""&&money1!=""){
+							result[i][j]=money1+'-不限';
+						}
+						else if(money1!=""&&money2!=""){
 							result[i][j]=year1+'-'+year2;
 						}
-						else if(j==7){
-							if(money1==""&&money2!=""){
-								result[i][j]='0-'+money2;
-							}
-							else if(money2==""&&money1!=""){
-								result[i][j]=money1+'-不限';
-							}
-							else if(money1!=""&&money2!=""){
-								result[i][j]=year1+'-'+year2;
-							}
-							else{
-								result[i][j]="汇总统计";
-							}		
-						}
-						mytd.text(result[i][j]);
-						searchInfo.append(mytd);
+						else{
+							result[i][j]="汇总统计";
+						}		
 					}
-					$(".infoTable1").children('tbody').append(searchInfo);
+					mytd.text(result[i][j]);
+					searchInfo.append(mytd);
 				}
-				getPages(0);
-				$('.M-box').pagination({
-					totalData:count,
-				    showData:20,
-				    current:1,
-				    count:2,
-				    jump:true,
-					coping:true,
-					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
-				        getPages(index-1);
-				        if(index>50){
-				        	var _index=Math.ceil(index/50);
-							pageindex=_index;
-							index=index%50;
-				        	var result=askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,applicationcode);
-				        	getPages(index-1);
-				        }
-				    }
-				});
+				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			else{
-				alert("没有符合查询条件的记录！");
-				count=0;
-				addCount.children('span').eq(0).text(count);
-				addCount.children('span').eq(1).text(count);
-			}
-		})	
+			$('.M-box').pagination({
+				totalData:count,
+			    showData:20,
+			    current:newindex,
+			    count:2,
+			    jump:true,
+				coping:true,
+				prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+				nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+			    callback:function(index){
+			    	newindex=index;
+			        if(index>50){
+			        	var _index=Math.ceil(index/50);
+						pageindex=_index;
+						if(dataBox[pageindex]){
+							var result1=dataBox[pageindex];
+							getMoreResults(result1,pageindex,year1,year2,money1,money2,count,newindex)
+						}
+						else{
+							ajaxMorePages(pageindex,newindex);
+						}
+			        }
+			        else{
+			        	getMoreResults(dataBox[1],1,year1,year2,money1,money2,count,newindex)
+			        }			       
+			    }
+			});
+		}	
 	}
-	
 	$(".searchBtn").bind("click",function(){
 		getDataBox();
 	})
-	// function getPages(index){
-	// var tr=$(".infoTable1 tbody tr");
-	// 	tr.hide();
-	// 	for (var i=20*index;i<20*(index+1);i++) {
-	// 		tr.eq(i).show();
-	// 	}
-	// }
+	function getPages(index){
+		
+	}
 	function OnInput2 (event) {
         var sub=$(".nameput").val();
     	getWholeList2(sub);
@@ -352,3 +360,4 @@
 		})
 	}
 </script>
+

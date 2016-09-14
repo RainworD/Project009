@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft green changeButton" href="#/educationSubjectEvaluate.html?id=54">教育部学科评估统计</a>
-		<a class="changeRight changeButton" href="#/educationSubjectEvaluateDetail.html?id=54">教育部学科评估明细</a>
+		<a class="changeLeft green changeButton" href="#/educationSubjectEvaluate.html?id=53">教育部学科评估统计</a>
+		<a class="changeRight changeButton" href="#/educationSubjectEvaluateDetail.html?id=53">教育部学科评估明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p> 
 </div>
@@ -115,7 +115,7 @@
 						</div>
 						<div class="leftColumnContent">
 							<div class="leftColumnProvinces">
-								<ul id="tree">
+								<ul id="tree" class="ztree">
 								</ul>
 							</div>
 						</div>
@@ -173,12 +173,11 @@
 </script>
 <script type="text/javascript">
 	$.when(getUnits()).done(function(data){
-		$("#tree").treeview({
-			persist: "location",
-			collapsed: true,
-			unique: true
-		});
-	});	
+		for (var i=0;i<zNodes.length;i++) {
+		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+		$.fn.zTree.init($("#tree"), setting, zNodes);
+		}
+	})	
 	var pageIndex=1;
 	$(".searchBtn").bind("click",function(){
 		var entitys=projectUnits;

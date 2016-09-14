@@ -14,7 +14,7 @@
 					<div class="commonInputBox"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
-					</div>	
+					</div>
 				</td> 
 				<th style="width:10.6%;">省份 :</th>
 				<td style="width:18.3%;">
@@ -98,8 +98,8 @@
 	</p>
 </div>
 <div class="mask"></div>
-<div class="unitsChoose" style="height:300px;margin-top:-150px;">
-	<div class="unitsContainer" style="padding-bottom: 40px;">
+<div class="unitsChoose unitsChoose2">
+	<div class="unitsContainer">
 		<div class="cancelBtn">
 			<i class="fa fa-close showCollege"></i>
 		</div>
@@ -139,10 +139,64 @@
 					</table>
 				</div>
 			</div>
-			<p class="bottomBtn" style="bottom: 0;">
-				<a class="forSure">保存</a>
-				<a class="forConsole">取消</a>
-			</p>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure">确定</a>
+					<a class="forConsole">取消</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="unitsChoose unitsChoose1">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目牵头单位选择</p>
+		</div>
+		<div class="unitsContent">
+			<div class="totalModel">
+				<div class="leftColumn" style="cursor:default">
+					<div class="leftColumnBox">
+						<div class="leftColumnBar">
+							<input class="searchBox">
+							<a class="leftSearchBtn">查询</a>
+						</div>
+						<div class="leftColumnContent">
+							<div class="leftColumnProvinces">
+								<ul id="tree" class="ztree">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="middleColumn">
+					<div class="btnBox">
+						<i class="fa fa-long-arrow-right moveRight"></i>
+						<i class="fa fa-long-arrow-left moveLeft"></i>
+					</div>
+				</div>
+				<div class="rightColumn">
+					<div class="rightColumnContent">
+						<p class="rightColumnBar">
+							已选单位：
+						</p>
+						<div class="chooseAlready">
+							<ul class="chooseAlreadyList">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure">确定</a>
+					<a class="forConsole">取消</a>
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
@@ -150,12 +204,15 @@
 	topBarControl();
 	$(".manageBtn,.addDataBtn").bind("click",function(){
 		$(".mask").show();
-		$(".unitsChoose").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
 	})
-	$(".cancelBtn").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
+	$(".showDetailBox1").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
 	})
+	dragBoxUnitsChoose(".unitsChoose1");
 	$(".forConsole").bind("click",function(){
 		$(this).parents('.unitsContent').find("input").val("");
 	})
@@ -164,12 +221,16 @@
 			$(this).parents('tr').remove();
 		}
 	})
+	$(".cancelBtn").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose2").hide();
+	})
 	$(".infoTable").delegate(".addLine","click",function(){		
 		$(".mask").show();
-		$(".unitsChoose").show();
+		$(".unitsChoose2").show();
 	})
 	$(".forSure").bind("click",function(){
 		$(".mask").hide();
-		$(".unitsChoose").hide();
+		$(".unitsChoose2").hide();
 	})
 </script>

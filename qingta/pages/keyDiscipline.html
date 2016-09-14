@@ -87,7 +87,7 @@
 						</div>
 						<div class="leftColumnContent">
 							<div class="leftColumnProvinces">
-								<ul id="tree">
+								<ul id="tree" class="ztree">
 								</ul>
 							</div>
 						</div>
@@ -122,19 +122,6 @@
 	</div>
 </div>
 <script>
-$('.M-box').pagination({
-	totalData:100,
-    showData:10,
-    current:1,
-    count:2,
-    jump:true,
-	coping:true,
-	prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-	nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-    callback:function(index){
-        location.href="__ROOT__/main.html?page="+index
-    }
-});
 $(".showDetailBox1").bind("click",function(){
 	$(".mask").show();
 	popAlertBox(".unitsChoose1");
@@ -145,12 +132,11 @@ topBarControl();
 </script>
 <script type="text/javascript">
 	$.when(getUnits()).done(function(data){
-		$("#tree").treeview({
-			persist: "location",
-			collapsed: true,
-			unique: true
-		});
-	});
+		for (var i=0;i<zNodes.length;i++) {
+		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+		$.fn.zTree.init($("#tree"), setting, zNodes);
+		}
+	})	
 	var pageIndex;
 	$(".searchBtn").bind("click",function(){
 		var entitys=projectUnits;
