@@ -496,7 +496,7 @@ function LandNNSFtype(){//自然科学基金资助类别
 }
 function askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,applicationcode){//自然科学基金查询
     var ajax = $.ajax({
-        url: "../source/json/local.json",
+        url: '/askNNSF',
         type: "POST",
         traditional:true,
         beforeSend:beforeHandle,
@@ -1066,6 +1066,27 @@ function LandNSFCIGresearch(sub){
         type: "POST",// or GET
         data:{
             "sub":sub
+        }
+    });
+    return ajax;
+}
+function askCUMOEfund(entitys,year1,year2,totalincoming1,totalincoming2,totalexpenditure1,totalexpenditure2,pageindex){//教育部直属明细查询
+    var ajax = $.ajax({
+        url: "/askCUMOEfund",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//年度范围左侧
+        "year2":year2,//年度范围右侧
+        "totalincoming1":totalincoming1,//总拨入左侧
+        "totalincoming2":totalincoming2,//总拨入右侧
+        "totalexpenditure1":totalexpenditure1,//总拨入左侧
+        "totalexpenditure2":totalexpenditure2,//总拨入右侧
+        "pageindex":pageindex,//分页数
+
         }
     });
     return ajax;

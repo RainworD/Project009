@@ -521,13 +521,13 @@ function madeTwoLineText(text){
 					'</div>';
 	// return "<span class='twoLine'>"+text+"<span>";
 }
-// function getPages(index){
-// 	var tr=$(".infoTable1 tbody tr");
-// 	tr.hide();
-// 	for (var i=20*index;i<20*(index+1);i++) {
-// 		tr.eq(i).show();
-// 	}
-// }
+function getPages(index){
+	var tr=$(".infoTable1 tbody tr");
+	tr.hide();
+	for (var i=20*index;i<20*(index+1);i++) {
+		tr.eq(i).show();
+	}
+}
 $("body").on("click",".showMoreContent",function(event){
 	event.stopPropagation();
 	$(this).find('.lookMore').children("span").text("");
@@ -558,40 +558,6 @@ function doForSearch(selector,url){
 	});
 }
 function getWholeList(sub,url,selector){
-	// $.post(url, {"name": sub}, function(data, textStatus, xhr) {
-	// 	$(selector).siblings('.showElse').empty();
-	// 	var state=data.state;
-	// 	var result=data.data;
-	// 	if (state==0) {
-	// 		var len=result.length;
-	// 		for (var i=0;i<len;i++) {
-	// 			var mytd=$('<li></li>');
-	// 			mytd.text(result[i]);
-	// 			$(selector).siblings('.showElse').append(mytd);
-	// 		}
-
-	// 	}
-	// 	else{
-	// 		$(selector).siblings('.showElse').removeClass('showBtn');
-	// 	}
-	// });
-	// $.post(url, {"unit": sub}, function(data, textStatus, xhr) {
-	// 	$(selector).siblings('.showElse').empty();
-	// 	var state=data.state;
-	// 	var result=data.data;
-	// 	if (state==0) {
-	// 		var len=result.length;
-	// 		for (var i=0;i<len;i++) {
-	// 			var mytd=$('<li></li>');
-	// 			mytd.text(result[i]);
-	// 			$(selector).siblings('.showElse').append(mytd);
-	// 		}
-
-	// 	}
-	// 	else{
-	// 		$(selector).siblings('.showElse').removeClass('showBtn');
-	// 	}
-	// });
 	$.post(url, {"sub": sub}, function(data, textStatus, xhr) {
 		$(selector).siblings('.showElse').empty();
 		var state=data.state;
@@ -609,6 +575,92 @@ function getWholeList(sub,url,selector){
 			$(selector).siblings('.showElse').removeClass('showBtn');
 		}
 	});
+}
+var dataBox={};
+var newindex=1;
+function getDataBox(params,url){
+	ajaxMorePages(1,1);
+	function ajaxMorePages(pageindex,newindex){
+		params.pageindex=pageindex;
+		$.post(url,params, function(data, textStatus, xhr) {
+			var result=data.result;
+			dataBox[pageindex]=result;
+			var count=data.count;
+			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			addCount.children('span').eq(0).text(count);
+			if(count<20){
+				addCount.children('span').eq(1).text(count);
+			}
+			else{
+	
+				addCount.children('span').eq(1).text("20");
+			}
+			var lee=$(".tableContent .infoTablePara").children('.topRight');
+			if(lee){
+				lee.empty();
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			else{
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			if(data.state==1){
+				getMoreResults(result,pageindex,count,newindex)
+			}
+			else{
+				alert("没有符合查询条件的记录！");
+				count=0;
+				addCount.children('span').eq(0).text(count);
+				addCount.children('span').eq(1).text(count);
+			}
+		})
+	}	
+	function getMoreResults(result,pageindex,count,newindex){
+		$(".infoTable1").children('tbody').empty();
+		var eq=newindex%50;
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			// console.log((i+1)+20*(pageindex-1)*50);
+			for (var j=0;j<result[i].length;j++) {
+				var mytd=$('<td></td>');
+				if(result[i][j]==null){
+					result[i][j]="";
+				}
+				mytd.text(result[i][j]);
+				searchInfo.append(mytd);
+			}
+			$(".infoTable1").children('tbody').append(searchInfo);
+		}
+		$('.M-box').pagination({
+			totalData:count,
+		    showData:20,
+		    current:newindex,
+		    count:2,
+		    jump:true,
+			coping:true,
+			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+		    callback:function(index){
+		    	newindex=index;
+		        if(index>50){
+		        	var _index=Math.ceil(index/50);
+					pageindex=_index;
+					if(dataBox[pageindex]){
+						var result1=dataBox[pageindex];
+						getMoreResults(result1,pageindex,count,newindex)
+					}
+					else{
+						ajaxMorePages(pageindex,newindex);
+					}
+		        }
+		        else{
+		        	getMoreResults(dataBox[1],1,count,newindex)
+		        }			       
+		    }
+		});
+	}	
 }
 $(document).bind("click",function(){
 	$(".showElse").removeClass('showBtn');

@@ -12,7 +12,7 @@
 				<th style="width:92px;">依托单位 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%">
-						<input class="commonput unitsEnter" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
+						<input class="commonput unitsEnter" type="text">
 						<ul class="showElse">
 							
 						</ul>
@@ -27,8 +27,8 @@
 				<th style="width:10.6%;">项目名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%">
-						<input class="commonput nameput" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
-						<ul class="showElse2">
+						<input class="commonput nameput"  type="text">
+						<ul class="showElse">
 							
 						</ul>
 					</div>
@@ -175,9 +175,7 @@
 			}
 		}
 	})
-	var dataBox={};
-	var newindex=1;
-	function getDataBox(){
+	$(".searchBtn").bind("click",function(){
 		var pageindex;
 		var manager=$(".projectManager").val();
 		var name=$(".nameput").val();
@@ -188,176 +186,21 @@
 		var applicationcode	=$(".applyCode").val();	
 		var entity=$(".unitsEnter").val();
 		var type=$(".projectType").val();
-		ajaxMorePages(1,1);
-		function ajaxMorePages(pageindex,newindex){
-			$.when(askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,applicationcode)).done(function(data){
-				var result=data.result;
-				dataBox[pageindex]=result;
-				var count=data.count;
-				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-				addCount.children('span').eq(0).text(count);
-				if(count<20){
-					addCount.children('span').eq(1).text(count);
-				}
-				else{
-		
-					addCount.children('span').eq(1).text("20");
-				}
-				var lee=$(".tableContent .infoTablePara").children('.topRight');
-				if(lee){
-					lee.empty();
-					$(".tableContent .infoTablePara").append(addCount);
-				}
-				else{
-					$(".tableContent .infoTablePara").append(addCount);
-				}
-				if(data.state==1){
-					getMoreResults(result,pageindex,year1,year2,money1,money2,count,newindex)
-				}
-				else{
-					alert("没有符合查询条件的记录！");
-					count=0;
-					addCount.children('span').eq(0).text(count);
-					addCount.children('span').eq(1).text(count);
-				}
-			})
-		}	
-		function getMoreResults(result,pageindex,year1,year2,money1,money2,count,newindex){
-			$(".infoTable1").children('tbody').empty();
-			var eq=newindex%50;
-			for (var i=(eq-1)*20;i<eq*20;i++) {
-				var searchInfo=$('<tr>'+
-					'<td></td>'+
-				'</tr>');
-				searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
-				// console.log((i+1)+20*(pageindex-1)*50);
-				for (var j=0;j<result[i].length;j++) {
-					var mytd=$('<td></td>');
-					if(result[i][j]==null){
-						result[i][j]="";
-					}
-					else if(j==6){
-						result[i][j]=year1+'-'+year2;
-					}
-					else if(j==7){
-						if(money1==""&&money2!=""){
-							result[i][j]='0-'+money2;
-						}
-						else if(money2==""&&money1!=""){
-							result[i][j]=money1+'-不限';
-						}
-						else if(money1!=""&&money2!=""){
-							result[i][j]=year1+'-'+year2;
-						}
-						else{
-							result[i][j]="汇总统计";
-						}		
-					}
-					mytd.text(result[i][j]);
-					searchInfo.append(mytd);
-				}
-				$(".infoTable1").children('tbody').append(searchInfo);
-			}
-			$('.M-box').pagination({
-				totalData:count,
-			    showData:20,
-			    current:newindex,
-			    count:2,
-			    jump:true,
-				coping:true,
-				prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-				nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-			    callback:function(index){
-			    	newindex=index;
-			        if(index>50){
-			        	var _index=Math.ceil(index/50);
-						pageindex=_index;
-						if(dataBox[pageindex]){
-							var result1=dataBox[pageindex];
-							getMoreResults(result1,pageindex,year1,year2,money1,money2,count,newindex)
-						}
-						else{
-							ajaxMorePages(pageindex,newindex);
-						}
-			        }
-			        else{
-			        	getMoreResults(dataBox[1],1,year1,year2,money1,money2,count,newindex)
-			        }			       
-			    }
-			});
-		}	
-	}
-	$(".searchBtn").bind("click",function(){
-		getDataBox();
+		var params={
+			'manager':manager,
+			'pageindex':pageindex,
+			'name':name,
+			'year1':year1,
+			'year2':year2,
+			'money1':money1,
+			'money2':money2,
+			'applicationcode':applicationcode,
+			'entity':entity,
+			'type':type
+		}
+		getDataBox(params,'/askNNSF');
 	})
-	function getPages(index){
-		
-	}
-	function OnInput2 (event) {
-        var sub=$(".nameput").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn'); 
-    }
-    function OnPropChanged2 (event) {
-       	var sub=$(".nameput").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn');
-    }
-    $(".showElse2").delegate('li', 'click', function() {
-    	$(".showElse2").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".nameput").val(txt);
-    });
-    function OnInput (event) {
-        var sub=$(".unitsEnter").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    function OnPropChanged (event) {
-       	var sub=$(".unitsEnter").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-     $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".unitsEnter").val(txt);
-    });
-    function getWholeList(sub){
-		$.when(Landentity0(sub)).done(function(data){
-			$(".showElse").empty();
-			var state=data.state;
-			var result=data.result;
-			if (state==1) {
-				var len=result.length;
-				for (var i=0;i<len;i++) {
-					var mytd=$('<li></li>');
-					mytd.text(result[i]);
-					$(".showElse").append(mytd);
-				}	    			
-			}
-			else{
-				$(".showElse").removeClass('showBtn');
-			}
-		})
-	}
-	function getWholeList2(sub){
-		$.when(LandNKRPname(sub)).done(function(data){
-			$(".showElse2").empty();
-			var state=data.state;
-    		var result=data.result;
-    		if (state==1) {
-    			var len=result.length;
-    			for (var i=0;i<len;i++) {
-    				var mytd=$('<li></li>');
-    				mytd.text(result[i]);
-    				$(".showElse2").append(mytd);
-    			}	    			
-    		}
-    		else{
-    			$(".showElse2").removeClass('showBtn');
-    		}
-		})
-	}
+	doForSearch(".unitsEnter","/Landentity0");
+	doForSearch(".nameput","/LandNKRPname")
 </script>
 

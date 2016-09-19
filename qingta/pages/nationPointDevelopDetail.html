@@ -12,8 +12,8 @@
 			<tr>
 				<th style="width:102px;">项目牵头单位 :</th>
 				<td class="commonPlus" style="width:18.3%">
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput projectUnits" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+					<div class="commonInputBox" style="width:100%;" type="text">
+						<input class="commonput projectUnits">
 						<ul class="showElse">
 							
 						</ul>
@@ -22,8 +22,8 @@
 				<th style="width:10.6%;">项目名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput nameput" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
-						<ul class="showElse2">
+						<input class="commonput nameput" type="text">
+						<ul class="showElse">
 							
 						</ul>
 					</div>
@@ -291,72 +291,6 @@
 			}
 		}
 	})
-	// doForSearch(".projectUnits","/Landentity0");
-	// doForSearch(".nameput","/LandNKRPname");
-	function OnInput2 (event) {
-        var sub=$(".nameput").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn'); 
-    }
-    function OnPropChanged2 (event) {
-       	var sub=$(".nameput").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn');
-    }
-    $(".showElse2").delegate('li', 'click', function() {
-    	$(".showElse2").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".nameput").val(txt);
-    });
-    function OnInput (event) {
-        var sub=$(".projectUnits").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    function OnPropChanged (event) {
-       	var sub=$(".projectUnits").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".projectUnits").val(txt);
-    });
-    function getWholeList(sub){
-		$.when(Landentity0(sub)).done(function(data){ 
-			$(".showElse").empty();
-			var state=data.state;
-			var result=data.result;
-			if (state==1) {
-				var len=result.length;
-				for (var i=0;i<len;i++) {
-					var mytd=$('<li></li>');
-					mytd.text(result[i]);
-					$(".showElse").append(mytd);
-				}	    			
-			}
-			else{
-				$(".showElse").removeClass('showBtn');
-			}
-		})
-	}
-	function getWholeList2(sub){
-		$.when(LandNKRPname(sub)).done(function(data){
-			$(".showElse2").empty();
-			var state=data.state;
-    		var result=data.result;
-    		if (state==1) {
-    			var len=result.length;
-    			for (var i=0;i<len;i++) {
-    				var mytd=$('<li></li>');
-    				mytd.text(result[i]);
-    				$(".showElse2").append(mytd);
-    			}	    			
-    		}
-    		else{
-    			$(".showElse2").removeClass('showBtn');
-    		}
-		})
-	}
+	doForSearch(".projectUnits","/Landentity0");
+	doForSearch(".nameput","/LandNKRPname");
 </script>

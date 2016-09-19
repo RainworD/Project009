@@ -34,49 +34,58 @@
 	</table>
 </div>
 <div class="tableContent">
-	<table class="infoTable">
-		<thead>
-			<tr class="tableTitle">
-				<th>序号</th>
-				<th>学校名称</th>
-				<th>账户名称</th>
-				<th>用户姓名</th>
-				<th>所属部门</th>
-				<th>邮箱</th>
-				<th>联系电话</th>
-				<th>用户属性</th>
-				<th>状态</th>
-				<th>管理</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>1</td>
-				<td>浙江大学</td>
-				<td>zjupj</td>
-				<td>张三</td>
-				<td>校长办公室</td>
-				<td>zjupj@.edu.cn</td>
-				<td>18022343334</td>
-				<td>管理员</td>
-				<td>正常</td>
-				<td><a class="manageBtn commonFor">管理</a></td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>兰州大学</td>
-				<td>zjupj</td>
-				<td>李四</td>
-				<td>校长办公室</td>
-				<td>zjupj@.edu.cn</td>
-				<td>18022343334</td>
-				<td>管理员</td>
-				<td>注销</td>
-				<td><a class="manageBtn commonFor">管理</a></td>
-			</tr>
-		</tbody>
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">用户管理页面</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>学校名称</th>
+						<th>账户名称</th>
+						<th>用户姓名</th>
+						<th>所属部门</th>
+						<th>邮箱</th>
+						<th>联系电话</th>
+						<th>用户属性</th>
+						<th>状态</th>
+						<th>管理</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>浙江大学</td>
+						<td>zjupj</td>
+						<td>张三</td>
+						<td>校长办公室</td>
+						<td>zjupj@.edu.cn</td>
+						<td>18022343334</td>
+						<td>管理员</td>
+						<td>正常</td>
+						<td><a class="manageBtn commonFor">管理</a></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>兰州大学</td>
+						<td>zjupj</td>
+						<td>李四</td>
+						<td>校长办公室</td>
+						<td>zjupj@.edu.cn</td>
+						<td>18022343334</td>
+						<td>管理员</td>
+						<td>注销</td>
+						<td><a class="manageBtn commonFor">管理</a></td>
+					</tr>
+				</tbody>
 		
-	</table>
+			</table>
+		</div>
+	</div>
 </div>
 <div class="mask"></div>
 <div class="unitsChoose">
@@ -162,17 +171,20 @@
 				</div>
 			</div>
 			<a class="forLogOut">注销用户</a>
-			<p class="bottomBtn">
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
-			</p>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure">确定</a>
+					<a class="forConsole">取消</a>
+				</p>
+			</div>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
 	$(".manageBtn,.addUserBtn").bind("click",function(){
 		$(".mask").show();
-		$(".unitsChoose").show();
+		popAlertBox(".unitsChoose");
+		dragBox(".unitsChoose");
 	})
 	$(".cancelBtn").bind("click",function(){
 		$(".mask").hide();
