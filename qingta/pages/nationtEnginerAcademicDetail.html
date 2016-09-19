@@ -12,7 +12,7 @@
 				<th style="width:120px;">当选工作单位 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput entity" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+						<input class="commonput entity" type="text">
 						<ul class="showElse">
 							
 						</ul>
@@ -83,7 +83,7 @@
 				<th>专业 :</th>
 				<td>
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput profession" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
+						<input class="commonput profession" type="text">
 						<ul class="showElse2">
 							
 						</ul>
@@ -242,70 +242,54 @@
 			}
 		})
 	})
-	function OnInput2 (event) {
-        var sub=$(".profession").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn'); 
-    }
-    function OnPropChanged2 (event) {
-       	var sub=$(".profession").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn');
-    }
-    $(".showElse2").delegate('li', 'click', function() {
-    	$(".showElse2").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".profession").val(txt);
-    });
-    function OnInput (event) {
-        var sub=$(".entity").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    function OnPropChanged (event) {
-       	var sub=$(".entity").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".entity").val(txt);
-    });
-    function getWholeList(sub){
-		$.when(Landentity0(sub)).done(function(data){
-			$(".showElse").empty();
-			var state=data.state;
-			var result=data.result;
-			if (state==1) {
-				var len=result.length;
-				for (var i=0;i<len;i++) {
-					var mytd=$('<li></li>');
-					mytd.text(result[i]);
-					$(".showElse").append(mytd);
-				}	    			
+	function selfResult(pageindex,result,newindex){
+		var eq=newindex%50;
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					mytd.text(result[i][j]);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			else{
-				$(".showElse").removeClass('showBtn');
-			}
-		})
+		}
 	}
-	function getWholeList2(sub){
-		$.when(LandEAsubject(sub)).done(function(data){
-			$(".showElse2").empty();
-			var state=data.state;
-    		var result=data.result;
-    		if (state==1) {
-    			var len=result.length;
-    			for (var i=0;i<len;i++) {
-    				var mytd=$('<li></li>');
-    				mytd.text(result[i]);
-    				$(".showElse2").append(mytd);
-    			}	    			
-    		}
-    		else{
-    			$(".showElse2").removeClass('showBtn');
-    		}
-		})
-	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entity=$(".entity").val();
+		var subject=$(".profession").val();
+		var department=$(".studyPart").val();
+		var gender=$(".gender").val();
+		var ageofElected1=$(".years1").val();
+		var ageofElected2=$(".years2").val();
+		var name=$(".name").val();
+		var params={
+			'pageindex':pageindex,
+			'name':name,
+			'year1':year1,
+			'year2':year2,
+			'subject':subject,
+			'entity':entity,
+			'department':department,
+			'gender':gender,
+			'ageofElected1':ageofElected1,
+			'ageofElected2':ageofElected2
+		}
+		getDataBox(params,'/askSA');
+	})
+	
+	doForSearch(".unitsEnter","/Landentity0");
+	doForSearch(".nameput","/LandEAsubject");
 </script>

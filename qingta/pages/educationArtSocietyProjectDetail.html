@@ -12,7 +12,7 @@
 				<th style="width:80px;">学校名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput schoolName" oninput="OnInput (event)" onpropertychange="OnPropChanged (event)" type="text">
+						<input class="commonput schoolName" type="text">
 						<ul class="showElse">
 							
 						</ul>
@@ -75,8 +75,8 @@
 				<th style="width:10.6%;">项目名称 :</th>
 				<td style="width:19.5%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput projectName" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
-						<ul class="showElse2">
+						<input class="commonput projectName" type="text">
+						<ul class="showElse">
 							
 						</ul>
 					</div>
@@ -231,8 +231,37 @@
 			}
 		}
 	})
-	var pageIndex=1;
+	function selfResult(pageindex,result,newindex){
+		var eq=newindex%50;
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					mytd.text(result[i][j]);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+			searchInfo.children('td').eq(4).css("text-align","left");
+			searchInfo.children('td').eq(3).css("text-align","left");
+			searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').eq(1).addClass('nowrap');
+			searchInfo.children('td').eq(5).addClass('nowrap');
+			searchInfo.children('td').eq(6).addClass('nowrap');
+		}
+	}
 	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
 		var type=$(".projectType").val();
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
@@ -241,133 +270,19 @@
 		var subject=$(".subjectType").val();
 		var manager=$(".applyName").val();
 		var name=$(".projectName").val();
-		var pageindex=pageIndex;
-		$.when(askHSS(subject,name,type,manager,entity,year1,year2,_class,pageindex)).done(function(data){
-			var result=data.result;
-			$(".infoTable1").children('tbody').empty();
-			var count=data.count;
-			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-			addCount.children('span').eq(0).text(count);
-			if(count<20){
-				addCount.children('span').eq(1).text(count);
-			}
-			else{
-				addCount.children('span').eq(1).text("20");
-			}
-			var lee=$(".tableContent .infoTablePara").children('.topRight');
-			if(lee){
-				lee.empty();
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			else{
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			if(data.state==1){
-				for (var i=0,len=result.length;i<len;i++) {
-					var searchInfo=$('<tr>'+
-						'<td></td>'+
-					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length;j++) {
-						var mytd=$('<td></td>');
-						if(result[i][j]==null){
-							result[i][j]="";
-						}
-						else if(j==4){
-							result[i][j]=year1+'-'+year2;
-						}
-						mytd.text(result[i][j]);
-						searchInfo.append(mytd);
-					}
-					$(".infoTable1").children('tbody').append(searchInfo);
-				}
-				getPages(0);
-				$('.M-box').pagination({
-					totalData:count,
-				    showData:20,
-				    current:1,
-				    count:2,
-				    jump:true,
-					coping:true,
-					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
-				        getPages(index-1);
-				    }
-				});
-			}
-			else{
-				alert("没有符合查询条件的记录！");
-				count=0;
-				addCount.children('span').eq(0).text(count);
-				addCount.children('span').eq(1).text(count);
-			}
-		});
+		var params={
+			'manager':manager,
+			'pageindex':pageindex,
+			'name':name,
+			'year1':year1,
+			'year2':year2,
+			'entity':entity,
+			'type':type,
+			'_class':_class,
+			'subject':subject
+		}
+		getDataBox(params,'/askHSS');
 	})
-	function OnInput (event) {
-        var sub=$(".projectName").val();
-        getWholeList(sub);
-        $(".showElse2").addClass('showBtn');
-    }
-    function OnPropChanged (event) {
-       var sub=$(".projectName").val();
-       getWholeList(sub);
-       $(".showElse2").addClass('showBtn');
-    }
-    $(".showElse2").delegate('li', 'click', function() {
-    	$(".showElse2").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".projectName").val(txt);
-    });
-	function getWholeList(sub){
-		$.post('/LandHSSname', {"sub":sub }, function(data, textStatus, xhr) {
-			$(".showElse2").empty();
-			var state=data.state;
-    		var result=data.result;
-    		if (state==1) {
-    			var len=result.length;
-    			for (var i=0;i<len;i++) {
-    				var mytd=$('<li></li>');
-    				mytd.text(result[i]);
-    				$(".showElse2").append(mytd);
-    			}	    			
-    		}
-    		else{
-    			$(".showElse2").removeClass('showBtn');
-    		}
-		});
-	}
-	function OnInput (event) {
-        var sub=$(".schoolName").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    function OnPropChanged (event) {
-       	var sub=$(".schoolName").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".schoolName").val(txt);
-    });
-    function getWholeList(sub){
-		$.when(Landentity0(sub)).done(function(data){
-			$(".showElse").empty();
-			var state=data.state;
-			var result=data.result;
-			if (state==1) {
-				var len=result.length;
-				for (var i=0;i<len;i++) {
-					var mytd=$('<li></li>');
-					mytd.text(result[i]);
-					$(".showElse").append(mytd);
-				}	    			
-			}
-			else{
-				$(".showElse").removeClass('showBtn');
-			}
-		})
-	}
+	doForSearch(".unitsEnter","/Landentity0");
+	doForSearch(".nameput","/LandHSSname");
 </script>

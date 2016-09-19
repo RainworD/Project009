@@ -161,7 +161,6 @@
 </div>
 <script type="text/javascript">
 	topBarControl();
-
 	$.when(LandNNSFtype()).done(function(data){
 		var state=data.state;
 		var result=data.result;
@@ -175,7 +174,33 @@
 			}
 		}
 	})
+	function selfResult(pageindex,result,newindex){
+		var eq=newindex%50;
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					mytd.text(result[i][j]);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+			searchInfo.children('td').eq(3).css("text-align","left");
+			searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').last().addClass('nowrap');
+		}
+	}
 	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
 		var pageindex;
 		var manager=$(".projectManager").val();
 		var name=$(".nameput").val();
@@ -201,6 +226,6 @@
 		getDataBox(params,'/askNNSF');
 	})
 	doForSearch(".unitsEnter","/Landentity0");
-	doForSearch(".nameput","/LandNKRPname")
+	doForSearch(".nameput","/LandNKRPname");
 </script>
 

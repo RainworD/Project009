@@ -604,7 +604,7 @@ function getDataBox(params,url){
 				$(".tableContent .infoTablePara").append(addCount);
 			}
 			if(data.state==1){
-				getMoreResults(result,pageindex,count,newindex)
+				getMoreResults(result,pageindex,count,newindex);
 			}
 			else{
 				alert("没有符合查询条件的记录！");
@@ -616,23 +616,7 @@ function getDataBox(params,url){
 	}	
 	function getMoreResults(result,pageindex,count,newindex){
 		$(".infoTable1").children('tbody').empty();
-		var eq=newindex%50;
-		for (var i=(eq-1)*20;i<eq*20;i++) {
-			var searchInfo=$('<tr>'+
-				'<td></td>'+
-			'</tr>');
-			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
-			// console.log((i+1)+20*(pageindex-1)*50);
-			for (var j=0;j<result[i].length;j++) {
-				var mytd=$('<td></td>');
-				if(result[i][j]==null){
-					result[i][j]="";
-				}
-				mytd.text(result[i][j]);
-				searchInfo.append(mytd);
-			}
-			$(".infoTable1").children('tbody').append(searchInfo);
-		}
+		selfResult(pageindex,result,newindex);
 		$('.M-box').pagination({
 			totalData:count,
 		    showData:20,
