@@ -96,7 +96,7 @@
 	}
 
 	function search(str){
-		if (str !== undefined) {search_faq.value = str}
+		if (str !== undefined && typeof str == 'string') {search_faq.value = str}
 		var search_str = search_faq.value.trim()
 		$('.faqItem').each(function(){
 			var $this = $(this)
