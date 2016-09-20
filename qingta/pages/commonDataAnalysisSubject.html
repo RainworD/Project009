@@ -6,9 +6,9 @@
 </div>
 <div class="changeBarContainer" style="border-top:none;">
 	<div class="changeBarBox" style="width:100%;text-align:center;margin-top:0px;">
-		<a class="changeLeft changeButton" style="width:16.6%">科研数据分析</a>
+		<a class="changeLeft changeButton" style="width:16.6%" href="#/commonDataAnalysis.html?id=11">科研数据分析</a>
 		<a class="changeRight changeButton" style="width:16.6%">人才数据分析</a>
-		<a class="changeRight green changeButton" style="width:16.6%" href="#/commonDataAnalysisSubject.html">学科数据分析</a>
+		<a class="changeRight green changeButton" style="width:16.6%">学科数据分析</a>
 		<a class="changeRight changeButton" style="width:16.6%">奖励数据分析</a>
 		<a class="changeRight changeButton" style="width:16.6%">经费数据分析</a>
 		<a class="changeRight changeButton" style="width:17%">论文数据分析</a>
@@ -16,33 +16,67 @@
 </div>
 <div class="enterBox" style="border-top:2px dashed #eee;">
 	<div class="changeBarContainer" style="border-top:none;text-align:center;">
-		<div class="chartCommentTitle" style="top:23px;">国家自然科学基金数据分析</div>
+		<div class="chartCommentTitle" style="top:23px;">ESI学科总体数据分析</div>
 		<div class="changeBarBox" style="text-align:center;margin-right:0px;float:none;">
-			<a class="changeLeft yellow changeButton">立项数量分析</a>
-			<a class="changeRight changeButton">立项金额分析</a>
+			<a class="changeLeft changeButton chartTab">国际排名趋势</a>
+			<a class="changeRight changeButton chartTab">总论文数</a>
+			<a class="changeRight yellow changeButton chartTab">总被引用数</a>
+			<a class="changeRight changeButton chartTab">篇均被引数</a>
 		</div> 
 	</div>
-	<div style="width:100%;height:300px;background:#eee;" id="national_science_chart"></div>
+	<div style="width:100%;height:300px;background:#eee;" id="subject_chart"></div>
+</div>
+<div class="enterBox" style="border-top:2px dashed #eee;">
+	<div class="changeBarContainer" style="border-top:none;text-align:center;">
+		<div class="chartCommentTitle" style="top:23px;">未入选全球1%学科数据差距分析</div>
+		<div class="commonselect">
+			<select class="selBox indexNum">
+				<option value="" selected disabled>分析时间</option>
+				<option value="2014">2014</option>
+				<option value="2014">2015</option>
+				<option value="2014">2016</option>
+			</select>
+		</div>
+	</div>
+	<div style="width:100%;height:300px;background:#eee;" id="subject_diff_chart"></div>
+</div>
+<div class="enterBox" style="border-top:2px dashed #eee;">
+	<div class="changeBarContainer" style="border-top:none;text-align:center;height:100px;">
+		<div class="chartCommentTitle" style="top:20px;width:210px;">已入选全球1%学科数据分析</div>
+		<div class="chartCommentTitle" style="top:60px;width:210px;border:none;font-size:12px;color:#999;">比例小于10%为全球1‰学科</div>
+	</div>
+	<div style="width:100%;height:300px;background:#eee;" id="subject_small_chart"></div>
 </div>
 
 <script>
-	var nationalScienceChart = echarts.init(national_science_chart);
+	var subjectChart = echarts.init(subject_chart);
 
 	function getFakeData(){
 		var fakeData = []
 		var max = 0
-		for (var i = 2006; i < 2016; i++) {
-			var quantity = Math.random() * 400 | 0
+		var year = 2014
+		var month = 1
+		for (var i = 0; i < 23; i++) {
+			var quantity = Math.random() * 40000 | 0 + 140000
 			if (quantity > max) {
 				max = quantity
 			}
+
+			var _month = month++
+			var _year = year
+			if (month > 12) {
+				month = 1
+				year++
+			}
 			fakeData.push({
-				id: i,
+				year: _year,
+				month: _month,
 				value: quantity
 			})
 		}
-		console.log(fakeData)
-		return {max: max, data: fakeData}
+		return {max: max, data: fakeData.sort(function(a, b){
+			return a.year * 12 + a.month - b.year * 12 - b.month
+		})}
 	}
 
 	function getOption(data){
@@ -58,30 +92,56 @@
 					left: 0,
 					right: 0,
 					top: '40px',
-					bottom: '20px'
+					bottom: '60px'
 				},
-		        legend: {
-		            data:['销量']
-		        },
 		        xAxis:  {
 		            type: 'category',
+		           	axisLabel: {
+		           		rotate: 45,
+		           		interval: 0,
+		           		textStyle: {
+		           			color: '#333'
+		           		}
+		           	},
+		           	axisTick: {
+		           		show: false
+		           	},	
+		           	axisLine: {
+		           		lineStyle: {
+		           			color: lineColor,
+		           			width: 3
+		           		}
+		           	},
 		            data: data.map(function(item){
-		            	return item.id + '年'
+		            	return item.year + '年' + item.month + '月'
 		            })
 		        },
 		        yAxis: {
 		            type: 'value',
-		            interval: 50
+		            interval: 10000,
+		            min: 140000,
+		            max: 180000,
+		            axisLine: {
+		            	show: false
+		            },
+		            axisTick: {
+		            	show: false
+		            },
+		            splitLine: {
+		            	lineStyle: {
+		            		color: '#eee'
+		            	}
+		            }
 		        },
 		        series: [
 		        	{
 			            type:'line',
 			            data:data.map(function(item) {return item.value}),
-			            symbolSize: 16,
+			            symbolSize: 12,
 			            label: {
 			            	normal: {
 			            		show: true,
-			            		position: [0, -25],
+			            		position: 'top',
 			            		textStyle: {
 			            			color: '#666'
 			            		}
@@ -104,12 +164,223 @@
 		    }
 	}
 
-	nationalScienceChart.setOption(getOption(getFakeData().data))
+	subjectChart.setOption(getOption(getFakeData().data))
 
-	$(national_science_chart).siblings('.changeBarContainer').on('click', '.changeButton', function(){
+	$(subject_chart).siblings('.changeBarContainer').on('click', '.changeButton', function(){
 		var $this = $(this)
 		$this.siblings().removeClass('yellow')
 		$this.addClass('yellow')
-		nationalScienceChart.setOption(getOption(getFakeData().data))
+		subjectChart.setOption(getOption(getFakeData().data))
 	})
+
+	/* 未入选全球1%学科数据差距分析 */ 
+
+	function getDiffData(){
+		return [
+			{ id: '物理学', value: 97.1},
+			{ id: '地球科学', value: 91.4},
+			{ id: '环境科学与生态学', value: 88.3},
+			{ id: '免疫学', value: 84.5},
+			{ id: '经济与商业', value: 83.6},
+			{ id: '微生物学', value: 81.9},
+			{ id: '精神病学与生理学', value: 76.8},
+			{ id: '综合交叉学科', value: 74.3},
+			{ id: '空间科学', value: 72.5},
+			{ id: '农业科学', value: 68.5},
+			{ id: '植物学与动物学', value: 57.4}
+		]
+	}
+
+	var subjectDiffChart = echarts.init(subject_diff_chart)
+
+	function transferPercent(val){
+		var str = val.toString()
+		var dotIndex = str.indexOf('.')
+		if (dotIndex == -1) {
+			dotIndex = str.length
+			str+='.00'
+		} else {
+			str+='00'
+		}
+		return str.slice(0, dotIndex+3) + "%"
+	}
+	function getDiffOption(data){
+		var color = 'rgb(51,204,204)'
+			return optionQuantity = {
+				title: {
+					show:false
+				},
+				grid: {
+					containLabel: true,
+					left: 0,
+					right: 0,
+					top: '40px',
+					bottom: '20px'
+				},
+		        xAxis:  {
+		            type: 'category',
+		           	axisLabel: {
+		           		interval: 0,
+		           		textStyle: {
+		           			color: '#333'
+		           		}
+		           	},
+		           	axisTick: {
+		           		show: false
+		           	},
+		            data: data.map(function(item){
+		            	return item.id
+		            })
+		        },
+		        yAxis: {
+		            type: 'value',
+		            interval: 20,
+		            min: 0,
+		            max: 100,
+		            axisLine: {
+		            	show: false
+		            },
+		            axisTick: {
+		            	show: false
+		            },
+		            axisLabel: {
+		            	formatter: transferPercent
+		            },
+		            splitLine: {
+		            	lineStyle: {
+		            		color: '#eee'
+		            	}
+		            }
+		        },
+		        series: [
+		        	{
+			            type:'bar',
+			            data:data.map(function(item) {return item.value}),
+			            label: {
+			            	normal: {
+			            		show: true,
+			            		position: 'top',
+			            		textStyle: {
+			            			color: '#666'
+			            		},
+			            		formatter: function(item){
+			            			return transferPercent(item.data)
+			            		}
+			            	}
+			            },
+			            barWidth: 40,
+			            itemStyle: {
+			            	normal: {
+			            		color: color
+			            	}
+			            }
+			        }
+		        ]
+		    }
+	}
+
+	subjectDiffChart.setOption(getDiffOption(getDiffData()))
+
+	/*已入选全球1%学科数据分析*/
+
+	function getMinData(){
+		var data = []
+		for(var i = 0; i < 18; i++) {
+			data.push({
+				id: '学科'+i,
+				value: (i+1+Math.random()) * 2
+			})
+		}
+		return data
+	}
+
+	function getMinOption(data){
+		var color = 'rgb(51,204,204)'
+		var yellow = 'rgb(255,192,0)'
+			return optionQuantity = {
+				title: {
+					show:false
+				},
+				grid: {
+					containLabel: true,
+					left: 0,
+					right: 0,
+					top: '40px',
+					bottom: '20px'
+				},
+		        xAxis:  {
+		            type: 'category',
+		           	axisLabel: {
+		           		interval: 0,
+		           		textStyle: {
+		           			color: '#333'
+		           		}
+		           	},
+		           	axisTick: {
+		           		show: false
+		           	},
+		            data: data.map(function(item){
+		            	return item.id
+		            })
+		        },
+		        yAxis: {
+		            type: 'value',
+		            interval: 20,
+		            min: 0,
+		            max: 100,
+		            axisLine: {
+		            	show: false
+		            },
+		            axisTick: {
+		            	show: false
+		            },
+		            axisLabel: {
+		            	formatter: transferPercent
+		            },
+		            splitLine: {
+		            	lineStyle: {
+		            		color: '#eee'
+		            	}
+		            }
+		        },
+		        series: [
+		        	{
+			            type:'bar',
+			            data:data.map(function(item, index) {
+			            	var _item = {}
+			            	if (index < 4) {
+			            		_item.itemStyle = {
+			            			normal: {
+			            				color: yellow
+			            			}
+			            		}
+			            	}
+			            	_item.value = item.value
+			            	return _item
+			            }),
+			            label: {
+			            	normal: {
+			            		show: true,
+			            		position: 'top',
+			            		textStyle: {
+			            			color: '#666'
+			            		},
+			            		formatter: function(item){
+			            			return transferPercent(item.value)
+			            		}
+			            	}
+			            },
+			            barWidth: 20,
+			            itemStyle: {
+			            	normal: {
+			            		color: color
+			            	}
+			            }
+			        }
+		        ]
+		    }
+	}
+
+	subjectSmallChart = echarts.init(subject_small_chart)
+	subjectSmallChart.setOption(getMinOption(getMinData()))
 </script>
