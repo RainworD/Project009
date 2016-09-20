@@ -1,0 +1,14 @@
+.chartCommentTitle {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: rgb(242,242,242);
+	border: 1px solid rgb(0, 204,204);
+	line-height: 30px;
+	padding: 0 15px;
+}
+
+.changeButton.yellow {
+	background: rgb(255,204,0);
+	color: #fff;
+}
