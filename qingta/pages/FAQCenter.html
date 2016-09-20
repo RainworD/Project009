@@ -1,3 +1,21 @@
+<style>
+	.faqItem .fa-minus {
+		display:none;
+	}
+	.faqQuestion {
+		cursor: pointer;
+	}
+	.faqItem.show .faqHide {
+		display: block !important;
+	}
+	.faqItem.show .fa-minus {
+		display: inline-block;
+	}
+	.faqItem.show .fa-plus {
+		display: none;
+	}
+
+</style>
 <div class="changeBarContainer">
 	<div class="changeBarBox" style="background-color:#fff;">
 		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">FAQ</a>
@@ -6,34 +24,12 @@
 </div>
 <div class="searchBar">
 	<div class="commonInputBox">
-		<input type="text" placeholder="请输入您要搜索的问题" class="commonput">
+		<input type="text" placeholder="请输入您要搜索的问题" class="commonput" id="search_faq">
 	</div>
 	<div class="addDataBtn searchBtn" style="background-color:#3cc">查询</div>
 </div>
 <div class="enterBox" style="min-height: 400px;border: 2px dashed #ebebeb;margin: 0 20px;width: auto;">
 	<div class="faqContent">
-		<div class="faqItem">
-			<div class="faqPlus">
-				<i class="fa fa-plus fa-lg faqflag"></i>
-			</div>
-			<span>如何对系统用户进行管理？</span>
-			<div class="faqHide">
-				<p class="faqPara">
-					1系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出。
-				</p>
-			</div>
-		</div>
-		<div class="faqItem">
-			<div class="faqPlus">
-				<i class="fa fa-plus fa-lg faqflag"></i>
-			</div>
-			<span>如何导出可视化数据分析的图表和各类明细数据的统计分析内容？</span>
-			<div class="faqHide">
-				<p class="faqPara">
-					2系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出，系统中的各个可视化数据分析的图表都是可以直接导出的，导出的内容可以按照PDF的格式进行导出。
-				</p>
-			</div>
-		</div>
 	</div>
 </div>
 <div class="mask"></div>
@@ -65,7 +61,58 @@
 		</div>
 	</div>
 </div>
+<script type="text/template" id="faq_template">
+	<div class="faqItem">
+		<div class="faqPlus">
+			<i class="fa fa-plus fa-lg faqflag"></i>
+			<i class="fa fa-minus fa-lg faqflag"></i>
+		</div>
+		<span class="faqQuestion"></span>
+		<div class="faqHide">
+			<p class="faqPara">
+			</p>
+		</div>
+	</div>
+</script>
 <script type="text/javascript">
+	Promise.resolve($.ajax({
+		url: '/faq/get',
+		type: 'GET'
+	})).then(function(res){
+		if (res.state == 0) {
+			res.faq.forEach(function(faq){
+				$(".faqContent").append(generateFAQ(faq.title, faq.text))
+			})
+		} else {
+			alert('获取失败')
+		}
+	})
+
+	function generateFAQ(question, content){
+		var dom = $(faq_template.textContent)
+		dom.find('.faqQuestion').text(question)
+		dom.find('.faqPara').text(content)
+		return dom
+	}
+
+	function search(str){
+		if (str !== undefined) {search_faq.value = str}
+		var search_str = search_faq.value.trim()
+		$('.faqItem').each(function(){
+			var $this = $(this)
+			if ($this.find('.faqQuestion').text().indexOf(search_str) != -1
+				|| $this.find('.faqPara').text().indexOf(search_str) != -1) {
+				$(this).show()
+			} else {
+				$(this).hide()
+			}
+		})
+	}
+
+	$('.searchBtn').click(search)
+	$(search_faq).keyup(function(e){if (e.keyCode == 13) {search()}})
+	$(search_faq).focusout(search)
+
 	$(".addDataBtn1").bind("click",function(){
 		$(".unitsContent").find(".commonput").val("");
 		$(".unitsContent").find(".commontextBox").val("");
@@ -73,45 +120,42 @@
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
 	})
+
 	$(".cancelBtn").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();
 	})
-	$(".faqContent").delegate(".faqPlus","click",function(){
-		var className=$(this).siblings(".faqHide").attr("class");
-		var array=className.split(" ");
-		if(array.length>1){
-			$(this).children(".faqflag").removeClass("fa-minus");
-			$(this).siblings('.faqHide').removeClass("show");
-		}
-		else{
-			$(this).children(".faqflag").addClass("fa-minus");
-			$(this).siblings('.faqHide').addClass("show");
-			$(this).parent(".faqItem").siblings().children(".faqHide").removeClass("show");
-			$(this).parent(".faqItem").siblings().find(".faqflag").removeClass("fa-minus");
-		}
+
+	$(".faqContent").delegate(".faqPlus, .faqQuestion","click",function(){
+		$(this).parents('.faqItem').toggleClass('show')
 	})
+
 	$(".forSure").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
 		var que=$(this).parents(".unitsContent").find(".commonput").val();
 		var ans=$(this).parents(".unitsContent").find(".commontextBox").val();
-		var insertItem=$('<div class="faqItem">'+
-							'<div class="faqPlus">'+
-								'<i class="fa fa-plus fa-lg faqflag"></i>'+
-							'</div>'+
-							'<span></span>'+
-							'<div class="faqHide">'+
-								'<p class="faqPara">'+
-								'</p>'+
-							'</div>'+
-						'</div>');
+
 		if(que!=""&&ans!=""){
-			insertItem.children("span").text(que);
-			insertItem.find(".faqPara").text(ans);
-			$(".faqContent").append(insertItem);
+			var dom = generateFAQ(que, ans)
+
+			Promise.resolve($.ajax({
+				url: '/faq/edit?title=' + que + '&&text=' + ans 
+			})).then(function(res){
+				console.dir(res)
+			}, function(e){
+				console.log(e)
+			})
+
+			$(".faqContent").append(dom)
+			search('')
+		} else {
+			alert('未填完数据')
+			return
 		}
+
+		$(".mask").hide();
+		$(".unitsChoose").hide();
 	})
+
 	$(".forConsole").bind("click",function(){
 		$(this).parents(".unitsContent").find(".commonput").val("");
 		$(this).parents(".unitsContent").find(".commontextBox").val("");
