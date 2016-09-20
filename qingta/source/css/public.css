@@ -52,6 +52,7 @@ li {
 }
 body {
   overflow-x: auto;
+  background-color: #f8f9fd;
 }
 .mainContainer {
   width: 100%;
@@ -442,6 +443,7 @@ body {
   text-align: center;
 }
 .mainContainer .changeBarContainer {
+  background-color: #fff;
   padding: 0 20px;
   position: relative;
   border-top: 1px solid #eff0f4;
@@ -830,19 +832,16 @@ body {
 .mainContainer .rightBox .rightContent .enterBox {
   width: 100%;
   height: auto;
+  background-color: #fff;
   padding: 10px;
   padding: 0 20px;
   border-radius: 6px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eff0f4;
   /*IE*/
-
   /*Firefox*/
-
   /*Chrome & Safari*/
-
   /*Opera*/
-
 }
 .mainContainer .rightBox .rightContent .enterBox .topTableBox {
   width: 100%;

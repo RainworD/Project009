@@ -1091,3 +1091,20 @@ function askCUMOEfund(entitys,year1,year2,totalincoming1,totalincoming2,totalexp
     });
     return ajax;
 }
+function askPatent(entitys,type,year1,year2,pageindex){//专利数据查询
+    var ajax = $.ajax({
+        url: "/askPatent",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//年度范围左侧
+        "year2":year2,//年度范围右侧
+        "pageindex":pageindex,//分页数
+
+        }
+    });
+    return ajax;
+}

@@ -209,60 +209,18 @@
 		$.fn.zTree.init($("#tree"), setting, zNodes);
 		}
 	})
-	var dataBox={};
-	var newindex=1;
-	function getDataBox(){
-		var pageindex;
+	function selfResult(pageindex,result,newindex){
+		var eq=newindex%50;
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
-		var totalincoming1=$(".incomeFee1").val();
-		var totalincoming2=$(".incomeFee2").val();
-		var totalexpenditure1=$(".outcomeFee1").val();
-		var totalexpenditure2=$(".outcomeFee2").val();
-		var entitys=projectUnits;
-		ajaxMorePages(1,1);
-		function ajaxMorePages(pageindex,newindex){
-			$.when(askCUMOEfund(entitys,year1,year2,totalincoming1,totalincoming2,totalexpenditure1,totalexpenditure2,pageindex)).done(function(data){
-				var result=data.result;
-				dataBox[pageindex]=result;
-				var count=data.count;
-				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-				addCount.children('span').eq(0).text(count);
-				if(count<20){
-					addCount.children('span').eq(1).text(count);
-				}
-				else{
-		
-					addCount.children('span').eq(1).text("20");
-				}
-				var lee=$(".tableContent .infoTablePara").children('.topRight');
-				if(lee){
-					lee.empty();
-					$(".tableContent .infoTablePara").append(addCount);
-				}
-				else{
-					$(".tableContent .infoTablePara").append(addCount);
-				}
-				if(data.state==1){
-					getMoreResults(result,pageindex,year1,year2,money1,money2,count,newindex)
-				}
-				else{
-					alert("没有符合查询条件的记录！");
-					count=0;
-					addCount.children('span').eq(0).text(count);
-					addCount.children('span').eq(1).text(count);
-				}
-			})
-		}	
-		function getMoreResults(result,pageindex,year1,year2,newindex){
-			$(".infoTable1").children('tbody').empty();
-			var eq=newindex%50;
-			for (var i=(eq-1)*20;i<eq*20;i++) {
-				var searchInfo=$('<tr>'+
-					'<td></td>'+
-				'</tr>');
-				searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
-				// console.log((i+1)+20*(pageindex-1)*50);
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					if(result[i][j]==null){
@@ -271,56 +229,37 @@
 					else if(j==2){
 						result[i][j]=year1+'-'+year2;
 					}
-					// else if(j==7){
-					// 	if(money1==""&&money2!=""){
-					// 		result[i][j]='0-'+money2;
-					// 	}
-					// 	else if(money2==""&&money1!=""){
-					// 		result[i][j]=money1+'-不限';
-					// 	}
-					// 	else if(money1!=""&&money2!=""){
-					// 		result[i][j]=year1+'-'+year2;
-					// 	}
-					// 	else{
-					// 		result[i][j]="汇总统计";
-					// 	}		
-					// }
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
+				searchInfo.children('td').eq(3).css("text-align","left");
+				searchInfo.children('td').css("height","57px");
 			}
-			$('.M-box').pagination({
-				totalData:count,
-			    showData:20,
-			    current:newindex,
-			    count:2,
-			    jump:true,
-				coping:true,
-				prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-				nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-			    callback:function(index){
-			    	newindex=index;
-			        if(index>50){
-			        	var _index=Math.ceil(index/50);
-						pageindex=_index;
-						if(dataBox[pageindex]){
-							var result1=dataBox[pageindex];
-							getMoreResults(result1,pageindex,year1,year2,money1,money2,count,newindex)
-						}
-						else{
-							ajaxMorePages(pageindex,newindex);
-						}
-			        }
-			        else{
-			        	getMoreResults(dataBox[1],1,year1,year2,money1,money2,count,newindex)
-			        }			       
-			    }
-			});
-		}	
+			searchInfo.children('td').eq(2).addClass('nowrap');
+		}
 	}
 	$(".searchBtn").bind("click",function(){
-		getDataBox();
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var totalincoming1=$(".incomeFee1").val();
+		var totalincoming2=$(".incomeFee2").val();
+		var totalexpenditure1=$(".outcomeFee1").val();
+		var totalexpenditure2=$(".outcomeFee2").val();
+		var entitys=projectUnits;
+		var params={
+			'pageindex':pageindex,
+			'year1':year1,
+			'year2':year2,
+			'totalincoming1':totalincoming1,	
+			'totalincoming2':totalincoming2,
+			'totalexpenditure1'	:totalexpenditure1,
+			'totalexpenditure2':totalexpenditure2,
+			'entitys':entitys
+		}
+		getDataBox(params,'/askCUMOEfund');
 	})
 </script>
 
