@@ -1048,6 +1048,7 @@ body {
   background-color: #fff;
   width: 720px;
   position: fixed;
+  max-height: 600px;
   border: 1px solid #ccc;
   z-index: 3;
   cursor: move;
@@ -1381,6 +1382,11 @@ body {
   -moz-box-shadow: 0 0 8px #3cc;
   -webkit-box-shadow: 0 0 8px #3cc;
   box-shadow: 0 0 8px #3cc;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent2 {
+  overflow: auto;
+  height: 450px;
+  margin-bottom: 20px;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent1 {
   display: none;
