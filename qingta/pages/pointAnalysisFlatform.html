@@ -348,12 +348,17 @@
 		dragBox(".unitsChoose3");
 	})
 	dragBoxUnitsChoose(".unitsChoose3");
-	$.when(getUnits()).done(function(data){
-		for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		$.fn.zTree.init($("#tree"), setting, zNodes);
-		}
-	})
+	if(finalResults){
+		judgeUnits(finalResults);
+	}
+	else{
+		$.when(getUnits()).done(function(data){
+			for (var i=0;i<zNodes.length;i++) {
+				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+			}
+			$.fn.zTree.init($("#tree"), setting, zNodes);
+		})
+	}
 	topBarControl();
 	$(".cancelBtn1").bind("click",function(){
 		$(".mask1").hide();

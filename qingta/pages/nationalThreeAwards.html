@@ -70,7 +70,7 @@
 						</select>
 					</div>
 				</td>
-				<td colspan="2" width="23.3%">
+				<td colspan="2" width="26.3%">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
@@ -194,14 +194,19 @@
 	})
 	dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
+	if(finalResults){
+		judgeUnits(finalResults);
+	}
+	else{
+		$.when(getUnits()).done(function(data){
+			for (var i=0;i<zNodes.length;i++) {
+				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+			}
+			$.fn.zTree.init($("#tree"), setting, zNodes);
+		})
+	}
 </script>
 <script type="text/javascript">
-	$.when(getUnits()).done(function(data){
-		for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		$.fn.zTree.init($("#tree"), setting, zNodes);
-		}
-	})
 	$.post('/NationalScience/getLevel', function(data, textStatus, xhr) {
 		var state=data.state;
 		var result=data.level;
@@ -244,7 +249,7 @@
 			else{
 				$(".tableContent .infoTablePara").append(addCount);
 			}
-			if(data.state==0){
+			if(data.state==0&&count!=0){
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
 						'<td></td>'+

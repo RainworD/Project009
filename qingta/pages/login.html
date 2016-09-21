@@ -140,7 +140,7 @@
 						<i class="fa fa-bar-chart fa-lg inputBtn "></i>
 					</div>
 					<div class="enterpwBox">
-						<input type="text" class="enterpw" placeholder="密码">
+						<input class="enterpw" placeholder="密码" type="password">
 						<i class="fa fa-bar-chart fa-lg inputBtn "></i>
 					</div>
 					<div class="bottomBox">
@@ -160,3 +160,32 @@
 		</div>
 	</div>
 </body>
+<script>
+	function loginIn(name,password){
+	    var ajax = $.ajax({
+	        url: "/Login",
+	        type: "POST",
+	        data:{
+	            'name':name,
+	            'password':password
+	        }
+	    });
+	    return ajax;
+	}
+	$(".loginBtn").bind("click",function(){
+		var name=$(".enterAccount").val();
+		var password=$(".enterpw").val();
+		$.when(loginIn(name,password)).done(function(data){
+			var state=data.state;
+			if(state==1){
+				localStorage.userid=data.id;//用户id
+				localStorage.userlevel=data.Powerlevel;//用户等级权限
+				localStorage.usertype=data.Type;//用户类型
+				localStorage.userName=data.Name;//用户名
+				localStorage.school=data.Entity;//用户学校
+				window.location.href="index.html";
+			}
+		})
+	})
+</script>
+</html>

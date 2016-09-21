@@ -12,7 +12,7 @@
 				<th style="width:80px;">项目名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput projectName" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+						<input class="commonput projectName" type="text">
 						<ul class="showElse">
 							
 						</ul>
@@ -90,8 +90,8 @@
 				<th>完成单位 :</th>
 				<td>
 					<div class="commonInputBox" style="width:100%">
-						<input class="commonput completeUnits" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
-						<ul class="showElse2">
+						<input class="commonput completeUnits" type="text">
+						<ul class="showElse">
 							
 						</ul>
 					</div>
@@ -245,7 +245,7 @@
 			else{
 				$(".tableContent .infoTablePara").append(addCount);
 			}
-			if(data.state==0){
+			if(data.state==0&&count!=0){
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
 						'<td></td>'+
@@ -304,79 +304,6 @@
 			}
 		})		
 	})
-	function OnInput2 (event) {
-        var sub=$(".completeUnits").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn'); 
-    	event.stopPropagation();
-    }
-    function OnPropChanged2 (event) {
-       	var sub=$(".completeUnits").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn');
-    	event.stopPropagation();
-    }
-    $(".showElse2").delegate('li', 'click', function() {
-    	$(".showElse2").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".completeUnits").val(txt);
-    });
-    function OnInput (event) {
-        var sub=$(".projectName").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');  
-    	event.stopPropagation();   
-    }
-    function OnPropChanged (event) {
-       	var sub=$(".projectName").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');
-    	event.stopPropagation();     
-    }
-    $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".projectName").val(txt);
-    });
-    function getWholeList(sub){
-		$.when(getEducationSearchProject(sub)).done(function(data){
-			$(".showElse").empty();
-			var state=data.state;
-			var result=data.data;
-			if (state==0) {
-				var len=result.length;
-				for (var i=0;i<len;i++) {
-					var mytd=$('<li></li>');
-					mytd.text(result[i]);
-					$(".showElse").append(mytd);
-				}	    			
-			}
-			else{
-				$(".showElse").removeClass('showBtn');
-			}
-		})
-	}
-	function getWholeList2(sub){
-		$.when(getEducationSearchUnits(sub)).done(function(data){
-			$(".showElse2").empty();
-			var state=data.state;
-    		var result=data.data;
-    		console.log(result);
-    		if (state==0) {
-    			var len=result.length;
-    			for (var i=0;i<len;i++) {
-    				var mytd=$('<li></li>');
-    				mytd.text(result[i]);
-    				$(".showElse2").append(mytd);
-    			}	    			
-    		}
-    		else{
-    			$(".showElse2").removeClass('showBtn');
-    		}
-		})
-	}
-	$(document).bind("click",function(){
-		$(".showElse").removeClass('showBtn');
-		$(".showElse2").removeClass('showBtn');
-	})
+	doForSearch(".projectName","/EducationScience/getNameLike");
+	doForSearch(".completeUnits","/EducationScience/getUnitLike");
 </script>

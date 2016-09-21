@@ -73,7 +73,7 @@
 					<span style="color:red;width: 1%">*</span>
 				</td>
 
-				<td colspan="2" style="width: 23.3%">
+				<td colspan="2" style="width: 26.3%">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
@@ -216,7 +216,7 @@
 			else{
 				$(".tableContent .infoTablePara").append(addCount);
 			}
-			if(data.state==0){
+			if(data.state==0&&count!=0){
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
 						'<td></td>'+
@@ -261,7 +261,7 @@
 				    }
 				});
 			}
-			else{
+			else{ 
 				alert("没有符合查询条件的记录！");
 				count=0;
 				addCount.children('span').eq(0).text(count);

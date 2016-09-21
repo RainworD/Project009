@@ -63,8 +63,8 @@
 					</div>
 					<span style="color:red;width: 1%">*</span>
 				</td>
-				<td colspan="2"></td>
-				<td colspan="2">
+				<td colspan="2" style="width:26.3%;"></td>
+				<td colspan="2" style="width:26.3%;">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
@@ -185,14 +185,19 @@
 	})
 	dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
+	if(finalResults){
+		judgeUnits(finalResults);
+	}
+	else{
+		$.when(getUnits()).done(function(data){
+			for (var i=0;i<zNodes.length;i++) {
+				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+			}
+			$.fn.zTree.init($("#tree"), setting, zNodes);
+		})
+	}
 </script>
 <script type="text/javascript">
-	$.when(getUnits()).done(function(data){
-		for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		$.fn.zTree.init($("#tree"), setting, zNodes);
-		}
-	})
 	var pageIndex=1;
 	$(".searchBtn").bind("click",function(){
 		var first_unit=$("#box1").prop("checked");

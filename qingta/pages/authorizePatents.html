@@ -185,14 +185,19 @@
 	})
 	dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
+	if(finalResults){
+		judgeUnits(finalResults);
+	}
+	else{
+		$.when(getUnits()).done(function(data){
+			for (var i=0;i<zNodes.length;i++) {
+				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+			}
+			$.fn.zTree.init($("#tree"), setting, zNodes);
+		})
+	}
 </script>
 <script type="text/javascript">
-	$.when(getUnits()).done(function(data){
-		for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		$.fn.zTree.init($("#tree"), setting, zNodes);
-		}
-	})
 	function selfResult(pageindex,result,newindex){
 		var eq=newindex%50;
 		var year1=$(".yearName1").val();

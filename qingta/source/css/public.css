@@ -792,6 +792,57 @@ body {
   background-color: #fff;
   color: #3cc;
 }
+.mainContainer .rightBox .topBar .userInfo {
+  position: absolute;
+  right: 10px;
+  height: 45px;
+  top: 5px;
+}
+.mainContainer .rightBox .topBar .userInfo .leftInfo {
+  height: 45px;
+  line-height: 45px;
+  color: #666;
+  float: left;
+  padding-right: 10px;
+}
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu {
+  cursor: pointer;
+  float: left;
+  width: 40px;
+  background-color: #c7c7c7;
+  height: 35px;
+  text-align: center;
+  border-radius: 5px;
+  position: relative;
+}
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu .logOut {
+  color: #fff;
+  font-size: 23px;
+}
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu .logOutList {
+  position: absolute;
+  top: 35px;
+  right: 0px;
+  background-color: #f8f9fd;
+  display: none;
+  width: 150px;
+  z-index: 5;
+}
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu .logOutList li:hover {
+  background-color: #c7c7c7;
+}
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu .logOutShow {
+  display: block;
+}
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu:hover {
+  background-color: #fff;
+}
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu:hover .logOut {
+  color: #c7c7c7;
+}
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu:hover .logOutList {
+  display: block;
+}
 .mainContainer .rightBox .rightContent {
   min-width: 1000px;
 }
@@ -997,14 +1048,12 @@ body {
   background-color: #fff;
   width: 720px;
   position: fixed;
-  max-height: 530px;
   border: 1px solid #ccc;
   z-index: 3;
   cursor: move;
 }
 .mainContainer .unitsChoose .unitsContainer {
   position: relative;
-  padding-bottom: 70px;
 }
 .mainContainer .unitsChoose .unitsContainer .forLogOut {
   background-color: #f33;
@@ -1018,19 +1067,15 @@ body {
   line-height: 30px;
   position: absolute;
   left: 20px;
-  bottom: 20px;
+  bottom: 0px;
   z-index: 1;
 }
 .mainContainer .unitsChoose .unitsContainer .bottomBtn {
-  padding: 0 20px;
   background-color: #fff;
   width: 100%;
-  position: absolute;
-  right: 0px;
-  bottom: 20px;
 }
 .mainContainer .unitsChoose .unitsContainer .bottomBtn p {
-  padding-top: 20px;
+  padding: 20px 0;
   width: 100%;
   border-top: 2px dashed #ebebeb;
 }
@@ -1076,12 +1121,9 @@ body {
   border-bottom: 2px dashed #ebebeb;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent {
-  padding: 20px;
+  padding: 0 20px;
   width: 100%;
   padding-top: 0px;
-  padding-bottom: 20px;
-  max-height: 400px;
-  overflow: auto;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .commonInputBox .commonput {
   border: 1px solid #ddd;
@@ -1101,21 +1143,37 @@ body {
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn {
   width: 45%;
   float: left;
-  min-height: 380px;
+  height: 380px;
   border: 1px solid #cfcfcf;
-}
-.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox {
-  padding: 10px;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar {
   width: 100%;
-  padding-bottom: 10px;
+  padding: 10px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar .searchp {
+  width: 100%;
+  height: 42px;
+  /* margin-bottom: 10px; */
   border-bottom: 2px dashed #bdbdbd;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar .searchp .showElse {
+  display: none;
+  position: absolute;
+  top: 40px;
+  background-color: #fff;
+  width: 195px;
+  height: 200px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  padding-left: 10px;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar .searchp .showBtn {
+  display: block;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnBar .searchBox {
   border: none;
   border: 1px solid #cfcfcf;
-  width: 200px;
+  width: 195px;
   display: block;
   float: left;
   margin-right: 10px;
@@ -1140,7 +1198,9 @@ body {
   clear: both;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent {
-  padding: 20px;
+  width: 100%;
+  height: 310px;
+  overflow: auto;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .leftColumn .leftColumnBox .leftColumnContent .leftColumnBtn {
   float: left;
@@ -1212,8 +1272,9 @@ body {
   width: 45%;
   float: left;
   border: 1px solid #cfcfcf;
-  min-height: 380px;
+  height: 380px;
   cursor: default;
+  overflow: auto;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent {
   padding: 10px;
@@ -1233,6 +1294,7 @@ body {
   text-align: center;
   border-radius: 5px;
   cursor: pointer;
+  overflow-x: hidden;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel .rightColumn .rightColumnContent .chooseAlready .chooseAlreadyList .addSomeColor {
   background-color: #ffefd5;
@@ -1319,6 +1381,30 @@ body {
   -moz-box-shadow: 0 0 8px #3cc;
   -webkit-box-shadow: 0 0 8px #3cc;
   box-shadow: 0 0 8px #3cc;
+}
+.mainContainer .unitsChoose .unitsContainer .unitsContent1 {
+  display: none;
+}
+.mainContainer .unitsChoose .unitsContainer .beforeShow {
+  background-color: #fff;
+  display: block;
+  width: 100%;
+  height: 440px;
+}
+.mainContainer .unitsChoose .unitsContainer .beforeShow .enterSearchInfo {
+  color: #555;
+  text-align: center;
+  padding-top: 190px;
+}
+.mainContainer .unitsChoose .unitsContainer .beforeShow .getInfoImg {
+  display: block;
+  margin: auto;
+}
+.mainContainer .unitsChoose .unitsContainer .beforeHideBox {
+  display: none;
+}
+.mainContainer .unitsChoose .unitsContainer .beforeShowBox {
+  display: block;
 }
 .mainContainer .nowrapTable th {
   white-space: normal;

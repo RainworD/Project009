@@ -230,14 +230,19 @@
 	dragBoxUnitsChoose(".unitsChoose1");
 	dragBoxSortsChoose(".unitsChoose2");
 	topBarControl();
+	if(finalResults){
+		judgeUnits(finalResults);
+	}
+	else{
+		$.when(getUnits()).done(function(data){
+			for (var i=0;i<zNodes.length;i++) {
+				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+			}
+			$.fn.zTree.init($("#tree"), setting, zNodes);
+		})
+	}
 </script>
 <script type="text/javascript">
-	$.when(getUnits()).done(function(data){
-		for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		$.fn.zTree.init($("#tree"), setting, zNodes);
-		}
-	})
 	$.when(LandNKRPstatype()).done(function(data){
 		var result=data.result;
 		if(data.state==1){

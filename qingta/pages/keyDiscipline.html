@@ -129,14 +129,19 @@ $(".showDetailBox1").bind("click",function(){
 })
 dragBoxUnitsChoose(".unitsChoose1");
 topBarControl();
-</script>
-<script type="text/javascript">
+if(finalResults){
+	judgeUnits(finalResults);
+}
+else{
 	$.when(getUnits()).done(function(data){
 		for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		$.fn.zTree.init($("#tree"), setting, zNodes);
+			zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
 		}
-	})	
+		$.fn.zTree.init($("#tree"), setting, zNodes);
+	})
+}
+</script>
+<script type="text/javascript">
 	var pageIndex;
 	$(".searchBtn").bind("click",function(){
 		var entitys=projectUnits;

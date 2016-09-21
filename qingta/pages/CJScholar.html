@@ -179,14 +179,19 @@
 	})
 	dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
+	if(finalResults){
+		judgeUnits(finalResults);
+	}
+	else{
+		$.when(getUnits()).done(function(data){
+			for (var i=0;i<zNodes.length;i++) {
+				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+			}
+			$.fn.zTree.init($("#tree"), setting, zNodes);
+		})
+	}
 </script>
 <script type="text/javascript">
-	$.when(getUnits()).done(function(data){
-		for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		$.fn.zTree.init($("#tree"), setting, zNodes);
-		}
-	})	
 	var pageIndex=1;
 	$(".searchBtn").bind("click",function(){
 		var year1=$(".yearName1").val();
@@ -258,37 +263,4 @@
 			}
 		})
 	})
-	function OnInput2 (event) {
-        var sub=$(".jobName").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn'); 
-    }
-    function OnPropChanged2 (event) {
-       	var sub=$(".jobName").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn');
-    }
-    $(".showElse2").delegate('li', 'click', function() {
-    	$(".showElse2").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".jobName").val(txt);
-    });
-    function getWholeList2(sub){
-		$.when(LandCJSsubject(sub)).done(function(data){
-			$(".showElse2").empty();
-			var state=data.state;
-    		var result=data.result;
-    		if (state==1) {
-    			var len=result.length;
-    			for (var i=0;i<len;i++) {
-    				var mytd=$('<li></li>');
-    				mytd.text(result[i]);
-    				$(".showElse2").append(mytd);
-    			}	    			
-    		}
-    		else{
-    			$(".showElse2").removeClass('showBtn');
-    		}
-		})
-	}
 </script>

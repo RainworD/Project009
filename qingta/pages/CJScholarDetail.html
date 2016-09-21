@@ -12,7 +12,7 @@
 				<th style="width:80px;">推荐单位 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput units" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+						<input class="commonput units" type="text">
 						<ul class="showElse">
 							
 						</ul>
@@ -74,8 +74,8 @@
 				<th style="width:10.6%;">岗位名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput jobName" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
-						<ul class="showElse2">
+						<input class="commonput jobName" type="text">
+						<ul class="showElse">
 							
 						</ul>
 					</div>
@@ -225,70 +225,6 @@
 			}
 		})
 	})
-	function OnInput2 (event) {
-        var sub=$(".jobName").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn'); 
-    }
-    function OnPropChanged2 (event) {
-       	var sub=$(".jobName").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn');
-    }
-    $(".showElse2").delegate('li', 'click', function() {
-    	$(".showElse2").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".jobName").val(txt);
-    });
-    function OnInput (event) {
-        var sub=$(".units").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    function OnPropChanged (event) {
-       	var sub=$(".units").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".units").val(txt);
-    });
-    function getWholeList(sub){
-		$.when(Landentity0(sub)).done(function(data){
-			$(".showElse").empty();
-			var state=data.state;
-			var result=data.result;
-			if (state==1) {
-				var len=result.length;
-				for (var i=0;i<len;i++) {
-					var mytd=$('<li></li>');
-					mytd.text(result[i]);
-					$(".showElse").append(mytd);
-				}	    			
-			}
-			else{
-				$(".showElse").removeClass('showBtn');
-			}
-		})
-	}
-	function getWholeList2(sub){
-		$.when(LandCJSsubject(sub)).done(function(data){
-			$(".showElse2").empty();
-			var state=data.state;
-    		var result=data.result;
-    		if (state==1) {
-    			var len=result.length;
-    			for (var i=0;i<len;i++) {
-    				var mytd=$('<li></li>');
-    				mytd.text(result[i]);
-    				$(".showElse2").append(mytd);
-    			}	    			
-    		}
-    		else{
-    			$(".showElse2").removeClass('showBtn');
-    		}
-		})
-	}
+	doForSearch(".units","/Landentity0");
+	doForSearch(".jobName","/LandCJSsubject");
 </script>

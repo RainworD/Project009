@@ -409,68 +409,63 @@ var setting = {
 var zNodes=[];
 var checkedArray=[];
 var _array=[];
+var objnew={};
+var finalResults=objnew.finalResults;
+// function getUnits(){
+//     var ajax =$.get('/LandEntity', function(data) {
+// 		var result=data.result;
+// 		finalResults=result;
+// 		for (var i=0,len=result.length;i<len;i++ ) {
+// 			var obj={};
+// 			var array=[];
+// 			for (var j=0,mylen=result[i].length;j<mylen;j++) {
+// 				if(j==0){
+// 					obj.name=result[i][0];
+// 				}
+// 				else{
+// 					var obj2=new Object();
+// 					obj2.name=result[i][j];
+// 					array.push(obj2);
+// 					obj.children=array;
+// 				}
+// 			}
+// 			zNodes.push(obj);
+// 		}
+// 	});
+//     return ajax; 
+// }
 function getUnits(){
-    var ajax =$.get('/LandEntity', function(data) {
+	$.when(LandEntity()).done(function(data){
 		var result=data.result;
-		for (var i=0,len=result.length;i<len;i++ ) {
-			var obj={};
-			var array=[];
-			for (var j=0,mylen=result[i].length;j<mylen;j++) {
-				if(j==0){
-					obj.name=result[i][0];
-				}
-				else{
-					var obj2=new Object();
-					obj2.name=result[i][j];
-					array.push(obj2);
-					obj.children=array;
-				}
+		finalResults=result;
+		judgeUnits(result);
+	})
+ //    var ajax =$.get('/LandEntity', function(data) {
+	// });
+ //    return ajax; 
+}
+function judgeUnits(result){
+	for (var i=0,len=result.length;i<len;i++ ) {
+		var obj={};
+		var array=[];
+		for (var j=0,mylen=result[i].length;j<mylen;j++) {
+			if(j==0){
+				obj.name=result[i][0];
 			}
-			zNodes.push(obj);
+			else{
+				var obj2=new Object();
+				obj2.name=result[i][j];
+				array.push(obj2);
+				obj.children=array;
+			}
 		}
-	// for (var i=0;i<zNodes.length;i++) {
-	// 	zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-	// 	$.fn.zTree.init($("#tree"), setting, zNodes);
-	// }
-	// var rootObj=$.fn.zTree.getZTreeObj("tree");
-	// var rootNodes=$.fn.zTree.getZTreeObj("tree").getNodes();
-	// var array1=rootObj.transformToArray(rootNodes);
-	// for (var i=0;i<array1.length;i++) {
-	// 	array1[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-	// }
-	// rootObj.refresh();
-	// getSelect();
-	// function getSelect(){
-	// }
-	// for (var i=0;i<result.length;i++ ) {
-		// 	var insertProvince=$('<li class="provinceItems">'+
-		// 						// '<label for="province2">'+
-		// 							'<span></span>'+
-		// 							'<input type="checkbox" class="provinces">'+
-		// 						// '</label>'+
-		// 						'<ul class="collegeItems">'+
-		// 						'</ul>'+
-		// 					'</li>');
-			
-		// 	for (var j=0;j<result[i].length;j++) {
-		// 		if(j==0){
-		// 			insertProvince.children('span').text(result[i][0]);
-		// 		}
-		// 		else{
-		// 			var insertItem=$('<li>'+
-		// 						// '<label for="college3">'+
-		// 							'<span></span>'+
-		// 							'<input type="checkbox" class="commonCollege">'+
-		// 						// '</label>'+
-		// 					'</li>');
-		// 			insertItem.children('span').text(result[i][j]);
-		// 			insertProvince.children('.collegeItems').append(insertItem);
-		// 		}
-		// 	}
-		// 	$("#tree").append(insertProvince);
-	// }//最初版本
-	});
-    return ajax;
+		zNodes.push(obj);
+	}
+	for (var i=0;i<zNodes.length;i++) {
+		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+		
+	}
+	$.fn.zTree.init($("#tree"), setting, zNodes);
 }
 function getTreeNodes(){
 	var rootObj=$.fn.zTree.getZTreeObj("tree");
@@ -499,10 +494,11 @@ function getTreeNodes(){
 			// if(!hasSame){
 				checkedArray.push(_array[i].name);
 				_array[i].chkDisabled=true;
-				rootObj.refresh();
+				// rootObj.refresh();
 			// }
 		}
 	}
+	rootObj.refresh();
 }
 function cancelCheckedState(){
 	var rootObj=$.fn.zTree.getZTreeObj("tree");
@@ -562,17 +558,35 @@ function getWholeList(sub,url,selector){
 		$(selector).siblings('.showElse').empty();
 		var state=data.state;
 		var result=data.result;
-		if (state==1) {
-			var len=result.length;
-			for (var i=0;i<len;i++) {
-				var mytd=$('<li></li>');
-				mytd.text(result[i]);
-				$(selector).siblings('.showElse').append(mytd);
-			}
+		if(result){
+			if (state==1) {
+				var len=result.length;
+				for (var i=0;i<len;i++) {
+					var mytd=$('<li></li>');
+					mytd.text(result[i]);
+					$(selector).siblings('.showElse').append(mytd);
+				}
 
+			}
+			else{
+				$(selector).siblings('.showElse').removeClass('showBtn');
+			}
 		}
 		else{
-			$(selector).siblings('.showElse').removeClass('showBtn');
+			var data=data.data;
+			if(state==0){				
+				if(data){
+					var len=data.length;
+					for (var i=0;i<len;i++) {
+						var mytd=$('<li></li>');
+						mytd.text(data[i]);
+						$(selector).siblings('.showElse').append(mytd);
+					}
+				}
+			}
+			else{
+				$(selector).siblings('.showElse').removeClass('showBtn');
+			}
 		}
 	});
 }
