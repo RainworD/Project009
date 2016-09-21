@@ -301,6 +301,10 @@ function dragBoxUnitsChoose(selector){
 		}
 		$(".unitsEnter").val(projectUnits);
 	})
+	$(selector).on("click",".forConsole",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
 }
 function dragBoxSortsChoose(selector){
 	$(selector).on("click",".cancelBtn",function(){
@@ -406,7 +410,7 @@ var setting = {
 			}
 		},
 	};
-var zNodes=[];
+zNodes=[];
 var checkedArray=[];
 var _array=[];
 var objnew={};
@@ -465,7 +469,7 @@ function judgeUnits(result){
 		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
 		
 	}
-	$.fn.zTree.init($("#tree"), setting, zNodes);
+	$.fn.zTree.init($("#tree"), setting, zNodes.slice(0));
 }
 function getTreeNodes(){
 	var rootObj=$.fn.zTree.getZTreeObj("tree");

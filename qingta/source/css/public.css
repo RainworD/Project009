@@ -67,31 +67,23 @@ body {
 .mainContainer .commonInputBox .showElse2 {
   display: none;
   position: absolute;
-  top: 29px;
+  top: 27px;
   left: 0;
   background-color: #fff;
   z-index: 1;
   width: 100%;
   border: 1px solid #bdbdbd;
+  max-height: 300px;
+  overflow: auto;
 }
 .mainContainer .commonInputBox .showElse li,
 .mainContainer .commonInputBox .showElse2 li {
   padding: 5px;
   cursor: pointer;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 .mainContainer .commonInputBox .showElse li:hover,
 .mainContainer .commonInputBox .showElse2 li:hover {
   background-color: #fffcf3;
-  overflow: visible;
-  width: auto;
-}
-.mainContainer .commonInputBox .showElse:hover {
-  width: auto;
-}
-.mainContainer .commonInputBox .showElse2:hover {
   width: auto;
 }
 .mainContainer .commonInputBox .showBtn {
@@ -271,7 +263,6 @@ body {
 }
 .mainContainer .infoTable th {
   font-weight: normal;
-  white-space: nowrap;
   color: #000;
   border: 1px solid #d9d9d9;
   text-align: center;
