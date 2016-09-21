@@ -34,3 +34,28 @@ th.yellow {
 .infoTableTop {
 	border: none !important; 
 }
+
+.changeBarBox.changeBarBox6 > a {
+	width: 16.6% !important;
+	border-right: 1px solid #fff;
+}
+.changeBarBox.changeBarBox6 > a:last-child {
+	border-right: none;
+}
+
+.changeButton.changeButtonTab {
+	width: auto !important;
+	min-width: 200px !important;
+}
+
+.changeButton:first-child {
+	padding-left: 20px !important;
+	border-bottom-left-radius: 6px !important;
+	border-top-left-radius: 6px !important;
+}
+
+.changeButton:last-child {
+	padding-right: 20px !important;
+	border-bottom-right-radius: 6px !important;
+	border-top-right-radius: 6px !important;
+}
