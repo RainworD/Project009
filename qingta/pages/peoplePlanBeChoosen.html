@@ -144,13 +144,18 @@
 		<div class="unitsHeader unitsHeader1">
 			<p class="unitsTitle">项目牵头单位选择</p>
 		</div>
-		<div class="unitsContent">
+		<div class="unitsContent unitsContent1">
 			<div class="totalModel">
 				<div class="leftColumn" style="cursor:default">
 					<div class="leftColumnBox">
 						<div class="leftColumnBar">
-							<input class="searchBox">
-							<a class="leftSearchBtn">查询</a>
+							<div class="searchp">
+								<input class="searchBox">
+								<ul class="showElse">
+							
+								</ul>
+								<a class="leftSearchBtn">查询</a>
+							</div>
 						</div>
 						<div class="leftColumnContent">
 							<div class="leftColumnProvinces">
@@ -179,38 +184,47 @@
 					</div>
 				</div>
 			</div>
-			<div class="bottomBtn">
-				<p>
-					<a class="forSure">确定</a>
-					<a class="forConsole">取消</a>
-				</p>
-			</div>
+		</div>
+		<div class="beforeShow">
+			<p class="enterSearchInfo">
+				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+				<span class="sr-only">Loading...</span>
+			</p>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
 		</div>
 	</div>
 </div>
 <script type="text/javascript">
-	$.when(getUnits()).done(function(data){
-		for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		$.fn.zTree.init($("#tree"), setting, zNodes);
-		}
-	})	
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
+		if(finalResults){
+			judgeUnits(finalResults);
+			$(".unitsContent1").addClass("beforeShowBox");
+	    	$(".beforeShow").addClass("beforeHideBox");
+		}
+		else{
+			$(".unitsContent1").removeClass("beforeShowBox");
+	    	$(".beforeShow").removeClass("beforeHideBox");
+			$.when(getUnits()).done(function(data){
+				for (var i=0;i<zNodes.length;i++) {
+					zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+				}
+				$.fn.zTree.init($("#tree"), setting, zNodes);
+			})
+		}
 	})
+	doForSearch(".searchBox","/Landentity0");
 	dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
 </script>
 <script type="text/javascript">
-	$.when(getUnits()).done(function(data){
-		$("#tree").treeview({
-			persist: "location",
-			collapsed: true,
-			unique: true
-		});
-	});
 	var pageIndex=1;	
 	$(".searchBtn").bind("click",function(){
 		var type=$(".projectType").val();

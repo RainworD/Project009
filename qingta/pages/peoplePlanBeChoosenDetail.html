@@ -12,7 +12,7 @@
 				<th style="width:80px;">当选单位 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput choosenUnits" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+						<input class="commonput choosenUnits" type="text">
 						<ul class="showElse">
 							
 						</ul>
@@ -236,37 +236,5 @@
 			}
 		})
 	})
-	function OnInput (event) {
-        var sub=$(".choosenUnits").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    function OnPropChanged (event) {
-       	var sub=$(".choosenUnits").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".choosenUnits").val(txt);
-    });
-    function getWholeList(sub){
-		$.when(Landentity0(sub)).done(function(data){
-			$(".showElse").empty();
-			var state=data.state;
-			var result=data.result;
-			if (state==1) {
-				var len=result.length;
-				for (var i=0;i<len;i++) {
-					var mytd=$('<li></li>');
-					mytd.text(result[i]);
-					$(".showElse").append(mytd);
-				}	    			
-			}
-			else{
-				$(".showElse").removeClass('showBtn');
-			}
-		})
-	}
+	doForSearch(".choosenUnits","/Landentity0");
 </script>

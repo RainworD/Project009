@@ -8,6 +8,10 @@ function beforeHandle(){
     $(".beforeSearch").addClass("tableShow");
     $(".searchUndo").addClass("searchDo");
 }
+function successHandlesub(){
+    $(".unitsContent1").addClass("beforeShowBox");
+    $(".beforeShow").addClass("beforeHideBox");
+}
 function successHandle(data){
    if(data.state==1){
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
@@ -464,6 +468,17 @@ function Landentity0(sub){//依托单位查询
     });
     return ajax;
 }
+function LandEntity(){//依托单位显示
+    var ajax = $.ajax({
+        url: "/LandEntity",
+        type: "POST",
+        // beforeSend:beforeHandlesub,
+        success:successHandlesub,
+        data:{
+        }
+    });
+    return ajax;
+}
 function askNKRPsta(entitys,type,year1,year2,money1,money2,pageindex,orderby,applicationcode){//重要项目统计查询
     var ajax = $.ajax({
         url: "/askNKRPsta",
@@ -773,7 +788,7 @@ function getSearchUnits(sub){//科技奖单位搜索
         url: "/NationalScience/getUnitLike",
         type: "POST",
         data:{
-            "unit":sub
+            "sub":sub
         }
     });
     return ajax;
@@ -783,9 +798,9 @@ function getSearchProject(sub){//科技奖项目搜索
         url: "/NationalScience/getNameLike",
         type: "POST",
         data:{
-            "name":sub
+            "sub":sub
         }
-    });
+    });getName
     return ajax;
 }
 function getEducationSearchUnits(sub){//教育奖单位搜索
@@ -793,7 +808,7 @@ function getEducationSearchUnits(sub){//教育奖单位搜索
         url: "/EducationScience/getUnitLike",
         type: "POST",
         data:{
-            "unit":sub
+            "sub":sub
         }
     });
     return ajax;
@@ -803,7 +818,7 @@ function getEducationSearchProject(sub){//教育奖项目搜索
         url: "/EducationScience/getNameLike",
         type: "POST",
         data:{
-            "name":sub
+            "sub":sub
         }
     });
     return ajax;
@@ -813,7 +828,7 @@ function getLearnSearchUnits(sub){//教学成果奖单位搜索
         url: "/LearnScience/getUnitLike",
         type: "POST",
         data:{
-            "unit":sub
+            "sub":sub
         }
     });
     return ajax;
@@ -823,7 +838,7 @@ function getLearnSearchProject(sub){//教学成果名称搜索
         url: "/LearnScience/getNameLike",
         type: "POST",
         data:{
-            "name":sub
+            "sub":sub
         }
     });
     return ajax;
@@ -1106,5 +1121,21 @@ function askPatent(entitys,type,year1,year2,pageindex){//专利数据查询
 
         }
     });
+    return ajax;
+}
+function CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone){
+    var ajax=$.ajax({
+            url: "/CreateOrdinaryAccount",
+            type: "POST",
+            data:{
+                'name':name,
+                'password':password,
+                'type':type,
+                'nickname':nickname,
+                'department':department,
+                'mail':mail,
+                'phone':phone
+            }
+        });
     return ajax;
 }

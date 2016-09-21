@@ -469,7 +469,8 @@ function judgeUnits(result){
 		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
 		
 	}
-	$.fn.zTree.init($("#tree"), setting, zNodes.slice(0));
+
+	$.fn.zTree.init($("#tree"), setting, zNodes);
 }
 function getTreeNodes(){
 	var rootObj=$.fn.zTree.getZTreeObj("tree");
