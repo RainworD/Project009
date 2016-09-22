@@ -82,6 +82,26 @@
 	</div>
 </div>
 
+<div class="tableContent">
+	<div class="infoTableBox" style="padding-top:0px;">
+		<div class="infoTableContent"  style="padding-top:10px;">
+
+			<div class="infoTableTop">
+				<p class="infoTablePara">
+					<span class="topLeft">国家社科基金立项数分析</span>
+				</p>
+			</div>
+			<div class="changeBarContainer" style="border-top:none;text-align:center;">
+				<div class="changeBarBox" style="text-align:center;margin-right:0px;float:none;">
+					<a class="yellow changeButton changeButtonTab">近十年立项数分析</a>
+				</div>
+			</div>
+			<div style="width:100%;height:300px;background:#eee;" id="national_social_chart"></div>
+			
+		</div>
+	</div>
+</div>
+
 <script type="text/javascript" src="../source/js/utils.js"></script>
 <script>
 	function getFakeData(){
@@ -348,12 +368,120 @@
 
 	setChart(national_science_department_chart, [getSetChartOption()[1], {
 		getOption: function(data){
+			return {
 
+			}
 		},
 		getData: function(){
 			return {
 
 			}
 		}
+	}])
+
+
+	function getSocialData(){
+			var fakeData = []
+			var max = 0
+			for (var i = 2006; i < 2016; i++) {
+				var quantity = Math.random() * 400 | 0
+				if (quantity > max) {
+					max = quantity
+				}
+				fakeData.push({
+					id: i,
+					value: quantity
+				})
+			}
+			return {max: max, data: fakeData}
+		}
+
+	function getSocialOption(data){
+		var lineColor = 'rgb(51,204,204)'
+		var lineWidth = 3
+		return optionQuantity = {
+			title: {
+				show:false
+			},
+			grid: {
+				containLabel: true,
+				left: 0,
+				right: 0,
+				top: '40px',
+				bottom: '20px'
+			},
+	        legend: {
+	            data:['销量']
+	        },
+	        xAxis:  {
+	            type: 'category',
+	            axisLabel: {
+	            	interval: 0,
+	            	textStyle: {
+	            		color: '#333'
+	            	}
+	            },
+	            axisTick: {
+	            	show: false
+	            },
+	            axisLine: {
+	            	lineStyle: {
+	            		color: lineColor,
+	            		width: 3
+	            	}
+	            },
+	            data: data.map(function(item){
+	            	return item.id + '年'
+	            })
+	        },
+	        yAxis: {
+	            type: 'value',
+	            interval: 50,
+	            axisLine: {
+	            	show: false
+	            },
+	            axisTick: {
+	            	show: false
+	            },
+	            splitLine: {
+	            	lineStyle: {
+	            		color: '#eee'
+	            	}
+	            }
+	        },
+	        series: [
+	        	{
+		            type:'line',
+		            data:data.map(function(item) {return item.value}),
+		            symbolSize: 16,
+		            label: {
+		            	normal: {
+		            		show: true,
+		            		position: 'top',
+		            		textStyle: {
+		            			color: '#666'
+		            		}
+		            	}
+		            },
+		            itemStyle: {
+		            	normal: {
+		            		borderColor: lineColor,
+		            		borderWidth: lineWidth
+		            	}
+		            },
+		            lineStyle: {
+		            	normal: {
+		            		color: lineColor,
+		            		width: lineWidth
+		            	}
+		            }
+		        }
+	        ]
+	    }
+	}
+
+	setChart(national_social_chart, [{
+		getOption:getSocialOption,
+		getData: function(){return getSocialData().data}
 	}])
 </script>
