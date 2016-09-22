@@ -26,7 +26,7 @@
 			</td> 
 			<td colspan="2" style="width:26.3%">
 				<a class="searchBtn rightMinBtn">用户查询</a>
-				<a class="rightMinBtn addUserBtn" style="background-color: #c9c9c9;">新增用户</a>
+				<a class="rightMinBtn addUserBtn" style="background-color: #00bfff;">新增用户</a>
 			</td>
 		</tr>
 	</table>
@@ -102,7 +102,7 @@
 							<th>学校名称 :</th>
 							<td colspan="3">
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput schoolName">
 								</div>
 							</td>
 						</tr>
@@ -110,13 +110,13 @@
 							<th>账户名称 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput accountName">
 								</div>
 							</td>
 							<th>用户姓名 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput userName1">
 								</div>
 							</td>
 						</tr>
@@ -124,13 +124,13 @@
 							<th>所属部门 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput department">
 								</div>
 							</td>
 							<th>联系邮箱 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput mailBox">
 								</div>
 							</td>
 						</tr>
@@ -138,15 +138,16 @@
 							<th>联系电话 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput phoneNum">
 								</div>
 							</td>
 							<th>用户属性 :</th>
 							<td>
 								<div class="commonselect"  style="width:100%;">
-									<select class="selBox">
-										<option>1</option>
-										<option>2</option>
+									<select class="selBox userType">
+										<option>数据管理员</option>
+										<option>普通用户</option>
+										<option>学校管理员</option>
 									</select>
 								</div>
 							</td>
@@ -155,13 +156,13 @@
 							<th>初始密码 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput oldpw" type="password">
 								</div>
 							</td>
 							<th>确认密码 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput newpw" type="password">
 								</div>
 							</td>
 						</tr>
@@ -170,25 +171,189 @@
 			</div>
 		</div>
 		<div class="bottomBtn">
-			<a class="forLogOut">注销用户</a>
+			<a class="forLogOut forLogOut1">注销用户</a>
+			<a class="forLogOut deleteUser" style="left:120px;">删除用户</a>
 			<p>
 				<a class="forSure">确定</a>
 				<a class="forConsole">取消</a>
 			</p>
-		</div>	
-	</div>
+		</div>	</div>
 </div>
 <script type="text/javascript">
-	$(".manageBtn,.addUserBtn").bind("click",function(){
+	$(".addUserBtn").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
+		$(".forLogOut1").hide();
+		$(".deleteUser").hide();
+	})
+	$(".infoTable1").delegate(".manageBtn","click",function(){
+		var td1=$(this).parent("tr").children('td').eq(0).text();
+		var td1=$(this).parent("tr").children('td').eq(0).text();
+		var td1=$(this).parent("tr").children('td').eq(0).text();
+		var td1=$(this).parent("tr").children('td').eq(0).text();
+		var td1=$(this).parent("tr").children('td').eq(0).text();
+		var td1=$(this).parent("tr").children('td').eq(0).text();
+		var td1=$(this).parent("tr").children('td').eq(0).text();
+		$(".userName").val(td1);
+		$(".mask").show();
+		popAlertBox(".unitsChoose");
+		dragBox(".unitsChoose");
+		$(".forLogOut1").show();
+		$(".deleteUser").show();
 	})
 	$(".cancelBtn").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();
 	})
-	$(".forConsole").bind("click",function(){
-		$(this).parents('.unitsContent').find("input").val("");
+	$(".forSure").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+		var name=$(".userName1").val();
+		var password;
+		var type;
+		var nickname=$(".accountName").val();
+		var mail=$(".mailBox").val();
+		var phone=$(".phoneNum").val();
+		var pw1=$(".oldpw").val();
+		var pw2=$(".newpw").val();
+		var entity=$(".schoolName").val();
+		var department=$(".department").val();
+		if(pw1!=pw2){
+			alert("两次输入的密码不相同！")
+		}
+		else{
+			password=pw2;
+		}
+		var val=$(".userType").val();
+		if(val=="学校管理员"){
+			type=2;
+			$.when(CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone)).done(function(data){
+				console.log(data);
+				if(data.state==1){
+					alert("新增学校管理员成功！");
+				}
+				else{
+					alert(data.error);
+				}
+			})
+		}
+		else{
+			if(val=="普通用户"){
+				type=0;
+			}
+			else{
+				type=1;
+			}
+			$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
+				if(data.state==1){
+					alert("新增用户成功！");
+				}
+				else{
+					alert(data.error);
+				}
+			})
+		}
+	})
+	$(".forLogOut1").bind("click",function(){
+		var name=$(".accountName").val();
+		$.ajax({
+			url:'/BannedAccount',
+			type:'post',
+			data:{
+				"name":name,
+			},
+			success:function(data){
+				if(data.state==1){
+					alert("注销用户成功");
+				}
+				else{
+					alert(data.error);
+				}
+			}
+		})
+	})
+	$(".deleteUser").bind("click",function(){
+		var name=$(".accountName").val();
+		$.ajax({
+			url:'/DeleteAccount',
+			type:'post',
+			data:{
+				"name":name,
+			},
+			success:function(data){
+				if(data.state==1){
+					alert("删除用户成功");
+				}
+				else{
+					alert(data.error);
+				}
+			}
+
+		})
+	})
+	$(".searchBtn").bind("click",function(){
+		var entity=localStorage.school;
+		$.when(GiveEntityAccount()).done(function(data){
+			if(data.state == 1){
+				var result=data.result;
+				$(".infoTable1").children('tbody').empty();
+				var count=data.count;
+				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+				addCount.children('span').eq(0).text(count);
+				if(count<20){
+					addCount.children('span').eq(1).text(count);
+				}
+				else{
+					addCount.children('span').eq(1).text("20");
+				}
+				var lee=$(".tableContent .infoTablePara").children('.topRight');
+				if(lee){
+					lee.empty();
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				else{
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				if(data.state==1){
+					for (var i=0,len=result.length;i<len;i++) {
+						var searchInfo=$('<tr>'+
+							'<td></td>'+
+						'</tr>');
+						searchInfo.children('td').eq(0).text(i+1);
+						for (var j=0;j<result[i].length;j++) {
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
+							}
+
+							mytd.text(result[i][j]);
+							searchInfo.append(mytd);
+						}
+						$(".infoTable1").children('tbody').append(searchInfo);
+					}
+					getPages(0);
+					$('.M-box').pagination({
+						totalData:count,
+					    showData:20,
+					    current:1,
+					    count:2,
+					    jump:true,
+						coping:true,
+						prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+						nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+					    callback:function(index){
+					        getPages(index-1);
+					    }
+					});
+				}
+				else{
+					alert("没有符合查询条件的记录！");
+					count=0;
+					addCount.children('span').eq(0).text(count);
+					addCount.children('span').eq(1).text(count);
+				}
+			}
+		})
 	})
 </script>

@@ -23,7 +23,7 @@
 				<td colspan="2" style="width:18.3%;"></td>
 				<td colspan="2" style="width:26.3%">
 					<a class="searchBtn rightMinBtn">用户查询</a>
-					<a class="rightMinBtn addUserBtn" style="background-color: #c9c9c9;">新增用户</a>
+					<a class="rightMinBtn addUserBtn" style="background-color: #00bfff;">新增用户</a>
 				</td>
 			</tr>
 		</table>
@@ -157,7 +157,8 @@
 			</div>
 		</div>
 		<div class="bottomBtn">
-			<a class="forLogOut">注销用户</a>
+			<a class="forLogOut forLogOut1">注销用户</a>
+			<a class="forLogOut deleteUser" style="left:120px;">删除用户</a>
 			<p>
 				<a class="forSure">确定</a>
 				<a class="forConsole">取消</a>
@@ -171,9 +172,10 @@
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
-		$(".forLogOut").hide();
+		$(".forLogOut1").hide();
+		$(".deleteUser").hide();
 	})
-	$(".infoTable1").delegate("click",".manageBtn",function(){
+	$(".infoTable1").delegate(".manageBtn","click",function(){
 		var td1=$(this).parent("tr").children('td').eq(0).text();
 		var td1=$(this).parent("tr").children('td').eq(0).text();
 		var td1=$(this).parent("tr").children('td').eq(0).text();
@@ -182,19 +184,19 @@
 		var td1=$(this).parent("tr").children('td').eq(0).text();
 		var td1=$(this).parent("tr").children('td').eq(0).text();
 		$(".userName").val(td1);
-
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
-		$(".forLogOut").show();
+		$(".forLogOut1").show();
+		$(".deleteUser").show();
 	})
 	$(".cancelBtn").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();
 	})
-	$(".forConsole").bind("click",function(){
-		$(this).parents('.unitsContent').find("input").val("");
-	})
+	// $(".forConsole").bind("click",function(){
+	// 	$(this).parents('.unitsContent').find("input").val("");
+	// })
 	$(".forSure").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();
@@ -223,20 +225,113 @@
 			type=1;
 		}
 		$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
+			console.log(data);
 			if(data.state==1){
-				alert("新增用户成功！")
+				alert("新增用户成功！");
 			}
 			else{
-				alert("新增用户失败！")
+				alert(data.error);
 			}
 		})
 	})
-	$(".forLogOut").bind("click",function(){
+	$(".forLogOut1").bind("click",function(){
+		var name=$(".accountName").val();
 		$.ajax({
 			url:'/BannedAccount',
 			type:'post',
 			data:{
+				"name":name,
+			},
+			success:function(data){
+				if(data.state==1){
+					alert("注销用户成功");
+				}
+				else{
+					alert(data.error);
+				}
+			}
+		})
+	})
+	$(".deleteUser").bind("click",function(){
+		var name=$(".accountName").val();
+		$.ajax({
+			url:'/DeleteAccount',
+			type:'post',
+			data:{
+				"name":name,
+			},
+			success:function(data){
+				if(data.state==1){
+					alert("删除用户成功");
+				}
+				else{
+					alert(data.error);
+				}
+			}
 
+		})
+	})
+	$(".searchBtn").bind("click",function(){
+		var entity=localStorage.school;
+		$.when(GiveAccountfromEntity(entity)).done(function(data){
+			if(data.state == 1){
+				var result=data.result;
+				$(".infoTable1").children('tbody').empty();
+				var count=data.count;
+				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+				addCount.children('span').eq(0).text(count);
+				if(count<20){
+					addCount.children('span').eq(1).text(count);
+				}
+				else{
+					addCount.children('span').eq(1).text("20");
+				}
+				var lee=$(".tableContent .infoTablePara").children('.topRight');
+				if(lee){
+					lee.empty();
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				else{
+					$(".tableContent .infoTablePara").append(addCount);
+				}
+				if(data.state==1){
+					for (var i=0,len=result.length;i<len;i++) {
+						var searchInfo=$('<tr>'+
+							'<td></td>'+
+						'</tr>');
+						searchInfo.children('td').eq(0).text(i+1);
+						for (var j=0;j<result[i].length;j++) {
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
+							}
+
+							mytd.text(result[i][j]);
+							searchInfo.append(mytd);
+						}
+						$(".infoTable1").children('tbody').append(searchInfo);
+					}
+					getPages(0);
+					$('.M-box').pagination({
+						totalData:count,
+					    showData:20,
+					    current:1,
+					    count:2,
+					    jump:true,
+						coping:true,
+						prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+						nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+					    callback:function(index){
+					        getPages(index-1);
+					    }
+					});
+				}
+				else{
+					alert("没有符合查询条件的记录！");
+					count=0;
+					addCount.children('span').eq(0).text(count);
+					addCount.children('span').eq(1).text(count);
+				}
 			}
 		})
 	})

@@ -299,9 +299,10 @@
 		var totalmoney1=$(".projectFee1").val();
 		var totalmoney2=$(".projectFee2").val();
 		var centermoney1=$(".nationFee1").val();
-		var centermoney2=$(".nationFee2").val();
+		var centermoney2=$(".nationFee2").val(); 
 		var orderby=$("input[name='selBar']:checked").val();
-		$.when(askNKRPsta(entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby)).done(function(data){
+		var pageindex=1;
+		$.when(askNKRPsta(pageindex,entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby)).done(function(data){
 			if(data.state == 1){
 				var result=data.result;
 				$(".infoTable1").children('tbody').empty();
@@ -328,7 +329,7 @@
 							'<td></td>'+
 						'</tr>');
 						searchInfo.children('td').eq(0).text(i+1);
-						for (var j=0;j<result[i].length;j++) {
+						for (var j=0;j<result[i].length-1;j++) {
 							var mytd=$('<td></td>');
 							if(result[i][j]==null){
 								result[i][j]="";
@@ -366,7 +367,7 @@
 					    }
 					});
 				}
-				else{
+				else{ 
 					alert("没有符合查询条件的记录！");
 					count=0;
 					addCount.children('span').eq(0).text(count);

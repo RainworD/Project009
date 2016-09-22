@@ -311,7 +311,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="section">
+				<li class="section userSection">
 					<div class="leftImg"><i class="fa fa-gear fa-lg leftBtn "></i></div>
 					<ul class="sectionList">
 						<li class="downBtn" data-id="11">
@@ -338,7 +338,7 @@
 						</li>
 					</ul>
 				</li>
-				<li class="section">
+				<li class="section mainUserSection">
 					<div class="leftImg"><i class="fa fa-gears fa-lg leftBtn "></i></div>
 					<ul class="sectionList">
 						<li class="downBtn" data-id="12"><i class="rec"></i><span>后台管理界面</span><i class="fa fa-plus fa-lg downflag"></i></li>
@@ -373,7 +373,8 @@
 					<div class="rightInfoMenu">
 						<i class="fa fa-user logOut"></i>
 						<ul class="logOutList">
-							<li><span>用户名 :</span><span class="userName"></span></li>
+							<!-- <li><span>用户名 :</span><span class="userName"></span></li> -->
+							<li><a class="changepw" href="#/changePassword.html?id=0" style="display:block;">修改密码</a></li>
 							<li><a class="logOutBtn">退出登录</a></li>
 						</ul>
 					</div>
@@ -388,7 +389,7 @@
 	var myheight1=$(window).height();
 	$(".leftBox").css("min-height",myheight1);
 	$(".leftInfo").text(localStorage.school);
-	$(".userName").text(localStorage.userName);
+	// $(".userName").text(localStorage.userName);
 	$(".logOutBtn").bind("click",function(){
 		$.ajax({
 	        url: "/Logout",
@@ -406,5 +407,18 @@
 	        }
 	    });
 	})
+	var userlevel=localStorage.userlevel;
+	if(userlevel==0){
+		$(".mainUserSection").removeClass("showMenu");
+		$(".userSection").removeClass("showMenu");
+	}
+	else if(userlevel==1){
+		$(".mainUserSection").addClass("showMenu");
+		$(".userSection").removeClass("showMenu");
+	}
+	else if(userlevel==2){
+		$(".mainUserSection").addClass("showMenu");
+		$(".userSection").addClass("showMenu");
+	}
 </script>
 </html>

@@ -4,6 +4,7 @@ var ADMIN_CONFIG = {
 	"contentSelector": "#rightContent",
 };
 var projectUnits=[];
+var showName=[];
 init();
 function init(){
 	eventBind();
@@ -174,6 +175,10 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 		mytop=$(selector).position().top;
 		myleft=$(selector).position().left;
 	})
+	$(selector).on("click",".forConsole",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
 }
 function dragBoxUnitsChoose(selector){
 	// var array=[];
@@ -210,19 +215,22 @@ function dragBoxUnitsChoose(selector){
 	})
 	$(".moveRight").bind("click",function(){
 		getTreeNodes();
+		console.log(checkedArray);
 		for (var i =0;i<checkedArray.length;i++ ) {
 			var hasSame=false;
 			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
 			for (var k=0;k<findLi.length;k++) {
 				var txt=findLi.eq(k).text();
-				if(txt==checkedArray[i]){
+				if(txt==checkedArray[i].name){
 					hasSame = true;
                 	break;
 				}
 			}
 			if(!hasSame){
 	           	var liItems=$('<li class="chooseItems"></li>');
-				liItems.append(checkedArray[i]);
+				liItems.append(checkedArray[i].name);
+				console.log(checkedArray[i].name);
+				liItems.attr("data-id",checkedArray[i].id)
 				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
 	        }
 		}
@@ -240,6 +248,7 @@ function dragBoxUnitsChoose(selector){
 	})
 	$(".moveLeft").bind("click",function(){
 		var toLeftUnits=[];
+		var obj_new={};
 		toLeftUnits.length=0;
 		var rightChoosen=$(".rightColumn").find(".chooseAlreadyList").children('.chooseItems');
 		for (var i=0,len=rightChoosen.length;i<len;i++) {
@@ -266,7 +275,9 @@ function dragBoxUnitsChoose(selector){
 			if(_array[n].isParent){
 			}
 			else{
-				checkedArray.push(_array[n].name);
+				obj_new=_array[n].name;
+				obj_new=_array[n].id;
+				checkedArray.push(obj_new);
 			}
 		}
 		// var mylen=$(".commonCollege:checked").length;
@@ -290,6 +301,7 @@ function dragBoxUnitsChoose(selector){
 		var hasSame=false;
 		for (var i=0;i<mylen;i++) {
 			var pushItem=$(".chooseAlreadyList").children('.chooseItems').eq(i).text();
+			var pushid=$(".chooseAlreadyList").children('.chooseItems').eq(i).attr("data-id");
 			for (var j=0;j<_len;j++) {
 				var txt=chooseAlready[j];
 				if(txt==pushItem){
@@ -298,10 +310,11 @@ function dragBoxUnitsChoose(selector){
 				}
 			}
 			if(!hasSame){
-				projectUnits.push(pushItem);
+				projectUnits.push(pushid);
+				showName.push(pushItem);
 			}
 		}
-		$(".unitsEnter").val(projectUnits);
+		$(".unitsEnter").val(showName);
 	})
 	$(selector).on("click",".forConsole",function(){
 		$(".mask").hide();
@@ -313,9 +326,9 @@ function dragBoxSortsChoose(selector){
 		$(".mask").hide();
 		$(selector).hide();
 	})
-	$(selector).on("click",".forConsole",function(){
-		$(this).parents('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
-	})
+	// $(selector).on("click",".forConsole",function(){
+	// 	$(this).parents('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
+	// })
 	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
 		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
 	})
@@ -408,7 +421,8 @@ var setting = {
 		data:{
 			key:{
 				children:"children",
-				name:"name"
+				name:"name",
+				id:"id",
 			}
 		},
 	};
@@ -457,10 +471,12 @@ function judgeUnits(result){
 		for (var j=0,mylen=result[i].length;j<mylen;j++) {
 			if(j==0){
 				obj.name=result[i][0];
+				obj.id="";
 			}
 			else{
 				var obj2=new Object();
-				obj2.name=result[i][j];
+				obj2.name=result[i][j][0];
+				obj2.id=result[i][j][1];
 				array.push(obj2);
 				obj.children=array;
 			}
@@ -488,7 +504,9 @@ function getTreeNodes(){
 	else{
 		_array=rootObj.getCheckedNodes();
 	}
+	console.log(_array);
 	for (var i=0;i<_array.length;i++) {
+		var checkedObj={};
 		if(_array[i].isParent){
 		}
 		else{
@@ -499,7 +517,10 @@ function getTreeNodes(){
 			// 	}
 			// }
 			// if(!hasSame){
-				checkedArray.push(_array[i].name);
+				checkedObj.name=_array[i].name;
+				checkedObj.id=_array[i].id;
+				// checkedArray.push(_array[i].name);
+				checkedArray.push(checkedObj);
 				_array[i].chkDisabled=true;
 				// rootObj.refresh();
 			// }
@@ -599,21 +620,44 @@ function getWholeList(sub,url,selector){
 }
 var dataBox={};
 var newindex=1;
+var count;
 function getDataBox(params,url){
-	ajaxMorePages(1,1);
-	function ajaxMorePages(pageindex,newindex){
-		params.pageindex=pageindex;
-		$.post(url,params, function(data, textStatus, xhr) {
+	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
+		console.log(count);
+		$('.M-box').pagination({
+			totalData:count,
+		    showData:20,
+		    current:1,
+		    count:2,
+		    jump:true,
+			coping:true,
+			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+		    callback:function(index){
+				paginationCallback(index,params,url);   
+		    }
+		});
+	})
+}
+function ajaxMorePages(pageindex,newindex,params,url){
+	params.pageindex=pageindex;
+	var ajax=$.ajax({
+		url:url,
+		type:'POST',
+		data:{
+			params
+		},
+		success:function(data){
 			var result=data.result;
 			dataBox[pageindex]=result;
-			var count=data.count;
+			count=data.count;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 			addCount.children('span').eq(0).text(count);
 			if(count<20){
 				addCount.children('span').eq(1).text(count);
 			}
 			else{
-	
+
 				addCount.children('span').eq(1).text("20");
 			}
 			var lee=$(".tableContent .infoTablePara").children('.topRight');
@@ -633,39 +677,30 @@ function getDataBox(params,url){
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
 			}
-		})
-	}	
-	function getMoreResults(result,pageindex,count,newindex){
-		$(".infoTable1").children('tbody').empty();
-		selfResult(pageindex,result,newindex);
-		$('.M-box').pagination({
-			totalData:count,
-		    showData:20,
-		    current:newindex,
-		    count:2,
-		    jump:true,
-			coping:true,
-			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-		    callback:function(index){
-		    	newindex=index;
-		        if(index>50){
-		        	var _index=Math.ceil(index/50);
-					pageindex=_index;
-					if(dataBox[pageindex]){
-						var result1=dataBox[pageindex];
-						getMoreResults(result1,pageindex,count,newindex)
-					}
-					else{
-						ajaxMorePages(pageindex,newindex);
-					}
-		        }
-		        else{
-		        	getMoreResults(dataBox[1],1,count,newindex)
-		        }			       
-		    }
-		});
-	}	
+		}
+	})
+	return ajax;
+}	
+function getMoreResults(result,pageindex,newindex){
+	$(".infoTable1").children('tbody').empty();
+	selfResult(pageindex,result,newindex);
+}
+function paginationCallback(index,params,url){
+	newindex=index;
+    if(index>50){
+    	var _index=Math.ceil(index/50);
+		pageindex=_index;
+		if(dataBox[pageindex]){
+			var result1=dataBox[pageindex];
+			getMoreResults(result1,pageindex,newindex);
+		}
+		else{
+			ajaxMorePages(pageindex,newindex,params,url);
+		}
+    }
+    else{
+    	getMoreResults(dataBox[1],1,newindex);
+    }			   
 }
 $(document).bind("click",function(){
 	$(".showElse").removeClass('showBtn');

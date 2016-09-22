@@ -98,11 +98,11 @@
 				</td>
 				<td colspan="2" style="padding-left: 3%;">
 					<label for="countFirst" class="label1">
-						<input type="radio" id="countFirst" name="selBar" class="radioInput" checked="checked" value="1">
+						<input type="radio" id="countFirst" name="selBar" class="radioInput" checked="checked" value="2">
 						按数量排序
 					</label>
 					<label for="feeFirst" class="label2">
-						<input type="radio" id="feeFirst" name="selBar" class="radioInput" value="2">
+						<input type="radio" id="feeFirst" name="selBar" class="radioInput" value="1">
 						按总经费排序
 					</label>
 				</td>
@@ -242,7 +242,7 @@
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		if(finalResults){
+		if(finalResults){ 
 			judgeUnits(finalResults);
 			$(".unitsContent1").addClass("beforeShowBox");
 	    	$(".beforeShow").addClass("beforeHideBox");
@@ -261,6 +261,19 @@
 	doForSearch(".searchBox","/Landentity0");
 	dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
+	$.when(LandNNSFtype()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".projectType").append(newopt);
+				}
+			}
+		}
+	})
 </script>   
 <script type="text/javascript">
 	var pageIndex=1;
@@ -300,7 +313,7 @@
 						'<td></td>'+
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length;j++) {
+					for (var j=0;j<result[i].length-1;j++) {
 						var mytd=$('<td></td>');
 						if(result[i][j]==null){
 							result[i][j]="";

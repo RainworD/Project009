@@ -29,7 +29,7 @@ function errorHandle(data){
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
     $(".searchUndo").removeClass("searchDo");
 }
-function askNKRPsta(entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby){
+function askNKRPsta(pageindex,entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby){
     var ajax = $.ajax({
         url: "/askNKRPsta",
         type: "POST",
@@ -45,7 +45,8 @@ function askNKRPsta(entitys,type,year1,year2,centermoney1,centermoney2,totalmone
         "centermoney2":centermoney2,//中央经费右侧
         "totalmoney1":totalmoney1,//总经费左侧
         "totalmoney2":totalmoney2,//总经费右侧
-        "orderby":orderby//orderby=1按总经费查询 orderby=2按数量排序
+        "orderby":orderby,//orderby=1按总经费查询 orderby=2按数量排序
+        "pageindex":pageindex
         }
     });
     return ajax;
@@ -479,27 +480,27 @@ function LandEntity(){//依托单位显示
     });
     return ajax;
 }
-function askNKRPsta(entitys,type,year1,year2,money1,money2,pageindex,orderby,applicationcode){//重要项目统计查询
-    var ajax = $.ajax({
-        url: "/askNKRPsta",
-        type: "POST",
-        traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
-        data:{
-        "applicationcode": applicationcode,//申请代码
-        "entitys": entitys, //选择的学校列表
-        "type": type,//项目类型
-        "year1":year1,//年度范围左侧
-        "year2":year2,//年度范围右侧
-        "money1":money1,//经费左侧
-        "money2":money2,//经费右侧
-        "pageindex":pageindex,//分页数
-        "orderby":orderby//orderby=1按总经费查询 orderby=2按数量排序
-        }
-    });
-    return ajax;
-}
+// function askNKRPsta(entitys,type,year1,year2,money1,money2,pageindex,orderby,applicationcode){//重要项目统计查询
+//     var ajax = $.ajax({
+//         url: "/askNKRPsta",
+//         type: "POST",
+//         traditional:true,
+//         beforeSend:beforeHandle,
+//         success:successHandle,
+//         data:{
+//         "applicationcode": applicationcode,//申请代码
+//         "entitys": entitys, //选择的学校列表
+//         "type": type,//项目类型
+//         "year1":year1,//年度范围左侧
+//         "year2":year2,//年度范围右侧
+//         "money1":money1,//经费左侧
+//         "money2":money2,//经费右侧
+//         "pageindex":pageindex,//分页数
+//         "orderby":orderby//orderby=1按总经费查询 orderby=2按数量排序
+//         }
+//     });
+//     return ajax;
+// }
 function LandNNSFtype(){//自然科学基金资助类别
     var ajax = $.ajax({
         url: "/LandNNSFtype",
@@ -1135,6 +1136,42 @@ function CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone
                 'department':department,
                 'mail':mail,
                 'phone':phone
+            }
+        });
+    return ajax;
+}
+function CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone){
+    var ajax=$.ajax({
+            url: "/CreateEntityAccount",
+            type: "POST",
+            data:{
+                'entity':entity,
+                'name':name,
+                'password':password,
+                'type':type,
+                'nickname':nickname,
+                'department':department,
+                'mail':mail,
+                'phone':phone
+            }
+        });
+    return ajax;
+}
+function GiveAccountfromEntity(entity){//某大学的普通用户信息表
+    var ajax=$.ajax({
+            url: "/GiveAccountfromEntity",
+            type: "POST",
+            data:{
+                "entity":entity,
+            }
+        });
+    return ajax;
+}
+function GiveEntityAccount(){//某大学的普通用户信息表
+    var ajax=$.ajax({
+            url: "/GiveEntityAccount",
+            type: "POST",
+            data:{
             }
         });
     return ajax;
