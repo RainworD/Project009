@@ -23,7 +23,9 @@ function init(){
 	function matchLeft(){
 		var search=window.location.href;
 		var	mysearch=search.split("?");
-		var search2=mysearch[1].split("=");
+		// var search2=mysearch[1].split("=");
+		// var search2=mysearch[1].split("=");
+        var search2=mysearch[1]?mysearch[1].split("="):11;
 		var myid=search2[1];
 		var topid,secondid;
 		if(myid>=100){
