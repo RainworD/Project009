@@ -1,177 +1,211 @@
-<div class="changeBarContainer">
-	<div class="changeBarBox" style="background-color:#fff;">
-		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">基金-申请代码维护</a>
-	</div>
-	<div class="addDataBtn" style="margin-right:0;">新增数据</div>
-	<p class="hideBtn" style="right: 150px;">隐藏查询条件</p>
+<div id="fund_apply_code_container">
+	<fund-apply-code></fund-apply-code>
 </div>
-<div class="enterBox">
-	<div class="topTableBox">
-		<table class="topTable">
-			<tr>
-				<th style="width:100px;">申请代码名称 :</th>
-				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%">
-						<input class="commonput unitsEnter" style="padding-right:30px;">
-						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
-					</div>	
-				</td> 
-				<th style="width:12.6%;">申请代码编号 :</th>
-				<td style="width:18.3%;">
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
-					</div>
-				</td> 
-				<th style="width:10.6%;">级次 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
-							<option>1</option>
-							<option>2</option>
-						</select>
-					</div>
-				</td>
-				<td colspan="2" style="width: 28.3%">
-					<a class="searchBtn rightMinBtn">查询</a>
-					<a class="resetBtn rightMinBtn">重置</a>
-				</td>
-			</tr>
-		</table>
-	</div>
-</div>
-<div class="tableContent">
-	<div class="infoTableBox">
-		<div class="infoTableTop">
-			<p class="infoTablePara">
-				<span class="topLeft">中国科学院院士统计数据</span>
-			</p>
+<script type="text/x-vue-template" id="fund_apply_code_template">
+	<div class="changeBarContainer">
+		<div class="changeBarBox" style="background-color:#fff;">
+			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">基金-申请代码维护</a>
 		</div>
-		<div class="infoTableContent">
-			<table class="infoTable infoTable1">
-				<thead>
-					<tr class="tableTitle">
-						<th>序号</th>
-						<th>申请代码编码</th>
-						<th>申请代码名称</th>
-						<th>级次</th>
-						<th>是否叶子节点</th>
-						<th>维护</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>A</td>
-						<td>数理科学部</td>
-						<td>一级</td>
-						<td>否</td>
-						<td>
-							<div class="addLine">
-								<i class="fa fa-edit fa-lg removeBtn "></i>
-							</div>
-							<div class="removeData">
-								<i class="fa fa-times fa-lg removeBtn "></i>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>B</td>
-						<td>化学科学部</td>
-						<td>一级</td>
-						<td>否</td>
-						<td>
-							<div class="addLine">
-								<i class="fa fa-edit fa-lg removeBtn "></i>
-							</div>
-							<div class="removeData">
-								<i class="fa fa-times fa-lg removeBtn "></i>
-							</div>
-						</td>
-					</tr>
-				</tbody>		
+		<div class="addDataBtn" style="margin-right:0;">新增数据</div>
+		<p class="hideBtn" style="right: 150px;">隐藏查询条件</p>
+	</div>
+	<div class="enterBox">
+		<div class="topTableBox">
+			<table class="topTable">
+				<tr>
+					<th style="width:100px;">申请代码名称 :</th>
+					<td style="width:18.3%;">
+						<div class="commonInputBox"  style="width:100%">
+							<input class="commonput unitsEnter" style="padding-right:30px;">
+							<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						</div>	
+					</td> 
+					<th style="width:12.6%;">申请代码编号 :</th>
+					<td style="width:18.3%;">
+						<div class="commonInputBox" style="width:100%;">
+							<input class="commonput">
+						</div>
+					</td> 
+					<th style="width:10.6%;">级次 :</th>
+					<td style="width:18.3%;">
+						<div class="commonselect"  style="width:100%;">
+							<select class="selBox">
+								<option>1</option>
+								<option>2</option>
+							</select>
+						</div>
+					</td>
+					<td colspan="2" style="width: 28.3%">
+						<a class="searchBtn rightMinBtn">查询</a>
+						<a class="resetBtn rightMinBtn">重置</a>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
-</div>
-<div class="searchUndo">
-	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
-	<img class="getInfoImg" src="../source/img/info.png"></img>
-</div>
-<div class="beforeSearch">
-	<p class="enterSearchInfo">
-		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-		<span class="sr-only">Loading...</span>
-	</p>
-</div>
-<div class="mask"></div>
-<div class="unitsChoose unitsChoose1">
-	<div class="unitsContainer">
-		<div class="cancelBtn">
-			<i class="fa fa-close showCollege"></i>
-		</div>
-		<div class="unitsHeader">
-			<p class="unitsTitle">申请代码维护</p>
-		</div>
-		<div class="unitsContent">
-			<div class="showTotalData">
-				<div class="ESIContent" style="padding-top: 40px;">
-					<table class="ESITable topTable">
+	<div class="tableContent">
+		<div class="infoTableBox">
+			<div class="infoTableTop">
+				<p class="infoTablePara">
+					<span class="topLeft">中国科学院院士统计数据</span>
+				</p>
+			</div>
+			<div class="infoTableContent">
+				<table class="infoTable infoTable1">
+					<thead>
+						<tr class="tableTitle">
+							<th>序号</th>
+							<th>申请代码编码</th>
+							<th>申请代码名称</th>
+							<th>级次</th>
+							<th>是否叶子节点</th>
+							<th>维护</th>
+						</tr>
+					</thead>
+					<tbody>
 						<tr>
-							<th style="width:110px;">申请代码编码 :</th>
+							<td>1</td>
+							<td>A</td>
+							<td>数理科学部</td>
+							<td>一级</td>
+							<td>否</td>
 							<td>
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+								<div class="addLine">
+									<i class="fa fa-edit fa-lg removeBtn "></i>
 								</div>
-							</td>
-							<th style="width:110px;">申请代码名称 :</th>
-							<td>
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+								<div class="removeData">
+									<i class="fa fa-times fa-lg removeBtn "></i>
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<th>级次 :</th>
+							<td>2</td>
+							<td>B</td>
+							<td>化学科学部</td>
+							<td>一级</td>
+							<td>否</td>
 							<td>
-								<div class="commonselect"  style="width:100%;">
-									<select class="selBox">
-										<option>1</option>
-										<option>2</option>
-									</select>
+								<div class="addLine">
+									<i class="fa fa-edit fa-lg removeBtn "></i>
 								</div>
-							</td>
-							<th style="width:80px;">上级编码 :</th>
-							<td>
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+								<div class="removeData">
+									<i class="fa fa-times fa-lg removeBtn "></i>
 								</div>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2"></td>
-							<th style="width:80px;"></th>
-							<td>
-								<label for="box1">
-									<input type="checkbox" id="box1">
-									叶子节点
-								</label>
-							</td>
-						</tr>
-					</table>
-				</div>
+					</tbody>		
+				</table>
 			</div>
 		</div>
-		<div class="bottomBtn">
-			<p>
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
-			</p>
+	</div>
+	<div class="searchUndo">
+		<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+		<img class="getInfoImg" src="../source/img/info.png"></img>
+	</div>
+	<div class="beforeSearch">
+		<p class="enterSearchInfo">
+			<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+			<span class="sr-only">Loading...</span>
+		</p>
+	</div>
+	<div class="mask"></div>
+	<div class="unitsChoose unitsChoose1">
+		<div class="unitsContainer">
+			<div class="cancelBtn">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader">
+				<p class="unitsTitle">申请代码维护</p>
+			</div>
+			<div class="unitsContent">
+				<div class="showTotalData">
+					<div class="ESIContent" style="padding-top: 40px;">
+						<table class="ESITable topTable">
+							<tr>
+								<th style="width:110px;">申请代码编码 :</th>
+								<td>
+									<div class="commonInputBox" style="width:100%;">
+										<input class="commonput">
+									</div>
+								</td>
+								<th style="width:110px;">申请代码名称 :</th>
+								<td>
+									<div class="commonInputBox" style="width:100%;">
+										<input class="commonput">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>级次 :</th>
+								<td>
+									<div class="commonselect"  style="width:100%;">
+										<select class="selBox">
+											<option>1</option>
+											<option>2</option>
+										</select>
+									</div>
+								</td>
+								<th style="width:80px;">上级编码 :</th>
+								<td>
+									<div class="commonInputBox" style="width:100%;">
+										<input class="commonput">
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2"></td>
+								<th style="width:80px;"></th>
+								<td>
+									<label for="box1">
+										<input type="checkbox" id="box1">
+										叶子节点
+									</label>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure">确定</a>
+					<a class="forConsole">取消</a>
+				</p>
+			</div>
 		</div>
 	</div>
-</div>
+</script>
 <script type="text/javascript">
-	topBarControl();
+	Vue.component('fund-apply-code', {
+		template: $(fund_apply_code_template).html(),
+		data: function(){
+			return {
+				codes: []
+			}
+		},
+		ready: function(){
+			var self = this
+			Promise.resolve($.ajax({
+				url: '/ApplicationCode/get',
+				error: function(){}
+			})).then(function(res){
+				if (res.state == 0) {
+					self.codes = res.data
+				} else {
+					alert('获取数据失败')
+				}
+			}).catch(function(e){
+				console.dir(e)
+				alert('获取数据失败')
+			})
+		}
+	})
+
+	new Vue({
+		el: '#fund_apply_code_container'
+	})
+	
+	/*topBarControl();
 	$(".addDataBtn").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
@@ -197,5 +231,5 @@
 	$(".forSure").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();
-	})
+	})*/
 </script>

@@ -65,7 +65,7 @@
 						</tr>
 					</thead>
 					<tbody id="esi_items_container">
-						<tr v-for="esi in esiArr">
+						<tr v-for="esi in esiArr" track-by="id">
 							<td>{{esi.id}}</td>
 							<td>{{esi.unit}}</td>
 							<td>{{esi.in_time | toYMD}}</td>
@@ -89,7 +89,7 @@
 			<div class="esi-spinner" v-if="posting">
 				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
 			</div>
-			<div class="cancelBtn esi-close-modal" style="height:30px;" v-on:click="closeModal">
+			<div class="cancelBtn esi-close-modal" style="height:30px;" v-on:click="closeModal(false)">
 				<i class="fa fa-close"></i>
 			</div>
 			<div class="unitsHeader">
@@ -253,7 +253,7 @@
 			<div class="bottomBtn">
 				<p>
 					<a class="forSure" v-on:click="comfirmEdit">确定</a>
-					<a class="forConsole">取消</a>
+					<a class="forConsole" v-on:click="closeModal(false)">取消</a>
 				</p>
 			</div>
 		</div>
@@ -291,19 +291,21 @@ var vm = new Vue({
 			popAlertBox(".unitsChoose");
 			dragBox(".unitsChoose");
 		},
-		closeModal: function(){
+		closeModal: function(save){
 			var self = this
-			var find_ret
-			this.esiArr.find(function(item, index){
-				if (item.id === self.selectedEsi.id) {
-					find_ret = index
+			if (save) {
+				var find_ret
+				this.esiArr.find(function(item, index){
+					if (item.id === self.selectedEsi.id) {
+						find_ret = index
+					}
+				})
+				if (find_ret !== undefined) {
+					console.log(find_ret)
+					self.esiArr.splice(find_ret, 1, self.selectedEsi)
+				} else {
+					self.esiArr.push(self.selectedEsi)
 				}
-			})
-			if (find_ret !== undefined) {
-				console.log(find_ret)
-				self.esiArr.splice(find_ret, 1, self.selectedEsi)
-			} else {
-				self.esiArr.push(self.selectedEsi)
 			}
 			$(".mask").hide()
 			$(".unitsChoose").hide()
@@ -363,7 +365,7 @@ var vm = new Vue({
 				self.posting = false
 				if (res.state == 0) {
 					self.selectedEsi.id = res.id
-					self.closeModal()
+					self.closeModal(true)
 				} else {
 					alert('输入数据不正确.')
 					console.dir(res)
@@ -405,7 +407,7 @@ var vm = new Vue({
 				})).then(function(res){
 					self.posting = false
 					if (res.state == 0) {
-						self.closeModal()
+						self.closeModal(true)
 					} else {
 						alert('输入数据不正确.')
 						console.dir(res)

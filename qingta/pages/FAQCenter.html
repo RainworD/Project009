@@ -16,115 +16,240 @@
 	}
 
 </style>
-<div class="changeBarContainer">
-	<div class="changeBarBox" style="background-color:#fff;">
-		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">FAQ</a>
-	</div>
-	<div class="addDataBtn addDataBtn1" style="margin-right:0;">新增</div>
+<div id="faq_center_container">
+	<faq-center></faq-center>
 </div>
-<div class="searchBar">
-	<div class="commonInputBox">
-		<input type="text" placeholder="请输入您要搜索的问题" class="commonput" id="search_faq">
-	</div>
-	<div class="addDataBtn searchBtn" style="background-color:#3cc">查询</div>
-</div>
-<div class="enterBox" style="min-height: 400px;border: 2px dashed #ebebeb;margin: 0 20px;width: auto;">
-	<div class="faqContent">
-	</div>
-</div>
-<div class="mask"></div>
-<div class="unitsChoose">
-	<div class="unitsContainer">
-		<div class="cancelBtn">
-			<i class="fa fa-close showCollege"></i>
+<script type="text/x-vue-template" id="faq_center_template">
+	<div class="changeBarContainer">
+		<div class="changeBarBox" style="background-color:#fff;">
+			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">FAQ</a>
 		</div>
-		<div class="unitsHeader">
-			<p class="unitsTitle">FAQ问题管理</p>
+		<div class="addDataBtn addDataBtn1" style="margin-right:0;" v-on:click="addNewFaq">新增</div>
+	</div>
+	<div class="searchBar">
+		<div class="commonInputBox">
+			<input type="text" placeholder="请输入您要搜索的问题" class="commonput" v-model="search_str" v-on:keydown.13="search">
 		</div>
-		<div class="unitsContent unitsContent2">
-			<div class="faqEnter">
-				<p class="leftItem">问题名称 :</p>
-				<div class="commonInputBox rightItem1 rightItem">
-					<input class="commonput">
+		<div class="addDataBtn searchBtn" style="background-color:#3cc" v-on:click="search">查询</div>
+	</div>
+	<div class="enterBox" style="min-height: 400px;border: 2px dashed #ebebeb;margin: 0 20px;width: auto;">
+		<div class="faqContent">
+			<div class="faqItem" v-for="faq in faqs" track-by="id" v-show="faq.show">
+				<div class="faqPlus" v-on:click="toggleQuestion">
+					<i class="fa fa-plus fa-lg faqflag"></i>
+					<i class="fa fa-minus fa-lg faqflag"></i>
 				</div>
-				<p class="leftItem leftItem2">问题描述 :</p>
-				<div class="commonInputBox  rightItem2 rightItem">
-					<textarea class="commontextBox"></textarea>
+				<span class="faqQuestion" v-on:click="toggleQuestion">{{faq.title}}</span>
+				<span style="color: #bfaeae;margin-left: 5px;">
+					<i class="fa fa-times" style="cursor:pointer;" v-on:click="deleteFaq(faq)"></i>
+					<i class="fa fa-edit" style="cursor:pointer;" v-on:click="editFaq(faq.id)"></i>
+				</span>
+				<div class="faqHide">
+					<p class="faqPara">
+						{{faq.text}}
+					</p>
 				</div>
 			</div>
-			<div class="bottomBtn">
-				<p>
-					<a class="forSure">确定</a>
-					<a class="forConsole">取消</a>
-				</p>
-			</div>
 		</div>
 	</div>
-</div>
-<script type="text/template" id="faq_template">
-	<div class="faqItem">
-		<div class="faqPlus">
-			<i class="fa fa-plus fa-lg faqflag"></i>
-			<i class="fa fa-minus fa-lg faqflag"></i>
-		</div>
-		<span class="faqQuestion"></span>
-		<div class="faqHide">
-			<p class="faqPara">
-			</p>
+	<div class="mask"></div>
+	<div class="unitsChoose">
+		<div class="unitsContainer">
+			<div class="cancelBtn" v-on:click="closeModal(false)">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader">
+				<p class="unitsTitle">FAQ问题管理</p>
+			</div>
+			<div class="unitsContent unitsContent2">
+				<div class="faqEnter">
+					<p class="leftItem">问题名称 :</p>
+					<div class="commonInputBox rightItem1 rightItem">
+						<input class="commonput" v-model="editTitle">
+					</div>
+					<p class="leftItem leftItem2">问题描述 :</p>
+					<div class="commonInputBox  rightItem2 rightItem">
+						<textarea class="commontextBox" style="border: 1px solid #ddd;" v-model="editText"></textarea>
+					</div>
+				</div>
+				<div class="bottomBtn">
+					<p>
+						<a class="forSure" v-on:click="closeModal(true)">确定</a>
+						<a class="forConsole" v-on:click="closeModal(false)">取消</a>
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </script>
 <script type="text/javascript">
-	Promise.resolve($.ajax({
-		url: '/faq/get',
-		type: 'GET'
-	})).then(function(res){
-		if (res.state == 0) {
-			res.faq.forEach(function(faq){
-				$(".faqContent").append(generateFAQ(faq.title, faq.text))
+	Vue.component('faq-center', {
+		template: $(faq_center_template).html(),
+		data: function(){
+			return {
+				faqs: [],
+				search_str: "",
+				currentEdit: null,
+				editTitle: '',
+				editText: ''
+			}
+		},
+		methods: {
+			toggleQuestion: function(e){
+				console.dir(e)
+				var parent = $($(e.target).parents('.faqItem'))
+				parent.siblings().removeClass('show')
+				parent.toggleClass('show')
+			},
+			closeModal: function(save){
+				var self = this
+				if (save) {
+					if (this.currentEdit === null) {
+						Promise.resolve($.ajax({
+							url: '/faq/edit?title=' + self.editTitle + '&text=' + self.editText,
+							error: function(){}
+						})).then(function(res){
+							if (res.state == 0) {
+								self.faqs.push({
+									title: self.editTitle,
+									text: self.editText,
+									id: Number.parseInt(res.id),
+									show: true
+								})
+								self.search_str = ""
+								self.search()
+								$(".mask").hide();
+								$(".unitsChoose").hide();
+							} else {
+								alert('新增faq失败')
+							}
+						}, function(e){
+							console.log(e)
+							alert('新增faq失败')
+						})
+					} else {
+						Promise.resolve($.ajax({
+							url: '/faq/edit?title=' + self.editTitle + '&text=' + self.editText + '&id=' + self.currentEdit,
+							error: function(){}
+						})).then(function(res){
+							if (res.state == 0) {
+								var index
+								self.faqs.find(function(faq, _index){
+									if (faq.id == self.currentEdit) {
+										index = _index
+										return true
+									}
+								})
+								var _faq = {
+									title: self.editTitle,
+									text: self.editText,
+									id: self.currentEdit
+								}
+								self.judgeReveal(_faq)
+								self.faqs.splice(index, 1, _faq)
+								$(".mask").hide();
+								$(".unitsChoose").hide();
+							} else {
+								alert('保存失败')
+							}
+						}, function(e){
+							console.log(e)
+							alert('保存失败')
+						})
+					}
+				} else {
+					$(".mask").hide();
+					$(".unitsChoose").hide();
+				}
+			},
+			openModal: function(){
+				var currentEdit = this.currentEdit
+				if (currentEdit === null) {
+					this.editTitle = ""
+					this.editText = ""
+				} else {
+					var faq = this.faqs.find(function(faq){
+						return faq.id == currentEdit
+					})
+					this.editTitle = faq.title 
+					this.editText = faq.text
+				}
+
+				$(".mask").show();
+				popAlertBox(".unitsChoose");
+				dragBox(".unitsChoose");
+			},
+			search: function() {
+				var self = this
+				self.faqs.forEach(function(faq){
+					self.judgeReveal(faq)
+				})
+			},
+			judgeReveal: function(faq){
+				var search_str = this.search_str.trim()
+				if (faq.title.indexOf(search_str) != -1
+					|| faq.text.indexOf(search_str) != -1) {
+					faq.show = true
+				} else {
+					faq.show = false
+				}
+			},
+			addNewFaq: function(){
+				this.currentEdit = null
+				this.openModal()
+			},
+			editFaq: function(id){
+				this.currentEdit = id
+				this.openModal()
+			},
+			deleteFaq: function(faq){
+				var self = this
+				if (confirm('确认删除："' + faq.title + '"吗?')) {
+					Promise.resolve($.ajax({
+						url: '/faq/delete?id='+ faq.id,
+						error: function(){}
+					})).then(function(res){
+						if (res.state == '0') {
+							var index
+							self.faqs.find(function(_faq, _index){
+								if (_faq.id == faq.id) {
+									index = _index
+									return true
+								}
+							})
+							self.faqs.splice(index, 1)
+						} else {
+							alert('删除失败')
+						}
+					}).catch(function(e){
+						console.log(e)
+						alert('删除失败')
+					})
+				}
+			}
+		},
+		ready: function(){
+			var self = this
+			Promise.resolve($.ajax({
+				url: '/faq/get',
+				type: 'GET'
+			})).then(function(res){
+				if (res.state == 0) {
+					self.faqs = res.faq.map(function(faq){
+						faq.show = true
+						return faq
+					})
+				} else {
+					alert('获取失败')
+				}
 			})
-		} else {
-			alert('获取失败')
 		}
 	})
 
-	function generateFAQ(question, content){
-		var dom = $(faq_template.textContent)
-		dom.find('.faqQuestion').text(question)
-		dom.find('.faqPara').text(content)
-		return dom
-	}
-
-	function search(str){
-		if (str !== undefined && typeof str == 'string') {search_faq.value = str}
-		var search_str = search_faq.value.trim()
-		$('.faqItem').each(function(){
-			var $this = $(this)
-			if ($this.find('.faqQuestion').text().indexOf(search_str) != -1
-				|| $this.find('.faqPara').text().indexOf(search_str) != -1) {
-				$(this).show()
-			} else {
-				$(this).hide()
-			}
-		})
-	}
-
-	$('.searchBtn').click(search)
-	$(search_faq).keyup(function(e){if (e.keyCode == 13) {search()}})
-	$(search_faq).focusout(search)
-
-	$(".addDataBtn1").bind("click",function(){
-		$(".unitsContent").find(".commonput").val("");
-		$(".unitsContent").find(".commontextBox").val("");
-		$(".mask").show();
-		popAlertBox(".unitsChoose");
-		dragBox(".unitsChoose");
-	})
-
-	$(".cancelBtn").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-	})
+	new Vue({
+		el: '#faq_center_container'
+	})	
+	/*
 
 	$(".faqContent").delegate(".faqPlus, .faqQuestion","click",function(){
 		$(this).parents('.faqItem').toggleClass('show')
@@ -159,5 +284,5 @@
 	$(".forConsole").bind("click",function(){
 		$(this).parents(".unitsContent").find(".commonput").val("");
 		$(this).parents(".unitsContent").find(".commontextBox").val("");
-	})
+	})*/
 </script>
