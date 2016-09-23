@@ -250,16 +250,13 @@
 		else{
 			$(".unitsContent1").removeClass("beforeShowBox");
 	    	$(".beforeShow").removeClass("beforeHideBox");
-			$.when(getUnits()).done(function(data){
-				for (var i=0;i<zNodes.length;i++) {
-					zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-				}
-				$.fn.zTree.init($("#tree"), setting, zNodes);
-			})
+			getUnits();
 		}
+		dragBoxUnitsChoose(".unitsChoose1");
+
 	})
 	doForSearch(".searchBox","/Landentity0");
-	dragBoxUnitsChoose(".unitsChoose1");
+	// dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
 	$.when(LandNNSFtype()).done(function(data){
 		var state=data.state;

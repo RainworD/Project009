@@ -3,9 +3,10 @@ var ADMIN_CONFIG = {
 	"homePage": "commonDataAnalysis.html",
 	"contentSelector": "#rightContent",
 };
+init();
 var projectUnits=[];
 var showName=[];
-init();
+var rootObj;
 function init(){
 	eventBind();
 	matchLeft();
@@ -215,7 +216,6 @@ function dragBoxUnitsChoose(selector){
 	})
 	$(".moveRight").bind("click",function(){
 		getTreeNodes();
-		console.log(checkedArray);
 		for (var i =0;i<checkedArray.length;i++ ) {
 			var hasSame=false;
 			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
@@ -229,7 +229,6 @@ function dragBoxUnitsChoose(selector){
 			if(!hasSame){
 	           	var liItems=$('<li class="chooseItems"></li>');
 				liItems.append(checkedArray[i].name);
-				console.log(checkedArray[i].name);
 				liItems.attr("data-id",checkedArray[i].id)
 				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
 	        }
@@ -295,24 +294,26 @@ function dragBoxUnitsChoose(selector){
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
-		var chooseAlready=$(".unitsEnter").val().split(",");
+		// var chooseAlready=$(".unitsEnter").val().split(",");
 		var mylen=$(".chooseAlreadyList").children('.chooseItems').length;
-		var _len=chooseAlready.length;
-		var hasSame=false;
+		// var _len=chooseAlready.length;
+		// var hasSame=false;
+		// var showName=[];
 		for (var i=0;i<mylen;i++) {
 			var pushItem=$(".chooseAlreadyList").children('.chooseItems').eq(i).text();
 			var pushid=$(".chooseAlreadyList").children('.chooseItems').eq(i).attr("data-id");
-			for (var j=0;j<_len;j++) {
-				var txt=chooseAlready[j];
-				if(txt==pushItem){
-					hasSame = true;
-                 	break;
-				}
-			}
-			if(!hasSame){
+			// for (var j=0;j<_len;j++) {
+			// 	var txt=chooseAlready[j];
+			// 	if(txt==pushItem){
+			// 		hasSame = true;
+   //               	break;
+			// 	}
+			// }
+			// if(!hasSame){
+
 				projectUnits.push(pushid);
 				showName.push(pushItem);
-			}
+			// }
 		}
 		$(".unitsEnter").val(showName);
 	})
@@ -426,8 +427,12 @@ var setting = {
 			}
 		},
 	};
+function selectTreeMember(){
+	
+}
 zNodes=[];
 var checkedArray=[];
+console.log(checkedArray);
 var _array=[];
 var objnew={};
 var finalResults=objnew.finalResults;
@@ -489,9 +494,11 @@ function judgeUnits(result){
 	}
 
 	$.fn.zTree.init($("#tree"), setting, zNodes);
+	rootObj=$.fn.zTree.getZTreeObj("tree");
+
 }
 function getTreeNodes(){
-	var rootObj=$.fn.zTree.getZTreeObj("tree");
+	// var rootObj=$.fn.zTree.getZTreeObj("tree");
 	var hasSame=false;
 	checkedArray.length=0;
 	if(_array.length){
@@ -504,7 +511,6 @@ function getTreeNodes(){
 	else{
 		_array=rootObj.getCheckedNodes();
 	}
-	console.log(_array);
 	for (var i=0;i<_array.length;i++) {
 		var checkedObj={};
 		if(_array[i].isParent){
@@ -529,7 +535,7 @@ function getTreeNodes(){
 	rootObj.refresh();
 }
 function cancelCheckedState(){
-	var rootObj=$.fn.zTree.getZTreeObj("tree");
+	// var rootObj=$.fn.zTree.getZTreeObj("tree");
 	rootObj.refresh();
 }
 function madeNowrapText(text){
@@ -623,7 +629,6 @@ function getWholeList(sub,url,selector){
 // var count;
 // function getDataBox(params,url){
 // 	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
-// 		console.log(count);
 // 		$('.M-box').pagination({
 // 			totalData:count,
 // 		    showData:20,
