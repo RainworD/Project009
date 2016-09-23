@@ -238,25 +238,24 @@
 	</div>
 </div>
 <script type="text/javascript">
+	var projectUnits=[];
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		if(finalResults){ 
-			judgeUnits(finalResults);
-			$(".unitsContent1").addClass("beforeShowBox");
-	    	$(".beforeShow").addClass("beforeHideBox");
-		}
-		else{
-			$(".unitsContent1").removeClass("beforeShowBox");
-	    	$(".beforeShow").removeClass("beforeHideBox");
-			getUnits();
-		}
-		dragBoxUnitsChoose(".unitsChoose1");
-
 	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
-	// dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
 	$.when(LandNNSFtype()).done(function(data){
 		var state=data.state;

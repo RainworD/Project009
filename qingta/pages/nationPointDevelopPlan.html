@@ -243,6 +243,7 @@
 </div>
 <script type="text/javascript">
 	var len=$(".infoTable1 tbody").children("tr").length;
+	var projectUnits=[];
 	for (var i =0;i<len;i++) {
 		$(".infoTable1 tbody").children("tr").eq(i).children().eq(1).css("text-align","left");
 		$(".infoTable1 tbody").children("tr").eq(i).children().eq(2).css("text-align","left");
@@ -251,20 +252,18 @@
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		var _len=$(".unitsChoose1").length;
-		console.log(_len);
-		if(finalResults&&_len){
-			judgeUnits(finalResults);
-			$(".unitsContent1").addClass("beforeShowBox");
-	    	$(".beforeShow").addClass("beforeHideBox");
-		}
-		else{
-			$(".unitsContent1").removeClass("beforeShowBox");
-	    	$(".beforeShow").removeClass("beforeHideBox");
-			getUnits();
-		}
-		dragBoxUnitsChoose(".unitsChoose1");
 	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose2");

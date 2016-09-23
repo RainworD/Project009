@@ -4,8 +4,6 @@ var ADMIN_CONFIG = {
 	"contentSelector": "#rightContent",
 };
 init();
-var projectUnits=[];
-var showName=[];
 var rootObj;
 function init(){
 	eventBind();
@@ -120,6 +118,58 @@ function eventBind(){
 		}
 	})
 }
+var setting = {
+		check:{
+			chkStyle:"checkbox",
+			enable:true,
+			chkboxType:{ "Y": "ps", "N": "ps" }
+		},
+		data:{
+			key:{
+				children:"children",
+				name:"name",
+				id:"id",
+			}
+		},
+	};
+function getUnits(){
+	$.when(LandEntity()).done(function(data){
+		var result=data.result;
+		finalResults=result;
+		judgeUnits(result);
+	})
+}
+var objnew={};
+var finalResults=objnew.finalResults;
+function judgeUnits(result){
+	var zNodes=[];
+	for (var i=0,len=result.length;i<len;i++ ) {
+		var obj={};
+		var array=[];
+		for (var j=0,mylen=result[i].length;j<mylen;j++) {
+			if(j==0){
+				obj.name=result[i][0];
+				obj.id="";
+			}
+			else{
+				var obj2=new Object();
+				obj2.name=result[i][j][0];
+				obj2.id=result[i][j][1];
+				array.push(obj2);
+				obj.children=array;
+			}
+		}
+		zNodes.push(obj);
+	}
+	for (var i=0;i<zNodes.length;i++) {
+		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+		
+	}
+
+	$.fn.zTree.init($("#tree"), setting, zNodes);
+	rootObj=$.fn.zTree.getZTreeObj("tree");
+
+}
 function loadContent() {
 	$(document).unbind("mousedown");
 	$(document).unbind("mouseover");
@@ -181,8 +231,11 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 		$(selector).hide();
 	})
 }
-function dragBoxUnitsChoose(selector){
+function dragBoxUnitsChoose(selector,projectUnits){
 	// var array=[];
+	// var rootObj=$.fn.zTree.getZTreeObj("tree");
+	var checkedArray=[];
+	var _array=[];
 	$(selector).on("click",".cancelBtn",function(){
 		$(".mask").hide();
 		$(selector).hide();
@@ -215,23 +268,24 @@ function dragBoxUnitsChoose(selector){
 		}
 	})
 	$(".moveRight").bind("click",function(){
-		getTreeNodes();
-		for (var i =0;i<checkedArray.length;i++ ) {
-			var hasSame=false;
-			var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
-			for (var k=0;k<findLi.length;k++) {
-				var txt=findLi.eq(k).text();
-				if(txt==checkedArray[i].name){
-					hasSame = true;
-                	break;
-				}
-			}
-			if(!hasSame){
+		getTreeNodes(checkedArray,_array);
+		var checkedLen=checkedArray.length;
+		for (var i =0;i<checkedLen;i++ ) {
+			// var hasSame=false;
+			// var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
+			// for (var k=0;k<findLi.length;k++) {
+			// 	var txt=findLi.eq(k).text();
+			// 	if(txt==checkedArray[i].name){
+			// 		hasSame = true;
+   //              	break;
+			// 	}
+			// }
+			// if(!hasSame){
 	           	var liItems=$('<li class="chooseItems"></li>');
 				liItems.append(checkedArray[i].name);
 				liItems.attr("data-id",checkedArray[i].id)
 				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
-	        }
+	        // }
 		}
 	})
 	$(".rightColumn .chooseAlreadyList").delegate('.chooseItems', 'click', function(event) {
@@ -249,6 +303,7 @@ function dragBoxUnitsChoose(selector){
 		var toLeftUnits=[];
 		var obj_new={};
 		toLeftUnits.length=0;
+		_array=rootObj.getCheckedNodes();
 		var rightChoosen=$(".rightColumn").find(".chooseAlreadyList").children('.chooseItems');
 		for (var i=0,len=rightChoosen.length;i<len;i++) {
 			var className=rightChoosen.eq(i).attr("class");
@@ -260,62 +315,45 @@ function dragBoxUnitsChoose(selector){
 			}
 		}
 		for (var m=0;m<_array.length;m++) {
-			for (var j =0; j<toLeftUnits.length;j++) {
-				if(_array[m].name==toLeftUnits[j]){
-					_array[m].chkDisabled=false;
-					_array[m].checked=false;
-					_array.splice(m,1);
-					cancelCheckedState();
+			var _arrayChildren=_array[m].children;
+			for (var k=0;k<_arrayChildren.length;k++) {
+				for (var j =0; j<toLeftUnits.length;j++) {
+					if(_arrayChildren[k].name==toLeftUnits[j]){
+						_arrayChildren[k].chkDisabled=false;
+						_arrayChildren[k].checked=false;
+						// _array.splice(m,1);
+						// _arrayChildren.splice(k,1);
+						cancelCheckedState();
+					}
 				}
-			}
+				if(_array[m].isParent){
+				}
+				else{
+					obj_new=_arrayChildren[k].name;
+					obj_new=_arrayChildren[k].id;
+					checkedArray.push(obj_new);
+				}
+			};
 		}
-		checkedArray.length=0;
-		for (var n=0;n<_array.length;n++) {
-			if(_array[n].isParent){
-			}
-			else{
-				obj_new=_array[n].name;
-				obj_new=_array[n].id;
-				checkedArray.push(obj_new);
-			}
-		}
-		// var mylen=$(".commonCollege:checked").length;
-		// // var mylen=array.length;
-		// for (var k=0;k<mylen;k++) {
-		// 	var matchtxt=$(".commonCollege:checked").eq(k).prev().text();
-		// 	for (var j =0; j<toLeftUnits.length;j++) {
-		// 		if(matchtxt==toLeftUnits[j]){
-		// 			$(".commonCollege:checked").eq(k).prop("checked",false).removeAttr('disabled');
-		// 			$(".commonCollege:checked").eq(k).parents().prev().removeAttr("disabled");
-		// 		}
-		// 	}
-		// }
 	})
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
-		// var chooseAlready=$(".unitsEnter").val().split(",");
+		$(this).addClass("getUnitsInfo");
 		var mylen=$(".chooseAlreadyList").children('.chooseItems').length;
-		// var _len=chooseAlready.length;
-		// var hasSame=false;
-		// var showName=[];
-		for (var i=0;i<mylen;i++) {
-			var pushItem=$(".chooseAlreadyList").children('.chooseItems').eq(i).text();
-			var pushid=$(".chooseAlreadyList").children('.chooseItems').eq(i).attr("data-id");
-			// for (var j=0;j<_len;j++) {
-			// 	var txt=chooseAlready[j];
-			// 	if(txt==pushItem){
-			// 		hasSame = true;
-   //               	break;
-			// 	}
-			// }
-			// if(!hasSame){
-
+		var push1=$(".chooseAlreadyList").children('.chooseItems').eq(0).text();
+		var showName=[];
+		var timeOutId=setTimeout(function(){
+			for (var i=0;i<mylen;i++) {
+				var pushItem=$(".chooseAlreadyList").children('.chooseItems').eq(i).text();
+				var pushid=$(".chooseAlreadyList").children('.chooseItems').eq(i).attr("data-id");
 				projectUnits.push(pushid);
 				showName.push(pushItem);
-			// }
-		}
-		$(".unitsEnter").val(showName);
+			}
+		},10);
+		$(".unitsEnter").val(push1+'...');
+		// var projectUnits=[];
+		//$(".unitsEnter").val(showName);
 	})
 	$(selector).on("click",".forConsole",function(){
 		$(".mask").hide();
@@ -413,91 +451,7 @@ function topBarControl(){
 	var decHeight=parseInt(myheight1)-parseInt(myheight2)-80;
 	$(".tableContent").css("min-height",decHeight);
 }
-var setting = {
-		check:{
-			chkStyle:"checkbox",
-			enable:true,
-			chkboxType:{ "Y": "ps", "N": "ps" }
-		},
-		data:{
-			key:{
-				children:"children",
-				name:"name",
-				id:"id",
-			}
-		},
-	};
-function selectTreeMember(){
-	
-}
-zNodes=[];
-var checkedArray=[];
-console.log(checkedArray);
-var _array=[];
-var objnew={};
-var finalResults=objnew.finalResults;
-// function getUnits(){
-//     var ajax =$.get('/LandEntity', function(data) {
-// 		var result=data.result;
-// 		finalResults=result;
-// 		for (var i=0,len=result.length;i<len;i++ ) {
-// 			var obj={};
-// 			var array=[];
-// 			for (var j=0,mylen=result[i].length;j<mylen;j++) {
-// 				if(j==0){
-// 					obj.name=result[i][0];
-// 				}
-// 				else{
-// 					var obj2=new Object();
-// 					obj2.name=result[i][j];
-// 					array.push(obj2);
-// 					obj.children=array;
-// 				}
-// 			}
-// 			zNodes.push(obj);
-// 		}
-// 	});
-//     return ajax; 
-// }
-function getUnits(){
-	$.when(LandEntity()).done(function(data){
-		var result=data.result;
-		finalResults=result;
-		judgeUnits(result);
-	})
- //    var ajax =$.get('/LandEntity', function(data) {
-	// });
- //    return ajax; 
-}
-function judgeUnits(result){
-	for (var i=0,len=result.length;i<len;i++ ) {
-		var obj={};
-		var array=[];
-		for (var j=0,mylen=result[i].length;j<mylen;j++) {
-			if(j==0){
-				obj.name=result[i][0];
-				obj.id="";
-			}
-			else{
-				var obj2=new Object();
-				obj2.name=result[i][j][0];
-				obj2.id=result[i][j][1];
-				array.push(obj2);
-				obj.children=array;
-			}
-		}
-		zNodes.push(obj);
-	}
-	for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		
-	}
-
-	$.fn.zTree.init($("#tree"), setting, zNodes);
-	rootObj=$.fn.zTree.getZTreeObj("tree");
-
-}
-function getTreeNodes(){
+function getTreeNodes(checkedArray,_array){
 	// var rootObj=$.fn.zTree.getZTreeObj("tree");
 	var hasSame=false;
 	checkedArray.length=0;
@@ -624,106 +578,43 @@ function getWholeList(sub,url,selector){
 		}
 	});
 }
-// var dataBox={};
-// var newindex=1;
-// var count;
-// function getDataBox(params,url){
-// 	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
-// 		$('.M-box').pagination({
-// 			totalData:count,
-// 		    showData:20,
-// 		    current:1,
-// 		    count:2,
-// 		    jump:true,
-// 			coping:true,
-// 			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-// 			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-// 		    callback:function(index){
-// 				paginationCallback(index,params,url);   
-// 		    }
-// 		});
-// 	})
-// }
-// function ajaxMorePages(pageindex,newindex,params,url){
-// 	params.pageindex=pageindex;
-// 	var ajax=$.ajax({
-// 		url:url,
-// 		type:'POST',
-// 		data:{
-// 			params
-// 		},
-// 		success:function(data){
-// 			var result=data.result;
-// 			dataBox[pageindex]=result;
-// 			count=data.count;
-// 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-// 			addCount.children('span').eq(0).text(count);
-// 			if(count<20){
-// 				addCount.children('span').eq(1).text(count);
-// 			}
-// 			else{
-
-// 				addCount.children('span').eq(1).text("20");
-// 			}
-// 			var lee=$(".tableContent .infoTablePara").children('.topRight');
-// 			if(lee){
-// 				lee.empty();
-// 				$(".tableContent .infoTablePara").append(addCount);
-// 			}
-// 			else{
-// 				$(".tableContent .infoTablePara").append(addCount);
-// 			}
-// 			if(data.state==1){
-// 				getMoreResults(result,pageindex,count,newindex);
-// 			}
-// 			else{
-// 				alert("没有符合查询条件的记录！");
-// 				count=0;
-// 				addCount.children('span').eq(0).text(count);
-// 				addCount.children('span').eq(1).text(count);
-// 			}
-// 		}
-// 	})
-// 	return ajax;
-// }	
-// function getMoreResults(result,pageindex,newindex){
-// 	$(".infoTable1").children('tbody').empty();
-// 	selfResult(pageindex,result,newindex);
-// }
-// function paginationCallback(index,params,url){
-// 	newindex=index;
-//     if(index>50){
-//     	var _index=Math.ceil(index/50);
-// 		pageindex=_index;
-// 		if(dataBox[pageindex]){
-// 			var result1=dataBox[pageindex];
-// 			getMoreResults(result1,pageindex,newindex);
-// 		}
-// 		else{
-// 			ajaxMorePages(pageindex,newindex,params,url);
-// 		}
-//     }
-//     else{
-//     	getMoreResults(dataBox[1],1,newindex);
-//     }			   
-// }
 var dataBox={};
 var newindex=1;
+var count;
 function getDataBox(params,url){
-	ajaxMorePages(1,1);
-	function ajaxMorePages(pageindex,newindex){
-		params.pageindex=pageindex;
-		$.post(url,params, function(data, textStatus, xhr) {
+	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
+		$('.M-box').pagination({
+			totalData:count,
+		    showData:20,
+		    current:1,
+		    count:2,
+		    jump:true,
+			coping:true,
+			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+		    callback:function(index){
+				paginationCallback(index,params,url);   
+		    }
+		});
+	})
+}
+function ajaxMorePages(pageindex,newindex,params,url){
+	params.pageindex=pageindex;
+	var ajax=$.ajax({
+		url:url,
+		type:'POST',
+		data:params,
+		success:function(data){
 			var result=data.result;
 			dataBox[pageindex]=result;
-			var count=data.count;
+			count=data.count;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 			addCount.children('span').eq(0).text(count);
 			if(count<20){
 				addCount.children('span').eq(1).text(count);
 			}
 			else{
-	
+
 				addCount.children('span').eq(1).text("20");
 			}
 			var lee=$(".tableContent .infoTablePara").children('.topRight');
@@ -743,40 +634,102 @@ function getDataBox(params,url){
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
 			}
-		})
-	}	
-	function getMoreResults(result,pageindex,count,newindex){
-		$(".infoTable1").children('tbody').empty();
-		selfResult(pageindex,result,newindex);
-		$('.M-box').pagination({
-			totalData:count,
-		    showData:20,
-		    current:newindex,
-		    count:2,
-		    jump:true,
-			coping:true,
-			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-		    callback:function(index){
-		    	newindex=index;
-		        if(index>50){
-		        	var _index=Math.ceil(index/50);
-					pageindex=_index;
-					if(dataBox[pageindex]){
-						var result1=dataBox[pageindex];
-						getMoreResults(result1,pageindex,count,newindex)
-					}
-					else{
-						ajaxMorePages(pageindex,newindex);
-					}
-		        }
-		        else{
-		        	getMoreResults(dataBox[1],1,count,newindex)
-		        }			       
-		    }
-		});
-	}	
+		}
+	})
+	return ajax;
+}	
+function getMoreResults(result,pageindex,newindex){
+	$(".infoTable1").children('tbody').empty();
+	selfResult(pageindex,result,newindex);
 }
+function paginationCallback(index,params,url){
+	newindex=index;
+    if(index>50){
+    	var _index=Math.ceil(index/50);
+		pageindex=_index;
+		if(dataBox[pageindex]){
+			var result1=dataBox[pageindex];
+			getMoreResults(result1,pageindex,newindex);
+		}
+		else{
+			ajaxMorePages(pageindex,newindex,params,url);
+		}
+    }
+    else{
+    	getMoreResults(dataBox[1],1,newindex);
+    }			   
+}
+// function getDataBox(params,url){
+// 	var dataBox={};
+// 	var newindex=1;
+// 	ajaxMorePages(1,1);
+// 	function ajaxMorePages(pageindex,newindex){
+// 		params.pageindex=pageindex;
+// 		$.post(url,params, function(data, textStatus, xhr) {
+// 			var result=data.result;
+// 			dataBox[pageindex]=result;
+// 			var count=data.count;
+// 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+// 			addCount.children('span').eq(0).text(count);
+// 			if(count<20){
+// 				addCount.children('span').eq(1).text(count);
+// 			}
+// 			else{
+	
+// 				addCount.children('span').eq(1).text("20");
+// 			}
+// 			var lee=$(".tableContent .infoTablePara").children('.topRight');
+// 			if(lee){
+// 				lee.empty();
+// 				$(".tableContent .infoTablePara").append(addCount);
+// 			}
+// 			else{
+// 				$(".tableContent .infoTablePara").append(addCount);
+// 			}
+// 			if(data.state==1){
+// 				getMoreResults(result,pageindex,count,newindex);
+// 			}
+// 			else{
+// 				alert("没有符合查询条件的记录！");
+// 				count=0;
+// 				addCount.children('span').eq(0).text(count);
+// 				addCount.children('span').eq(1).text(count);
+// 			}
+// 		})
+// 	}	
+// 	function getMoreResults(result,pageindex,count,newindex){
+// 		$(".infoTable1").children('tbody').empty();
+// 		selfResult(pageindex,result,newindex);
+// 		$('.M-box').pagination({
+// 			totalData:count,
+// 		    showData:20,
+// 		    current:newindex,
+// 		    // count:2,
+// 		    jump:true,
+// 			coping:true,
+// 			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+// 			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+// 		    callback:function(index){
+// 		    	newindex=index;
+// 		    	console.log(index);
+// 		        if(index>50){        	
+// 		        	var _index=Math.ceil(index/50);
+// 					pageindex=_index;
+// 					if(dataBox[pageindex]){
+// 						var result1=dataBox[pageindex];
+// 						getMoreResults(result1,pageindex,count,newindex);
+// 					}
+// 					else{
+// 						ajaxMorePages(pageindex,newindex);
+// 					}
+// 		        }
+// 		        else{
+// 		        	getMoreResults(dataBox[1],1,count,newindex);
+// 		        }			       
+// 		    }
+// 		});
+// 	}	
+// }
 $(document).bind("click",function(){
 	$(".showElse").removeClass('showBtn');
 	$(".lookMore").removeClass('showMore');
