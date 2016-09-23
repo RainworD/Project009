@@ -249,13 +249,13 @@
 						'<td></td>'+
 						'<td></td>'+
 						'<td></td>'+
-						'<td></td>'+
+						'<td></td>'+ 
 						'<td></td>'+
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
-					searchInfo.children('td').eq(1).text(result[i].code);
-					searchInfo.children('td').eq(2).text(result[i].type);
-					searchInfo.children('td').eq(3).text(result[i].name);
+					searchInfo.children('td').eq(1).html(madeNowrapText(result[i].code));
+					searchInfo.children('td').eq(2).html(madeNowrapText(result[i].type));
+					searchInfo.children('td').eq(3).html(madeTwoLineText(result[i].name));
 					searchInfo.children('td').eq(4).text(result[i].year);
 					searchInfo.children('td').eq(5).text(result[i].level);
 					searchInfo.children('td').eq(6).text(result[i].user);
@@ -264,13 +264,13 @@
 						personArray.push(personList[j].name);
 					}
 					console.log(personArray);
-					searchInfo.children('td').eq(7).text(personArray);
-					searchInfo.children('td').eq(8).text(result[i].unit);
+					searchInfo.children('td').eq(7).html(madeTwoLineText(personArray));
+					searchInfo.children('td').eq(8).html(madeTwoLineText(result[i].unit));
 					var unitList=result[i].unitList;
 					for (var k=0;k<unitList.length;k++) {
 						unitArray.push(unitList[k].name);
 					}
-					searchInfo.children('td').eq(9).text(unitArray);
+					searchInfo.children('td').eq(9).html(madeTwoLineText(unitArray));
 					searchInfo.children('td').eq(10).text(result[i].recommend);
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}

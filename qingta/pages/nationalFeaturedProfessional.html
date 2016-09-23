@@ -31,8 +31,8 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<td colspan="2"></td>
-				<td colspan="2">
+				<td colspan="2" style="width:18.3%"></td>
+				<td colspan="2" style="width:26.3%">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
@@ -200,7 +200,7 @@
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
-						mytd.html(text);
+						mytd.text(result[i][j])
 						searchInfo.append(mytd);
 					}
 					$(".infoTable1").children('tbody').append(searchInfo);				

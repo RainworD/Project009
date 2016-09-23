@@ -269,6 +269,9 @@ body {
   padding: 10px;
   border-bottom: 1px solid #32cdcd;
 }
+.mainContainer .infoTable th {
+  white-space: nowrap;
+}
 .mainContainer .topTable {
   width: 100%;
   padding: 20px;

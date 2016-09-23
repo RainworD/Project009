@@ -979,6 +979,22 @@ function askNSFCIG(entity,research,head,year1,year2,money1,money2,pageindex){
     });
     return ajax;
 }
+function askNSFCIGsta(entitys,year1,year2,money1,money2,pageindex){//国家基金委统计
+    var ajax = $.ajax({
+        url: "/askNSFCIGsta",
+        type: "POST",
+        data:{
+        "entitys": entitys, //当选单位
+        "year1":year1,//公布年度左侧
+        "year2":year2,//公布年度右侧
+        "money1":money1,//当选批次左侧
+        "money2":money2,//当选批次右侧
+        "pageindex":pageindex,//分页数
+
+        }
+    });
+    return ajax;
+}
 function askIT(entity,research,head,year1,year2,pageindex){
     var ajax = $.ajax({
         url: "/askIT",
@@ -987,6 +1003,19 @@ function askIT(entity,research,head,year1,year2,pageindex){
         "entity": entity, //当选单位
         "research":research,//姓名
         "head":head,//人才类型
+        "year1":year1,//公布年度左侧
+        "year2":year2,//公布年度右侧
+        "pageindex":pageindex,//分页数
+        }
+    });
+    return ajax;
+}
+function askITsta(entitys,year1,year2,pageindex){
+    var ajax = $.ajax({
+        url: "/askITsta",
+        type: "POST",
+        data:{
+        "entitys": entitys, //选择的学校列表
         "year1":year1,//公布年度左侧
         "year2":year2,//公布年度右侧
         "pageindex":pageindex,//分页数
@@ -1011,6 +1040,24 @@ function askVC(entity,name,manager,year1,year2,_index1,_index2,pageindex){//公�
     });
     return ajax;
 }
+function askVCsta(entitys,year1,year2,_index1,_index2,pageindex){//公开课明细
+    var ajax = $.ajax({
+        url: "/askVCsta",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//公布年度左侧
+        "year2":year2,//公布年度右侧
+        "_index1":_index1,
+        "_index2":_index2,
+        "pageindex":pageindex
+        }
+    });
+    return ajax;
+}
 function askNSC(entity,year1,year2,name,manager,pageindex){//共享课明细
     var ajax = $.ajax({
         url: "/askNSC",
@@ -1021,6 +1068,22 @@ function askNSC(entity,year1,year2,name,manager,pageindex){//共享课明细
         "year2":year2,//分页数
         "name":name,
         "manager":manager,
+        "pageindex":pageindex
+        }
+    });
+    return ajax;
+}
+function askNSCsta(entitys,year1,year2,pageindex){//共享课明细
+    var ajax = $.ajax({
+        url: "/askNSCsta",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//当选批次
+        "year2":year2,//分页
         "pageindex":pageindex
         }
     });

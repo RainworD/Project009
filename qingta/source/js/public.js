@@ -618,46 +618,107 @@ function getWholeList(sub,url,selector){
 		}
 	});
 }
+// var dataBox={};
+// var newindex=1;
+// var count;
+// function getDataBox(params,url){
+// 	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
+// 		console.log(count);
+// 		$('.M-box').pagination({
+// 			totalData:count,
+// 		    showData:20,
+// 		    current:1,
+// 		    count:2,
+// 		    jump:true,
+// 			coping:true,
+// 			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+// 			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+// 		    callback:function(index){
+// 				paginationCallback(index,params,url);   
+// 		    }
+// 		});
+// 	})
+// }
+// function ajaxMorePages(pageindex,newindex,params,url){
+// 	params.pageindex=pageindex;
+// 	var ajax=$.ajax({
+// 		url:url,
+// 		type:'POST',
+// 		data:{
+// 			params
+// 		},
+// 		success:function(data){
+// 			var result=data.result;
+// 			dataBox[pageindex]=result;
+// 			count=data.count;
+// 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+// 			addCount.children('span').eq(0).text(count);
+// 			if(count<20){
+// 				addCount.children('span').eq(1).text(count);
+// 			}
+// 			else{
+
+// 				addCount.children('span').eq(1).text("20");
+// 			}
+// 			var lee=$(".tableContent .infoTablePara").children('.topRight');
+// 			if(lee){
+// 				lee.empty();
+// 				$(".tableContent .infoTablePara").append(addCount);
+// 			}
+// 			else{
+// 				$(".tableContent .infoTablePara").append(addCount);
+// 			}
+// 			if(data.state==1){
+// 				getMoreResults(result,pageindex,count,newindex);
+// 			}
+// 			else{
+// 				alert("没有符合查询条件的记录！");
+// 				count=0;
+// 				addCount.children('span').eq(0).text(count);
+// 				addCount.children('span').eq(1).text(count);
+// 			}
+// 		}
+// 	})
+// 	return ajax;
+// }	
+// function getMoreResults(result,pageindex,newindex){
+// 	$(".infoTable1").children('tbody').empty();
+// 	selfResult(pageindex,result,newindex);
+// }
+// function paginationCallback(index,params,url){
+// 	newindex=index;
+//     if(index>50){
+//     	var _index=Math.ceil(index/50);
+// 		pageindex=_index;
+// 		if(dataBox[pageindex]){
+// 			var result1=dataBox[pageindex];
+// 			getMoreResults(result1,pageindex,newindex);
+// 		}
+// 		else{
+// 			ajaxMorePages(pageindex,newindex,params,url);
+// 		}
+//     }
+//     else{
+//     	getMoreResults(dataBox[1],1,newindex);
+//     }			   
+// }
 var dataBox={};
 var newindex=1;
-var count;
 function getDataBox(params,url){
-	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
-		console.log(count);
-		$('.M-box').pagination({
-			totalData:count,
-		    showData:20,
-		    current:1,
-		    count:2,
-		    jump:true,
-			coping:true,
-			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-		    callback:function(index){
-				paginationCallback(index,params,url);   
-		    }
-		});
-	})
-}
-function ajaxMorePages(pageindex,newindex,params,url){
-	params.pageindex=pageindex;
-	var ajax=$.ajax({
-		url:url,
-		type:'POST',
-		data:{
-			params
-		},
-		success:function(data){
+	ajaxMorePages(1,1);
+	function ajaxMorePages(pageindex,newindex){
+		params.pageindex=pageindex;
+		$.post(url,params, function(data, textStatus, xhr) {
 			var result=data.result;
 			dataBox[pageindex]=result;
-			count=data.count;
+			var count=data.count;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 			addCount.children('span').eq(0).text(count);
 			if(count<20){
 				addCount.children('span').eq(1).text(count);
 			}
 			else{
-
+	
 				addCount.children('span').eq(1).text("20");
 			}
 			var lee=$(".tableContent .infoTablePara").children('.topRight');
@@ -677,30 +738,39 @@ function ajaxMorePages(pageindex,newindex,params,url){
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
 			}
-		}
-	})
-	return ajax;
-}	
-function getMoreResults(result,pageindex,newindex){
-	$(".infoTable1").children('tbody').empty();
-	selfResult(pageindex,result,newindex);
-}
-function paginationCallback(index,params,url){
-	newindex=index;
-    if(index>50){
-    	var _index=Math.ceil(index/50);
-		pageindex=_index;
-		if(dataBox[pageindex]){
-			var result1=dataBox[pageindex];
-			getMoreResults(result1,pageindex,newindex);
-		}
-		else{
-			ajaxMorePages(pageindex,newindex,params,url);
-		}
-    }
-    else{
-    	getMoreResults(dataBox[1],1,newindex);
-    }			   
+		})
+	}	
+	function getMoreResults(result,pageindex,count,newindex){
+		$(".infoTable1").children('tbody').empty();
+		selfResult(pageindex,result,newindex);
+		$('.M-box').pagination({
+			totalData:count,
+		    showData:20,
+		    current:newindex,
+		    count:2,
+		    jump:true,
+			coping:true,
+			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+		    callback:function(index){
+		    	newindex=index;
+		        if(index>50){
+		        	var _index=Math.ceil(index/50);
+					pageindex=_index;
+					if(dataBox[pageindex]){
+						var result1=dataBox[pageindex];
+						getMoreResults(result1,pageindex,count,newindex)
+					}
+					else{
+						ajaxMorePages(pageindex,newindex);
+					}
+		        }
+		        else{
+		        	getMoreResults(dataBox[1],1,count,newindex)
+		        }			       
+		    }
+		});
+	}	
 }
 $(document).bind("click",function(){
 	$(".showElse").removeClass('showBtn');

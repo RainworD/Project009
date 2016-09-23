@@ -217,7 +217,7 @@
 				<tbody>
 				</tbody>
 			</table>
-		</div>
+		</div> 
 		<div class="bottomBtn">
 			<p>
 				<a class="forSure">确定</a>
@@ -320,7 +320,7 @@
 						'<td></td>'+
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length;j++) {
+					for (var j=0;j<result[i].length-1;j++) {
 						var mytd=$('<td></td>');
 						if(result[i][j]==null){
 							result[i][j]="";

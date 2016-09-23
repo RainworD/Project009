@@ -73,7 +73,7 @@
 						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
-				<td colspan="2" style="width: 23.3%">
+				<td colspan="2" style="width: 26.3%">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
@@ -101,22 +101,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>北京大学</td>
-						<td>2001-2016</td>				
-						<td>汇总统计</td>
-						<td>1</td>
-						<td>735</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>清华大学</td>
-						<td>2001-2016</td>				
-						<td>汇总统计</td>
-						<td>2</td>
-						<td>587</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -133,7 +117,7 @@
 		<span class="sr-only">Loading...</span>
 	</p>
 </div>
-<div class="mask mask1"></div>
+<div class="mask mask1"></div> 
 <div class="unitsChoose unitsChoose1">
 	<div class="unitsContainer">
 		<div class="cancelBtn">
@@ -221,4 +205,90 @@
 	doForSearch(".searchBox","/Landentity0");
 	dragBoxUnitsChoose(".unitsChoose");
 	topBarControl();
+</script>
+<script type="text/javascript">
+	var pageIndex=1;
+	$(".searchBtn").bind("click",function(){
+		var entitys=projectUnits;
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var money1=$(".nationFee1").val();
+		var money2=$(".nationFee2").val();
+		var pageindex=pageIndex;
+		$.when(askNSFCIGsta(entitys,year1,year2,money1,money2,pageindex)).done(function(data){
+			var result=data.result;
+			$(".infoTable1").children('tbody').empty();
+			var count=data.count;
+			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			addCount.children('span').eq(0).text(count);
+			if(count<20){
+				addCount.children('span').eq(1).text(count);
+			}
+			else{
+				addCount.children('span').eq(1).text("20");
+			}
+			var lee=$(".tableContent .infoTablePara").children('.topRight');
+			if(lee){
+				lee.empty();
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			else{
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			if(data.state==1){
+				for (var i=0,len=result.length;i<len;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).text(i+1);
+					for (var j=0;j<result[i].length;j++) {
+						var mytd=$('<td></td>');
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+						if(j==1){
+							result[i][j]=year1+'-'+year2;
+						}
+						if(j==2){
+							if(money1==""&&money2!=""){
+								result[i][j]='0-'+money2;
+							}
+							else if(money2==""&&money1!=""){
+								result[i][j]=money1+'-不限';
+							}
+							else if(money1!=""&&money2!=""){
+								result[i][j]=year1+'-'+year2;
+							}
+							else{
+								result[i][j]="汇总统计";
+							}		
+						}
+						mytd.text(result[i][j])
+						searchInfo.append(mytd);
+					}
+					$(".infoTable1").children('tbody').append(searchInfo);				
+				}
+				getPages(0);
+				$('.M-box').pagination({
+					totalData:count,
+				    showData:20,
+				    current:1,
+				    count:2,
+				    jump:true,
+					coping:true,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				    callback:function(index){
+				        getPages(index-1);
+				    }
+				});
+			}
+			else{
+				alert("没有符合查询条件的记录！");
+				count=0;
+				addCount.children('span').eq(0).text(count);
+				addCount.children('span').eq(1).text(count);
+			}			
+		})
+	})
 </script>

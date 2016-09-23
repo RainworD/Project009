@@ -251,7 +251,9 @@
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		if(finalResults){
+		var _len=$(".unitsChoose1").length;
+		console.log(_len);
+		if(finalResults&&_len){
 			judgeUnits(finalResults);
 			$(".unitsContent1").addClass("beforeShowBox");
 	    	$(".beforeShow").addClass("beforeHideBox");
