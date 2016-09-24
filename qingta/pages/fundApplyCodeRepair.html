@@ -1,3 +1,32 @@
+<style>
+	.button {
+		display: block;
+		width: 80px;
+		text-align: center;
+		margin-right: 20px;
+		border-radius: 3px;
+		color: #fff;
+		height: 30px;
+		line-height: 30px;
+	}
+	.button-blue {
+		background-color: #33ccff;
+	}
+	.button-green {
+		background-color: #00cc99;
+	}
+	.code-right-arrow {
+		display: block;
+		font-size: 23px;
+		color: #bdbdbd;
+		padding-bottom: 20px;
+	}
+	.code-left-arrow {
+		display: block;
+		font-size: 23px;
+		color: #bdbdbd;
+	}
+</style>
 <div id="fund_apply_code_container">
 	<fund-apply-code></fund-apply-code>
 </div>
@@ -6,18 +35,20 @@
 		<div class="changeBarBox" style="background-color:#fff;">
 			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">基金-申请代码维护</a>
 		</div>
-		<div class="addDataBtn" style="margin-right:0;">新增数据</div>
-		<p class="hideBtn" style="right: 150px;">隐藏查询条件</p>
+		<div class="addDataBtn" style="margin-right:0;" v-on:click="openFundCodeModal">新增数据</div>
+		<p class="hideBtn" style="right: 150px;" v-on:click="hideSearchBar=!hideSearchBar">{{hideSearchBar ? '显示' : '隐藏'}}查询条件</p>
 	</div>
-	<div class="enterBox">
+	<div class="enterBox" v-show="!hideSearchBar">
 		<div class="topTableBox">
 			<table class="topTable">
 				<tr>
 					<th style="width:100px;">申请代码名称 :</th>
 					<td style="width:18.3%;">
-						<div class="commonInputBox"  style="width:100%">
-							<input class="commonput unitsEnter" style="padding-right:30px;">
-							<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="commonInputBox" style="width:100%">
+							<input class="commonput unitsEnter" style="padding-right:30px;" v-on:focus="openSearchNameModal" v-model="search_name_string">
+							<div class="showDetailBox showDetailBox1" v-on:click="openSearchNameModal">
+								<i class="fa fa-ellipsis-h showDetail"></i>
+							</div>
 						</div>	
 					</td> 
 					<th style="width:12.6%;">申请代码编号 :</th>
@@ -29,22 +60,25 @@
 					<th style="width:10.6%;">级次 :</th>
 					<td style="width:18.3%;">
 						<div class="commonselect"  style="width:100%;">
-							<select class="selBox">
-								<option>1</option>
-								<option>2</option>
+							<select class="selBox" v-model="search_level">
+								<option value="" selected>全部</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
 							</select>
 						</div>
 					</td>
 					<td colspan="2" style="width: 28.3%">
 						<a class="searchBtn rightMinBtn">查询</a>
-						<a class="resetBtn rightMinBtn">重置</a>
+						<a class="resetBtn rightMinBtn" style="background-color:#4ec1ff;">重置</a>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
 	<div class="tableContent">
-		<div class="infoTableBox">
+		<div class="infoTableBox" style="padding-bottom:0px;">
 			<div class="infoTableTop">
 				<p class="infoTablePara">
 					<span class="topLeft">中国科学院院士统计数据</span>
@@ -63,27 +97,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>A</td>
-							<td>数理科学部</td>
-							<td>一级</td>
-							<td>否</td>
-							<td>
-								<div class="addLine">
-									<i class="fa fa-edit fa-lg removeBtn "></i>
-								</div>
-								<div class="removeData">
-									<i class="fa fa-times fa-lg removeBtn "></i>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>B</td>
-							<td>化学科学部</td>
-							<td>一级</td>
-							<td>否</td>
+						<tr v-for="code in table_codes" track-by="id">
+							<td>{{getPageOrder($index)}}</td>
+							<td>{{code.code}}</td>
+							<td>{{code.name}}</td>
+							<td>{{code.level}}</td>
+							<td>{{code.leaf ? '是': '否'}}</td>
 							<td>
 								<div class="addLine">
 									<i class="fa fa-edit fa-lg removeBtn "></i>
@@ -98,21 +117,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="searchUndo">
-		<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
-		<img class="getInfoImg" src="../source/img/info.png"></img>
-	</div>
-	<div class="beforeSearch">
-		<p class="enterSearchInfo">
-			<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-			<span class="sr-only">Loading...</span>
-		</p>
-	</div>
-	<div class="mask"></div>
+	<div v-el:pagination class="M-box"></div>
+	<div class="mask mask0"></div>
 	<div class="unitsChoose unitsChoose1">
 		<div class="unitsContainer">
 			<div class="cancelBtn">
-				<i class="fa fa-close showCollege"></i>
+				<i class="fa fa-close showCollege" v-on:click="closeFundCodeModal"></i>
 			</div>
 			<div class="unitsHeader">
 				<p class="unitsTitle">申请代码维护</p>
@@ -136,30 +146,15 @@
 								</td>
 							</tr>
 							<tr>
-								<th>级次 :</th>
-								<td>
-									<div class="commonselect"  style="width:100%;">
-										<select class="selBox">
-											<option>1</option>
-											<option>2</option>
-										</select>
-									</div>
+								<th v-if="selectedFundCode.level">级次 :</th>
+								<td v-if="selectedFundCode.level">
+									{{selectedFundCode.level}}
 								</td>
 								<th style="width:80px;">上级编码 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput">
+										<input class="commonput" v-on:focus="openFundCodeParentModal" v-model="parentNode_string">
 									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2"></td>
-								<th style="width:80px;"></th>
-								<td>
-									<label for="box1">
-										<input type="checkbox" id="box1">
-										叶子节点
-									</label>
 								</td>
 							</tr>
 						</table>
@@ -168,29 +163,277 @@
 			</div>
 			<div class="bottomBtn">
 				<p>
-					<a class="forSure">确定</a>
-					<a class="forConsole">取消</a>
+					<a class="button button-green" style="float:right;">确定</a>
+					<a class="button button-blue" style="float:right;" v-on:click="closeFundCodeModal">取消</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="unitsChoose unitsChoose2">
+		<div class="unitsContainer">
+			<div class="cancelBtn" v-on:click="closeSearchNameModal">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader unitsHeader1">
+				<p class="unitsTitle">项目牵头单位选择</p>
+			</div>
+			<div class="unitsContent">
+				<div class="totalModel">
+					<div class="leftColumn" style="cursor:default">
+						<div class="leftColumnBox">
+							<div class="leftColumnBar">
+								<div class="searchp">
+									<input class="searchBox">
+									<ul class="showElse">
+									</ul>
+									<a class="leftSearchBtn">查询</a>
+								</div>
+							</div>
+							<div class="leftColumnContent">
+								<div class="leftColumnProvinces">
+									<ul id="fund-tree" class="ztree">
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="middleColumn">
+						<div class="btnBox">
+							<i class="fa fa-long-arrow-right code-right-arrow"></i>
+							<i class="fa fa-long-arrow-left code-left-arrow"></i>
+						</div>
+					</div>
+					<div class="rightColumn">
+						<div class="rightColumnContent">
+							<p class="rightColumnBar">
+								已选单位：
+							</p>
+							<div class="chooseAlready">
+								<ul class="chooseAlreadyList">
+									<li class="chooseItems" v-for="item in search_name" v-on:click="removeItemFromSearch(item.nodeTree)" track-by="id">{{item.name}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="button button-green" style="float:right;" v-on:click="closeSearchNameModal">确定</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="mask mask1"></div>
+	<div class="unitsChoose unitsChoose3">
+		<div class="unitsContainer">
+			<div class="cancelBtn" v-on:click="closeFundCodeParentModal">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader unitsHeader1">
+				<p class="unitsTitle">上级单位选择</p>
+			</div>
+			<div class="unitsContent">
+				<div class="totalModel">
+					<div class="leftColumn" style="cursor:default;width:100%;">
+						<div class="leftColumnBox">
+							<div class="leftColumnContent">
+								<div class="leftColumnProvinces">
+									<ul id="fund-parent-tree" class="ztree">
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="button button-green" style="float:right;" v-on:click="closeFundCodeParentModal">确定</a>
 				</p>
 			</div>
 		</div>
 	</div>
 </script>
 <script type="text/javascript">
+
+	var pageNumber = 20
+
+	var baseTree = null
+	var baseData = null
+
 	Vue.component('fund-apply-code', {
 		template: $(fund_apply_code_template).html(),
 		data: function(){
 			return {
-				codes: []
+				page: -1,
+				table_codes: [],
+				hideSearchBar: false,
+				search_level: "",
+				search_code: "",
+				search_name: [],
+				search_name_string: "",
+				selectedFundCode: {},
+				selectedId: null,
+				parentNode_string: ""
+			}
+		},
+		methods: {
+			getPageOrder: function($index){
+				return this.page * pageNumber + $index + 1
+			},
+			getZTreeObj: function(){
+				return $.fn.zTree.getZTreeObj('fund-tree')
+			},
+			getParentZTreeObj: function(){
+				return $.fn.zTree.getZTreeObj('fund-parent-tree')
+			},
+			pushItemToSearch: function(checkedNode){
+				var self = this
+				var _node = {
+					id: checkedNode.id,
+					name: checkedNode.name,
+					code: checkedNode.code,
+					level: checkedNode.level,
+					leaf: checkedNode.leaf
+				}
+				self.search_name.push(_node)
+				_node.nodeTree = checkedNode
+			},
+			removeItemFromSearch: function(node){
+				var self = this
+
+				var zTreeObj = self.getZTreeObj()
+				zTreeObj.checkNode(node, false, true)
+
+				var checkNodes = zTreeObj.getCheckedNodes()
+				self.search_name = []
+				checkNodes.forEach(function(node){
+					self.pushItemToSearch(node)
+				})
+			},
+			initZtree: function(){
+				var self = this
+				$.fn.zTree.init($("#fund-tree"), {
+					check:{
+						chkStyle:"checkbox",
+						enable:true
+						//chkboxType:{ "Y": "ps", "N": "ps" },
+					},
+					view: {
+						showIcon: false
+					},
+					callback: {
+						onCheck: function(event, treeId, treeNode){
+							var zTreeObj = self.getZTreeObj()
+							var checkNodes = zTreeObj.getCheckedNodes()
+							self.search_name = []
+							checkNodes.forEach(function(node){
+								self.pushItemToSearch(node)
+							})
+						}
+					}
+				}, baseTree)
+				$.fn.zTree.init($("#fund-parent-tree"), {
+					view: {
+						showIcon: false
+					}
+				}, baseTree)
+			},
+			openFundCodeParentModal: function(){
+				$('.mask.mask1').show()
+				popAlertBox(".unitsChoose3");
+				dragBox(".unitsChoose3");
+			},
+			closeFundCodeParentModal: function(){
+				var zTreeObj = this.getParentZTreeObj()
+				var selectedNode = zTreeObj.getSelectedNodes()[0]
+
+				this.selectedFundCode.parentCode = {
+					id: selectedNode.id,
+					name: selectedNode.name,
+					code: selectedNode.code
+				}
+				$(".mask.mask1").hide();
+				$(".unitsChoose3").hide();
+			},
+			openSearchNameModal: function(){
+				$('.mask.mask0').show()
+				popAlertBox(".unitsChoose2");
+				dragBox(".unitsChoose2");
+			},
+			closeSearchNameModal: function(){
+				$(".mask.mask0").hide();
+				$(".unitsChoose2").hide();
+			},
+			openFundCodeModal: function(){
+				if (this.selectedId == null) {
+					this.selectedFundCode = {
+						id: "",
+						name: "",
+						parentCode: null,
+						level: ""
+					}
+				}
+				$('.mask.mask0').show()
+				popAlertBox(".unitsChoose1");
+				dragBox(".unitsChoose1");
+			},
+			closeFundCodeModal: function(save){
+				if (save) {
+
+				}
+				$(".mask.mask0").hide();
+				$(".unitsChoose1").hide();
+			},
+			initPagination: function(length){
+				var self = this
+				$(self.$els.pagination).pagination({
+					totalData: length,
+					showData: pageNumber,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+					coping: true,
+					jump:true,
+					callback: function(page){
+						self.page = page - 1
+					}
+				})
+				self.page = 0
+			}
+		},
+		watch: {
+			page: function(){
+				var self = this
+				self.table_codes = JSON.parse(JSON.stringify(baseData.slice(self.page * pageNumber, (self.page + 1) * pageNumber)))
+			},
+			search_name: function(val){
+				this.search_name_string = val.slice(0, 3).map(function(node){
+					return node.name
+				}).join(',')
+			},
+			selectedFundCode: {
+				handler: function(val){
+					if (val && val.parentCode && val.parentCode.name) {
+						this.parentNode_string = '('+ val.parentCode.code + ')' + val.parentCode.name
+					} else {
+						this.parentNode_string = ""
+					}
+				},
+				deep: true	
 			}
 		},
 		ready: function(){
 			var self = this
 			Promise.resolve($.ajax({
-				url: '/ApplicationCode/get',
+				url: '/FundCode/get',
 				error: function(){}
 			})).then(function(res){
 				if (res.state == 0) {
-					self.codes = res.data
+					baseTree = res.data
+					baseData = transferTreeToArray(baseTree)
+					self.initPagination(baseData.length)
+					self.initZtree()
 				} else {
 					alert('获取数据失败')
 				}
@@ -205,6 +448,28 @@
 		el: '#fund_apply_code_container'
 	})
 	
+
+	function transferTreeToArray(tree) {
+		var ret = []
+
+		function _addNode(tree, parentTree) { // tree的数组
+			tree.forEach(function(subTree){
+				ret.push({
+					name: subTree.name,
+					id: subTree.id,
+					leaf: subTree.leaf,
+					level: subTree.level,
+					code: subTree.code,
+					parent_id: parentTree.id
+				})
+				_addNode(subTree.children, subTree)
+			})
+		}
+
+		_addNode(tree, {id: null})
+		return ret
+	}
+
 	/*topBarControl();
 	$(".addDataBtn").bind("click",function(){
 		$(".mask").show();
