@@ -183,14 +183,6 @@
 				<div class="totalModel">
 					<div class="leftColumn" style="cursor:default">
 						<div class="leftColumnBox">
-							<div class="leftColumnBar">
-								<div class="searchp">
-									<input class="searchBox">
-									<ul class="showElse">
-									</ul>
-									<a class="leftSearchBtn">查询</a>
-								</div>
-							</div>
 							<div class="leftColumnContent">
 								<div class="leftColumnProvinces">
 									<ul id="fund-tree" class="ztree">
@@ -207,9 +199,6 @@
 					</div>
 					<div class="rightColumn">
 						<div class="rightColumnContent">
-							<p class="rightColumnBar">
-								已选单位：
-							</p>
 							<div class="chooseAlready">
 								<ul class="chooseAlreadyList">
 									<li class="chooseItems" v-for="item in search_name" v-on:click="removeItemFromSearch(item.nodeTree)" track-by="id">{{item.name}}</li>

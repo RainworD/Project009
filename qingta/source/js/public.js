@@ -144,6 +144,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	myleft=$(selector).position().left;
 	mytop=$(selector).position().top;
 	$(selector).bind("mousedown",function(e){
+		console.dir(e)
 		var targ = $(e.target);
 		// var name=targ.className;
 		var flag=targ.closest('.unitsContent');
@@ -153,16 +154,18 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 		}
 		else{
 			ismousedown=true;
-			myleft=$(selector).position().left;
-			mytop=$(selector).position().top;
-			downX=e.pageX;
-			downY=e.pageY;
+			var _dom = $(selector).get(0)
+			var offset = _dom.getBoundingClientRect()
+			myleft=offset.left;
+			mytop=offset.top;
+			downX=e.screenX;
+			downY=e.screenY;
 		}
 	})
 	$(document).bind("mousemove",function(e){
 			if(ismousedown){
-				_mytop=e.pageY-downY + mytop;
-				_myleft=e.pageX-downX + myleft;
+				_mytop=e.screenY-downY + mytop;
+				_myleft=e.screenX-downX + myleft;
 				$(selector).css("left",_myleft);
 				$(selector).css("top",_mytop);
 			}
