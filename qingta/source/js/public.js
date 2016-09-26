@@ -195,6 +195,8 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	var myleft,mytop;
 	var ismousedown=false;
 	var downX,downY;
+	// myleft=$(selector).offset().left;
+	// mytop=$(selector).offset().top;
 	myleft=$(selector).position().left;
 	mytop=$(selector).position().top;
 	$(selector).bind("mousedown",function(e){
@@ -202,24 +204,29 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 		// var name=targ.className;
 		var flag=targ.closest('.unitsContent');
 		if(flag.length){
-			// alert("111");
 			ismousedown=false;
 		}
 		else{
 			ismousedown=true;
-			myleft=$(selector).position().left;
-			mytop=$(selector).position().top;
-			downX=e.pageX;
-			downY=e.pageY;
+			// myleft=$(selector).position().left;
+			// mytop=$(selector).position().top;
+			var _dom = $(selector).get(0)
+			var offset = _dom.getBoundingClientRect()
+			myleft=offset.left;
+			mytop=offset.top;
+			// downX=e.screenX;
+			// downY=e.screenY;
+			downX=e.clientX;
+			downY=e.clientY;
 		}
 	})
 	$(document).bind("mousemove",function(e){
-			if(ismousedown){
-				_mytop=e.pageY-downY + mytop;
-				_myleft=e.pageX-downX + myleft;
-				$(selector).css("left",_myleft);
-				$(selector).css("top",_mytop);
-			}
+		if(ismousedown){
+			_mytop=e.clientY-downY + mytop;
+			_myleft=e.clientX-downX + myleft;
+			$(selector).css("left",_myleft);
+			$(selector).css("top",_mytop);
+		}
 	});
 	$(document).bind("mouseup",function(){
 		ismousedown=false;
@@ -611,6 +618,7 @@ function ajaxMorePages(pageindex,newindex,params,url){
 		url:url,
 		type:'POST',
 		data:params,
+		traditional:true,
 		success:function(data){
 			var result=data.result;
 			dataBox[pageindex]=result;

@@ -77,10 +77,12 @@
 						<input class="commonput projectFee2" style="width:100%;ime-mode:disabled;" placeholder="万元"  onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
-				<td colspan="2" style="padding-left: 3%;">
+				<th>
 					<label for="schoolOnly">
 						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
 					</label>
+				</th>
+				<td>
 					<label for="countFirst" class="label1">
 						<input type="radio" id="countFirst" name="selBar" class="radioInput" checked="checked" value="2">
 						按数量排序
@@ -275,6 +277,7 @@
 		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
+		var val=$(".projectType").val();
 		var eq=newindex%50;
 		if(eq==0){
 			eq=50;
@@ -311,6 +314,10 @@
 						text = madeNowrapText(result[i][j]);
 					}
 					else if(j==1||j==5){
+						if(val==""){
+							result[i][1]="全部项目类型";
+							searchInfo.eq(1).css("text-align","center");
+						}
 						text = madeTwoLineText(result[i][j]);
 					}
 					else{}
@@ -320,7 +327,6 @@
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 			searchInfo.children('td').eq(3).addClass('nowrap');
-			// searchInfo.children('td').css("height","57px");
 			// searchInfo.children('td').eq(2).addClass('nowrap');
 		}
 	}

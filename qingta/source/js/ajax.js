@@ -52,7 +52,7 @@ function askNKRPsta(pageindex,entitys,type,year1,year2,centermoney1,centermoney2
     });
     return ajax;
 }
-function askNNSFsta(projectentitys,type,year1,year2,money1,money2,pageindex,orderby,applicationcode){
+function askNNSFsta(entitys,type,year1,year2,money1,money2,pageindex,orderby,applicationcode){
     var ajax = $.ajax({
         url: "/askNNSFsta",
         type: "POST",
@@ -61,7 +61,7 @@ function askNNSFsta(projectentitys,type,year1,year2,money1,money2,pageindex,orde
         success:successHandle,
         data:{
         "applicationcode": applicationcode,//申请代码
-        "projectentitys": projectentitys, //选择的学校列表
+        "entitys": entitys, //选择的学校列表
         "type": type,//项目类型
         "year1":year1,//年度范围左侧
         "year2":year2,//年度范围右侧
@@ -94,7 +94,7 @@ function askHSS(subject,name,type,manager,entity,year1,year2,money1,money2,pagei
     });
     return ajax;
 }
-function askNKRP(projectentity,type,name,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,manager){
+function askNKRP(entity,type,name,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,manager){
     var ajax = $.ajax({
         url: "/askNKRP",
         type: "POST",
@@ -106,7 +106,7 @@ function askNKRP(projectentity,type,name,year1,year2,centermoney1,centermoney2,t
             "type":type,
             "year1":year1,
             "year2":year2,
-            "projectentity":projectentity,
+            "entity":entity,
             "manager":manager,
             "totalmoney1":totalmoney1,
             "totalmoney2":totalmoney2,
@@ -536,6 +536,18 @@ function askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,ap
     return ajax;
 }
 function LandSAsubject(sub){
+    var ajax = $.ajax({
+        url: "/LandSAsubject",
+        type: "POST",
+        data:{
+
+        "sub": sub //查询时返回的子串
+        }
+
+    });
+    return ajax;
+}
+function LandNNSFname(sub){
     var ajax = $.ajax({
         url: "/LandSAsubject",
         type: "POST",

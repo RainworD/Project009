@@ -55,9 +55,9 @@
 						<th>上级编码</th>
 						<th>上级名称</th>
 						<th>是否叶子节点</th>
-						<th>TopId</th>
-						<th>TopName</th>
-						<th>是否顶节点</th>
+						<th>顶级编码</th>
+						<th>顶级名称</th>
+						<th>是否顶级节点</th>
 						<th>维护</th>
 
 					</tr>
@@ -114,13 +114,13 @@
 				<div class="ESIContent" style="padding-top: 30px;">
 					<table class="ESITable topTable">
 						<tr>
-							<th style="width:80px;">编码 :</th>
+							<th style="width:100px;">编码 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
 									<input class="commonput">
 								</div>
 							</td>
-							<th style="width:80px;">单位名称 :</th>
+							<th style="width:100px;">单位名称 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
 									<input class="commonput">
@@ -128,6 +128,15 @@
 							</td>
 						</tr>
 						<tr>
+							<th>单位类型 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox">
+										<option>1</option>
+										<option>2</option>
+									</select>
+								</div>
+							</td>
 							<th>省份 :</th>
 							<td>
 								<div class="commonselect"  style="width:100%;">
@@ -137,8 +146,56 @@
 									</select>
 								</div>
 							</td>
-							<td colspan="2"></td>
 						</tr>
+						<tr>
+							<th>上级编码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput">
+								</div>
+							</td>
+							<th>上级名称 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>顶级编码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput">
+								</div>
+							</td>
+							<th>顶级名称 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>是否叶子节点 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox">
+										<option>是</option>
+										<option>否</option>
+									</select>
+								</div>
+							</td>
+							<th>是否顶级节点 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox">
+										<option>是</option>
+										<option>否</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+
 					</table>
 				</div>
 			</div>
@@ -153,7 +210,12 @@
 </div>
 <script type="text/javascript">
 	topBarControl();
-	$(".manageBtn,.addDataBtn").bind("click",function(){
+	$(".addDataBtn").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
+	})
+	$(".addLine").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose2");
 		dragBox(".unitsChoose2");
