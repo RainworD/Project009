@@ -26,6 +26,9 @@
 		font-size: 23px;
 		color: #bdbdbd;
 	}
+	.chooseItems:hover {
+		background-color: #ffefd5;
+	}
 </style>
 <div id="fund_apply_code_container">
 	<fund-apply-code></fund-apply-code>
@@ -35,7 +38,7 @@
 		<div class="changeBarBox" style="background-color:#fff;">
 			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">基金-申请代码维护</a>
 		</div>
-		<div class="addDataBtn" style="margin-right:0;" v-on:click="openFundCodeModal">新增数据</div>
+		<div class="addDataBtn" style="margin-right:0;" v-on:click="openFundCodeModal(false)">新增数据</div>
 		<p class="hideBtn" style="right: 150px;" v-on:click="hideSearchBar=!hideSearchBar">{{hideSearchBar ? '显示' : '隐藏'}}查询条件</p>
 	</div>
 	<div class="enterBox" v-show="!hideSearchBar">
@@ -54,7 +57,7 @@
 					<th style="width:12.6%;">申请代码编号 :</th>
 					<td style="width:18.3%;">
 						<div class="commonInputBox" style="width:100%;">
-							<input class="commonput">
+							<input class="commonput" v-model="search_code">
 						</div>
 					</td> 
 					<th style="width:10.6%;">级次 :</th>
@@ -70,14 +73,14 @@
 						</div>
 					</td>
 					<td colspan="2" style="width: 28.3%">
-						<a class="searchBtn rightMinBtn">查询</a>
-						<a class="resetBtn rightMinBtn" style="background-color:#4ec1ff;">重置</a>
+						<a class="searchBtn rightMinBtn" v-on:click="initPagination">查询</a>
+						<a class="resetBtn rightMinBtn" style="background-color:#4ec1ff;" v-on:click="clearSearchQuery">重置</a>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
-	<div class="tableContent">
+	<div class="tableContent" id="fund_code_tablecontent">
 		<div class="infoTableBox" style="padding-bottom:0px;">
 			<div class="infoTableTop">
 				<p class="infoTablePara">
@@ -105,10 +108,10 @@
 							<td>{{code.leaf ? '是': '否'}}</td>
 							<td>
 								<div class="addLine">
-									<i class="fa fa-edit fa-lg removeBtn "></i>
+									<i class="fa fa-edit fa-lg removeBtn" v-on:click="openFundCodeModal(code)"></i>
 								</div>
 								<div class="removeData">
-									<i class="fa fa-times fa-lg removeBtn "></i>
+									<i class="fa fa-times fa-lg removeBtn" v-on:click="deleteCode(code)"></i>
 								</div>
 							</td>
 						</tr>
@@ -117,12 +120,11 @@
 			</div>
 		</div>
 	</div>
-	<div v-el:pagination class="M-box"></div>
 	<div class="mask mask0"></div>
 	<div class="unitsChoose unitsChoose1">
 		<div class="unitsContainer">
 			<div class="cancelBtn">
-				<i class="fa fa-close showCollege" v-on:click="closeFundCodeModal"></i>
+				<i class="fa fa-close showCollege" v-on:click="closeFundCodeModal(false)"></i>
 			</div>
 			<div class="unitsHeader">
 				<p class="unitsTitle">申请代码维护</p>
@@ -135,20 +137,20 @@
 								<th style="width:110px;">申请代码编码 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput">
+										<input class="commonput" v-model="edit_code">
 									</div>
 								</td>
 								<th style="width:110px;">申请代码名称 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput">
+										<input class="commonput" v-model="edit_name">
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<th v-if="selectedFundCode.level">级次 :</th>
-								<td v-if="selectedFundCode.level">
-									{{selectedFundCode.level}}
+								<th v-if="selectedId!==null">级次 :</th>
+								<td v-if="selectedId!==null">
+									{{selectedId.level}}
 								</td>
 								<th style="width:80px;">上级编码 :</th>
 								<td>
@@ -163,8 +165,8 @@
 			</div>
 			<div class="bottomBtn">
 				<p>
-					<a class="button button-green" style="float:right;">确定</a>
-					<a class="button button-blue" style="float:right;" v-on:click="closeFundCodeModal">取消</a>
+					<a class="button button-green" style="float:right;" v-on:click="closeFundCodeModal(true)">确定</a>
+					<a class="button button-blue" style="float:right;" v-on:click="closeFundCodeModal(false)">取消</a>
 				</p>
 			</div>
 		</div>
@@ -227,7 +229,7 @@
 	<div class="mask mask1"></div>
 	<div class="unitsChoose unitsChoose3">
 		<div class="unitsContainer">
-			<div class="cancelBtn" v-on:click="closeFundCodeParentModal">
+			<div class="cancelBtn" v-on:click="closeFundCodeParentModal(false)">
 				<i class="fa fa-close showCollege"></i>
 			</div>
 			<div class="unitsHeader unitsHeader1">
@@ -249,7 +251,7 @@
 			</div>
 			<div class="bottomBtn">
 				<p>
-					<a class="button button-green" style="float:right;" v-on:click="closeFundCodeParentModal">确定</a>
+					<a class="button button-green" style="float:right;" v-on:click="closeFundCodeParentModal(true)">确定</a>
 				</p>
 			</div>
 		</div>
@@ -273,7 +275,14 @@
 				search_code: "",
 				search_name: [],
 				search_name_string: "",
-				selectedFundCode: {},
+				edit_code: "", // 编辑框内代码编号
+				edit_name: "", // 编辑框内代码名称
+				edit_level: "", // 编辑框内级次, 新增数据时不显示
+				selectedFundCode: {
+					id: "",
+					name: "",
+					code: ""
+				},
 				selectedId: null,
 				parentNode_string: ""
 			}
@@ -312,6 +321,15 @@
 					self.pushItemToSearch(node)
 				})
 			},
+			clearSearchQuery: function(){
+				var zTreeObj = this.getZTreeObj()
+				zTreeObj.checkAllNodes(false)
+				zTreeObj.expandAll(false)
+				this.search_name = []
+				this.search_code = ""
+				this.search_level = ""
+				this.initPagination()
+			},
 			initZtree: function(){
 				var self = this
 				$.fn.zTree.init($("#fund-tree"), {
@@ -345,15 +363,17 @@
 				popAlertBox(".unitsChoose3");
 				dragBox(".unitsChoose3");
 			},
-			closeFundCodeParentModal: function(){
+			closeFundCodeParentModal: function(save){
 				var zTreeObj = this.getParentZTreeObj()
-				var selectedNode = zTreeObj.getSelectedNodes()[0]
 
-				this.selectedFundCode.parentCode = {
-					id: selectedNode.id,
-					name: selectedNode.name,
-					code: selectedNode.code
-				}
+				var selectedNodes = zTreeObj.getSelectedNodes()
+				if (selectedNodes.length > 0 && save) {
+					var selectedNode = selectedNodes[0]
+					this.selectedFundCode.id = selectedNode.id
+					this.selectedFundCode.name = selectedNode.name
+					this.selectedFundCode.code = selectedNode.code
+				} 
+				
 				$(".mask.mask1").hide();
 				$(".unitsChoose3").hide();
 			},
@@ -366,14 +386,24 @@
 				$(".mask.mask0").hide();
 				$(".unitsChoose2").hide();
 			},
-			openFundCodeModal: function(){
+			openFundCodeModal: function(code){
+				if (code === false) {
+					this.selectedId = null
+				} else {
+					this.selectedId = JSON.parse(JSON.stringify(code))
+				}
 				if (this.selectedId == null) {
-					this.selectedFundCode = {
-						id: "",
-						name: "",
-						parentCode: null,
-						level: ""
-					}
+					this.edit_code = ""
+					this.edit_name = ""
+					this.selectedFundCode.id = ""
+					this.selectedFundCode.code = ""
+					this.selectedFundCode.name = ""
+				} else {
+					this.edit_code = code.code
+					this.edit_name = code.name
+					this.selectedFundCode.id = code.parent_id
+					this.selectedFundCode.name = code.parent_name
+					this.selectedFundCode.code = code.parent_code
 				}
 				$('.mask.mask0').show()
 				popAlertBox(".unitsChoose1");
@@ -381,14 +411,164 @@
 			},
 			closeFundCodeModal: function(save){
 				if (save) {
+					if (this.selectedId == null) {
+						if (this.edit_code == "" || this.edit_name == "") {
+							alert('请完整填写代码编号与名称')
+						} else {
+							var parentId = this.selectedFundCode.id || null
+							var params = null
+							if (parentId !== null) {
+								params = {
+									code: this.edit_code,
+									name: this.edit_name,
+									parent: parentId
+								}
+							} else {
+								params = {
+									code: this.edit_code,
+									name: this.edit_name
+								}
+							}
 
+							var self = this
+							Promise.resolve($.ajax({
+								url: '/FundCode/add',
+								error: function(){},
+								data: params 
+							})).then(function(res){
+								if (res.state == '0') {
+									self.initData()
+									$(".mask.mask0").hide();
+									$(".unitsChoose1").hide();
+								} else {
+									alert('新增申请代码失败')
+								}
+							}).catch(function(e){
+								console.dir(e)
+								alert('新增申请代码失败')
+							})
+						}
+					} else {
+						if (this.edit_code == "" || this.edit_name == "") {
+							alert('请完整填写代码编号与名称')
+						} else {
+							var parentId = this.selectedFundCode.id || null
+							var params = null
+							if (parentId !== null) {
+								params = {
+									id: this.selectedId.id,
+									code: this.edit_code,
+									name: this.edit_name,
+									parent: parentId
+								}
+							} else {
+								params = {
+									id: this.selectedId.id,
+									code: this.edit_code,
+									name: this.edit_name
+								}
+							}
+
+							var self = this
+							Promise.resolve($.ajax({
+								url: '/FundCode/update',
+								error: function(){},
+								data: params 
+							})).then(function(res){
+								if (res.state == '0') {
+									self.initData()
+									$(".mask.mask0").hide();
+									$(".unitsChoose1").hide();
+								} else {
+									alert('修改申请代码失败')
+								}
+							}).catch(function(e){
+								console.dir(e)
+								alert('修改申请代码失败')
+							})
+						}
+					}
+
+					return
 				}
 				$(".mask.mask0").hide();
 				$(".unitsChoose1").hide();
 			},
+			deleteCode: function(code){
+				var self = this
+				if (confirm('确定删除:"' + code.name + '"吗?')) {
+					Promise.resolve($.ajax({
+						url: '/FundCode/delete?id=' + code.id
+					})).then(function(res){
+						if (res.state == '0') {
+							self.initData()
+						} else {
+							alert('删除申请代码失败')
+						}
+					}).catch(function(e){
+						console.dir(e)
+						alert('删除申请代码失败')
+					})
+				}
+			},
+			initData: function(){
+				var self = this
+				self.table_codes = []
+				$('.M-box').remove()
+				$('<div class="M-box"></div>').insertAfter($(fund_code_tablecontent))
+				Promise.resolve($.ajax({
+					url: '/FundCode/get',
+					error: function(){}
+				})).then(function(res){
+					if (res.state == 0) {
+						baseTree = res.data
+						baseData = transferTreeToArray(baseTree)
+						self.initPagination()
+						self.initZtree()
+					} else {
+						alert('获取数据失败')
+					}
+				}).catch(function(e){
+					console.dir(e)
+					alert('获取数据失败')
+				})
+			},
 			initPagination: function(length){
 				var self = this
-				$(self.$els.pagination).pagination({
+
+				var filtered_data = null
+				if (self.search_name.length > 0) {
+					filtered_data = self.search_name.map(function(item){
+						return {
+							name: item.name,
+							id: item.id,
+							leaf: item.leaf,
+							level: item.level,
+							code: item.code,
+							parent_id: item.nodeTree.id,
+							parent_name: item.nodeTree.name
+						}
+					})
+				} else {
+					filtered_data = baseData
+				}
+
+				if (self.search_code !== "") {
+					filtered_data = filtered_data.filter(function(item){
+						return item.code.indexOf(self.search_code) !== -1
+					})
+				}
+
+				if (self.search_level !== "") {
+					filtered_data = filtered_data.filter(function(item){
+						return item.level == self.search_level
+					})
+				}
+
+				//console.dir(filtered_data)
+				var length = filtered_data.length
+				//console.log(`length: ${length}`)
+				$('.M-box').pagination({
 					totalData: length,
 					showData: pageNumber,
 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
@@ -397,16 +577,14 @@
 					jump:true,
 					callback: function(page){
 						self.page = page - 1
+						self.table_codes = JSON.parse(JSON.stringify(filtered_data.slice(self.page * pageNumber, (self.page + 1) * pageNumber)))
 					}
 				})
 				self.page = 0
+				self.table_codes = JSON.parse(JSON.stringify(filtered_data.slice(0, 20)))
 			}
 		},
 		watch: {
-			page: function(){
-				var self = this
-				self.table_codes = JSON.parse(JSON.stringify(baseData.slice(self.page * pageNumber, (self.page + 1) * pageNumber)))
-			},
 			search_name: function(val){
 				this.search_name_string = val.slice(0, 3).map(function(node){
 					return node.name
@@ -414,8 +592,8 @@
 			},
 			selectedFundCode: {
 				handler: function(val){
-					if (val && val.parentCode && val.parentCode.name) {
-						this.parentNode_string = '('+ val.parentCode.code + ')' + val.parentCode.name
+					if (val && val.code && val.name) {
+						this.parentNode_string = '('+ val.code + ')' + val.name
 					} else {
 						this.parentNode_string = ""
 					}
@@ -424,23 +602,7 @@
 			}
 		},
 		ready: function(){
-			var self = this
-			Promise.resolve($.ajax({
-				url: '/FundCode/get',
-				error: function(){}
-			})).then(function(res){
-				if (res.state == 0) {
-					baseTree = res.data
-					baseData = transferTreeToArray(baseTree)
-					self.initPagination(baseData.length)
-					self.initZtree()
-				} else {
-					alert('获取数据失败')
-				}
-			}).catch(function(e){
-				console.dir(e)
-				alert('获取数据失败')
-			})
+			this.initData()
 		}
 	})
 
@@ -460,41 +622,15 @@
 					leaf: subTree.leaf,
 					level: subTree.level,
 					code: subTree.code,
-					parent_id: parentTree.id
+					parent_id: parentTree.id,
+					parent_name: parentTree.name,
+					parent_code: parentTree.code
 				})
 				_addNode(subTree.children, subTree)
 			})
 		}
 
-		_addNode(tree, {id: null})
+		_addNode(tree, {id: null, name: ""})
 		return ret
 	}
-
-	/*topBarControl();
-	$(".addDataBtn").bind("click",function(){
-		$(".mask").show();
-		popAlertBox(".unitsChoose1");
-		dragBox(".unitsChoose1");
-	})
-	$(".cancelBtn").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose1").hide();
-	})
-	$(".forConsole").bind("click",function(){
-		$(this).parents('.unitsContent').find("input").val("");
-	})
-	$(".infoTable").delegate(".removeData","click",function(){
-		if(confirm("您确定删除该行数据吗？")){
-			$(this).parents('tr').remove();
-		}
-	})
-	$(".infoTable").delegate(".addLine","click",function(){		
-		$(".mask").show();
-		popAlertBox(".unitsChoose1");
-		dragBox(".unitsChoose1");
-	})
-	$(".forSure").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-	})*/
 </script>
