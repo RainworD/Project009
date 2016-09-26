@@ -29,7 +29,7 @@ function errorHandle(data){
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
     $(".searchUndo").removeClass("searchDo");
 }
-function askNKRPsta(pageindex,entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby){
+function askNKRPsta(pageindex,entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby,schoolOnly){
     var ajax = $.ajax({
         url: "/askNKRPsta",
         type: "POST",
@@ -46,7 +46,8 @@ function askNKRPsta(pageindex,entitys,type,year1,year2,centermoney1,centermoney2
         "totalmoney1":totalmoney1,//总经费左侧
         "totalmoney2":totalmoney2,//总经费右侧
         "orderby":orderby,//orderby=1按总经费查询 orderby=2按数量排序
-        "pageindex":pageindex
+        "pageindex":pageindex,
+        "schoolOnly":schoolOnly
         }
     });
     return ajax;

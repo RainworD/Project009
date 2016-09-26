@@ -39,45 +39,29 @@
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
+							<option>2025</option>
+							<option>2023</option>
+							<option>2022</option>
+							<option>2021</option>
+							<option>2020</option>
+							<option>2019</option>
+							<option>2018</option>
+							<option>2017</option>
+							<option selected="selected">2016</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
+							<option>2025</option>
+							<option>2023</option>
+							<option>2022</option>
+							<option>2021</option>
+							<option>2020</option>
+							<option>2019</option>
+							<option>2018</option>
+							<option>2017</option>
+							<option selected="selected">2016</option>
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -131,8 +115,8 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>编号</th>
-						<th style="width: 20%">项目名称</th>
-						<th style="width: 20%">项目类型</th>
+						<th>项目名称</th>
+						<th>项目类型</th>
 						<th>入选年度</th>
 						<th>牵头单位</th>
 						<th>负责人</th>
@@ -197,85 +181,83 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					else if(j==6||j==7){
+						var ex = /^\d+$/;
+						if(ex.test(result[i][j])){
+							mytd.text(result[i][j]);
+						}
+						else{
+							var newNum=Number(result[i][j]).toFixed(2);
+							result[i][j]=newNum;
+						}
+					}
+					var text = result[i][j];
+					if(j==0||j==5){
+						text = madeNowrapText(result[i][j]);
+					}
+					else if(j==1||j==4||j==2){
+						text = madeTwoLineText(result[i][j]);
+					}
+					else{}
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+			// searchInfo.children('td').eq(3).addClass('nowrap');
+			// searchInfo.children('td').css("height","57px");
+			// searchInfo.children('td').eq(2).addClass('nowrap');
+		}
+	}
 	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
 		var name=$(".nameput").val();
 		var type=$(".projectType").val();
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
-		var projectentity=$(".projectUnits").val();
+		var entity=$(".projectUnits").val();
 		var manager=$(".projectManager").val();
 		var totalmoney1=$(".projectFee1").val();
 		var totalmoney2=$(".projectFee2").val();
 		var centermoney1=$(".nationFee1").val();
 		var centermoney2=$(".nationFee2").val();
-		$.when(askNKRP(projectentity,type,name,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,manager)).done(function(data){
-			var result=data.result;
-			$(".infoTable1").children('tbody').empty();
-			var count=data.count;
-			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-			addCount.children('span').eq(0).text(count);
-			if(count<20){
-				addCount.children('span').eq(1).text(count);
-			}
-			else{
-				addCount.children('span').eq(1).text("20");
-			}
-			var lee=$(".tableContent .infoTablePara").children('.topRight');
-			if(lee){
-				lee.empty();
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			else{
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			if(data.state==1){
-				for (var i=0,len=result.length;i<len;i++) {
-					var searchInfo=$('<tr>'+
-						'<td></td>'+
-					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length;j++) {
-						var mytd=$('<td></td>');
-						if(result[i][j]==null){
-							result[i][j]="";
-						}
-						var text = result[i][j];
-						if(j==0){
-
-							text = madeNowrapText(result[i][j]);
-						}
-						else if(j==1||j==5||j==2){
-							text = madeTwoLineText(result[i][j]);
-						}
-						else{}
-						mytd.html(text);
-						searchInfo.append(mytd);
-					}
-					$(".infoTable1").children('tbody').append(searchInfo);				
-				}
-				getPages(0);
-				$('.M-box').pagination({
-					totalData:count,
-				    showData:20,
-				    current:1,
-				    count:2,
-				    jump:true,
-					coping:true,
-					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
-				        getPages(index-1);
-				    }
-				});
-			}
-			else{
-				alert("没有符合查询条件的记录！");
-				count=0;
-				addCount.children('span').eq(0).text(count);
-				addCount.children('span').eq(1).text(count);
-			}
-			
-		})
+		var pageindex;
+		var params={
+			'pageindex':1,
+			'type':type,
+			'name':name,
+			'year1':year1,
+			'year2':year2,
+			'manager':manager,
+			'totalmoney1':totalmoney1,
+			'totalmoney2':totalmoney2,
+			'centermoney1':centermoney1,
+			'centermoney2':centermoney2,
+			'entity':entity,
+		}
+		getDataBox(params,'/askNKRP');
 	})
 	$.when(LandNKRPstatype()).done(function(data){
 		var result=data.result;

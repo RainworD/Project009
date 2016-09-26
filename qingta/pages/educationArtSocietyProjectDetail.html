@@ -21,7 +21,7 @@
 				<th style="width:10.6%;">项目类型 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%">
-						<input class="commonput projectType">
+						<input class="commonput projectType" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>
@@ -182,19 +182,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$('.M-box').pagination({
-		totalData:100,
-	    showData:10,
-	    current:1,
-	    count:2,
-	    jump:true,
-		coping:true,
-		prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-		nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-	    callback:function(index){
-	        location.href="__ROOT__/main.html?page="+index
-	    }
-	});
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose2");
@@ -232,7 +219,12 @@
 		}
 	})
 	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
 		for (var i=(eq-1)*20;i<eq*20;i++) {
 			var searchInfo=$('<tr>'+
 				'<td></td>'+

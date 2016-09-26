@@ -584,24 +584,22 @@ function getDataBox(params,url){
 	var newindex=1;
 	dataBox={};
 	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
-		if(count){
-			$('.M-box').pagination({
-				totalData:count,
-			    showData:20,
-			    current:1,
-			    // count:2,
-			    jump:true,
-				coping:true,
-				prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-				nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-			    callback:function(api){
-			    	var index=api.getCurrent();
-			    	console.log("是否执行了两次？");
-			    	console.log(index);
-					paginationCallback(index,params,url);  
-			    }
-			});
-		}
+		var currentPage=1;
+		$('.M-box').pagination({
+			totalData:count,
+		    showData:20,
+		    current:1,
+		    // count:2,
+		    jump:true,
+			coping:true,
+			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+		    callback:function(index){
+		    	console.log("是否执行了两次？");
+		    	console.log(index);
+				paginationCallback(index,params,url);  
+		    }
+		});
 	})
 }
 function ajaxMorePages(pageindex,newindex,params,url){

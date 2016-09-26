@@ -198,28 +198,24 @@
 	</div>
 </div>
 <script type="text/javascript"> 
+	var projectUnits=[];
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		if(finalResults){
-			judgeUnits(finalResults);
-			$(".unitsContent1").addClass("beforeShowBox");
-	    	$(".beforeShow").addClass("beforeHideBox");
-		}
-		else{
-			$(".unitsContent1").removeClass("beforeShowBox");
-	    	$(".beforeShow").removeClass("beforeHideBox");
-			$.when(getUnits()).done(function(data){
-				for (var i=0;i<zNodes.length;i++) {
-					zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-				}
-				$.fn.zTree.init($("#tree"), setting, zNodes);
-			})
-		}
 	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
-	dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
 </script>
 <script type="text/javascript">
@@ -312,4 +308,42 @@
 			}
 		})		
 	})
+	// function selfResult(pageindex,result,newindex){
+	// 	$(".infoTable1").children('tbody').empty();
+	// 	$(".infoTable1 thead").find('th').addClass("nowrap");
+	// 	var eq=newindex%50;
+	// 	for (var i=(eq-1)*20;i<eq*20;i++) {
+	// 		var searchInfo=$('<tr>'+
+	// 			'<td></td>'+
+	// 		'</tr>');
+	// 		searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+	// 		searchInfo.children('td').eq(0).addClass('nowrap');
+	// 		// console.log((i+1)+20*(pageindex-1)*50);
+	// 		if(result[i]){
+	// 			for (var j=0;j<result[i].length-1;j++) {
+	// 				var mytd=$('<td></td>');
+	// 				if(result[i][j]==null){
+	// 					result[i][j]="";
+	// 				}
+	// 				mytd.text(result[i][j]);
+	// 				searchInfo.append(mytd);
+	// 			}
+	// 			$(".infoTable1").children('tbody').append(searchInfo);
+	// 		}
+	// 		// searchInfo.children('td').eq(1).addClass("nowrap");
+	// 		// searchInfo.children('td').eq(2).addClass("nowrap");
+	// 		// searchInfo.children('td').css("height","57px");
+	// 		// searchInfo.children('td').eq(3).css("text-align","left");
+	// 	}
+	// }
+	// $(".searchBtn").bind("click",function(){
+	// 	$(".infoTable1").children('tbody').empty();
+	// 	var pageindex;
+	// 	var entitys=projectUnits;
+	// 	var params={
+	// 		'pageindex':1,
+	// 		'entitys':entitys,
+	// 	}
+	// 	getDataBox(params,'/askNKSsta');
+	// })
 </script>

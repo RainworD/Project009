@@ -10,9 +10,12 @@
 		<table class="topTable">
 			<tr>
 				<th style="width:80px;">学校名称 :</th>
-				<td style="width:18.3%;">
+				<td style="width:18.3%;"> 
 					<div class="commonInputBox"  style="width:100%;">
 						<input class="commonput schoolName">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 				<th style="width:10.6%;">重点学科类型 :</th>
@@ -31,7 +34,7 @@
 						<input class="commonput subjectName">
 					</div>
 				</td>
-				<td colspan="2" style="width:23.3%;">
+				<td colspan="2" style="width:26.3%;">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
@@ -74,74 +77,54 @@
 	</p>
 </div>
 <script>
-$('.M-box').pagination({
-	totalData:100,
-    showData:10,
-    current:1,
-    count:2,
-    jump:true,
-	coping:true,
-	prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-	nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-    callback:function(index){
-        location.href="__ROOT__/main.html?page="+index
-    }
-});
 topBarControl();
+doForSearch(".schoolName","/Landentity0");
 </script>
 <script type="text/javascript">
-	var pageIndex=1;
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					mytd.text(result[i][j]);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+			// searchInfo.children('td').eq(1).addClass("nowrap");
+			// searchInfo.children('td').eq(2).addClass("nowrap");
+			// searchInfo.children('td').css("height","57px");
+			// searchInfo.children('td').eq(3).css("text-align","left");
+		}
+	}
 	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
 		var entity=$(".schoolName").val();
 		var name=$(".subjectName").val();
 		var type=$(".subjectType").val();
-		var pageindex=pageIndex;
-		$.when(askNKS(entity,type,name,pageindex)).done(function(data){
-			if(data.state == 1){
-				var result=data.result;
-				$(".infoTable1").children('tbody').empty();
-				var count=data.count;
-				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-				addCount.children('span').eq(0).text(count);
-				if(count<20){
-					addCount.children('span').eq(1).text(count);
-				}
-				else{
-					addCount.children('span').eq(1).text("20");
-				}
-				var lee=$(".tableContent .infoTablePara").children('.topRight');
-				if(lee){
-					lee.empty();
-					$(".tableContent .infoTablePara").append(addCount);
-				}
-				else{
-					$(".tableContent .infoTablePara").append(addCount);
-				}
-				if(data.state==1){
-					for (var i=0,len=result.length;i<len;i++) {
-						var searchInfo=$('<tr>'+
-							'<td></td>'+
-						'</tr>');
-						searchInfo.children('td').eq(0).text(i+1);
-						for (var j=0;j<result[i].length;j++) {
-							var mytd=$('<td></td>');
-							if(result[i][j]==null){
-								result[i][j]="";
-							}
-							mytd.text(result[i][j]);
-							searchInfo.append(mytd);
-						}
-						$(".infoTable1").children('tbody').append(searchInfo);
-					}
-				}
-				else{
-					alert("没有符合查询条件的记录！");
-					count=0;
-					addCount.children('span').eq(0).text(count);
-					addCount.children('span').eq(1).text(count);
-				}
-			}
-		})
+		var params={
+			'pageindex':1,
+			'name':name,
+			'entity':entity,
+			'type':type,
+		}
+		getDataBox(params,'/askNKS');
 	})
 </script>
 

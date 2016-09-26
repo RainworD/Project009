@@ -269,9 +269,6 @@ body {
   padding: 10px;
   border-bottom: 1px solid #32cdcd;
 }
-.mainContainer .infoTable th {
-  white-space: nowrap;
-}
 .mainContainer .topTable {
   width: 100%;
   padding: 20px;
@@ -1416,7 +1413,7 @@ body {
   white-space: nowrap;
 }
 .twoLine {
-  text-align: left;
+  text-align: left!important;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

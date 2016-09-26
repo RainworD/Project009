@@ -37,6 +37,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox projectType">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>
@@ -174,10 +175,16 @@
 			}
 		}
 	})
+<<<<<<< HEAD
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
 		console.log("selfResult:"+newindex);
+		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		var val=$(".projectType").val();
 		for (var i=(eq-1)*20;i<eq*20;i++) {
 			var searchInfo=$('<tr>'+
 				'<td></td>'+
@@ -188,21 +195,62 @@
 			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
+					if(val==""){
+						result[i][3]="全部资助类别";
+					}
+					else{}
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
-					mytd.text(result[i][j]);
+					var text = result[i][j];
+					if(j==0||j==1){
+						text = madeNowrapText(result[i][j]);
+					}
+					else if(j==2||j==3||j==5){
+						text = madeTwoLineText(result[i][j]);
+					}
+					else{}
+					mytd.html(text);
 					searchInfo.append(mytd); 
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
+			// searchInfo.children('td').eq(3).css("text-align","left");
+			// searchInfo.children('td').css("height","57px");
+=======
+
+	function renderPage(arr, paginationIndex) {
+		var container = $(".infoTable1").children('tbody')
+		container.empty();
+		var _searchInfo=$('<tr>'+
+			'<td></td>'+
+		'</tr>');
+		arr.forEach(function(tds, index){
+			var searchInfo = _searchInfo.clone()
+			searchInfo.children('td').eq(0).text((paginationIndex-1) * 20 + index + 1);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+
+			tds.forEach(function(td){
+				var mytd=$('<td></td>');
+				if(td==null){
+					td="";
+				}
+				mytd.text(td);
+				searchInfo.append(mytd);
+			})
+
+			container.append(searchInfo);
+
 			searchInfo.children('td').eq(3).css("text-align","left");
 			searchInfo.children('td').css("height","57px");
+>>>>>>> origin/master
 			searchInfo.children('td').last().addClass('nowrap');
-		}
+		})
 	}
+
+	
 	$(".searchBtn").bind("click",function(){
-		$(".infoTable1").children('tbody').empty();
 		var pageindex;
 		var manager=$(".projectManager").val();
 		var name=$(".nameput").val();
@@ -215,7 +263,7 @@
 		var type=$(".projectType").val();
 		var params={
 			'manager':manager,
-			'pageindex':pageindex,
+			'pageindex':1,
 			'name':name,
 			'year1':year1,
 			'year2':year2,
@@ -225,8 +273,61 @@
 			'entity':entity,
 			'type':type
 		}
-		getDataBox(params,'/askNNSF');
+		getNatureTechnologyDetail(params,'/askNNSF');
 	})
+
+	var baseData = {}
+	function getNatureTechnologyDetail(params, url){
+		var p = fetchData(params)
+		baseData = {}
+		p.then(function(res){
+			baseData[params.pageindex] = res.result
+			if (res.state == 1) {
+				var parent = $('.M-box').parent()
+				$('.M-box').remove()
+				var mbox = $('<div class="M-box"></div>')
+				parent.append(mbox)
+				mbox.pagination({
+					totalData:res.count,
+				    showData:20,
+				    jump:true,
+					coping:true,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				    callback:function(paginationIndex){
+						renderOrAjax(paginationIndex, params);  
+				    }
+				})
+				renderOrAjax(1, params)
+			}
+		})
+	}
+
+	function fetchData(params){
+		return $.ajax({
+			url: '/askNNSF',
+			data: params
+		})
+	}
+
+	function renderOrAjax(paginationIndex, params) {
+		var index = paginationIndex / 50 | 0 + 1
+		if (baseData[index]) {
+			var start = paginationIndex - (index - 1) * 50 
+			renderPage(baseData[index].slice(start, start + 20), paginationIndex)
+		} else {
+			params.pageindex = index
+			var p = fetchData(params)
+			p.then(function(res){
+				if (res.state == 1) {
+					baseData[index] = res.result
+					var start = paginationIndex - (index - 1) * 50 
+					renderPage(baseData[index].slice(start, start + 20), paginationIndex)
+				}
+			})
+		}
+	}
+
 	doForSearch(".unitsEnter","/Landentity0");
 	doForSearch(".nameput","/LandNNSFentity");
 </script>

@@ -7,7 +7,7 @@
 </div>
 <div class="enterBox">
 	<div class="topTableBox">
-		<table class="topTable">
+		<table class="topTable"> 
 			<tr>
 				<th style="width:80px;">学校名称 :</th>
 				<td style="width:18.3%;">
@@ -227,26 +227,23 @@
 	</div>
 </div>
 <script type="text/javascript">
+	var projectUnits=[];
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		if(finalResults){
-			judgeUnits(finalResults);
-			$(".unitsContent1").addClass("beforeShowBox");
-	    	$(".beforeShow").addClass("beforeHideBox");
-		}
-		else{
-			$(".unitsContent1").removeClass("beforeShowBox");
-	    	$(".beforeShow").removeClass("beforeHideBox");
-			$.when(getUnits()).done(function(data){
-				for (var i=0;i<zNodes.length;i++) {
-					zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-				}
-				$.fn.zTree.init($("#tree"), setting, zNodes);
-			})
-		}
 	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
@@ -285,36 +282,23 @@
 			}
 		}
 	})
-	var pageindex=1;
-	$(".searchBtn").bind("click",function(){
-		var type=$(".projectType").val();
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
-		var entitys=projectUnits;
-		var _class=$(".projectClass").val();
-		var subject=$(".subjectType").val();
-		var pageindex=pageindex;
-		$.when(askHSSsta(entitys,type,year1,year2,_class,subject,pageindex)).done(function(data){
-			var result=data.result;
-			$(".infoTable1").children('tbody').empty();
-			var count=data.count;
-			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-			addCount.children('span').eq(0).text(count);
-			if(count<20){
-				addCount.children('span').eq(1).text(count);
-			}
-			else{
-				addCount.children('span').eq(1).text("20");
-			}
-			var lee=$(".tableContent .infoTablePara").children('.topRight');
-			if(lee){
-				lee.empty();
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			else{
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			if(data.state==1){
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
 						'<td></td>'+
@@ -333,27 +317,31 @@
 					}
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
-				getPages(0);
-				$('.M-box').pagination({
-					totalData:count,
-				    showData:20,
-				    current:1,
-				    count:2,
-				    jump:true,
-					coping:true,
-					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
-				        getPages(index-1);
-				    }
-				});
 			}
-			else{
-				alert("没有符合查询条件的记录！");
-				count=0;
-				addCount.children('span').eq(0).text(count);
-				addCount.children('span').eq(1).text(count);
-			}
-		})
+			searchInfo.children('td').eq(3).addClass('nowrap');
+			// searchInfo.children('td').css("height","57px");
+			// searchInfo.children('td').eq(2).addClass('nowrap');
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var type=$(".projectType").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entitys=projectUnits;
+		var _class=$(".projectClass").val();
+		var subject=$(".subjectType").val();
+		var pageindex;
+		var params={
+			'type':type,
+			'pageindex':1,
+			'entitys':entitys,
+			'type':type,
+			'year1':year1,
+			'year2':year2,
+			'subject':subject,
+			'_class':_class		
+		}
+		getDataBox(params,'/askHSSsta');
 	})
 </script>

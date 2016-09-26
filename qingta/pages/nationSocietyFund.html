@@ -218,12 +218,7 @@
 	else{
 		$(".unitsContent1").removeClass("beforeShowBox");
     	$(".beforeShow").removeClass("beforeHideBox");
-		$.when(getUnits()).done(function(data){
-			for (var i=0;i<zNodes.length;i++) {
-				zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-			}
-			$.fn.zTree.init($("#tree"), setting, zNodes);
-		})
+		getUnits();
 	}
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
@@ -275,43 +270,28 @@
 				}
 			}
 		}
-	})		
-	var pageIndex=1;
-	$(".searchBtn").bind("click",function(){
-		var type=$(".projectType").val();
+	})	
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		console.log("selfResult:"+newindex);
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
-		var entitys=projectUnits;
-		var system=$(".systemBelong").val();
-		var subject=$(".subjectType").val();
-		var pageindex=pageIndex;
-		$.when(askNSSFsta(entitys,subject,system,type,year1,year2,pageindex)).done(function(data){
-			var result=data.result;
-			$(".infoTable1").children('tbody').empty();
-			var count=data.count;
-			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-			addCount.children('span').eq(0).text(count);
-			if(count<20){
-				addCount.children('span').eq(1).text(count);
-			}
-			else{
-				addCount.children('span').eq(1).text("20");
-			}
-			var lee=$(".tableContent .infoTablePara").children('.topRight');
-			if(lee){
-				lee.empty();
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			else{
-				$(".tableContent .infoTablePara").append(addCount);
-			}
-			if(data.state==1){
-				for (i=0;i<result.length;i++) {
-					var searchInfo=$('<tr>'+
-						'<td></td>'+
-					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length;j++) {
+		var money1=$(".nationFee1").val();
+		var money2=$(".nationFee2").val();
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
 						var mytd=$('<td></td>');
 						if(result[i][j]==null){
 							result[i][j]="";
@@ -319,43 +299,34 @@
 						else if(j==4){
 							result[i][j]=year1+'-'+year2;
 						}
-						// else if(j==4||j==5){
-						// 	var ex = /^\d+$/;
-						// 	if(ex.test(result[i][j])){
-						// 		mytd.text(result[i][j]);
-						// 	}
-						// 	else{
-						// 		var newNum=(result[i][j]).toFixed(2);
-						// 		console.log(newNum);
-						// 		mytd.text(newNum);
-						// 	}
-						// }
 						mytd.text(result[i][j]);
 						searchInfo.append(mytd);
 					}
-					$(".infoTable1").children('tbody').append(searchInfo);
-				}
-				getPages(0);
-				$('.M-box').pagination({
-					totalData:count,
-				    showData:20,
-				    current:1,
-				    count:2,
-				    jump:true,
-					coping:true,
-					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
-				        getPages(index-1);
-				    }
-				});
+				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			else{
-				alert("没有符合查询条件的记录！");
-				count=0;
-				addCount.children('span').eq(0).text(count);
-				addCount.children('span').eq(1).text(count);
-			}
-		})
-	})
+			searchInfo.children('td').eq(3).css("text-align","left");
+			searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').last().addClass('nowrap');
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var type=$(".projectType").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entitys=projectUnits;
+		var system=$(".systemBelong").val();
+		var subject=$(".subjectType").val();
+		var params={
+			'pageindex':1,
+			'year1':year1,
+			'year2':year2,
+			'system':system,
+			'subject':subject,
+			'entitys':entitys,
+			'type':type,
+		}
+		getDataBox(params,'/askNSSFsta');
+	})	
 </script>

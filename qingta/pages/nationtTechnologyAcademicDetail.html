@@ -170,7 +170,12 @@
 		}
 	})
 	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
 		for (var i=(eq-1)*20;i<eq*20;i++) {
 			var searchInfo=$('<tr>'+
 				'<td></td>'+

@@ -181,7 +181,12 @@
 		}
 	})	
 	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
 		for (var i=(eq-1)*20;i<eq*20;i++) {
 			var searchInfo=$('<tr>'+
 				'<td></td>'+
@@ -195,14 +200,21 @@
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
-					mytd.text(result[i][j]);
+					var text = result[i][j];
+						if(j==3){
+							text = madeTwoLineText(result[i][j]);
+						}
+						else{}
+					mytd.html(text);
+					// mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
-				searchInfo.children('td').eq(3).css("text-align","left");
-				searchInfo.children('td').css("height","57px");
 			}
-			searchInfo.children('td').eq(2).addClass('nowrap');
+			searchInfo.children('td').eq(1).addClass("nowrap");
+			searchInfo.children('td').eq(2).addClass("nowrap");
+			searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){
@@ -217,7 +229,7 @@
 		var manager=$(".manager").val();
 		var params={
 			'manager':manager,
-			'pageindex':pageindex,
+			'pageindex':1,
 			'name':name,
 			'entity':entity,
 			'type':type,
