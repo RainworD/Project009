@@ -1,8 +1,15 @@
 /**
  * pagination分页插件
- * @version 0.2
- * @url http://www.maxiaoxiang.com
+ * @version 1.1.2
+ * @author mss
+ * @url http://maxiaoxiang.com/plugin/pagination.html
  * @E-mail 251445460@qq.com
+ *
+ * @调用方法
+ * $(selector).pagination();
+ * 
+ * @更新日志
+ * 2016-07-25：修复click重复事件
  */
 ;(function($,window,document,undefined){
 
@@ -35,9 +42,22 @@
 			$document = $(document),
 			$obj = $(element);//容器
 
-		//获取总页数
+		/**
+		 * 设置总页数
+		 * @param int page 页码
+		 * @return opts.pageCount 总页数配置
+		 */
+		this.setTotalPage = function(page){
+			return opts.pageCount = page;
+		};
+
+		/**
+		 * 获取总页数
+		 * @return int p 总页数
+		 */
 		this.getTotalPage = function(){
-			return opts.totalData && opts.showData ? Math.ceil(parseInt(opts.totalData) / opts.showData) : opts.pageCount;
+			var p = opts.totalData || opts.showData ? Math.ceil(parseInt(opts.totalData) / opts.showData) : opts.pageCount;
+			return p;
 		};
 
 		//获取当前页
@@ -45,7 +65,10 @@
 			return current;
 		};
 
-		//填充数据
+		/**
+		 * 填充数据
+		 * @param int index 页码
+		 */
 		this.filling = function(index){
 			var html = '';
 			current = index || opts.current;//当前页码
@@ -91,7 +114,7 @@
 		this.eventBind = function(){
 			var self = this;
 			var pageCount = this.getTotalPage();//总页数
-			$obj.on('click','a',function(){
+			$obj.off().on('click','a',function(){
 				if($(this).hasClass(opts.nextCls)){
 					var index = parseInt($obj.find('.'+opts.activeCls).text()) + 1;
 				}else if($(this).hasClass(opts.prevCls)){
@@ -106,24 +129,28 @@
 					var index = parseInt($(this).data('page'));
 				}
 				self.filling(index);
-				typeof opts.callback === 'function' && opts.callback(index);
+				typeof opts.callback === 'function' && opts.callback(self);
 			});
+			//输入跳转的页码
 			$obj.on('input propertychange','.'+opts.jumpIptCls,function(){
-				var val = $(this).val();
+				var $this = $(this);
+				var val = $this.val();
 				var reg = /[^\d]/g;
 	            if (reg.test(val)) {
-	                $(this).val(val.replace(reg, ''));
+	                $this.val(val.replace(reg, ''));
 	            }
-	            (parseInt(val) > pageCount) && $(this).val(pageCount);
+	            (parseInt(val) > pageCount) && $this.val(pageCount);
 	            if(parseInt(val) === 0){//最小值为1
-	            	$(this).val(1);
+	            	$this.val(1);
 	            }
 			});
-			$document.keydown(function(e){ 
+			//回车跳转指定页码
+			$document.keydown(function(e){
+				var self = this;
 		        if(e.keyCode == 13 && $obj.find('.'+opts.jumpIptCls).val()){
 		        	var index = parseInt($obj.find('.'+opts.jumpIptCls).val());
 		            self.filling(index);
-					typeof opts.callback === 'function' && opts.callback(index);
+					typeof opts.callback === 'function' && opts.callback(self);
 		        }
 		    });
 		};
@@ -137,7 +164,7 @@
 	};
 
 	$.fn.pagination = function(parameter,callback){
-		if(typeof parameter == 'function'){
+		if(typeof parameter == 'function'){//重载
 			callback = parameter;
 			parameter = {};
 		}else{
@@ -146,11 +173,9 @@
 		}
 		var options = $.extend({},defaults,parameter);
 		return this.each(function(){
-			var pagination = new Pagination(this,options);
+			var pagination = new Pagination(this, options);
 			callback(pagination);
 		});
 	};
-
-	return $;
 
 })(jQuery,window,document);

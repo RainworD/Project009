@@ -1,3 +1,35 @@
+<style>
+	.button {
+		display: block;
+		width: 80px;
+		text-align: center;
+		margin-right: 20px;
+		border-radius: 3px;
+		color: #fff;
+		height: 30px;
+		line-height: 30px;
+	}
+	.button-blue {
+		background-color: #33ccff;
+	}
+	.button-green {
+		background-color: #00cc99;
+	}
+	.code-right-arrow {
+		display: block;
+		font-size: 23px;
+		color: #bdbdbd;
+		padding-bottom: 20px;
+	}
+	.code-left-arrow {
+		display: block;
+		font-size: 23px;
+		color: #bdbdbd;
+	}
+	.chooseItems:hover {
+		background-color: #ffefd5;
+	}
+</style>
 <div id="fund_apply_code_container">
 	<fund-apply-code></fund-apply-code>
 </div>
@@ -6,45 +38,50 @@
 		<div class="changeBarBox" style="background-color:#fff;">
 			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">基金-申请代码维护</a>
 		</div>
-		<div class="addDataBtn" style="margin-right:0;">新增数据</div>
-		<p class="hideBtn" style="right: 150px;">隐藏查询条件</p>
+		<div class="addDataBtn" style="margin-right:0;" v-on:click="openFundCodeModal(false)">新增数据</div>
+		<p class="hideBtn" style="right: 150px;" v-on:click="hideSearchBar=!hideSearchBar">{{hideSearchBar ? '显示' : '隐藏'}}查询条件</p>
 	</div>
-	<div class="enterBox">
+	<div class="enterBox" v-show="!hideSearchBar">
 		<div class="topTableBox">
 			<table class="topTable">
 				<tr>
 					<th style="width:100px;">申请代码名称 :</th>
 					<td style="width:18.3%;">
-						<div class="commonInputBox"  style="width:100%">
-							<input class="commonput unitsEnter" style="padding-right:30px;">
-							<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="commonInputBox" style="width:100%">
+							<input class="commonput unitsEnter" style="padding-right:30px;" v-on:focus="openSearchNameModal" v-model="search_name_string">
+							<div class="showDetailBox showDetailBox1" v-on:click="openSearchNameModal">
+								<i class="fa fa-ellipsis-h showDetail"></i>
+							</div>
 						</div>	
 					</td> 
 					<th style="width:12.6%;">申请代码编号 :</th>
 					<td style="width:18.3%;">
 						<div class="commonInputBox" style="width:100%;">
-							<input class="commonput">
+							<input class="commonput" v-model="search_code">
 						</div>
 					</td> 
 					<th style="width:10.6%;">级次 :</th>
 					<td style="width:18.3%;">
 						<div class="commonselect"  style="width:100%;">
-							<select class="selBox">
-								<option>1</option>
-								<option>2</option>
+							<select class="selBox" v-model="search_level">
+								<option value="" selected>全部</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
 							</select>
 						</div>
 					</td>
 					<td colspan="2" style="width: 28.3%">
-						<a class="searchBtn rightMinBtn">查询</a>
-						<a class="resetBtn rightMinBtn">重置</a>
+						<a class="searchBtn rightMinBtn" v-on:click="initPagination">查询</a>
+						<a class="resetBtn rightMinBtn" style="background-color:#4ec1ff;" v-on:click="clearSearchQuery">重置</a>
 					</td>
 				</tr>
 			</table>
 		</div>
 	</div>
-	<div class="tableContent">
-		<div class="infoTableBox">
+	<div class="tableContent" id="fund_code_tablecontent">
+		<div class="infoTableBox" style="padding-bottom:0px;">
 			<div class="infoTableTop">
 				<p class="infoTablePara">
 					<span class="topLeft">中国科学院院士统计数据</span>
@@ -63,33 +100,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>A</td>
-							<td>数理科学部</td>
-							<td>一级</td>
-							<td>否</td>
+						<tr v-for="code in table_codes" track-by="id">
+							<td>{{getPageOrder($index)}}</td>
+							<td>{{code.code}}</td>
+							<td>{{code.name}}</td>
+							<td>{{code.level}}</td>
+							<td>{{code.leaf ? '是': '否'}}</td>
 							<td>
 								<div class="addLine">
-									<i class="fa fa-edit fa-lg removeBtn "></i>
+									<i class="fa fa-edit fa-lg removeBtn" v-on:click="openFundCodeModal(code)"></i>
 								</div>
 								<div class="removeData">
-									<i class="fa fa-times fa-lg removeBtn "></i>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>B</td>
-							<td>化学科学部</td>
-							<td>一级</td>
-							<td>否</td>
-							<td>
-								<div class="addLine">
-									<i class="fa fa-edit fa-lg removeBtn "></i>
-								</div>
-								<div class="removeData">
-									<i class="fa fa-times fa-lg removeBtn "></i>
+									<i class="fa fa-times fa-lg removeBtn" v-on:click="deleteCode(code)"></i>
 								</div>
 							</td>
 						</tr>
@@ -98,21 +120,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="searchUndo">
-		<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
-		<img class="getInfoImg" src="../source/img/info.png"></img>
-	</div>
-	<div class="beforeSearch">
-		<p class="enterSearchInfo">
-			<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-			<span class="sr-only">Loading...</span>
-		</p>
-	</div>
-	<div class="mask"></div>
+	<div class="mask mask0"></div>
 	<div class="unitsChoose unitsChoose1">
 		<div class="unitsContainer">
 			<div class="cancelBtn">
-				<i class="fa fa-close showCollege"></i>
+				<i class="fa fa-close showCollege" v-on:click="closeFundCodeModal(false)"></i>
 			</div>
 			<div class="unitsHeader">
 				<p class="unitsTitle">申请代码维护</p>
@@ -125,41 +137,26 @@
 								<th style="width:110px;">申请代码编码 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput">
+										<input class="commonput" v-model="edit_code">
 									</div>
 								</td>
 								<th style="width:110px;">申请代码名称 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput">
+										<input class="commonput" v-model="edit_name">
 									</div>
 								</td>
 							</tr>
 							<tr>
-								<th>级次 :</th>
-								<td>
-									<div class="commonselect"  style="width:100%;">
-										<select class="selBox">
-											<option>1</option>
-											<option>2</option>
-										</select>
-									</div>
+								<th v-if="selectedId!==null">级次 :</th>
+								<td v-if="selectedId!==null">
+									{{selectedId.level}}
 								</td>
 								<th style="width:80px;">上级编码 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput">
+										<input class="commonput" v-on:focus="openFundCodeParentModal" v-model="parentNode_string">
 									</div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2"></td>
-								<th style="width:80px;"></th>
-								<td>
-									<label for="box1">
-										<input type="checkbox" id="box1">
-										叶子节点
-									</label>
 								</td>
 							</tr>
 						</table>
@@ -168,36 +165,453 @@
 			</div>
 			<div class="bottomBtn">
 				<p>
-					<a class="forSure">确定</a>
-					<a class="forConsole">取消</a>
+					<a class="button button-green" style="float:right;" v-on:click="closeFundCodeModal(true)">确定</a>
+					<a class="button button-blue" style="float:right;" v-on:click="closeFundCodeModal(false)">取消</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="unitsChoose unitsChoose2">
+		<div class="unitsContainer">
+			<div class="cancelBtn" v-on:click="closeSearchNameModal">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader unitsHeader1">
+				<p class="unitsTitle">项目牵头单位选择</p>
+			</div>
+			<div class="unitsContent">
+				<div class="totalModel">
+					<div class="leftColumn" style="cursor:default">
+						<div class="leftColumnBox">
+							<div class="leftColumnBar">
+								<div class="searchp">
+									<input class="searchBox">
+									<ul class="showElse">
+									</ul>
+									<a class="leftSearchBtn">查询</a>
+								</div>
+							</div>
+							<div class="leftColumnContent">
+								<div class="leftColumnProvinces">
+									<ul id="fund-tree" class="ztree">
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="middleColumn">
+						<div class="btnBox">
+							<i class="fa fa-long-arrow-right code-right-arrow"></i>
+							<i class="fa fa-long-arrow-left code-left-arrow"></i>
+						</div>
+					</div>
+					<div class="rightColumn">
+						<div class="rightColumnContent">
+							<p class="rightColumnBar">
+								已选单位：
+							</p>
+							<div class="chooseAlready">
+								<ul class="chooseAlreadyList">
+									<li class="chooseItems" v-for="item in search_name" v-on:click="removeItemFromSearch(item.nodeTree)" track-by="id">{{item.name}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="button button-green" style="float:right;" v-on:click="closeSearchNameModal">确定</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="mask mask1"></div>
+	<div class="unitsChoose unitsChoose3">
+		<div class="unitsContainer">
+			<div class="cancelBtn" v-on:click="closeFundCodeParentModal(false)">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader unitsHeader1">
+				<p class="unitsTitle">上级单位选择</p>
+			</div>
+			<div class="unitsContent">
+				<div class="totalModel">
+					<div class="leftColumn" style="cursor:default;width:100%;">
+						<div class="leftColumnBox">
+							<div class="leftColumnContent">
+								<div class="leftColumnProvinces">
+									<ul id="fund-parent-tree" class="ztree">
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="button button-green" style="float:right;" v-on:click="closeFundCodeParentModal(true)">确定</a>
 				</p>
 			</div>
 		</div>
 	</div>
 </script>
 <script type="text/javascript">
+
+	var pageNumber = 20
+
+	var baseTree = null
+	var baseData = null
+	var mbox = null
+
 	Vue.component('fund-apply-code', {
 		template: $(fund_apply_code_template).html(),
 		data: function(){
 			return {
-				codes: []
+				page: -1,
+				table_codes: [],
+				hideSearchBar: false,
+				search_level: "",
+				search_code: "",
+				search_name: [],
+				search_name_string: "",
+				edit_code: "", // 编辑框内代码编号
+				edit_name: "", // 编辑框内代码名称
+				edit_level: "", // 编辑框内级次, 新增数据时不显示
+				selectedFundCode: {
+					id: "",
+					name: "",
+					code: ""
+				},
+				selectedId: null,
+				parentNode_string: ""
+			}
+		},
+		methods: {
+			getPageOrder: function($index){
+				return this.page * pageNumber + $index + 1
+			},
+			getZTreeObj: function(){
+				return $.fn.zTree.getZTreeObj('fund-tree')
+			},
+			getParentZTreeObj: function(){
+				return $.fn.zTree.getZTreeObj('fund-parent-tree')
+			},
+			pushItemToSearch: function(checkedNode){
+				var self = this
+				var _node = {
+					id: checkedNode.id,
+					name: checkedNode.name,
+					code: checkedNode.code,
+					level: checkedNode.level + 1,
+					leaf: checkedNode.leaf
+				}
+				self.search_name.push(_node)
+				_node.nodeTree = checkedNode
+			},
+			removeItemFromSearch: function(node){
+				var self = this
+
+				var zTreeObj = self.getZTreeObj()
+				zTreeObj.checkNode(node, false, true)
+
+				var checkNodes = zTreeObj.getCheckedNodes()
+				self.search_name = []
+				checkNodes.forEach(function(node){
+					self.pushItemToSearch(node)
+				})
+			},
+			clearSearchQuery: function(){
+				var zTreeObj = this.getZTreeObj()
+				zTreeObj.checkAllNodes(false)
+				zTreeObj.expandAll(false)
+				this.search_name = []
+				this.search_code = ""
+				this.search_level = ""
+				this.initPagination()
+			},
+			initZtree: function(){
+				var self = this
+				$.fn.zTree.init($("#fund-tree"), {
+					check:{
+						chkStyle:"checkbox",
+						enable:true
+						//chkboxType:{ "Y": "ps", "N": "ps" },
+					},
+					view: {
+						showIcon: false
+					},
+					callback: {
+						onCheck: function(event, treeId, treeNode){
+							var zTreeObj = self.getZTreeObj()
+							var checkNodes = zTreeObj.getCheckedNodes()
+							self.search_name = []
+							checkNodes.forEach(function(node){
+								self.pushItemToSearch(node)
+							})
+						}
+					}
+				}, baseTree)
+				$.fn.zTree.init($("#fund-parent-tree"), {
+					view: {
+						showIcon: false
+					}
+				}, baseTree)
+			},
+			openFundCodeParentModal: function(){
+				$('.mask.mask1').show()
+				popAlertBox(".unitsChoose3");
+				dragBox(".unitsChoose3");
+			},
+			closeFundCodeParentModal: function(save){
+				var zTreeObj = this.getParentZTreeObj()
+
+				var selectedNodes = zTreeObj.getSelectedNodes()
+				if (selectedNodes.length > 0 && save) {
+					var selectedNode = selectedNodes[0]
+					this.selectedFundCode.id = selectedNode.id
+					this.selectedFundCode.name = selectedNode.name
+					this.selectedFundCode.code = selectedNode.code
+				} 
+				
+				$(".mask.mask1").hide();
+				$(".unitsChoose3").hide();
+			},
+			openSearchNameModal: function(){
+				$('.mask.mask0').show()
+				popAlertBox(".unitsChoose2");
+				dragBox(".unitsChoose2");
+			},
+			closeSearchNameModal: function(){
+				$(".mask.mask0").hide();
+				$(".unitsChoose2").hide();
+			},
+			openFundCodeModal: function(code){
+				if (code === false) {
+					this.selectedId = null
+				} else {
+					this.selectedId = JSON.parse(JSON.stringify(code))
+				}
+				if (this.selectedId == null) {
+					this.edit_code = ""
+					this.edit_name = ""
+					this.selectedFundCode.id = ""
+					this.selectedFundCode.code = ""
+					this.selectedFundCode.name = ""
+				} else {
+					this.edit_code = code.code
+					this.edit_name = code.name
+					this.selectedFundCode.id = code.parent_id
+					this.selectedFundCode.name = code.parent_name
+					this.selectedFundCode.code = code.parent_code
+				}
+				$('.mask.mask0').show()
+				popAlertBox(".unitsChoose1");
+				dragBox(".unitsChoose1");
+			},
+			closeFundCodeModal: function(save){
+				if (save) {
+					if (this.selectedId == null) {
+						if (this.edit_code == "" || this.edit_name == "") {
+							alert('请完整填写代码编号与名称')
+						} else {
+							var parentId = this.selectedFundCode.id || null
+							var params = null
+							if (parentId !== null) {
+								params = {
+									code: this.edit_code,
+									name: this.edit_name,
+									parent: parentId
+								}
+							} else {
+								params = {
+									code: this.edit_code,
+									name: this.edit_name
+								}
+							}
+
+							var self = this
+							Promise.resolve($.ajax({
+								url: '/FundCode/add',
+								error: function(){},
+								data: params 
+							})).then(function(res){
+								if (res.state == '0') {
+									self.initData()
+									$(".mask.mask0").hide();
+									$(".unitsChoose1").hide();
+								} else {
+									alert('新增申请代码失败')
+								}
+							}).catch(function(e){
+								console.dir(e)
+								alert('新增申请代码失败')
+							})
+						}
+					} else {
+						if (this.edit_code == "" || this.edit_name == "") {
+							alert('请完整填写代码编号与名称')
+						} else {
+							var parentId = this.selectedFundCode.id || null
+							var params = null
+							if (parentId !== null) {
+								params = {
+									id: this.selectedId.id,
+									code: this.edit_code,
+									name: this.edit_name,
+									parent: parentId
+								}
+							} else {
+								params = {
+									id: this.selectedId.id,
+									code: this.edit_code,
+									name: this.edit_name
+								}
+							}
+
+							var self = this
+							Promise.resolve($.ajax({
+								url: '/FundCode/update',
+								error: function(){},
+								data: params 
+							})).then(function(res){
+								if (res.state == '0') {
+									self.initData()
+									$(".mask.mask0").hide();
+									$(".unitsChoose1").hide();
+								} else {
+									alert('修改申请代码失败')
+								}
+							}).catch(function(e){
+								console.dir(e)
+								alert('修改申请代码失败')
+							})
+						}
+					}
+
+					return
+				}
+				$(".mask.mask0").hide();
+				$(".unitsChoose1").hide();
+			},
+			deleteCode: function(code){
+				var self = this
+				if (confirm('确定删除:"' + code.name + '"吗?')) {
+					Promise.resolve($.ajax({
+						url: '/FundCode/delete?id=' + code.id
+					})).then(function(res){
+						if (res.state == '0') {
+							self.initData()
+						} else {
+							alert('删除申请代码失败')
+						}
+					}).catch(function(e){
+						console.dir(e)
+						alert('删除申请代码失败')
+					})
+				}
+			},
+			initData: function(){
+				var self = this
+				self.table_codes = []
+				
+				if (mbox !== null) {
+					mbox.remove()
+				}
+				mbox = $('<div class="M-box"></div>')
+				mbox.insertAfter(fund_code_tablecontent)
+
+				Promise.resolve($.ajax({
+					url: '/FundCode/get',
+					error: function(){}
+				})).then(function(res){
+					if (res.state == 0) {
+						baseTree = res.data
+						baseData = transferTreeToArray(baseTree)
+						self.initPagination()
+						self.initZtree()
+					} else {
+						alert('获取数据失败')
+					}
+				}).catch(function(e){
+					console.dir(e)
+					alert('获取数据失败')
+				})
+			},
+			initPagination: function(length){
+				var self = this
+
+				var filtered_data = null
+				if (self.search_name.length > 0) {
+					filtered_data = self.search_name.map(function(item){
+						return {
+							name: item.name,
+							id: item.id,
+							leaf: item.leaf,
+							level: item.level,
+							code: item.code,
+							parent_id: item.nodeTree.id,
+							parent_name: item.nodeTree.name
+						}
+					})
+				} else {
+					filtered_data = baseData
+				}
+
+				if (self.search_code !== "") {
+					filtered_data = filtered_data.filter(function(item){
+						return item.code.indexOf(self.search_code) !== -1
+					})
+				}
+
+				if (self.search_level !== "") {
+					filtered_data = filtered_data.filter(function(item){
+						return item.level == self.search_level
+					})
+				}
+
+				//console.dir(filtered_data)
+				//console.dir(filtered_data)
+				var length = filtered_data.length
+				//console.log(`length: ${length}`)
+
+				mbox.pagination({
+					totalData: length,
+					showData: pageNumber,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+					coping: true,
+					jump:true,
+					callback: function(api){
+						var page = api.getCurrent()
+						self.page = page - 1
+						self.table_codes = JSON.parse(JSON.stringify(filtered_data.slice(self.page * pageNumber, (self.page + 1) * pageNumber)))
+					}
+				})
+				self.page = 0
+				self.table_codes = JSON.parse(JSON.stringify(filtered_data.slice(0, 20)))
+			}
+		},
+		watch: {
+			search_name: function(val){
+				this.search_name_string = val.slice(0, 3).map(function(node){
+					return node.name
+				}).join(',')
+			},
+			selectedFundCode: {
+				handler: function(val){
+					if (val && val.code && val.name) {
+						this.parentNode_string = '('+ val.code + ')' + val.name
+					} else {
+						this.parentNode_string = ""
+					}
+				},
+				deep: true	
 			}
 		},
 		ready: function(){
-			var self = this
-			Promise.resolve($.ajax({
-				url: '/ApplicationCode/get',
-				error: function(){}
-			})).then(function(res){
-				if (res.state == 0) {
-					self.codes = res.data
-				} else {
-					alert('获取数据失败')
-				}
-			}).catch(function(e){
-				console.dir(e)
-				alert('获取数据失败')
-			})
+			this.initData()
 		}
 	})
 
@@ -205,31 +619,27 @@
 		el: '#fund_apply_code_container'
 	})
 	
-	/*topBarControl();
-	$(".addDataBtn").bind("click",function(){
-		$(".mask").show();
-		popAlertBox(".unitsChoose1");
-		dragBox(".unitsChoose1");
-	})
-	$(".cancelBtn").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose1").hide();
-	})
-	$(".forConsole").bind("click",function(){
-		$(this).parents('.unitsContent').find("input").val("");
-	})
-	$(".infoTable").delegate(".removeData","click",function(){
-		if(confirm("您确定删除该行数据吗？")){
-			$(this).parents('tr').remove();
+
+	function transferTreeToArray(tree) {
+		var ret = []
+
+		function _addNode(tree, parentTree) { // tree的数组
+			tree.forEach(function(subTree){
+				ret.push({
+					name: subTree.name,
+					id: subTree.id,
+					leaf: subTree.leaf,
+					level: subTree.level,
+					code: subTree.code,
+					parent_id: parentTree.id,
+					parent_name: parentTree.name,
+					parent_code: parentTree.code
+				})
+				_addNode(subTree.children, subTree)
+			})
 		}
-	})
-	$(".infoTable").delegate(".addLine","click",function(){		
-		$(".mask").show();
-		popAlertBox(".unitsChoose1");
-		dragBox(".unitsChoose1");
-	})
-	$(".forSure").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-	})*/
+
+		_addNode(tree, {id: null, name: ""})
+		return ret
+	}
 </script>
