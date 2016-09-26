@@ -1,350 +1,458 @@
-<div class="changeBarContainer">
-	<div class="changeBarBox" style="background-color:#fff;">
-		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">数据分析管理后台</a>
-	</div>
-	<p class="hideBtn">隐藏查询条件</p>
+<style>
+	.button {
+		display: block;
+		width: 80px;
+		text-align: center;
+		margin-right: 20px;
+		border-radius: 3px;
+		color: #fff;
+		height: 30px;
+		line-height: 30px;
+	}
+	.button-blue {
+		background-color: #33ccff;
+	}
+	.button-green {
+		background-color: #00cc99;
+	}
+	.code-right-arrow {
+		display: block;
+		font-size: 23px;
+		color: #bdbdbd;
+		padding-bottom: 20px;
+	}
+	.code-left-arrow {
+		display: block;
+		font-size: 23px;
+		color: #bdbdbd;
+	}
+	.chooseItems:hover {
+		background-color: #ffefd5;
+	}
+	.delete-point-analysis-box {
+		border: 1px solid #ebebeb;
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		border-radius: 3px;
+		text-align: center;
+	}
+	.delete-point-analysis-box:hover {
+		color: #f33;
+		border: 1px solid #f33;
+	}
+	.delete-point-analysis-box:hover .point-analysis-icon {
+		color: #f33;
+	}
+	.delete-point-analysis-box .point-analysis-icon {
+		cursor: pointer;
+		color: #ebebeb;
+		font-size: 16px;
+	}
+</style>
+<div id="point_analysis_container">
+	<point-analysis></point-analysis>
 </div>
-<div class="enterBox">
-	<div class="topTableBox">
-		<table class="topTable">
-			<tr>
-				<th style="width:80px;">学校名称 :</th>
-				<td style="width:19.5%;">
-					<div class="commonInputBox"  style="width:100%">
-						<input class="commonput unitsEnter" style="padding-right:30px;">
-						<ul class="showElse">
-							
-						</ul>
-					</div>
-				</td> 
-				<td colspan="2"></td>
-				<td colspan="2"></td>
-				<th style="width:3%"></th>
-				<td style="width: 9.3%">
-					<a class="searchBtn rightMinBtn">查询</a>
-				</td>
-			</tr>
-		</table>
-	</div>
-</div>
-<div class="tableContent" style="display: block;">
-	<div class="infoTableBox">
-		<div class="infoTableTop">
-			<p class="infoTablePara">
-				<span class="topLeft">数据分析管理后台</span>
-			</p>
+<script type="text/x-vue-template" id="point_analysis_template">
+	<div class="changeBarContainer">
+		<div class="changeBarBox" style="background-color:#fff;">
+			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">数据分析管理后台</a>
 		</div>
-		<div class="infoTableContent">
-			<table class="infoTable infoTable1">
-				<thead>
-					<tr class="tableTitle">
-						<th>序号</th>
-						<th>大学名称</th>
-						<th>科研数据分析</th>
-						<th>人才数据分析</th>
-						<th>学科数据分析</th>
-						<th>奖励数据分析</th>
-						<th>经费数据分析</th>
-						<th>自定义数据分析</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>北京大学</td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>天津大学</td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-						<td><a class="pointManager">管理</a></td>
-					</tr>
-				</tbody>		
+		<p class="hideBtn">隐藏查询条件</p>
+	</div>
+	<div class="enterBox">
+		<div class="topTableBox">
+			<table class="topTable">
+				<tr>
+					<th style="width:80px;">学校名称 :</th>
+					<td style="width:19.5%;">
+						<div class="commonInputBox"  style="width:100%">
+							<input class="commonput unitsEnter" style="padding-right:30px;" v-on:focus="openSearchNameModal" v-model="search_name_string">
+						</div>
+					</td> 
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<th style="width:3%"></th>
+					<td style="width: 9.3%">
+						<a class="searchBtn rightMinBtn" v-on:click="initPagination">查询</a>
+					</td>
+				</tr>
 			</table>
 		</div>
 	</div>
-</div>
-<div class="mask mask1"></div>
-<div class="mask mask2" style="z-index: 4"></div>
-<div class="unitsChoose unitsChoose1">
-	<div class="unitsContainer">
-		<div class="cancelBtn cancelBtn1">
-			<i class="fa fa-close showCollege"></i>
-		</div>
-		<div class="unitsHeader">
-			<p class="unitsTitle">指标选择-科研数据分析</p>
-		</div>
-		<div class="unitsContent">
-			<div class="showTotalData">
-				<div class="ESIContent" style="padding-top: 40px;">
-					<table class="ESITable topTable">
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-1">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-2">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
+	<div class="tableContent" style="display: block;">
+		<div class="infoTableBox">
+			<div class="infoTableTop">
+				<p class="infoTablePara">
+					<span class="topLeft">数据分析管理后台</span>
+				</p>
+			</div>
+			<div class="infoTableContent">
+				<table class="infoTable infoTable1">
+					<thead>
+						<tr class="tableTitle">
+							<th>序号</th>
+							<th>大学名称</th>
+							<th v-for="point in points">{{point.name}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item in table_data">
+							<td>{{getOrder($index)}}</td>
+							<td>{{item.name}}</td>
+							<td v-for="point in points">
+								<a class="pointManager" v-on:click="openManagerPointsModal(point, item)">管理</a>
 							</td>
 						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-3">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-4">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-5">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-6">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-7">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-8">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-9">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-10">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-11">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-12">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-13">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-14">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-15">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-16">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-17">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-18">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-19">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-							<td colspan="2">
-								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput" placeholder="数据指标-20">
-									<div class="showDetailBox showDetailBox2"><i class="fa fa-plus-square showDetail"></i></div>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
+					</tbody>		
+				</table>
 			</div>
 		</div>
-		<div class="bottomBtn">
-			<p>
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
-			</p>
+	</div>
+	<div class="M-box"></div>
+	<div class="mask mask0"></div>
+	<div class="unitsChoose unitsChoose1">
+		<div class="unitsContainer">
+			<div class="cancelBtn cancelBtn1" v-on:click="closeManagerPointsModal(false)">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader">
+				<p class="unitsTitle">指标选择-科研数据分析</p>
+			</div>
+			<div class="unitsContent">
+				<div class="showTotalData">
+					<div class="ESIContent" style="padding-top: 40px;">
+						<div v-for="item in already_arr" style="width:50%;float:left;">
+							<div class="commonInputBox" style="width:100%;">
+								<input class="commonput" :placeholder="item.name" v-on:focus="openEditPointModal(item.id)">
+								<div class="delete-point-analysis-box showDetailBox2"><i class="fa fa-times point-analysis-icon"></i></div>
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure">确定</a>
+					<a class="forConsole" v-on:click="closeManagerPointsModal(false)">取消</a>
+				</p>
+			</div>
 		</div>
 	</div>
-</div>
-<div class="unitsChoose unitsChoose2" style="z-index:5">
-	<div class="unitsContainer">
-		<div class="cancelBtn cancelBtn2">
-			<i class="fa fa-close showCollege"></i>
-		</div>
-		<div class="unitsHeader">
-			<p class="unitsTitle">科研数据分析</p>
-		</div>
-		<div class="unitsContent unitsContent2" style="padding-top:20px">
-			<table class="infoTable">
-				<thead>
-					<tr class="tableTitle">
-						<th>序号</th>
-						<th>指标代码</th>
-						<th>指标名称</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>k0001</td>
-						<td>国家自然科学基金近10年增量分析-柱形图</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>k0002</td>
-						<td>国家自然科学基金年度立项百分比分析-饼图</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>k0003</td>
-						<td>国家社科基金近10年增量分析-曲线图</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-		<div class="bottomBtn">
-			<p>
-				<a class="forSure">确定</a>
-				<a class="forConsole">取消</a>
-			</p>
+	<div class="unitsChoose unitsChoose2">
+		<div class="unitsContainer">
+			<div class="cancelBtn" v-on:click="closeSearchNameModal">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader unitsHeader1">
+				<p class="unitsTitle">机构单位选择</p>
+			</div>
+			<div class="unitsContent">
+				<div class="totalModel">
+					<div class="leftColumn" style="cursor:default">
+						<div class="leftColumnBox" style="height:100%;">
+							<div class="leftColumnContent" style="height:100%;">
+								<div class="leftColumnProvinces" style="height:100%;">
+									<ul id="fund-tree" class="ztree">
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="middleColumn">
+						<div class="btnBox">
+							<i class="fa fa-long-arrow-right code-right-arrow"></i>
+							<i class="fa fa-long-arrow-left code-left-arrow"></i>
+						</div>
+					</div>
+					<div class="rightColumn">
+						<div class="rightColumnContent">
+							<div class="chooseAlready">
+								<ul class="chooseAlreadyList">
+									<li class="chooseItems" v-for="item in search_name" v-on:click="removeItemFromSearch(item.nodeTree)" track-by="id">{{item.name}}</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="button button-green" style="float:right;" v-on:click="closeSearchNameModal">确定</a>
+				</p>
+			</div>
 		</div>
 	</div>
-</div>
+	<div class="mask mask1"></div>
+	<div class="unitsChoose unitsChoose3">
+		<div class="unitsContainer">
+			<div class="cancelBtn cancelBtn2" v-on:click="closeEditPointModal(false)">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader">
+				<p class="unitsTitle">科研数据分析</p>
+			</div>
+			<div class="unitsContent unitsContent2" style="padding-top:20px">
+				<table class="infoTable">
+					<thead>
+						<tr class="tableTitle">
+							<th>序号</th>
+							<th>指标代码</th>
+							<th>指标名称</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item in available_arr">
+							<td>{{$index+1}}</td>
+							<td>{{item.code}}</td>
+							<td>{{item.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="forSure" v-on:click="closeEditPointModal(true)">确定</a>
+					<a class="forConsole" v-on:click="closeEditPointModal(false)">取消</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</script>
 <script type="text/javascript">
-	$(".showDetailBox2").bind("click",function(){
-		$(".mask2").show();
-		popAlertBox(".unitsChoose2");
-		dragBox(".unitsChoose2");
-		var myval=$(this).siblings('commonput').val();
-		addSomeData(myval);
-	})
-	$(".showDetailBox1").bind("click",function(){
-		$(".mask1").show();
-		popAlertBox(".unitsChoose3");
-		dragBox(".unitsChoose3");
-	})
-	dragBoxUnitsChoose(".unitsChoose3");
-	topBarControl();
-	$(".cancelBtn1").bind("click",function(){
-		$(".mask1").hide();
-		$(".unitsChoose1").hide();
-	})
-	$(".cancelBtn2").bind("click",function(){
-		$(".mask2").hide();
-		$(".unitsChoose2").hide();
-	})
-	$(".forConsole1").bind("click",function(){
-		$(this).parents('.unitsContent').find("input").val("");
-	})
-	$(".unitsChoose2 .infoTable tbody").on("click","tr",function(){
-		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
-	})
-	$(".forConsole2").bind("click",function(){
-		$(this).parents('.unitsContent').find("input").val("");
-	})
-	$(".infoTable").delegate(".pointManager","click",function(){		
-		$(".mask1").show();
-		popAlertBox(".unitsChoose1");
-		dragBox(".unitsChoose1");
-	})
-	$(".forSure1").bind("click",function(){
-		$(".mask1").hide();
-		$(".unitsChoose1").hide();
-	})
-	function addSomeData(myval){
-		$(".forSure2").bind("click",function(){
-			$(".mask2").hide();
-			$(".unitsChoose2").hide();
-			var txt;
-			var mytr=$(this).parent('.bottomBtn').siblings().children('.infoTable').children("tbody").children("tr");
-			console.log(mytr.length);
-			for(i=0;i<mytr.length;i++){
-				var className=mytr.eq(i).attr("class");
-				if(className!=""){
-					txt=mytr.eq(i).children("td").last().text();
+
+var baseTree = null
+var baseArray = null
+var pageNumber = 20
+
+	Vue.component('point-analysis', {
+		template: $('#point_analysis_template').html(),
+		data: function(){
+			return {
+				page: -1,
+				table_data: [],
+				search_name: [],
+				search_name_string: "",
+				points: [],
+				selected_point: null,
+				seleceted_uniId: "",
+				already_arr: []
+			}
+		},
+		watch: {
+			search_name: function(val){
+				this.search_name_string = val.slice(0, 3).map(function(node){
+					return node.name
+				}).join(',')
+			},
+		},
+		computed: {
+			available_arr: function(){
+				return this.selected_point.chart.slice(0)
+			}
+		},
+		methods: {
+			openEditPointModal: function(item){
+				$(".mask1").show()
+				popAlertBox(".unitsChoose3")
+				dragBox(".unitsChoose3")
+			},
+			closeEditPointModal: function(save){
+				if (save) {
+
 				}
+				$(".mask1").hide()
+				$(".unitsChoose3").hide()
+			},
+			openManagerPointsModal: function(point_detail, uni_detail){
+				$(".mask0").show()
+				popAlertBox(".unitsChoose1")
+				dragBox(".unitsChoose1")
+
+				this.selected_point = point_detail
+				this.selected_uni = uni_detail
+
+				var self = this
+				Promise.resolve($.ajax({
+					url: '/dataAnalyze/school',
+					error: function(){},
+					data: {
+						university: self.selected_uni.id,
+						type: self.selected_point.id
+					}
+				})).then(function(res){
+					self.already_arr = res.data
+					self.already_arr.push({"id":null,"code":null,"name":"增加新指标"})
+				})
+			},
+			closeManagerPointsModal: function(save){
+				if (save) {
+
+				}
+				$(".mask0").hide()
+				$(".unitsChoose1").hide()
+			},
+			getOrder: function(index){
+				return index + this.page * 20 + 1
+			},
+			getZTreeObj: function(){
+				return $.fn.zTree.getZTreeObj('fund-tree')
+			},
+			openSearchNameModal: function(){
+				$(".mask0").show()
+				popAlertBox(".unitsChoose2")
+				dragBox(".unitsChoose2")
+			},
+			closeSearchNameModal: function(){
+				$(".mask0").hide()
+				$(".unitsChoose2").hide()
+			},
+			initZtree: function(){
+				var self = this
+				$.fn.zTree.init($("#fund-tree"), {
+					check:{
+						chkStyle:"checkbox",
+						enable:true
+						//chkboxType:{ "Y": "ps", "N": "ps" },
+					},
+					view: {
+						showIcon: false
+					},
+					callback: {
+						onCheck: function(event, treeId, treeNode){
+							var zTreeObj = self.getZTreeObj()
+							var checkNodes = zTreeObj.getCheckedNodes()
+							self.search_name = []
+							checkNodes.forEach(function(node){
+								self.pushItemToSearch(node)
+							})
+						}
+					}
+				}, baseTree)
+			},
+			pushItemToSearch: function(node){
+				var self = this
+				if (node.id === undefined) {
+					return
+				}
+				var _node = {
+					id: node.id,
+					name: node.name
+				}
+				self.search_name.push(_node)
+				_node.nodeTree = node
+			},
+			removeItemFromSearch: function(node){
+				var self = this
+
+				var zTreeObj = self.getZTreeObj()
+				zTreeObj.checkNode(node, false, true)
+
+				var checkNodes = zTreeObj.getCheckedNodes()
+				self.search_name = []
+				checkNodes.forEach(function(node){
+					self.pushItemToSearch(node)
+				})
+			},
+			initPagination: function(){
+				var self = this
+
+				if (self.search_name.length > 0) {
+					filtered_data = self.search_name.slice(0)
+				} else {
+					filtered_data = baseArray
+				}
+
+				var length = filtered_data.length
+				$('.M-box').pagination({
+					totalData: length,
+					showData: pageNumber,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+					coping: true,
+					jump:true,
+					callback: function(api){
+						var page = api.getCurrent()
+						self.page = page - 1
+						self.table_data = JSON.parse(JSON.stringify(filtered_data.slice(self.page * pageNumber, (self.page + 1) * pageNumber)))
+					}
+				})
+				self.page = 0
+				self.table_data = JSON.parse(JSON.stringify(filtered_data.slice(0, 20)))
+			},
+			initData: function(){
+				var self = this
+				Promise.resolve($.ajax({
+					url: '/LandEntity',
+					error: function(){}
+				})).then(function(res){
+					baseTree = transferToTree(res.result)
+					baseArray = transferToArray(baseTree)
+					self.initPagination()
+					self.initZtree()
+					//baseTree = transferToArray(res.result)
+				}).catch(function(e){
+					console.dir(e)
+					alert('获取数据失败')
+				})
 			}
-			if(txt!=""){
-				alert(txt);
-				alert(that);
-				alert(that.siblings('commonput').val(txt));
-			}
+		},
+		ready: function(){
+			this.initData()
+			var self = this
+			Promise.resolve($.ajax({
+				url: '/dataAnalyze/type',
+				error: function(){}
+			})).then(function(res){
+				if (res.state == '0') {
+					self.points = res.data
+				} else {
+					alert('获取指标数据失败')
+				}
+			}).catch(function(e){
+				console.dir(e)
+				alert('获取指标数据失败')
+			})
+		}
+	})
+
+	new Vue({
+		el: '#point_analysis_container'
+	})
+
+	function transferToTree(weirdData){
+		var ret = []
+		weirdData.forEach(function(weirdItem){
+			var children = []
+			weirdItem.slice(1).forEach(function(weirdUni){
+				children.push({
+					name: weirdUni[0],
+					id: weirdUni[1]
+				})
+			})
+			ret.push({
+				name: weirdItem[0],
+				children: children
+			})
 		})
+		return ret
 	}
-	topBarControl();
-	doForSearch(".unitsEnter","/Landentity0");
+
+	function transferToArray(tree) {
+		var ret = []
+
+		tree.forEach(function(weird){
+			weird.children.forEach(function(uni){
+				ret.push({
+					name: uni.name,
+					id: uni.id
+				})
+			})
+		})
+		return ret
+	}
 </script>
