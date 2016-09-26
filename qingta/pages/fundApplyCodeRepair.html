@@ -263,6 +263,7 @@
 
 	var baseTree = null
 	var baseData = null
+	var mbox = null
 
 	Vue.component('fund-apply-code', {
 		template: $(fund_apply_code_template).html(),
@@ -303,7 +304,7 @@
 					id: checkedNode.id,
 					name: checkedNode.name,
 					code: checkedNode.code,
-					level: checkedNode.level,
+					level: checkedNode.level + 1,
 					leaf: checkedNode.leaf
 				}
 				self.search_name.push(_node)
@@ -514,8 +515,13 @@
 			initData: function(){
 				var self = this
 				self.table_codes = []
-				$('.M-box').remove()
-				$('<div class="M-box"></div>').insertAfter($(fund_code_tablecontent))
+				
+				if (mbox !== null) {
+					mbox.remove()
+				}
+				mbox = $('<div class="M-box"></div>')
+				mbox.insertAfter(fund_code_tablecontent)
+
 				Promise.resolve($.ajax({
 					url: '/FundCode/get',
 					error: function(){}
@@ -566,16 +572,19 @@
 				}
 
 				//console.dir(filtered_data)
+				//console.dir(filtered_data)
 				var length = filtered_data.length
 				//console.log(`length: ${length}`)
-				$('.M-box').pagination({
+
+				mbox.pagination({
 					totalData: length,
 					showData: pageNumber,
 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
 					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
 					coping: true,
 					jump:true,
-					callback: function(page){
+					callback: function(api){
+						var page = api.getCurrent()
 						self.page = page - 1
 						self.table_codes = JSON.parse(JSON.stringify(filtered_data.slice(self.page * pageNumber, (self.page + 1) * pageNumber)))
 					}
