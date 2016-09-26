@@ -178,7 +178,6 @@
 			}
 		}
 	})
-<<<<<<< HEAD
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
 		console.log("selfResult:"+newindex);
@@ -216,39 +215,6 @@
 			// searchInfo.children('td').eq(3).css("text-align","left");
 			// searchInfo.children('td').css("height","57px");
 		}
-=======
-
-	function renderPage(arr, paginationIndex) {
-		var container = $(".infoTable1").children('tbody')
-		container.empty();
-		var _searchInfo=$('<tr>'+
-			'<td></td>'+
-		'</tr>');
-		arr.forEach(function(tds, index){
-			var searchInfo = _searchInfo.clone()
-			searchInfo.children('td').eq(0).text((paginationIndex-1) * 20 + index + 1);
-			searchInfo.children('td').eq(0).addClass('nowrap');
-			// console.log((i+1)+20*(pageindex-1)*50);
-
-			tds.forEach(function(td){
-				var mytd=$('<td></td>');
-				if(td==null){
-					td="";
-				}
-				mytd.text(td);
-				searchInfo.append(mytd);
-			})
-
-			container.append(searchInfo);
-
-			searchInfo.children('td').eq(3).css("text-align","left");
-			searchInfo.children('td').css("height","57px");
-			searchInfo.children('td').last().addClass('nowrap');
-		})
->>>>>>> origin/master
-	}
-
-	
 	$(".searchBtn").bind("click",function(){
 		var pageindex;
 		var manager=$(".projectManager").val();
@@ -272,61 +238,8 @@
 			'entity':entity,
 			'type':type
 		}
-		getNatureTechnologyDetail(params,'/askNNSF');
+		getDataBox(params,'/askNNSF');
 	})
-
-	var baseData = {}
-	function getNatureTechnologyDetail(params, url){
-		var p = fetchData(params)
-		baseData = {}
-		p.then(function(res){
-			baseData[params.pageindex] = res.result
-			if (res.state == 1) {
-				var parent = $('.M-box').parent()
-				$('.M-box').remove()
-				var mbox = $('<div class="M-box"></div>')
-				parent.append(mbox)
-				mbox.pagination({
-					totalData:res.count,
-				    showData:20,
-				    jump:true,
-					coping:true,
-					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(paginationIndex){
-						renderOrAjax(paginationIndex, params);  
-				    }
-				})
-				renderOrAjax(1, params)
-			}
-		})
-	}
-
-	function fetchData(params){
-		return $.ajax({
-			url: '/askNNSF',
-			data: params
-		})
-	}
-
-	function renderOrAjax(paginationIndex, params) {
-		var index = paginationIndex / 50 | 0 + 1
-		if (baseData[index]) {
-			var start = paginationIndex - (index - 1) * 50 
-			renderPage(baseData[index].slice(start, start + 20), paginationIndex)
-		} else {
-			params.pageindex = index
-			var p = fetchData(params)
-			p.then(function(res){
-				if (res.state == 1) {
-					baseData[index] = res.result
-					var start = paginationIndex - (index - 1) * 50 
-					renderPage(baseData[index].slice(start, start + 20), paginationIndex)
-				}
-			})
-		}
-	}
-
 	doForSearch(".unitsEnter","/Landentity0");
 	doForSearch(".applyCode","/LandNNSFentity");
 	doForSearch(".nameput","/LandNNSFname");

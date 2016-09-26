@@ -210,14 +210,18 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 		else{
 			ismousedown=true;
 <<<<<<< HEAD
+<<<<<<< HEAD
 			// myleft=$(selector).position().left;
 			// mytop=$(selector).position().top;
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
 			var _dom = $(selector).get(0)
 			var offset = _dom.getBoundingClientRect()
 			myleft=offset.left;
 			mytop=offset.top;
+<<<<<<< HEAD
 <<<<<<< HEAD
 			// downX=e.screenX;
 			// downY=e.screenY;
@@ -233,6 +237,8 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 			$(selector).css("top",_mytop);
 		}
 =======
+=======
+>>>>>>> origin/master
 			downX=e.screenX;
 			downY=e.screenY;
 		}
