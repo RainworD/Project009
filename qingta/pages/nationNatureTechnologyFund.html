@@ -346,6 +346,13 @@
 		var money2=$(".nationFee2").val();
 		var orderby=$("input[name='selBar']:checked").val();
 		var applicationcode	=$(".applyCode").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
 		var params={
 			'pageindex':1,
 			'year1':year1,
@@ -355,7 +362,8 @@
 			'applicationcode':applicationcode,
 			'entitys':entitys,
 			'type':type,
-			'orderby':orderby
+			'orderby':orderby,
+			'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askNNSFsta');
 	})

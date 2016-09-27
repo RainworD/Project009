@@ -20,7 +20,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox firstSubject">
-							<option>哲学</option>
+							<option></option>
 						</select>
 					</div>
 				</td>
@@ -191,6 +191,8 @@
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
+		var place1=$(".subjectLevel1").val();
+		var place2=$(".subjectLevel2").val(); 
 		if(eq==0){
 			eq=50;
 		}
@@ -229,14 +231,36 @@
 		var turn=$(".subjectEvaluate").val();
 		var place1=$(".subjectLevel1").val();
 		var place2=$(".subjectLevel2").val(); 
+		// var schoolOnly1=$("#schoolOnly").prop("checked");
+		// if(schoolOnly1){
+		// 	schoolOnly=1;
+		// }
+		// else{
+		// 	schoolOnly=0;
+		// }
 		var params={
 			'pageindex':1,
 			'entitys':entitys,
 			'turn':turn,
 			'place1':place1,
 			'place2':place2,
-			'subject':subject,		
+			'subject':subject,	
+			// 'schoolOnly':schoolOnly,	
 		}
 		getDataBox(params,'/askMSDsta');
 	})
+	$.when(LandMOESDsubject()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".firstSubject").append(newopt);
+				}
+			}
+		}
+	})
+
 </script>

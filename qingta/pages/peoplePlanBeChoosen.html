@@ -279,6 +279,13 @@ var projectUnits=[];
 		var entitys=projectUnits;
 		var _index1=$(".chooseNum1").val();
 		var _index2=$(".chooseNum2").val();
+		// var schoolOnly1=$("#schoolOnly").prop("checked");
+		// if(schoolOnly1){
+		// 	schoolOnly=1;
+		// }
+		// else{
+		// 	schoolOnly=0;
+		// }
 		var params={
 			'pageindex':1,
 			'name':name,
@@ -288,6 +295,7 @@ var projectUnits=[];
 			'year2':year2,
 			'_index1':_index1,
 			'_index2':_index2,
+			// 'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askMPsta');
 	})

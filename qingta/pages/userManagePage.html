@@ -11,13 +11,13 @@
 				<th style="width:80px;">账户名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput accountNameEnter">
 					</div>
 				</td>
 				<th style="width:10.6%;">用户姓名 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput userNameEnter">
 					</div>
 				</td> 
 				<td colspan="2" style="width:18.3%;"></td>
@@ -103,7 +103,7 @@
 							<th>用户姓名 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput userName1">
+									<input class="commonput userName">
 								</div>
 							</td>
 						</tr>
@@ -139,7 +139,7 @@
 							</td>
 						</tr>
 						<tr>
-							<th>初始密码 :</th>
+							<th>新密码 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
 									<input class="commonput oldpw" type="password">
@@ -176,14 +176,19 @@
 		$(".deleteUser").hide();
 	})
 	$(".infoTable1").delegate(".manageBtn","click",function(){
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		$(".userName").val(td1);
+		var accountName=$(this).parent("tr").children('td').eq(1).text();
+		var userName=$(this).parent("tr").children('td').eq(2).text();
+		var department=$(this).parent("tr").children('td').eq(3).text();
+		var email=$(this).parent("tr").children('td').eq(4).text();
+		var phoneNum=$(this).parent("tr").children('td').eq(5).text();
+		var type=$(this).parent("tr").children('td').eq(6).text();
+		// var td1=$(this).parent("tr").children('td').eq(7).text();
+		$(".userName").val(userName);
+		$(".accountName").val(accountName);
+		$(".department").(department);
+		$(".mailBox").val(email);
+		$(".phoneNum").val(phoneNum);
+		$(".userType").val(type);
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
@@ -194,13 +199,10 @@
 		$(".mask").hide();
 		$(".unitsChoose").hide();
 	})
-	// $(".forConsole").bind("click",function(){
-	// 	$(this).parents('.unitsContent').find("input").val("");
-	// })
-	$(".forSure").bind("click",function(){
+	$(".addForSure").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();
-		var name=$(".userName1").val();
+		var name=$(".userName").val();
 		var password;
 		var type;
 		var nickname=$(".accountName").val();
@@ -271,68 +273,54 @@
 
 		})
 	})
-	$(".searchBtn").bind("click",function(){
-		var entity=localStorage.school;
-		$.when(GiveAccountfromEntity(entity)).done(function(data){
-			if(data.state == 1){
-				var result=data.result;
-				$(".infoTable1").children('tbody').empty();
-				var count=data.count;
-				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-				addCount.children('span').eq(0).text(count);
-				if(count<20){
-					addCount.children('span').eq(1).text(count);
-				}
-				else{
-					addCount.children('span').eq(1).text("20");
-				}
-				var lee=$(".tableContent .infoTablePara").children('.topRight');
-				if(lee){
-					lee.empty();
-					$(".tableContent .infoTablePara").append(addCount);
-				}
-				else{
-					$(".tableContent .infoTablePara").append(addCount);
-				}
-				if(data.state==1){
-					for (var i=0,len=result.length;i<len;i++) {
-						var searchInfo=$('<tr>'+
-							'<td></td>'+
-						'</tr>');
-						searchInfo.children('td').eq(0).text(i+1);
-						for (var j=0;j<result[i].length;j++) {
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var i=0,len=result.length;i<len;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).text(i+1);
+					for (var j=0;j<result[i].length;j++) {
 							var mytd=$('<td></td>');
 							if(result[i][j]==null){
 								result[i][j]="";
 							}
-
 							mytd.text(result[i][j]);
 							searchInfo.append(mytd);
 						}
-						$(".infoTable1").children('tbody').append(searchInfo);
-					}
-					getPages(0);
-					$('.M-box').pagination({
-						totalData:count,
-					    showData:20,
-					    current:1,
-					    count:2,
-					    jump:true,
-						coping:true,
-						prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-						nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-					    callback:function(index){
-					        getPages(index-1);
-					    }
-					});
-				}
-				else{
-					alert("没有符合查询条件的记录！");
-					count=0;
-					addCount.children('span').eq(0).text(count);
-					addCount.children('span').eq(1).text(count);
+					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')
+					searchInfo.append(newtd);
+					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 			}
-		})
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var entity=localStorage.school;
+		var name=$(".userNameEnter").val();
+		var nickname=$(".accountNameEnter").val();
+		var pageindex;
+		var params={
+			'pageindex':1,
+			'entity':entity,
+			'name':name,
+			'nickname':nickname,
+		}
+		getDataBox(params,'/GiveAccountfromEntity');
 	})
+
 </script>

@@ -292,28 +292,31 @@
 			if(result[i]){
 				for (var j=0;j<result[i].length-1;j++) {
 					var mytd=$('<td></td>');
-					if(result[i][j]==null){
-						result[i][j]="";
-					}
-					else if(j==2){
-						result[i][j]=year1+'-'+year2;
-					}
-					else if(j==4||j==5){
-						var ex = /^\d+$/;
-						if(ex.test(result[i][j])){
-							mytd.text(result[i][j]);
+					var text = result[i][j];
+					if(j==4||j==5){
+						if(result[i][j]==null||result[i][j]=="*"){
+							text="*";
 						}
 						else{
-							var newNum=Number(result[i][j]).toFixed(2);
-							result[i][j]=newNum;
+							var ex = /^\d+$/;
+							if(ex.test(result[i][j])){
+							}
+							else{
+								var newNum=Number(result[i][j]).toFixed(2);
+								text=newNum;
+							}
 						}
 					}
-					else{}
-					var text = result[i][j];
+					else{
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+					}
 					if(j==2){
+						result[i][j]=year1+'-'+year2;
 						text = madeNowrapText(result[i][j]);
 					}
-					else if(j==1||j==5){
+					else if(j==1){
 						if(val==""){
 							result[i][1]="全部项目类型";
 							searchInfo.eq(1).css("text-align","center");
@@ -364,5 +367,5 @@
 		}
 		getDataBox(params,'/askNKRPsta');
 	})
-doForSearch(".searchBox","/Landentity0");
+	doForSearch(".searchBox","/Landentity0");
 </script>

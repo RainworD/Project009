@@ -200,20 +200,26 @@
 			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
-					if(result[i][j]==null){
-						result[i][j]="";
-					}
-					else if(j==6||j==7){
-						var ex = /^\d+$/;
-						if(ex.test(result[i][j])){
-							mytd.text(result[i][j]);
+					var text = result[i][j];
+					if(j==6||j==7){
+						if(result[i][j]==null||result[i][j]=="*"){
+							text="*";
 						}
 						else{
-							var newNum=Number(result[i][j]).toFixed(2);
-							result[i][j]=newNum;
+							var ex = /^\d+$/;
+							if(ex.test(result[i][j])){
+							}
+							else{
+								var newNum=Number(result[i][j]).toFixed(2);
+								text=newNum;
+							}
 						}
 					}
-					var text = result[i][j];
+					else {
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+					}
 					if(j==0||j==5){
 						text = madeNowrapText(result[i][j]);
 					}

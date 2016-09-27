@@ -134,6 +134,7 @@
 			</table>
 		</div>
 	</div>
+	<div class="M-box"></div>
 </div>
 <div class="mask mask1"></div>
 <div class="unitsChoose unitsChoose1">
@@ -199,7 +200,6 @@
 		</div>
 	</div>
 </div>
-
 <div class="searchUndo">
 	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
 	<img class="getInfoImg" src="../source/img/info.png"></img>
@@ -249,13 +249,32 @@
 			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
+					var text=result[i][j];
 					if(result[i][j]==null){
-						result[i][j]="";
+						text="";
 					}
-					else if(j==2){
-						result[i][j]=year1+'-'+year2;
+					else if(j==0){
+						text=madeTwoLineText(result[i][j]);
 					}
-					mytd.text(result[i][j]);
+					else if(j==1){
+						text=year1+'-'+year2;
+						text = madeNowrapText(text);
+					}
+					else{
+						// if(result[i][j]==null||result[i][j]=="*"){
+						// 	text="*";
+						// }
+						// else{
+							var ex = /^\d+$/;
+							if(ex.test(result[i][j])){
+								text=result[i][j];
+							}
+							else{
+								text=Number(result[i][j]).toFixed(2);
+							}
+							text = madeNowrapText(text);
+						}
+					mytd.html(text);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
@@ -275,6 +294,13 @@
 		var totalexpenditure1=$(".outcomeFee1").val();
 		var totalexpenditure2=$(".outcomeFee2").val();
 		var entitys=projectUnits;
+		// var schoolOnly1=$("#schoolOnly").prop("checked");
+		// if(schoolOnly1){
+		// 	schoolOnly=1;
+		// }
+		// else{
+		// 	schoolOnly=0;
+		// }
 		var params={
 			'pageindex':pageindex,
 			'year1':year1,
@@ -283,7 +309,8 @@
 			'totalincoming2':totalincoming2,
 			'totalexpenditure1'	:totalexpenditure1,
 			'totalexpenditure2':totalexpenditure2,
-			'entitys':entitys
+			'entitys':entitys,
+			// 'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askCUMOEfund');
 	})

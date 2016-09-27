@@ -1252,3 +1252,82 @@ function GiveEntityAccount(){//某大学的普通用户信息表
         });
     return ajax;
 }
+function LandNKSname(sub){//重点学科学科名称搜索
+    var ajax = $.ajax({
+        url: "/LandNKSname",
+        type: "POST",
+        data:{
+
+        "sub": sub //查询时返回的子串
+        },
+    });
+    return ajax;
+}
+function LandNSname(sub){
+    var ajax = $.ajax({
+        url: "/LandNSname",
+        type: "POST",
+        data:{
+
+        "sub": sub //查询时返回的子串
+
+        },
+    })
+    return ajax;
+}
+ function LandMOESDsubject(){//教育部第三轮学科名称
+    var ajax = $.ajax({
+        url: "/LandMOESDsubject",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandNSCname(sub){//共享课课程名称搜索
+    var ajax = $.ajax({
+        url: "/LandNSCname",
+        type: "POST",
+        data:{
+
+        "sub": sub //查询时返回的子串
+
+        }
+    })
+    return ajax;
+}
+function LandVCname(sub){//公开课课程名称搜索
+    var ajax = $.ajax({
+        url: "/LandVCname",
+        type: "POST",
+        data:{
+
+        "sub": sub //查询时返回的子串
+
+     }
+    })
+    return ajax;
+}
+function askBD(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpenditure1,nowtotalexpenditure2,totalincome1,totalincome2,totalexpenditure1,totalexpenditure2,pageindex){
+    var ajax = $.ajax({
+        url: "/askBD",
+        type: "POST",
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//年度范围左侧
+        "year2":year2,//年度范围右侧
+        "nowtotalincome1":nowtotalincome1,//总拨入左侧
+        "nowtotalincome2":nowtotalincome2,//总拨入右侧
+        "nowtotalexpenditure1":nowtotalexpenditure1,//总拨入左侧
+        "nowtotalexpenditure2":nowtotalexpenditure2,//总拨入右侧
+        "totalincome1":totalincome1,//总拨入左侧
+        "totalincome2":totalincome2,//总拨入右侧
+        "totalexpenditure1":totalexpenditure1,//总拨入左侧
+        "totalexpenditure2":totalexpenditure2,//总拨入右侧
+        "pageindex":pageindex,//分页数
+
+        }
+    });
+    return ajax;
+}

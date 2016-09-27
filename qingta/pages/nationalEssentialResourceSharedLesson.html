@@ -229,11 +229,19 @@
 		var entitys=projectUnits;
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
+		// var schoolOnly1=$("#schoolOnly").prop("checked");
+		// if(schoolOnly1){
+		// 	schoolOnly=1;
+		// }
+		// else{
+		// 	schoolOnly=0;
+		// }
 		var params={
 			'pageindex':1,
 			'entitys':entitys,
 			'year1':year1,
 			'year2':year2,
+			// 'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askNSCsta');
 	})

@@ -12,11 +12,12 @@
 				<th style="width:100px;">学校名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%;">
-						<input class="commonput schoolName">
-						<ul class="showElse">
-							
-						</ul>
-						<!-- <div class="showDetailBox"><i class="fa fa-plus-square showDetail"></i></div> -->
+						<div class="commonInputBox"  style="width:100%;">
+							<input class="commonput schoolName">
+							<ul class="showElse">
+								
+							</ul>
+						</div>
 					</div>
 				</td>
 				<th style="width:10.6%;">入选年度 :</th>
@@ -68,7 +69,12 @@
 				</td>		
 				<th style="width:10.6%;">课程名称 :</th>
 				<td style="width:18.3%;">
-					<input class="commonput lessonName" style="width:100%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput lessonName" style="width:100%;">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
 				</td>
 				<th style="width:10.6%;">课程负责人 :</th>
 				<td style="width:18.3%;">
@@ -103,7 +109,7 @@
 						<th>入选年度</th>
 						<th>课程名称</th>
 						<th>课程负责人</th>
-						<th>备注</th>
+						<!-- <th>备注</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -166,6 +172,7 @@
 	})
 
 doForSearch(".schoolName","/Landentity0");
+doForSearch(".lessonName","/LandNSCname");
 </script>
 
 

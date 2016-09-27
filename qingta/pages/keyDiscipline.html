@@ -187,9 +187,17 @@
 		$(".infoTable1").children('tbody').empty();
 		var pageindex;
 		var entitys=projectUnits;
+		// var schoolOnly1=$("#schoolOnly").prop("checked");
+		// if(schoolOnly1){
+		// 	schoolOnly=1;
+		// }
+		// else{
+		// 	schoolOnly=0;
+		// }
 		var params={
 			'pageindex':1,
 			'entitys':entitys,
+			'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askNKSsta');
 	})

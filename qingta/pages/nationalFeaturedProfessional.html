@@ -202,10 +202,18 @@
 		var pageindex;
 		var entitys=projectUnits;
 		var _index=$(".indexNum").val();
+		// var schoolOnly1=$("#schoolOnly").prop("checked");
+		// if(schoolOnly1){
+		// 	schoolOnly=1;
+		// }
+		// else{
+		// 	schoolOnly=0;
+		// }
 		var params={
 			'pageindex':1,
 			'_index':_index,
 			'entitys':entitys,
+			// 'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askNSsta');
 	})

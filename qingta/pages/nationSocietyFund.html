@@ -20,6 +20,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox subjectType" style="padding-right: 30px;">
+							<option selected="selected"></option>
 						</select> 
 					</div>
 				</td>	
@@ -27,6 +28,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox projectType" style="padding-right: 30px;">
+							<option selected="selected"></option>
 						</select> 
 					</div>
 				</td>
@@ -89,6 +91,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox systemBelong" style="padding-right: 30px;">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>
@@ -284,6 +287,9 @@
 		var year2=$(".yearName2").val();
 		var money1=$(".nationFee1").val();
 		var money2=$(".nationFee2").val();
+		var type=$(".projectType").val();
+		var system=$(".systemBelong").val();
+		var subject=$(".subjectType").val();
 		var eq=newindex%50;
 		if(eq==0){
 			eq=50;
@@ -296,8 +302,20 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=0;j<result[i].length-1;j++) {
 						var mytd=$('<td></td>');
+						if(subject==""){
+							result[i][0]="全部学科分类";
+						}
+						else{}
+						if(type==""){
+							result[i][1]="全部项目类别";
+						}
+						else{}
+						if(system==""){
+							result[i][3]="全部所属系统";
+						}
+						else{}
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
@@ -323,6 +341,13 @@
 		var entitys=projectUnits;
 		var system=$(".systemBelong").val();
 		var subject=$(".subjectType").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
 		var params={
 			'pageindex':1,
 			'year1':year1,
@@ -331,6 +356,7 @@
 			'subject':subject,
 			'entitys':entitys,
 			'type':type,
+			'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askNSSFsta');
 	})	

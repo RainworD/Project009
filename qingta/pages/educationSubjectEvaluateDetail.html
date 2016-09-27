@@ -22,7 +22,6 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox firstSubject">
-							<option>哲学</option>
 						</select>
 					</div>
 				</td>
@@ -62,12 +61,7 @@
 					</div>
 				</td>
 				<td colspan="2"></td>
-				<th>
-					<label for="schoolOnly">
-						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
-					</label>
-				</th>
-				<td></td>
+				<td colspan="2"></td>
 				<td colspan="2">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
@@ -169,5 +163,19 @@
 			'subject':subject,		
 		}
 		getDataBox(params,'/askMSD');
+	}) 
+	$.when(LandMOESDsubject()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".firstSubject").append(newopt);
+				}
+			}
+		}
 	})
+
 </script>

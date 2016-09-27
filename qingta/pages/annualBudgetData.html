@@ -18,21 +18,21 @@
 				<th style="width:10.6%;">本年收入合计 :</th>
 				<td style="width:18.3%;">
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+						<input class="commonput income1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput income2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
 				<th style="width:10.6%;">收入总计 :</th>
 				<td style="width:18.3%;">
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+						<input class="commonput totalIncome1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput totalIncome2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
 				<th style="width:10.6%;">预算年度 :</th>
@@ -86,18 +86,18 @@
 			<tr>
 				<th>本年支出合计 :</th>
 				<td>
-					<input class="commonput" style="width:42.1%;margin-right:1%;" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					<input class="commonput outcome1" style="width:42.1%;margin-right:1%;" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					<span style="text-align: center;width:9%;">至</span>
-					<input class="commonput" style="width:42.1%;margin-left:1%;" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					<input class="commonput outcome2" style="width:42.1%;margin-left:1%;" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 				</td>
 				<th>支出总计 :</th>
 				<td style="width:18.3%;">
-					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput nationFee1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+					<div class="commonputBox " style="width:42.1%;margin-right:1%;">
+						<input class="commonput totalOutcome1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput nationFee2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput totalOutcome2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
 					</div>
 				</td>
 				<th>
@@ -139,7 +139,7 @@
 						<th>本年支出合计</th>
 						<th>年末转结与结余</th>
 						<th>总计</th>
-						<th></th>
+						<th>备注</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -224,30 +224,121 @@
 	</p>
 </div>
 <script>
+	var projectUnits=[];
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		if(finalResults){
-			judgeUnits(finalResults);
-			$(".unitsContent1").addClass("beforeShowBox");
-	    	$(".beforeShow").addClass("beforeHideBox");
+	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
+	doForSearch(".searchBox","/Landentity0");
+	topBarControl(); 
+</script>
+<script type="text/javascript">
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		// $(".infoTable1 thead").find('th').addClass("nowrap");
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var val=$(".projectType").val();
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					var text=result[i][j];
+					if(result[i][j]==null){
+						text="";
+					}
+					else if(j==1){
+						text=madeTwoLineText(result[i][j]);
+					}
+					else if(j==0){
+						text=year1+'-'+year2;
+						text = madeNowrapText(text);
+					}
+					else{
+						// if(result[i][j]==null||result[i][j]=="*"){
+						// 	text="*";
+						// }
+						// else{
+							var ex = /^\d+$/;
+							if(ex.test(result[i][j])){
+								text=result[i][j];
+							}
+							else{
+								text=Number(result[i][j]).toFixed(2);
+							}
+							text = madeNowrapText(text);
+						}
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
+				var newtd=$('<td><a href="">查看附件</a></td>')
+				searchInfo.append(newtd);
+				$(".infoTable1").children('tbody').append(searchInfo);
+
+			}
+			// searchInfo.children('td').eq(3).addClass('nowrap');
+			// searchInfo.children('td').eq(2).addClass('nowrap');
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entitys=projectUnits;
+		var nowtotalincome1=$(".income1").val();
+		var nowtotalincome2=$(".income2").val();
+		var nowtotalexpenditure1=$(".outcome1").val();
+		var nowtotalexpenditure2=$(".outcome2").val();
+		var totalincome1=$(".totalincome1").val();
+		var totalincome2=$(".totalincome2").val();
+		var totalexpenditure1=$(".totalOutcome1").val();
+		var totalexpenditure2=$(".totalOutcome2").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
 		}
 		else{
-			$(".unitsContent1").removeClass("beforeShowBox");
-	    	$(".beforeShow").removeClass("beforeHideBox");
-			$.when(getUnits()).done(function(data){
-				for (var i=0;i<zNodes.length;i++) {
-					zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-				}
-				$.fn.zTree.init($("#tree"), setting, zNodes);
-			})
+			schoolOnly=0;
 		}
+		var pageindex;
+		var params={
+			"entitys": entitys, //选择的学校列表
+	        "year1":year1,//年度范围左侧
+	        "year2":year2,//年度范围右侧
+	        "nowtotalincome1":nowtotalincome1,
+	        "nowtotalincome2":nowtotalincome2,
+	        "nowtotalexpenditure1":nowtotalexpenditure1,
+	        "nowtotalexpenditure2":nowtotalexpenditure2,
+	        "totalincome1":totalincome1,
+	        "totalincome2":totalincome2,
+	        "totalexpenditure1":totalexpenditure1,
+	        "totalexpenditure2":totalexpenditure2,
+	        "pageindex":1,//分页数
+		}
+		getDataBox(params,'/askBD');
 	})
-	doForSearch(".searchBox","/Landentity0");
-	dragBoxUnitsChoose(".unitsChoose1");
-	topBarControl();</script>
-<script type="text/javascript">
 </script>
 
 
