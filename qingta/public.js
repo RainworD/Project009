@@ -15,37 +15,60 @@ function init(){
 		// var myheight2=$(".enterBox").css("height");
 		// var decHeight=myheight1-parseInt(myheight2)-80;
 		// $(".tableContent").css("min-height",decHeight);
-	}
+	} 
 	window.onload=function(){  
 	  	window.onresize = changeHeight;  
 	  	changeHeight();  
 	}
 	function matchLeft(){
-		var search=window.location.href;
-		var	mysearch=search.split("?");
-		// var search2=mysearch[1].split("=");
-		// var search2=mysearch[1].split("=");
-        var search2=mysearch[1]?mysearch[1].split("="):11;
-		var myid=search2[1];
-		var topid,secondid;
-		if(myid>=100){
-			topid=Math.floor(myid/10);
-			secondid=myid%100%10;
+		var search=window.location.hash;
+		var	mysearch=search.split("/");
+		var search2=mysearch[1];
+		var result=search2.indexOf('D');
+		var result_val;
+		if(result!=-1){
+			var result_new=search2.split("D");
+			result_val=result_new[0]+'.html';
 		}
 		else{
-			topid=Math.floor(myid/10);
-			secondid=myid%10;
+			result_val=search2;
 		}
-		for (var i = 0,len=$(".downBtn").length;i<len;i++) {
-			var matchid=$(".downBtn").eq(i).attr("data-id");
-			if(matchid==topid){
+		var itemLen=$(".linka").length;
+		for (var i=0;i<itemLen;i++) {
+			var compareVal=$(".linka").eq(i).attr("href");
+			var compare_array=compareVal.split("/");
+			var compare_val=compare_array[1];
+			if(result_val==compare_val){
 				$(".downBtn").eq(i).addClass("btnColor");
 				$(".downBtn").eq(i).next(".downContent").addClass('show');
 				$(".downBtn").eq(i).next(".downContent").find(".linka").eq(secondid-1).addClass("activeClass");
 				$(".downBtn").eq(i).children(".downflag").addClass("fa-minus");
 
 			}
-		}
+		};
+		// var search2=mysearch[1].split("=");
+		// var search2=mysearch[1].split("=");
+//         var search2=mysearch[1]?mysearch[1].split("="):11;
+// 		var myid=search2[1];
+// 		var topid,secondid;
+// 		if(myid>=100){
+// 			topid=Math.floor(myid/10);
+// 			secondid=myid%100%10;
+// 		}
+// 		else{
+// 			topid=Math.floor(myid/10);
+// 			secondid=myid%10;
+// 		}
+// 		for (var i = 0,len=$(".downBtn").length;i<len;i++) {
+// 			var matchid=$(".downBtn").eq(i).attr("data-id");
+// 			if(matchid==topid){
+// 				$(".downBtn").eq(i).addClass("btnColor");
+// 				$(".downBtn").eq(i).next(".downContent").addClass('show');
+// 				$(".downBtn").eq(i).next(".downContent").find(".linka").eq(secondid-1).addClass("activeClass");
+// 				$(".downBtn").eq(i).children(".downflag").addClass("fa-minus");
+
+// 			}
+// 		}
 	}
 
 	// $(".linka").bind("click",function(){

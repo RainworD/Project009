@@ -21,39 +21,39 @@ function init(){
 	  	changeHeight();  
 	}
 	function matchLeft(){
-		var search=window.location.hash;
-		var	mysearch=search.split("/");
-		var search2=mysearch[1];
-		var result=search2.indexOf('Detail');
-		var result_val;
-		if(result!=-1){
-			var result_new=search2.split("D");
-			result_val=result_new[0]+'.html';
+		var search=window.location.href;
+		var	mysearch=search.split("?");
+		// var search2=mysearch[1].split("=");
+		// var search2=mysearch[1].split("=");
+        var search2=mysearch[1]?mysearch[1].split("="):11;
+		var myid=search2[1];
+		var topid,secondid;
+		if(myid>=100){
+			topid=Math.floor(myid/10);
+			secondid=myid%100%10;
 		}
 		else{
-			result_val=search2;
+			topid=Math.floor(myid/10);
+			secondid=myid%10;
 		}
-		var itemLen=$(".comparea").length;
-		for (var i=0;i<itemLen;i++) {
-			var compareVal=$(".comparea").eq(i).attr("href");
-			var compare_array=compareVal.split("/");
-			var compare_val=compare_array[1];
-			if(result_val==compare_val){
-				console.log(i);
-				var judgeFlag=$(".comparea").eq(i).parent(".downBtn").length;
-				if(judgeFlag){
-					$(".comparea").eq(i).parent(".downBtn").addClass("btnColor");
-				}
-				else{
-					$(".comparea").eq(i).addClass("activeClass");
-					$(".comparea").eq(i).parents('.downContent').siblings(".downBtn").addClass("btnColor");
-					$(".comparea").eq(i).parents('.downContent').addClass('show');
-					// $(".comparea").eq(i).parents('downContent').siblings("downBtn").next(".downContent").find(".linka").eq(i).addClass("activeClass");
-					$(".comparea").eq(i).parents('.downContent').siblings(".downBtn").children(".downflag").addClass("fa-minus");
-				}
+		for (var i = 0,len=$(".downBtn").length;i<len;i++) {
+			var matchid=$(".downBtn").eq(i).attr("data-id");
+			if(matchid==topid){
+				$(".downBtn").eq(i).addClass("btnColor");
+				$(".downBtn").eq(i).next(".downContent").addClass('show');
+				$(".downBtn").eq(i).next(".downContent").find(".linka").eq(secondid-1).addClass("activeClass");
+				$(".downBtn").eq(i).children(".downflag").addClass("fa-minus");
+
 			}
-		};
+		}
 	}
+
+	// $(".linka").bind("click",function(){
+	// 	var myhash=$(this).attr("href");
+	// 	var id=$(this).attr("data-id");
+	// 	window.location.hash=myhash+"?id="+id;
+	// 	window.location.hash=myhash;
+	// })
 }
 function eventBind(){
 	$(window).bind('load hashchange', loadContent);
