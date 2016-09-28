@@ -21,9 +21,9 @@
 			<th style="width:10.6%;">学校名称 :</th>
 			<td style="width:18.3%;">
 				<div class="commonInputBox" style="width:100%;">
-					<input class="commonput schoolName">
+					<input class="commonput schoolNameEnter">
 				</div>
-			</td> 
+			</td>  
 			<td colspan="2" style="width:26.3%">
 				<a class="searchBtn rightMinBtn">用户查询</a>
 				<a class="rightMinBtn addUserBtn" style="background-color: #00bfff;">新增用户</a>
@@ -103,6 +103,8 @@
 							<td colspan="3">
 								<div class="commonInputBox" style="width:100%;">
 									<input class="commonput schoolName">
+									<ul class="showElse">				
+									</ul>	
 								</div>
 							</td>
 						</tr>
@@ -329,7 +331,7 @@
 	}
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
-		var entity=$(".schoolName").val();
+		var entity=$(".schoolNameEnter").val();
 		var name=$(".userNameEnter").val();
 		var nickname=$(".accountNameEnter").val();
 		var pageindex;
@@ -341,4 +343,5 @@
 		}
 		getDataBox(params,'/GiveAccountfromEntity');
 	})
+	doForSearch(".schoolName","/Landentity0");
 </script>

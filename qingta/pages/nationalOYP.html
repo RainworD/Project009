@@ -210,3 +210,71 @@
 	doForSearch(".searchBox","/Landentity0");
 	topBarControl();
 </script>
+<script type="text/javascript">
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		console.log("selfResult:"+newindex);
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var code=$(".applyCode").val();
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		var val=$(".projectType").val();
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+						var mytd=$('<td></td>');
+						if(code==""){
+							result[i][1]="全部申请代码";
+						}
+						else{}
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+						else if(j==2){
+							result[i][j]=year1+'-'+year2;
+						}
+						mytd.text(result[i][j]);
+						searchInfo.append(mytd);
+					}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+			// searchInfo.children('td').eq(3).css("text-align","left");
+			// searchInfo.children('td').css("height","57px");
+			// searchInfo.children('td').last().addClass('nowrap');
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entitys=projectUnits;
+		var applicationcode	=$(".applyCode").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var params={
+			'pageindex':1,
+			'year1':year1,
+			'year2':year2,
+			'entitys':entitys,
+			'applicationcode':applicationcode,
+			'schoolOnly':schoolOnly,
+		}
+		getDataBox(params,'/askOYsta');
+	})
+</script>

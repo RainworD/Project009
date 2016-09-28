@@ -21,13 +21,14 @@ function init(){
 	  	changeHeight();  
 	}
 	function matchLeft(){
-		var search=window.location.hash;
-		var	mysearch=search.split("/");
-		var search2=mysearch[1];
-		var result=search2.indexOf('Detail');
+		var search=window.location.href;
+		var	mysearch=search.split("#/");
+		var search2=mysearch?mysearch[1]:"";
+		var result=search2?search2.indexOf('Detail'):-1;
+		// var result=search2?search2.indexOf('Detail'):1;
 		var result_val;
 		if(result!=-1){
-			var result_new=search2.split("D");
+			var result_new=search2.split("Detail");
 			result_val=result_new[0]+'.html';
 		}
 		else{
@@ -39,7 +40,6 @@ function init(){
 			var compare_array=compareVal.split("/");
 			var compare_val=compare_array[1];
 			if(result_val==compare_val){
-				console.log(i);
 				var judgeFlag=$(".comparea").eq(i).parent(".downBtn").length;
 				if(judgeFlag){
 					$(".comparea").eq(i).parent(".downBtn").addClass("btnColor");
@@ -603,8 +603,6 @@ function getDataBox(params,url){
 				nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
 			    callback:function(api){
 			    	var index=api.getCurrent();
-			    	console.log("是否执行了两次？");
-			    	console.log(index);
 					paginationCallback(index,params,url);  
 			    }
 			});
@@ -613,7 +611,6 @@ function getDataBox(params,url){
 }
 function ajaxMorePages(pageindex,newindex,params,url){
 	params.pageindex=pageindex;
-	console.log(params);
 	var ajax=$.ajax({
 		url:url,
 		type:'POST',
@@ -656,7 +653,6 @@ function ajaxMorePages(pageindex,newindex,params,url){
 }	
 // function getMoreResults(result,pageindex,newindex){
 // 	$(".infoTable1").children('tbody').empty();
-// 	console.log("getMoreResults:"+newindex)
 // 	selfResult(pageindex,result,newindex);
 // }
 
@@ -665,7 +661,6 @@ function paginationCallback(index,params,url){
     if(index>50){
     	var _index=Math.ceil(index/50);
 		pageindex=_index;
-		console.log(">50才执行")
 		if(dataBox[pageindex]){
 			var result1=dataBox[pageindex];
 			// getMoreResults(result1,pageindex,newindex);
@@ -676,7 +671,6 @@ function paginationCallback(index,params,url){
 		}
     }
     else{
-    	console.log("<50才执行")
     	// getMoreResults(dataBox[1],1,newindex);
     	selfResult(1,dataBox[1],newindex);
     }
@@ -733,7 +727,6 @@ function paginationCallback(index,params,url){
 // 			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
 // 		    callback:function(index){
 // 		    	newindex=index;
-// 		    	console.log(index);
 // 		        if(index>50){        	
 // 		        	var _index=Math.ceil(index/50);
 // 					pageindex=_index;

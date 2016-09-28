@@ -25,7 +25,7 @@ function successHandle(data){
    }
 }
 function errorHandle(data){
-    alert("网络异常！");
+    // alert("网络异常！");
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
     $(".searchUndo").removeClass("searchDo");
 }
