@@ -59,3 +59,20 @@ th.yellow {
 	border-bottom-right-radius: 6px !important;
 	border-top-right-radius: 6px !important;
 }
+
+.button {
+	display: block;
+	width: 80px;
+	text-align: center;
+	margin-right: 20px;
+	border-radius: 3px;
+	color: #fff;
+	height: 30px;
+	line-height: 30px;
+}
+.button-blue {
+	background-color: #33ccff;
+}
+.button-green {
+	background-color: #00cc99;
+}

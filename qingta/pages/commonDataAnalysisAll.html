@@ -1,0 +1,641 @@
+<link rel="stylesheet" href="../source/css/chart.css">
+<style>
+	.custom-modal {
+		display: none;
+		background: rgba(255, 255, 255, 0.5);
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		position: fixed;
+		z-index: 4;
+	}
+	.custom-modal-content {
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background: #fff;
+		border: 1px solid #ccc;
+		position: absolute;
+		width: 400px;
+		padding: 0px 20px;
+	}
+	.custom-modal-close {
+		width: 30px;
+		height: 30px;
+		position: absolute;
+		top: 10px;
+		right: 0;
+		color: #bdbdbd;
+		cursor: pointer;
+	}
+	.custom-modal-head {
+		padding: 10px 0px;
+		border-bottom: 2px dashed #ebebeb;
+		cursor: move;
+	}
+	.custom-modal-body {
+		margin-left: -20px;
+		margin-right: -20px;
+		border-bottom: 2px dashed #ebebeb;	
+		margin-bottom: 72px;
+	}
+	.custom-modal-foot {
+		position: absolute;
+		height: 72px;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		cursor: move;
+	}
+	.custom-modal-foot [data-drag-enter] {
+		position:absolute;width:100%;height:100%;
+	}
+	.custom-modal-foot .button {
+		float: right;
+		margin-top: 21px;
+		margin-right: 20px;
+		position: relative;
+	}
+	.round-border-item {
+		line-height: 30px;
+		margin: 5px 20px;
+		text-align: center;
+		border-radius: 5px;
+		cursor: pointer;
+		border: 1px solid #ebebeb;
+		padding: 0 10px;
+	}
+	.round-border-item.selected {
+		background: #ffefd5;
+	}
+	.custom-input {
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		border: 1px solid #ebebeb;
+		padding-left: 5px;
+		border-radius: 5px;
+	}
+	.custom-input:focus {
+		border: 1px solid #3cc;
+		-moz-box-shadow: 0 0 8px #3cc;
+		-webkit-box-shadow: 0 0 8px #3cc;
+		box-shadow: 0 0 8px #3cc;
+	}
+	.custom-search-bar {
+		padding:10px 0px;margin:0 20px;border-bottom: 2px dashed #ebebeb;
+	}
+</style>
+<div id="common_data_container">
+	<common-data></common-data>	
+</div>
+<script type="text/x-vue-template" id="common_data_template">
+	<div class="changeBarContainer">
+		<div class="changeBarBox" style="background-color:#fff;" @click="openSearchNameModal">
+			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">{{university.name}}</a>
+		</div>
+	</div>
+	<div class="enterBox" v-if="university.id!==''">
+		<div class="topTableBox" style="padding-top:0px;">
+			<div class="changeBarContainer" style="border-top:none;">
+				<div class="changeBarBox changeBarBox6" style="width:100%;text-align:center;">
+					<a :class="['changeLeft changeButton', tab_index==1?'green':'']" @click="switchTab(1)">科研数据分析</a>
+					<a :class="['changeLeft changeButton', tab_index==2?'green':'']" @click="switchTab(2)">人才数据分析</a>
+					<a :class="['changeLeft changeButton', tab_index==3?'green':'']" @click="switchTab(3)">学科数据分析</a>
+					<a :class="['changeLeft changeButton', tab_index==4?'green':'']" @click="switchTab(4)">奖励数据分析</a>
+					<a :class="['changeLeft changeButton', tab_index==5?'green':'']" @click="switchTab(5)">专利与成果数据分析</a>
+					<a :class="['changeLeft changeButton', tab_index==6?'green':'']" @click="switchTab(6)">经费数据分析</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<mark-chart v-for="mark in mark_data" :tabs.sync="mark.tabs" :title="mark.title"></mark-chart>
+
+	<div class="mask"></div>
+	<div class="unitsChoose unitsChoose1">
+		<div class="unitsContainer">
+			<div class="cancelBtn" v-on:click="closeSearchNameModal">
+				<i class="fa fa-close showCollege"></i>
+			</div>
+			<div class="unitsHeader unitsHeader1">
+				<p class="unitsTitle">机构单位选择</p>
+			</div>
+			<div class="unitsContent">
+				<div class="totalModel">
+					<div class="leftColumn" style="cursor:default;width:100%;">
+						<div class="leftColumnBox" style="height:100%;">
+							<div class="leftColumnContent" style="height:100%;">
+								<div class="leftColumnProvinces" style="height:100%;">
+									<ul id="tree" class="ztree">
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottomBtn">
+				<p>
+					<a class="button button-green" style="float:right;" v-on:click="closeSearchNameModal">确定</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/x-vue-template" id="mark_chart_template">
+	<div class="tableContent">
+		<div class="infoTableBox">
+			<div class="infoTableContent"  style="padding-top:10px;">
+				<div class="infoTableTop">
+					<div class="infoTablePara">
+						<span class="topLeft">{{title}}</span>
+						<div style="float:right;padding-top:5px;" v-if="tabs[tab_index] && tabs[tab_index].options.length > 0">
+							<span style="color:#777;font-size:14px;">{{tabs[tab_index].options_placeholder + " :"}}</span>
+							<div class="commonInputBox" style="display:inline-block;">
+								<input class="commonput" @focus="openSelectOptionModal" v-model="selected_name">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="changeBarContainer" style="border-top:none;text-align:center;" v-if="tabs.length>1">
+					<div class="changeBarBox" style="text-align:center;margin-right:0px;float:none;">
+						<a :class="['changeButton changeButtonTab', tab_index==$index?'yellow':'']" v-for="tab in tabs" @click="tab_index=$index">{{tab.name}}</a>
+					</div>
+				</div>
+				<div style="width:100%;height:300px;background:#eee;" v-el:chart></div>
+			</div>
+		</div>
+		<div class="custom-modal" data-drag-modal="false" v-el:modal v-if="tabs[tab_index]">
+			<div class="custom-modal-content" style="width:500px;" drag-modal-content>
+				<div class="custom-modal-close" @click="closeSelectOptionModal(false)">
+					<i class="fa fa-close"></i>
+				</div>
+				<div class="custom-modal-head" data-drag-enter>
+					<span>选择类别</span>
+				</div>
+				<div class="custom-modal-body">
+					<div class="custom-search-bar">
+						<div style="display:table-cell;width:100%;">
+							<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchOption">
+						</div>
+						<div style="display:table-cell;width:130px;">
+							<a class="button button-green" style="margin-right:0px;margin-left:20px;" @click="searchOption">查询</a>
+						</div>
+					</div>
+					<ul style="height:400px;overflow-y:auto;" v-el:list>
+						<li v-for="option in display_options" :class="['round-border-item', option.select?'selected':'']" v-show="option.show" @click="selectOption(option)">{{option.name}}</li>
+					</ul>
+				</div>
+				<div class="custom-modal-foot">
+					<div data-drag-enter></div>
+					<a class="button button-blue" @click="closeSelectOptionModal(false)">取消</a>
+					<a class="button button-green" @click="closeSelectOptionModal(true)">确定</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<!-- <script type="text/javascript" src="../source/js/utils.js"></script> -->
+<script type="text/javascript">
+
+	$(document).on('mousemove', '[data-drag-modal]', function(e){
+		var $modal = $(this)
+		var dragging = $modal.attr('data-drag-modal')
+
+		if (dragging === 'true') {
+			var top = Number.parseFloat($modal.attr('data-drag-top'))
+			var left = Number.parseFloat($modal.attr('data-drag-left'))
+			var mouseStartY = Number.parseFloat($modal.attr('data-drag-mousey'))
+			var mouseStartX = Number.parseFloat($modal.attr('data-drag-mousex'))
+			var $content = $modal.children('.custom-modal-content')
+			$content.css({
+				top: top + e.screenY - mouseStartY,
+				left: left  + e.screenX - mouseStartX
+			})
+		}
+	})
+
+	$(document).on('mouseup', '[data-drag-modal]', function(){
+		var $modal = $(this)
+		$modal.attr('data-drag-modal', false)
+	})
+
+	$(document).on('mousedown', '[data-drag-enter]', function(e){
+		var $modal = $(this).parents('[data-drag-modal]')
+		$modal.attr('data-drag-modal', true)
+		var $content = $modal.children('.custom-modal-content')
+		var offset = $content.get(0).getBoundingClientRect()
+		$modal.attr('data-drag-top', offset.top)
+		$modal.attr('data-drag-left', offset.left)
+		$modal.attr('data-drag-mousex', e.screenX)
+		$modal.attr('data-drag-mousey', e.screenY)
+		$content.css({
+			top: offset.top,
+			left: offset.left,
+			transform: "translate(0,0)"
+		})
+	})
+
+	function openModal($modal){
+		$modal.find('[drag-modal-content]').css({
+			top: '50%',
+			left: '50%',
+			transform: 'translate(-50%,-50%)'
+		})
+		/*$(document.body).css({
+			overflow: 'hidden'
+		})*/
+		$modal.show()
+	}
+
+	function hideModal($modal){
+		/*$(document.body).css({
+			overflow: 'auto'
+		})*/
+		$modal.hide()
+	}
+
+	var baseTree
+
+	var cache = {}
+
+	var curYear = (new Date()).getFullYear()
+
+	function getMarkData(university, tabIndex, result){
+		if (cache[university.id] === undefined) {
+			cache[university.id] = {}
+		}
+		var university_data = cache[university.id]
+		if (university_data[tabIndex] === undefined) {
+			switch (Number.parseInt(tabIndex)) {
+				case 1: loadK(university, tabIndex, result);break; // 科研数据分析
+				case 2: loadR(university, tabIndex, result);break; // 人才数据分析
+				case 3: loadX(university, tabIndex, result);break; // 学科数据分析
+				case 4: loadJ(university, tabIndex, result);break; // 奖励数据分析
+				case 5: loadM(university, tabIndex, result);break; // 经费数据分析
+				case 6: loadZ(university, tabIndex, result);break; // 专利与成果数据分析
+				default: alert('不支持的指标分析');
+			}
+		} else {
+			result = university_data[tabIndex]
+		}
+	}
+
+	function loadK(university, tabIndex, result){
+		Promise.all([
+			/*Promise.resolve($.ajax({
+				url: '/askNNSF?entity=' + university.name,
+				error: function(){}
+			})),
+			Promise.resolve($.ajax({
+				url: '/askNSSF?entity=' + university.name,
+				error: function(){}
+			}))*/
+			Promise.resolve({
+				2006: {a: {count: 2,money: 100},b: {count:3,money:100}},
+				2007: {a: {count: 4,money: 300},b: {count:7,money:200}},
+				2008: {a: {count: 7,money: 500},b: {count:1,money:300}},
+				2009: {a: {count: 8,money: 700},b: {count:8,money:400}},
+				2010: {a: {count: 11,money: 800},b: {count:10,money:500}},
+				2011: {a: {count: 23,money: 900},b: {count:12,money:600}},
+				2012: {a: {count: 15,money: 1200},b: {count:14,money:800}},
+				2013: {a: {count: 17,money: 1400},b: {count:18,money:900}},
+				2014: {a: {count: 27,money: 900},b: {count:22,money:1200}},
+				2015: {a: {count: 30,money: 1700},b: {count:25,money:1500}},
+			}),
+			Promise.resolve({
+				2006: {a: {count: 2},b: {count:3}},
+				2007: {a: {count: 4},b: {count:7}},
+				2008: {a: {count: 7},b: {count:1}},
+				2009: {a: {count: 8},b: {count:8}},
+				2010: {a: {count: 11},b: {count:10}},
+				2011: {a: {count: 23},b: {count:12}},
+				2012: {a: {count: 15},b: {count:14}},
+				2013: {a: {count: 17},b: {count:18}},
+				2014: {a: {count: 27},b: {count:22}},
+				2015: {a: {count: 30},b: {count:25}},
+			})
+		]).then(function(res){
+			var nationalData = res[0]
+			var socialData = res[1]
+		})
+	}
+
+
+	var chartId = 0
+
+	Vue.component('mark-chart', {
+		template: $(mark_chart_template).html(),
+		props: ['title', 'tabs'],
+		data: function(){
+			return {
+				tab_index: -1,
+				search_str: '',
+				selected_order: -1,
+				selected_name: "",
+				selected_order_pre: {
+					order: -1,
+					name: '',
+					show: true,
+					select: true
+				},
+				display_options: []
+			}
+		},
+		watch: {
+			'tab_index': function(val){
+				if (val !== -1) {
+					this.display_options = this.tabs[val].options.map(function(item, order){
+						return {
+							order: order,
+							name: item,
+							show: true,
+							select: false
+						}
+					})
+					if (this.display_options.length > 0) {
+						var firstItem = this.display_options[0]
+						this.selected_order = firstItem.order
+						this.selected_name = firstItem.name
+						this.selected_order_pre.name = firstItem.name
+						this.selected_order_pre.order = firstItem.order
+						firstItem.select = true
+					} else {
+						this.tabs[0].getOptions(undefined, this.chart)
+					}
+				}
+			},
+			'selected_name': function(val){
+				if (val !== "" && this.tabs[this.tab_index]) {
+					console.log()
+					this.tabs[this.tab_index].getOptions(val, this.chart)
+				}
+			}
+		},
+		methods: {
+			searchOption: function(){
+				var str = this.search_str
+				this.display_options.forEach(function(item){
+					if (item.name.indexOf(str) !== -1) {
+						item.show = true
+					} else {
+						item.show = false
+					}
+				})
+			},
+			respondToSelect: function(order){
+				var oldOrder = this.selected_order_pre.order
+				if (oldOrder !== -1) {
+					this.display_options[oldOrder].select = false
+				}
+				this.selected_order_pre.order = order
+				this.display_options[order].select = true
+			},
+			selectOption: function(option){
+				this.respondToSelect(option.order)
+
+				this.selected_order_pre.name = option.name
+			},
+			closeSelectOptionModal: function(save){
+				if (save) {
+					this.selected_order = this.selected_order_pre.order
+					this.selected_name = this.selected_order_pre.name
+				} else {
+					this.respondToSelect(this.selected_order)
+					this.selected_order_pre.order = this.selected_order
+					this.selected_order_pre.name = this.selected_name
+				}
+				hideModal($(this.$els.modal))
+			},
+			openSelectOptionModal: function(){
+				openModal($(this.$els.modal))
+			}
+		},
+		ready: function(){
+			this.tab_index = 0
+			this.chart = echarts.init(this.$els.chart) 
+			//console.dir(this.chart)
+		}
+	})
+
+	Vue.component('common-data', {
+		template: $(common_data_template).html(),
+		data: function(){
+			return {
+				university: {
+					name: "",
+					id: "",
+				},
+				mark_data: [],
+				tab_index: 0
+			}
+		},
+		watch: {
+			'university.id': function(id){
+				if (id === '') {
+					return
+				}
+			},
+			'tab_index': function(val){
+				if (val === "" || val === 0) {
+					return 
+				}
+				var university = JSON.parse(JSON.stringify(this.university))
+
+				this.mark_data = [
+					{
+						title: '国家自然科学基金总体立项数据分析',
+						tabs: [
+							{
+								name: '总体分析',
+								options: [],
+								options_placeholder: "",
+								getOptions: function(option, chart){
+									var options_promise = getJSON('K001')
+									options_promise.then(function(res){
+										res.xAxis.data = [
+											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
+										]
+										res.series[0].data = [
+											230,250,223,290,245,330,350,324,390,410
+										]
+										res.series[1].data = [
+											6800,7000,7500,8000,6800,7000,6239,8000,9000,12345
+										]
+										res.yAxis[1].min = 5800
+										chart.setOption(res)
+									})
+								}
+							}
+						]
+					},
+					{
+						title: '国家自然科学基金分学部数据分析',
+						tabs: [
+							{
+								name: '分年份总体分析',
+								options: ['10', '5', '3', '1'],
+								options_placeholder: "最近年份选择",
+								getOptions: function(_option, chart){
+									var option = Number.parseInt(_option)
+									var options_promise = getJSON('K002-1')
+									options_promise.then(function(res){
+										console.dir(res)
+										res.legend.data = ["数理科学部", "化学课学部", "生命科学部", "地球科学部", "信息科学部", "医学科学部", "其他科学部"]
+										var data = res.series[0].data
+										data[0].value = 31 + option * 2
+										data[0].name = '生命科学部'
+										data[1].value = 28 + option * 2
+										data[1].name = '地球科学部'
+										data[2].value = 17 + option * 2
+										data[2].name = '信息科学部'
+										data[3].value = 7 + option * 2
+										data[3].name = '数理科学部'
+										data[4].value = 7 + option * 2
+										data[4].name = '医学科学部'
+										data[5].value = 7 + option * 2
+										data[5].name = '其他科学部'
+										data[6].value = 3 + option * 2
+										data[6].name = '化学课学部'
+										res.series[0].label.normal.formatter = function(item){
+											return item.percent + '%'
+										}
+
+										var data = res.series[1].data
+										data[0].value = 31 + option * 3
+										data[0].name = '生命科学部'
+										data[1].value = 28 + option * 3
+										data[1].name = '地球科学部'
+										data[2].value = 17 + option * 3
+										data[2].name = '信息科学部'
+										data[3].value = 7 + option * 3
+										data[3].name = '数理科学部'
+										data[4].value = 7 + option * 3
+										data[4].name = '医学科学部'
+										data[5].value = 7 + option * 3
+										data[5].name = '其他科学部'
+										data[6].value = 3 + option * 3
+										data[6].name = '化学课学部'
+										res.series[1].label.normal.formatter = function(item){
+											return item.percent + '%'
+										}
+										chart.setOption(res)
+									})
+								}
+							},
+							{
+								name: '分学部分析',
+								options: ['a', 'b'],
+								options_placeholder: "学部选择",
+								getOptions: function(option){
+									console.dir('分学部分析:' + option)
+								}
+							}
+						]
+					}
+				]
+				//getMarkData(university, val, this.mark_data)
+			}
+		},
+		methods: {
+			switchTab: function(index){
+				this.tab_index = index
+			},
+			openSearchNameModal: function(){
+				$('.mask').show()
+				popAlertBox('.unitsChoose1')
+				dragBox('.unitsChoose1')
+			},
+			closeSearchNameModal: function(){
+				var zTree = $.fn.zTree.getZTreeObj('tree')
+				//console.dir(zTree)
+				var selectedNode = zTree.getSelectedNodes()
+				if (selectedNode[0]) {
+					this.university.name = selectedNode[0].name
+					this.university.id = selectedNode[0].id
+				}
+				$('.mask').hide()
+				$('.unitsChoose1').hide()
+			},
+			initZtree: function(){
+				var self = this
+				$.fn.zTree.init($("#tree"), {
+					view: {
+						showIcon: false
+					},
+					callback: {
+						beforeClick: function(treeId, treeNode){
+							if (treeNode.id === undefined) {
+								return false
+							}
+							return true
+						}
+					}
+				}, baseTree)
+			},
+			getUniversityData: function(){
+				var self = this
+				Promise.resolve($.ajax({
+					url: '/LandEntity',
+					error: function(){}
+				})).then(function(res){
+					baseTree = transferToTree(res.result)
+					self.initZtree()
+					var firstUniversity = baseTree[0].children[0]
+					self.university.name = firstUniversity.name
+					self.university.id = firstUniversity.id
+					self.tab_index = 1
+				}).catch(function(e){
+					console.dir(e)
+					alert('获取数据失败')
+				})
+			}
+		},
+		ready: function(){
+			this.getUniversityData()
+		}
+	})
+
+	new Vue({
+		el: '#common_data_container'
+	})
+
+	function transferToTree(weirdData){
+		var ret = []
+		weirdData.forEach(function(weirdItem){
+			var children = []
+			weirdItem.slice(1).forEach(function(weirdUni){
+				children.push({
+					name: weirdUni[0],
+					id: weirdUni[1]
+				})
+			})
+			ret.push({
+				name: weirdItem[0],
+				children: children
+			})
+		})
+		return ret
+	}
+
+	var _chartOption = {}
+	function getJSON(json_name, notDefault){
+		if (notDefault === undefined) {
+			json_name = '/qingta/source/chart-options/' + json_name + '.json'
+		}
+
+		if (_chartOption[json_name]) {
+			return Promise.resolve(_chartOption[json_name])
+		} else {
+			return Promise.resolve($.getJSON(json_name)).then(function(res){
+				_chartOption[json_name] = res 
+				return Promise.resolve(res)
+			}).catch(function(e){
+				return Promise.reject
+			})
+		}
+	}
+</script>
