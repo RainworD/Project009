@@ -266,6 +266,7 @@
 					searchInfo.children('td').eq(4).text(result[i]["一等奖"]);
 					searchInfo.children('td').eq(5).text(result[i]["二等奖"]);
 					searchInfo.children('td').eq(6).text(result[i]["特等奖"]+result[i]["一等奖"]+result[i]["二等奖"]);
+					searchInfo.children('td').css("height","57px");
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 				getPages(0);

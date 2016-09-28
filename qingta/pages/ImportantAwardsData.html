@@ -10,17 +10,18 @@
 	<div class="topTableBox">
 		<table class="topTable"> 
 			<tr>
-				<th style="width:102px;">依托单位 :</th>
+				<th style="width:80px;">依托单位 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>
-				<th style="width:10.6%;">奖励名称 :</th>
+				<th style="width:10.6%;">奖励类别 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>	
@@ -71,12 +72,9 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<th style="width:10.6%;">奖励类别 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
-						</select>
-					</div>
+				<td style="width:26.3%">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
 			</tr>
 			<tr>
@@ -88,10 +86,7 @@
 				<td></td>
 				<td colspan="2"></td>			
 				<td colspan="2"></td>
-				<td colspan="2">
-					<a class="searchBtn rightMinBtn">查询</a>
-					<a class="resetBtn rightMinBtn">重置</a>
-				</td>
+				<td colspan="2"></td>	
 			</tr>
 		</table>
 	</div>
@@ -109,10 +104,10 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>学校名称</th>
-						<th>奖励名称</th>
-						<th>获奖年度</th>
+						<th>奖励类别</th>
 						<th>获奖级别</th>
-						<th>获奖人/项目</th>
+						<th>获奖年度</th>
+						<th>奖励数</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -226,38 +221,29 @@
 	</div>
 </div>
 <script type="text/javascript">
-	var len=$(".infoTable1 tbody").children("tr").length;
-	for (var i =0;i<len;i++) {
-		$(".infoTable1 tbody").children("tr").eq(i).children().eq(1).css("text-align","left");
-		$(".infoTable1 tbody").children("tr").eq(i).children().eq(2).css("text-align","left");
-	}
+	var projectUnits=[];
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		if(finalResults){
-			judgeUnits(finalResults);
-			$(".unitsContent1").addClass("beforeShowBox");
-	    	$(".beforeShow").addClass("beforeHideBox");
-		}
-		else{
-			$(".unitsContent1").removeClass("beforeShowBox");
-	    	$(".beforeShow").removeClass("beforeHideBox");
-			$.when(getUnits()).done(function(data){
-				for (var i=0;i<zNodes.length;i++) {
-					zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-				}
-				$.fn.zTree.init($("#tree"), setting, zNodes);
-			})
-		}
 	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose2");
 		dragBox(".unitsChoose2");
 	})
-	dragBoxUnitsChoose(".unitsChoose1");
 	dragBoxSortsChoose(".unitsChoose2");
 	topBarControl();
 </script>
@@ -334,6 +320,7 @@
 							mytd.text(result[i][j]);
 							searchInfo.append(mytd);
 						}
+						searchInfo.children('td').css("height","57px");
 						$(".infoTable1").children('tbody').append(searchInfo);
 					}
 					getPages(0);

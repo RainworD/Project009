@@ -68,6 +68,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox awardsLevel">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>
@@ -309,6 +310,7 @@
 					searchInfo.children('td').eq(11).text(result[i]["青年科学奖"]);
 					searchInfo.children('td').eq(12).text(result[i]["专利奖"]);
 					searchInfo.children('td').eq(13).text(result[i]["自然科学奖教材类"]+result[i]["专利奖"]+result[i]["青年科学奖"]+result[i]["自然科学奖教材类"]+result[i]["自然科学奖"]+result[i]["科技进步奖科普类"]+result[i]["科技进步奖推广类"]+result[i]["科技进步奖"]+result[i]["技术发明奖专利类"]+result[i]["技术发明奖"]);
+					searchInfo.children('td').css("height","57px");
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 				getPages(0);

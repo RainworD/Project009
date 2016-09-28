@@ -86,6 +86,7 @@
 				<td>
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox invitationType">
+							<option selected="selected"></option>
 							<option>特聘教授</option>
 							<option>讲座教授</option>
 							<option>青年学者</option>
@@ -171,8 +172,7 @@
 						}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(3).css("text-align","left");
-			// searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').css("height","57px");
 			searchInfo.children('td').last().addClass('nowrap');
 		}
 	}

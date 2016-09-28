@@ -13,6 +13,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox awardsType">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>
@@ -76,6 +77,7 @@
 				<td style="width:18.3%">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox awardsLevel">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>
@@ -272,6 +274,7 @@
 					}
 					searchInfo.children('td').eq(9).html(madeTwoLineText(unitArray));
 					searchInfo.children('td').eq(10).text(result[i].recommend);
+					searchInfo.children('td').css("height","57px");
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 				getPages(0);

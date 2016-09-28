@@ -50,6 +50,7 @@ function init(){
 					$(".comparea").eq(i).parents('.downContent').addClass('show');
 					// $(".comparea").eq(i).parents('downContent').siblings("downBtn").next(".downContent").find(".linka").eq(i).addClass("activeClass");
 					$(".comparea").eq(i).parents('.downContent').siblings(".downBtn").children(".downflag").addClass("fa-minus");
+					$(".comparea").eq(i).parents('.sectionList').siblings(".leftImg").addClass("white");
 				}
 			}
 		};

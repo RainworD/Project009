@@ -66,8 +66,8 @@
 				<th style="width:10.6%;">岗位名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput jobName" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
-						<ul class="showElse2">
+						<input class="commonput jobName"type="text">
+						<ul class="showElse">
 							
 						</ul>
 					</div>
@@ -237,8 +237,7 @@
 						}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(3).css("text-align","left");
-			// searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').css("height","57px");
 			searchInfo.children('td').last().addClass('nowrap');
 		}
 	}
@@ -266,4 +265,5 @@
 		}
 		getDataBox(params,'/askCJSchsta');
 	})
+	doForSearch(".jobName","/LandCJSsubject");
 </script>

@@ -22,6 +22,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:100%;"> 
 						<select class="selBox subjectType">
+							<option selected="selected"></option>
 							<option>国家重点培育学科</option>
 							<option>国家二级重点学科</option>
 							<option>国家一级重点学科</option>
@@ -107,6 +108,7 @@ doForSearch(".schoolName","/Landentity0");
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
+				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 			// searchInfo.children('td').eq(1).addClass("nowrap");

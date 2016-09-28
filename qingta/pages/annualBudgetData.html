@@ -15,24 +15,24 @@
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td> 
-				<th style="width:10.6%;">本年收入合计 :</th>
+				<th style="width:11.6%;">本年收入合计 :</th>
 				<td style="width:18.3%;">
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput income1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+						<input class="commonput income1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')" >
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput income2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput income2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')">
 					</div>
 				</td>
 				<th style="width:10.6%;">收入总计 :</th>
 				<td style="width:18.3%;">
 					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput totalIncome1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+						<input class="commonput totalIncome1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')" >
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput totalIncome2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput totalIncome2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')">
 					</div>
 				</td>
 				<th style="width:10.6%;">预算年度 :</th>
@@ -86,18 +86,18 @@
 			<tr>
 				<th>本年支出合计 :</th>
 				<td>
-					<input class="commonput outcome1" style="width:42.1%;margin-right:1%;" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					<input class="commonput outcome1" style="width:42.1%;margin-right:1%;" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')">
 					<span style="text-align: center;width:9%;">至</span>
-					<input class="commonput outcome2" style="width:42.1%;margin-left:1%;" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					<input class="commonput outcome2" style="width:42.1%;margin-left:1%;" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')">
 				</td>
 				<th>支出总计 :</th>
 				<td style="width:18.3%;">
 					<div class="commonputBox " style="width:42.1%;margin-right:1%;">
-						<input class="commonput totalOutcome1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" >
+						<input class="commonput totalOutcome1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')" >
 					</div>
 					<span style="text-align: center;width:8%;">至</span>
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
-						<input class="commonput totalOutcome2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						<input class="commonput totalOutcome2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')">
 					</div>
 				</td>
 				<th>
@@ -271,6 +271,7 @@
 					}
 					else if(j==1){
 						text=madeTwoLineText(result[i][j]);
+						mytd.css("width","100px");
 					}
 					else if(j==0){
 						text=year1+'-'+year2;
@@ -298,8 +299,8 @@
 				$(".infoTable1").children('tbody').append(searchInfo);
 
 			}
-			// searchInfo.children('td').eq(3).addClass('nowrap');
-			// searchInfo.children('td').eq(2).addClass('nowrap');
+			searchInfo.children('td').last().addClass('nowrap');
+			searchInfo.children('td').css("height","57px");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

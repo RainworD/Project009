@@ -149,13 +149,14 @@
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
-						var mytd=$('<td></td>');
-						if(result[i][j]==null){
-							result[i][j]="";
-						}
-						mytd.text(result[i][j])
-						searchInfo.append(mytd);
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
 					}
+					mytd.text(result[i][j])
+					searchInfo.append(mytd);
+				}
+				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 		}

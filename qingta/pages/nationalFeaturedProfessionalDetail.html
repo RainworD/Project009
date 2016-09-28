@@ -31,6 +31,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:95%;">
 						<select class="selBox indexNum">
+							<option selected="selected"></option>
 							<option>第一批</option>
 							<option>第二批</option>
 							<option>第三批</option>
@@ -110,6 +111,7 @@ topBarControl();
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
+				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 		}

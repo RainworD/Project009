@@ -247,7 +247,7 @@
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
-						else if(j==3){
+						else if(j==2){
 							result[i][j]=year1+'-'+year2;
 						}
 						mytd.text(result[i][j]);
@@ -256,7 +256,7 @@
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 			// searchInfo.children('td').eq(3).css("text-align","left");
-			// searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').css("height","57px");
 			// searchInfo.children('td').last().addClass('nowrap');
 		}
 	}

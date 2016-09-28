@@ -23,6 +23,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>	
@@ -77,12 +78,13 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>		
 			</tr>
 			<tr>				
-				<th>获奖人/项目 :</th>
+				<th>获奖人 :</th>
 				<td class="commonPlus">
 					<div class="commonInputBox" style="width:100%;">
 						<input class="commonput projectManager">
@@ -112,9 +114,11 @@
 						<th>序号</th>
 						<th>学校名称</th>
 						<th>奖励名称</th>
+						<th>奖励类别</th>
 						<th>获奖年度</th>
-						<th>奖项级别</th>
-						<th>获奖人/项目</th>
+						<th>奖励级别</th>
+						<th>获奖人</th>
+						<th>备注</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -227,6 +231,7 @@
 						mytd.html(text);
 						searchInfo.append(mytd);
 					}
+					searchInfo.children('td').css("height","57px");
 					$(".infoTable1").children('tbody').append(searchInfo);				
 				}
 				getPages(0);

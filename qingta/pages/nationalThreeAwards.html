@@ -67,6 +67,7 @@
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox awardsLevel">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>
@@ -288,6 +289,7 @@
 					searchInfo.children('td').eq(6).text(result[i].science);
 					searchInfo.children('td').eq(7).text(result[i].natural);
 					searchInfo.children('td').eq(8).text(Number(result[i].highest+result[i].tech+result[i].science+result[i].natural));
+					searchInfo.children('td').css("height","57px");
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 				getPages(0);
