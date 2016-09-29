@@ -1,0 +1,121 @@
+{
+  "toolbox": {
+    "show": true,
+    "feature": {
+      "saveAsImage": {
+        "title": " "
+      }
+    },
+    "left": "40px"
+  },
+  "grid": [
+    {
+      "x": "0%",
+      "y": "0%",
+      "y2": "10%",
+      "width": "50%",
+      "height": "90%",
+      "containLabel": true
+    },
+    {
+      "x2": "10%",
+      "y": "0%",
+      "y2": "10%",
+      "width": "40%",
+      "height": "90%",
+      "containLabel": true
+    }
+  ],
+  "legend": {
+    "x": "center",
+    "y": "bottom",
+    "data": null
+  },
+  "xAxis": [
+    {
+      "gridIndex": 1,
+      "type": "value",
+      "axisTick": {
+        "show": false
+      },
+      "axisLine": {
+        "show": false
+      }
+    }
+  ],
+  "yAxis": [
+    {
+      "gridIndex": 1,
+      "type": "category",
+      "data": null,
+      "axisTick": {
+        "show": false
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisLabel": {
+        "textStyle": {
+          "color": "#999"
+        }
+      }
+    }
+  ],
+  "color": [
+    "rgb(255,192,0)",
+    "rgb(86,217,233)",
+    "rgb(44,220,153)",
+    "rgb(9,190,255)",
+    "rgb(51,204,204)",
+    "rgb(255,204,102)",
+    "rgb(255,133,133)",
+    "rgb(72,124,186)"
+  ],
+  "series": [
+    {
+      "type": "pie",
+      "center": [
+        "25%",
+        "40%"
+      ],
+      "avoidLabelOverlap": false,
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "outside",
+          "formatter": "{d}%"
+        }
+      },
+      "labelLine": {
+        "normal": {
+          "show": false
+        }
+      },
+      "itemStyle": {
+        "normal": {
+          "shadowColor": "rgba(0, 0, 0, 0.3)",
+          "shadowBlur": 10
+        }
+      },
+      "data": null
+    },
+    {
+      "xAxisIndex": 0,
+      "yAxisIndex": 0,
+      "type": "bar",
+      "data": null,
+      "barGap": "0%",
+      "barWidth": "100%",
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "right",
+          "formatter": "{c}",
+          "textStyle": {
+            "color": "#666"
+          }
+        }
+      }
+    }
+  ]
+}

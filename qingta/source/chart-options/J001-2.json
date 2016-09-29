@@ -1,0 +1,191 @@
+{
+     "legend": {
+          "data" : ["自然科学奖", "技术发明奖","科技进步奖","青年科学奖","专利奖","获奖总数"],
+          "bottom": "bottom"
+      },
+      "toolbox": {
+          "show": true,
+          "feature": {
+               "saveAsImage": {
+                    "title": " "
+               }
+          },
+          "left": "40px"
+      },
+      "grid": {
+          "left": "40px",
+          "right": "40px",
+          "bottom": "40px",
+          "top": "40px",
+          "containLabel": true
+      },
+      "xAxis": {
+          "type": "category",
+          "axisTick": {
+               "show": false    
+          },
+          "axisLine": {
+               "lineStyle": {
+                    "color": "#ccc"
+               }
+          },
+          "axisLabel": {
+               "textStyle": {
+                    "color": "#999"
+               }    
+          },
+          "data": null
+      },
+      "yAxis": {
+        "type": "value",
+        "interval": 5,
+        "axisTick": {
+             "show": false    
+        },
+        "axisLine": {
+             "show": false
+        },
+        "axisLabel": {
+             "textStyle": {
+                  "color": "#999"
+             }    
+        },
+        "splitLine": {
+             "lineStyle": {
+                  "color": "#eee"
+             }
+        }
+      },
+     "series": [
+          {
+               "type":"bar",
+               "name": "自然科学奖",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(255, 204, 102)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "barGap": 0,
+               "data": null
+          },
+          {
+               "type":"bar",
+               "name": "技术发明奖",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(44, 220, 153)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "data": null
+          },
+          {
+               "type":"bar",
+               "name": "技术发明奖",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(44, 220, 153)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "data": null
+          },
+          {
+               "type":"bar",
+               "yAxisIndex": 0,
+               "name": "青年科学奖",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(255, 133, 133)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "data": null
+          },
+          {
+               "type":"bar",
+               "yAxisIndex": 0,
+               "name": "专利奖",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(255, 255, 0)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "data": null
+          },
+          {
+                "name": "获奖总数",
+                "type": "line",
+                "symbolSize":1,
+                "itemStyle": {
+                    "normal": {
+                        "color": "rgb(9,190,255)"
+                    }
+                },
+                "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#333"
+                        }
+                    }
+                },
+                "lineStyle": {
+                    "normal": {
+                        "color": "rgb(9,190,255)",
+                        "width": 3
+                    }
+                },
+                "data": null,
+                "z":3
+          }
+     ]
+}

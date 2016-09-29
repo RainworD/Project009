@@ -1,0 +1,151 @@
+{
+  "toolbox": {
+    "show": true,
+    "feature": {
+      "saveAsImage": {
+        "title": " "
+      }
+    },
+    "left": "40px"
+  },
+  "grid": {
+    "left": "40px",
+    "right": "40px",
+    "bottom": "40px",
+    "top": "40px",
+    "containLabel": true
+  },
+  "xAxis": {
+    "type": "value",
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#eee"
+      }
+    }
+  },
+  "yAxis": {
+    "type": "category",
+    "data": null,
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    }
+  },
+  "series": [
+    {
+      "type": "bar",
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "right",
+          "formatter": "{c}",
+          "textStyle": {
+            "color": "#666"
+          }
+        }
+      },
+      "data": [
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(255,255,102)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(226,158,107)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(77,224,169)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(255,193,0)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(75,145,208)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(0,197,192)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(188,214,237)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(0,175,239)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(255,211,124)"
+            }
+          }
+        },
+        {
+          "value": null,
+          "itemStyle": {
+            "normal": {
+              "color": "rgb(86,217,233)"
+            }
+          }
+        }
+      ],
+      "barGap": "0%",
+      "barWidth": "100%"
+    }
+  ]
+}
