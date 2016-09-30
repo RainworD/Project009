@@ -95,6 +95,9 @@
 		<div class="changeBarBox" style="background-color:#fff;" @click="openSearchNameModal">
 			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">{{university.name}}</a>
 		</div>
+		<div class="changeBarBox convert-button" style="background-color:#fff;float:right;" @click="convertToPDF">
+			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">下载为PDF文件</a>
+		</div>
 	</div>
 	<div class="enterBox" v-if="university.id!==''">
 		<div class="topTableBox" style="padding-top:0px;">
@@ -162,7 +165,7 @@
 				</div>
 				<div class="changeBarContainer" style="border-top:none;text-align:center;" v-if="tabs.length>1">
 					<div class="changeBarBox" style="text-align:center;margin-right:0px;float:none;">
-						<a :class="['changeButton changeButtonTab', tab_index==$index?'yellow':'']" v-for="tab in tabs" @click="tab_index=$index">{{tab.name}}</a>
+						<a :class="['changeButton changeButtonTab', tab_index==$index?'yellow':'']" v-for="tab in tabs" @click="switchTab($index)">{{tab.name}}</a>
 					</div>
 				</div>
 				<div style="width:100%;height:300px;background:#eee;" v-el:chart></div>
@@ -198,7 +201,6 @@
 		</div>
 	</div>
 </script>
-<!-- <script type="text/javascript" src="../source/js/utils.js"></script> -->
 <script type="text/javascript">
 
 	$(document).on('mousemove', '[data-drag-modal]', function(e){
@@ -297,7 +299,7 @@
 								options_placeholder: "",
 								getOptions: function(option, chart){
 									var options_promise = getJSON('K001')
-									options_promise.then(function(res){
+									return options_promise.then(function(res){
 										res.xAxis.data = [
 											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
 										]
@@ -308,7 +310,7 @@
 											6800,7000,7500,8000,6800,7000,6239,8000,9000,12345
 										]
 										res.yAxis[1].min = 5800
-										chart.setOption(res)
+										return Promise.resolve(res)
 									})
 								}
 							}
@@ -325,7 +327,7 @@
 									var obj = {'近10年':10, '近5年':5, '近3年':3, '近1年':1}
 									var option = obj[_option]
 									var options_promise = getJSON('K002-1')
-									options_promise.then(function(res){
+									return options_promise.then(function(res){
 										console.dir(res)
 										res.legend.data = ["数理科学部", "化学课学部", "生命科学部", "地球科学部", "信息科学部", "医学科学部", "其他科学部"]
 										var data = res.series[0].data
@@ -365,7 +367,7 @@
 										res.series[1].label.normal.formatter = function(item){
 											return item.percent + '%'
 										}
-										chart.setOption(res)
+										return Promise.resolve(res)
 									})
 								}
 							},
@@ -383,7 +385,7 @@
 										]
 									}
 									var options_promise = getJSON('K002-2')
-									options_promise.then(function(res){
+									return options_promise.then(function(res){
 										res.xAxis.data = [
 											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
 										]
@@ -392,7 +394,7 @@
 											680, 700, 750, 800, 680, 700, 750, 800, 900, 1500
 										]
 										res.yAxis[1].max = 1600
-										chart.setOption(res)
+										return Promise.resolve(res)
 									})
 								}
 							}
@@ -407,7 +409,7 @@
 								options_placeholder: "选择类别",
 								getOptions: function(_option, chart){
 									var options_promise = getJSON('K003')
-									options_promise.then(function(res){
+									return options_promise.then(function(res){
 										var object = {
 											'总体': [
 												47, 48, 50, 50, 47, 48, 50, 50, 56, 60
@@ -426,7 +428,7 @@
 											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
 										]
 										res.series[0].data = object[_option]
-										chart.setOption(res)
+										return Promise.resolve(res)
 									})
 								}
 							}
@@ -449,7 +451,7 @@
 										]
 									}
 									var options_promise = getJSON('K004-1')
-									options_promise.then(function(res){
+									return options_promise.then(function(res){
 										console.dir(res)
 										res.yAxis.data = [
 											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
@@ -457,9 +459,7 @@
 										res.series[0].data.forEach(function(item, index){
 											item.value = object[option][index]
 										})
-										chart.setOption(res)
-									}).catch(function(e){
-										console.dir(e)
+										return Promise.resolve(res)
 									})
 								}
 							},
@@ -483,7 +483,7 @@
 										}
 									}
 									var options_promise = getJSON('K004-2')
-									options_promise.then(function(res){
+									return options_promise.then(function(res){
 										var data = object[option]
 										var keys = Object.keys(data)
 										res.legend.data = keys
@@ -502,9 +502,7 @@
 											}
 											return item
 										})
-										chart.setOption(res)
-									}).catch(function(e){
-										console.dir(e)
+										return Promise.resolve(res)
 									})
 								}
 							}
@@ -530,7 +528,7 @@
 							options_placeholder: "",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('R001-1')
-								options_promise.then(function(res){
+								return options_promise.then(function(res){
 									res.xAxis.data = [
 										"1997年","1999年","2001年","2003年","2005年","2007年","2009年","2011年","2013年","2015年"
 									]
@@ -542,7 +540,7 @@
 									res.series[1].data = [
 										2,1,1,0,2,1,1,0,1,1	
 									]
-									chart.setOption(res)
+									return Promise.resolve(res)
 								})
 							}
 						},
@@ -552,7 +550,7 @@
 							options_placeholder: "",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('R001-2')
-								options_promise.then(function(res){
+								return options_promise.then(function(res){
 									res.xAxis.data = [
 										"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
 									]
@@ -564,7 +562,7 @@
 									res.series[1].data = [
 										3,2,1,4,4,5,2,4,2,5	
 									]
-									chart.setOption(res)
+									return Promise.resolve(res)
 								})
 							}
 						},
@@ -574,7 +572,7 @@
 							options_placeholder: "",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('R001-2')
-								options_promise.then(function(res){
+								return options_promise.then(function(res){
 									res.xAxis.data = [
 										"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
 									]
@@ -586,7 +584,7 @@
 									res.series[1].data = [
 										5,4,3,5,7,10,8,11,13,12
 									]
-									chart.setOption(res)
+									return Promise.resolve(res)
 								})
 							}
 						}
@@ -611,7 +609,7 @@
 							options_placeholder: "选择单位",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('J001-1')
-								options_promise.then(function(res){
+								return options_promise.then(function(res){
 									res.xAxis.data = [
 										"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
 									]
@@ -627,7 +625,7 @@
 									res.series[3].data = option === "全部" ?
 										[25,15,13,12,25,15,13,12,11,11]:
 										[25,15,13,12,25,15,13,12,11,11].map(function(item){return item-5})
-									chart.setOption(res)
+									return Promise.resolve(res)
 								})
 							}
 						},
@@ -637,7 +635,7 @@
 							options_placeholder: "选择单位",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('J001-2')
-								options_promise.then(function(res){
+								return options_promise.then(function(res){
 									res.xAxis.data = [
 										"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
 									]
@@ -655,7 +653,7 @@
 									res.series[5].data = option === "全部" ?
 										[25,15,13,12,25,15,13,12,11,11]:
 										[25,15,13,12,25,15,13,12,11,11].map(function(item){return item-5})
-									chart.setOption(res)
+									return Promise.resolve(res)
 								})
 							}
 						}
@@ -670,7 +668,7 @@
 							options_placeholder: "",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('J002')
-								options_promise.then(function(res){
+								return options_promise.then(function(res){
 									res.xAxis.data = [
 										"2001年","2005年","2009年","2014年"
 									]
@@ -678,7 +676,7 @@
 									res.series[1].data = [ 6,4,6,5 ]
 									res.series[2].data = [ 2,5,2,3 ]
 									res.series[3].data = [ 15,13,12,11 ]
-									chart.setOption(res)
+									return Promise.resolve(res)
 								})
 							}
 						}
@@ -701,16 +699,16 @@
 							name: '学科数据分析',
 							options: [],
 							options_placeholder: "",
-							getOptions: function(option, chart){
+							getOptions: function(option, chart) {
 								var options_promise = getJSON('X001')
-								options_promise.then(function(res){
+								return options_promise.then(function(res){
 									res.xAxis.data = [
 										"TOP1", "TOP3", "TOP5", "TOP10", "TOP20", "TOP50"
 									]
 									res.series[0].data = [ 1,2,4,5,7,18 ] 
-									res.series[1].data = [ 2,3,5,6,10,22] 
-									res.series[2].data = [ 3,5,6,7,12,30]
-									chart.setOption(res)
+									res.series[1].data = [ 2,3,5,6,10,22 ] 
+									res.series[2].data = [ 3,5,6,7,12,30 ]
+									return Promise.resolve(res)
 								})
 							}
 						}
@@ -733,7 +731,7 @@
 							options: [],
 							options_placeholder: "",
 							getOptions: function(option, chart){
-									chart.setOption({})
+									return Promise.resolve({})
 							}
 						}
 					]
@@ -755,7 +753,7 @@
 							options: [],
 							options_placeholder: "",
 							getOptions: function(option, chart){
-									chart.setOption({})
+									return Promise.resolve({})
 							}
 						}
 					]
@@ -786,7 +784,8 @@
 					show: true,
 					select: true
 				},
-				display_options: []
+				display_options: [],
+				mounting: false
 			}
 		},
 		watch: {
@@ -812,6 +811,11 @@
 			}
 		},
 		methods: {
+			switchTab: function(index){
+				if (!this.mounting) {
+					this.tab_index = index
+				}
+			},
 			searchOption: function(){
 				var str = this.search_str
 				this.display_options.forEach(function(item){
@@ -847,7 +851,9 @@
 				hideModal($(this.$els.modal))
 			},
 			openSelectOptionModal: function(){
-				openModal($(this.$els.modal))
+				if (!this.mounting) {
+					openModal($(this.$els.modal))
+				}
 			}
 		},
 		ready: function(){
@@ -856,10 +862,15 @@
 			}, function(val, oldVal){
 				var tab = val[1]
 				var name = val[0]
-				console.log(`in ${this.title}, val: ${JSON.stringify(val)}, oldVal: ${JSON.stringify(oldVal)}`)
+				var self = this
+				//console.log(`in ${this.title}, val: ${JSON.stringify(val)}, oldVal: ${JSON.stringify(oldVal)}`)
 				if (tab !== -1) {
 					this.chart.clear()
-					this.tabs[tab].getOptions(name, this.chart)
+					this.mounting = true
+					this.tabs[tab].getOptions(name).then(function(res){
+						self.mounting = false
+						self.chart.setOption(res)
+					})
 				}
 			})
 			this.tab_index = 0
@@ -897,6 +908,22 @@
 			}
 		},
 		methods: {
+			convertToPDF: function(){
+				var $pageDom = $('.rightBox').clone()
+				var originEchart = $('.rightBox').find('[_echarts_instance_]')
+				var cloneEcharts = $pageDom.find('[_echarts_instance_]')
+				originEchart.each(function(index, dom){
+					var echart_instance = echarts.getInstanceByDom(dom)
+					var cloneEchart = cloneEcharts.eq(index)
+					cloneEchart.children().remove()
+					var img = new Image()
+					img.style = "width:100%;height:100%;background:#ccc;"
+					cloneEchart.append(img)
+				})
+				$pageDom.find('link, style, script, .mask, .unitsChoose, .custom-modal, .topBar, .convert-button').remove()
+				
+				console.dir($pageDom.html())
+			},
 			switchTab: function(index){
 				this.tab_index = index
 			},

@@ -78,6 +78,12 @@
         "25%",
         "40%"
       ],
+      "itemStyle": {
+        "normal": {
+            "shadowColor": "rgba(0, 0, 0, 0.3)",
+            "shadowBlur": 10
+        }
+      },
       "avoidLabelOverlap": false,
       "label": {
         "normal": {
