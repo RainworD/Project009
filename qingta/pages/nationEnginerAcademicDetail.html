@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/nationtTechnologyAcademic.html">中国科学院院士统计</a>
-		<a class="changeRight green changeButton" href="#/nationtTechnologyAcademicDetail.html">中国科学院院士明细</a>
+		<a class="changeLeft changeButton" href="#/nationEnginerAcademic.html">中国工程院院士统计</a>
+		<a class="changeRight green changeButton" href="#/nationEnginerAcademicDetail.html">中国工程院院士明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -9,7 +9,7 @@
 	<div class="topTableBox">
 		<table class="topTable">
 			<tr>
-				<th style="width:80px;">当选单位 :</th>
+				<th style="width:120px;">当选工作单位 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
 						<input class="commonput entity" type="text">
@@ -90,6 +90,16 @@
 						</ul>
 					</div>
 				</td>	
+				<th>当选年龄 :</th>
+				<td>
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
+						<input class="commonput years1" style="width:100%;ime-mode:disabled;" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%">
+						<input class="commonput years2" style="width:100%;ime-mode:disabled;" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+				</td>
 				<th>性别 :</th>
 				<td>
 					<div class="commonselect"  style="width:100%;">
@@ -99,18 +109,8 @@
 						</select>
 					</div>
 				</td>
-				<th>当选年龄 :</th>
-				<td>
-					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
-						<input class="commonput years1" style="width:100%;ime-mode:disabled;" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
-					</div>
-					<span style="text-align: center;width:8%;">至</span>
-					<div class="commonputBox" style="width:42.1%;margin-left:1%">
-						<input class="commonput years2" style="width:100%;" style="width:100%;ime-mode:disabled;" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
-					</div>
-				</td>	
 				<td colspan="2">
-					<a class="searchBtn rightMinBtn">查询</a> 
+					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
 				</td>
 			</tr>
@@ -121,7 +121,7 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">中国科学院院士明细数据</span>
+				<span class="topLeft">中国工程院院士明细数据</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -130,12 +130,12 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>当选年度</th>
-						<th>当选单位</th>
+						<th>当选工作单位</th>
 						<th>姓名</th>
-						<th  style="width:40px;">性别</th>
-						<th>当选年龄</th>
+						<th>性别</th>
 						<th>专业</th>
 						<th>学部</th>
+						<th>当选年龄</th>	
 					</tr>
 				</thead>
 				<tbody>
@@ -157,7 +157,7 @@
 </div>
 <script type="text/javascript">
 	topBarControl();
-	$.when(LandSAdepartment()).done(function(data){
+	$.when(LandEAdepartment()).done(function(data){
 		var state=data.state;
 		var result=data.result;
 		if(state==1){
@@ -221,8 +221,9 @@
 			'ageofElected1':ageofElected1,
 			'ageofElected2':ageofElected2
 		}
-		getDataBox(params,'/askSA');
+		getDataBox(params,'/askEA');
 	})
+	
 	doForSearch(".entity","/Landentity0");
-	doForSearch(".profession","/LandSAsubject");
+	doForSearch(".profession","/LandEAsubject");
 </script>

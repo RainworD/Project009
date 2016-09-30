@@ -1331,3 +1331,66 @@ function askBD(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpen
     });
     return ajax;
 }
+function STtransfer(unit,order,first_year,last_year){//教育部科技奖统计
+    var ajax = $.ajax({
+        url: "/STtransfer",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            'unit':unit,
+            'order':order,
+            'first_year':first_year,
+            'last_year':last_year,
+        }
+    });
+    return ajax;
+}
+function BlogPaperSta(unit,disciplines,first_year,last_year,subject){//优博统计
+    var ajax = $.ajax({
+        url: "/BlogPaper/statistic",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            'unit':unit,
+            'disciplines':disciplines,
+            'subject':subject,
+            'first_year':first_year,
+            'last_year':last_year,
+        }
+    });
+    return ajax;
+}
+ function BlogPaperDisplines(){//学科门类名称
+    var ajax = $.ajax({
+        url: "/BlogPaper/disciplines",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,tutor){//优博统计
+    var ajax = $.ajax({
+        url: "/BlogPaper/detail",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            'unit':unit,
+            'disciplines':disciplines,
+            'subject':subject,
+            'first_year':first_year,
+            'last_year':last_year,
+            'author':author,
+            'tutor':tutor
+        }
+    });
+    return ajax;
+}
+
