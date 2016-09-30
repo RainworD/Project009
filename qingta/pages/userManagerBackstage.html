@@ -118,7 +118,7 @@
 							<th>用户姓名 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput userName1">
+									<input class="commonput userName">
 								</div>
 							</td>
 						</tr>
@@ -291,7 +291,7 @@
 		if(val=="学校管理员"){
 			type=2;
 			if(id){
-				$.when(UpdateAccount(id,password,type,nickname,department,mail,phone,entity)).done(function(data){
+				$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone)).done(function(data){
 					console.log(data);
 					if(data.state==1){
 						alert("修改用户成功！");
@@ -320,7 +320,7 @@
 				type=1;
 			}
 			if(id){
-				$.when(UpdateAccount(id,password,type,nickname,department,mail,phone,entity)).done(function(data){
+				$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone)).done(function(data){
 					console.log(data);
 					if(data.state==1){
 						alert("修改用户成功！");
@@ -331,7 +331,7 @@
 				})
 			}
 			else{
-				$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
+				$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity)).done(function(data){
 					if(data.state==1){
 						alert("新增用户成功！");
 					}
@@ -343,7 +343,7 @@
 		}
 		$(".mask").hide();
 		$(".unitsChoose").hide();
-		// window.location.reload();
+		window.location.reload();
 	})
 	$(".forLogOut1").bind("click",function(){
 		var name=$(".accountName").val();

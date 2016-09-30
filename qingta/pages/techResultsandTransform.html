@@ -234,7 +234,7 @@
 			var result=data.data;
 			$(".infoTable1").children('tbody').empty();
 			// var count=data.count;
-			var count=projectUnits.length;
+			var count=result.length;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 			addCount.children('span').eq(0).text(count);
 			if(count<20){
