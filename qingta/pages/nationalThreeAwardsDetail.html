@@ -265,7 +265,6 @@
 					for (var j=0;j<personList.length;j++) {
 						personArray.push(personList[j].name);
 					}
-					console.log(personArray);
 					searchInfo.children('td').eq(7).html(madeTwoLineText(personArray));
 					searchInfo.children('td').eq(8).html(madeTwoLineText(result[i].unit));
 					var unitList=result[i].unitList;
@@ -287,7 +286,8 @@
 					coping:true,
 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
 					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
+				    callback:function(api){
+				    	var index=api.getCurrent();
 				        getPages(index-1);
 				    }
 				});

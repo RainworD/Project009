@@ -13,7 +13,7 @@
 				<th style="width:102px;">学校名称 :</th>
 				<td class="commonPlus" style="width:18.3%">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput projectUnits" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+						<input class="commonput projectUnits" type="text">
 						<ul class="showElse">
 							
 						</ul>
@@ -22,7 +22,7 @@
 				<th style="width:10.6%;">奖励名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
+						<select class="selBox awardName">
 							<option selected="selected"></option>
 						</select>
 					</div>
@@ -77,7 +77,7 @@
 				<th style="width:10.6%;">奖励类别 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
+						<select class="selBox awardType">
 							<option selected="selected"></option>
 						</select>
 					</div>
@@ -87,7 +87,7 @@
 				<th>获奖人 :</th>
 				<td class="commonPlus">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput projectManager">
+						<input class="commonput awarder">
 					</div>
 				</td>
 				<td colspan="2"></td>
@@ -177,21 +177,44 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
+	$.post('/ImportantRewards/category', function(data, textStatus, xhr) {
+		var state=data.state;
+		var result=data.data;
+		if(state==0){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".awardType").append(newopt);
+				}
+			}
+		}
+	});
+	$.post('/ImportantRewards/reward_name', function(data, textStatus, xhr) {
+		var state=data.state;
+		var result=data.data;
+		if(state==0){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".awardName").append(newopt);
+				}
+			}
+		}
+	});
 	$(".searchBtn").bind("click",function(){
-		var name=$(".nameput").val();
-		var type=$(".projectType").val();
-		var year1=$(".yearName1").val();
-		var year2=$(".yearName2").val();
-		var projectentity=$(".projectUnits").val();
-		var manager=$(".projectManager").val();
-		var totalmoney1=$(".projectFee1").val();
-		var totalmoney2=$(".projectFee2").val();
-		var centermoney1=$(".nationFee1").val();
-		var centermoney2=$(".nationFee2").val();
-		$.when(askNKRP(projectentity,type,name,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,manager)).done(function(data){
-			var result=data.result;
+		var first_year=$(".yearName1").val();
+		var last_year=$(".yearName2").val();
+		var unit=$(".projectUnits").val();
+		var category=$(".awardType").val();
+		var reward_name=$(".awardName").val();
+		var user=$(".awarder").val();
+		$.when(ImportantRewardsDetail(unit,category,first_year,last_year,reward_name,user)).done(function(data){
+			var result=data.data;
 			$(".infoTable1").children('tbody').empty();
-			var count=data.count;
+			// var count=data.count;
+			var count=result.length;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 			addCount.children('span').eq(0).text(count);
 			if(count<20){
@@ -208,31 +231,27 @@
 			else{
 				$(".tableContent .infoTablePara").append(addCount);
 			}
-			if(data.state==1){
+			if(data.state==0&&count!=0){
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
 						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length;j++) {
-						var mytd=$('<td></td>');
-						if(result[i][j]==null){
-							result[i][j]="";
-						}
-						var text = result[i][j];
-						if(j==0){
-
-							text = madeNowrapText(result[i][j]);
-						}
-						else if(j==1||j==5||j==2){
-							text = madeTwoLineText(result[i][j]);
-						}
-						else{}
-						mytd.html(text);
-						searchInfo.append(mytd);
-					}
-					searchInfo.children('td').css("height","57px");
-					$(".infoTable1").children('tbody').append(searchInfo);				
+					searchInfo.children('td').eq(1).text(result[i].unit);
+					searchInfo.children('td').eq(2).text(result[i].reward_name);
+					searchInfo.children('td').eq(3).text(result[i].category);
+					searchInfo.children('td').eq(4).text(result[i].year);
+					searchInfo.children('td').eq(5).text(result[i].level);
+					searchInfo.children('td').eq(6).text(result[i].user);
+					searchInfo.children('td').eq(7).text(result[i].note);
+					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 				getPages(0);
 				$('.M-box').pagination({
@@ -244,7 +263,8 @@
 					coping:true,
 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
 					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
+				    callback:function(api){
+				    	var index=api.getCurrent();
 				        getPages(index-1);
 				    }
 				});
@@ -255,87 +275,7 @@
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
 			}
-			
-		})
+		})		
 	})
-	$.when(LandNKRPstatype()).done(function(data){
-		var result=data.result;
-		if(data.state==1){
-			for (var i = 0;i<result.length;i++) {
-				var mytr=$('<tr>'+
-								'<td></td>'+
-								'<td></td>'+
-							'</tr>');
-				mytr.children('td').eq(0).text(i+1);
-				mytr.children('td').eq(1).text(result[i]);
-				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
-			}
-		}
-	})
-	function OnInput2 (event) {
-        var sub=$(".nameput").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn'); 
-    }
-    function OnPropChanged2 (event) {
-       	var sub=$(".nameput").val();
-    	getWholeList2(sub);
-    	$(".showElse2").addClass('showBtn');
-    }
-    $(".showElse2").delegate('li', 'click', function() {
-    	$(".showElse2").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".nameput").val(txt);
-    });
-    function OnInput (event) {
-        var sub=$(".projectUnits").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    function OnPropChanged (event) {
-       	var sub=$(".projectUnits").val();
-    	getWholeList(sub);
-    	$(".showElse").addClass('showBtn');     
-    }
-    $(".showElse").delegate('li', 'click', function() {
-    	$(".showElse").removeClass("showBtn");
-    	var txt=$(this).text();
-    	$(".projectUnits").val(txt);
-    });
-    function getWholeList(sub){
-		$.when(Landentity0(sub)).done(function(data){
-			$(".showElse").empty();
-			var state=data.state;
-			var result=data.result;
-			if (state==1) {
-				var len=result.length;
-				for (var i=0;i<len;i++) {
-					var mytd=$('<li></li>');
-					mytd.text(result[i]);
-					$(".showElse").append(mytd);
-				}	    			
-			}
-			else{
-				$(".showElse").removeClass('showBtn');
-			}
-		})
-	}
-	function getWholeList2(sub){
-		$.when(LandNKRPname(sub)).done(function(data){
-			$(".showElse2").empty();
-			var state=data.state;
-    		var result=data.result;
-    		if (state==1) {
-    			var len=result.length;
-    			for (var i=0;i<len;i++) {
-    				var mytd=$('<li></li>');
-    				mytd.text(result[i]);
-    				$(".showElse2").append(mytd);
-    			}	    			
-    		}
-    		else{
-    			$(".showElse2").removeClass('showBtn');
-    		}
-		})
-	}
+	doForSearch(".projectUnits","/Landentity0");
 </script>

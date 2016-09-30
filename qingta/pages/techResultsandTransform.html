@@ -287,7 +287,8 @@
 					coping:true,
 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
 					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
+				    callback:function(api){
+				    	var index=api.getCurrent();
 				        getPages(index-1);
 				    }
 				});

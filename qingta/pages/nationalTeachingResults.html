@@ -195,28 +195,24 @@
 </div>
 
 <script type="text/javascript">
+	var projectUnits=[];
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
-		if(finalResults){
-			judgeUnits(finalResults);
-			$(".unitsContent1").addClass("beforeShowBox");
-	    	$(".beforeShow").addClass("beforeHideBox");
-		}
-		else{
-			$(".unitsContent1").removeClass("beforeShowBox");
-	    	$(".beforeShow").removeClass("beforeHideBox");
-			$.when(getUnits()).done(function(data){
-				for (var i=0;i<zNodes.length;i++) {
-					zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-				}
-				$.fn.zTree.init($("#tree"), setting, zNodes);
-			})
-		}
 	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
-	dragBoxUnitsChoose(".unitsChoose1");
 	topBarControl();
 </script>
 <script type="text/javascript">
@@ -279,7 +275,8 @@
 					coping:true,
 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
 					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
+				    callback:function(api){
+				    	var index=api.getCurrent();
 				        getPages(index-1);
 				    }
 				});

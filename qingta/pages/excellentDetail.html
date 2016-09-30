@@ -12,7 +12,7 @@
 				<th style="width:80px;">学校名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput units" oninput="OnInput(event)" onpropertychange="OnPropChanged(event)" type="text">
+						<input class="commonput units" type="text">
 						<ul class="showElse">
 							
 						</ul>
@@ -86,8 +86,8 @@
 				<th style="width:10.6%;">论文题目 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput articleName" oninput="OnInput2 (event)" onpropertychange="OnPropChanged2 (event)" type="text">
-						<ul class="showElse2">
+						<input class="commonput articleName" type="text">
+						<ul class="showElse">
 							
 						</ul>
 					</div>
@@ -179,12 +179,12 @@
 		var unit=$(".units").val();
 		var disciplines=$(".subjectType").val();
 		var subject=$(".topSubject").val();
-		// var author=$(".")
-		$.when(BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,tutor)).done(function(data){
+		var title=$(".articleName").val();
+		var author=$(".professorName").val();
+		$.when(BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title)).done(function(data){
 			var result=data.data;
 			$(".infoTable1").children('tbody').empty();
-			// var count=data.count;
-			var count=projectUnits.length;
+			var count=data.count;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 			addCount.children('span').eq(0).text(count);
 			if(count<20){
@@ -202,7 +202,6 @@
 				$(".tableContent .infoTablePara").append(addCount);
 			}
 			if(data.state==0&&count!=0){
-				console.log("111");
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
 						'<td></td>'+
@@ -211,13 +210,17 @@
 						'<td></td>'+
 						'<td></td>'+
 						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
-					searchInfo.children('td').eq(1).text(result[i][0]);
-					searchInfo.children('td').eq(2).text(first_year+'-'+last_year);
-					searchInfo.children('td').eq(3).text(disciplines);
-					searchInfo.children('td').eq(4).text(subject);
-					searchInfo.children('td').eq(5).text(result[i][1]);
+					searchInfo.children('td').eq(1).text(result[i].unit);
+					searchInfo.children('td').eq(2).text(result[i].disciplines);
+					searchInfo.children('td').eq(3).text(result[i].subject);
+					searchInfo.children('td').eq(4).text(result[i].year);
+					searchInfo.children('td').eq(5).text(result[i].title);
+					searchInfo.children('td').eq(6).text(result[i].author);
+					searchInfo.children('td').eq(7).text(result[i].tutor);
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 				getPages(0);
@@ -230,7 +233,8 @@
 					coping:true,
 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
 					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-				    callback:function(index){
+				    callback:function(api){
+				    	var index=api.getCurrent();
 				        getPages(index-1);
 				    }
 				});
@@ -243,5 +247,6 @@
 			}
 		})		
 	})
-
+	doForSearch(".units","/Landentity0");
+	doForSearch(".articleName","/BlogPaper/title");
 </script>

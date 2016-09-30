@@ -55,7 +55,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<!-- <tr>
 						<td>1</td>
 						<td>浙江大学</td>
 						<td>zjupj</td>
@@ -78,7 +78,7 @@
 						<td>管理员</td>
 						<td>注销</td>
 						<td><a class="manageBtn commonFor">管理</a></td>
-					</tr>
+					</tr> -->
 				</tbody>
 		
 			</table>
@@ -190,14 +190,25 @@
 		$(".deleteUser").hide();
 	})
 	$(".infoTable1").delegate(".manageBtn","click",function(){
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		var td1=$(this).parent("tr").children('td').eq(0).text();
-		$(".userName").val(td1);
+		var schoolName=$(this).parents("tr").children('td').eq(1).text();
+		var accountName=$(this).parents("tr").children('td').eq(2).text();
+		var userName=$(this).parents("tr").children('td').eq(3).text();
+		var department=$(this).parents("tr").children('td').eq(4).text();
+		var email=$(this).parents("tr").children('td').eq(5).text();
+		var phoneNum=$(this).parents("tr").children('td').eq(6).text();
+		var type=$(this).parents("tr").children('td').eq(7).text();
+		var id=$(this).parents("tr").children('td').eq(0).attr("data-id");
+		$(".bottomBtn").attr("data-id",id);
+		// var td1=$(this).parent("tr").children('td').eq(7).text();
+		$(".schoolName").val(schoolName);
+		$(".userName").val(userName);
+		$(".accountName").val(accountName);
+		$(".accountName").attr("disabled","disabled");
+		$(".department").val(department);
+		$(".mailBox").val(email);
+		$(".phoneNum").val(phoneNum);
+		$(".userType").val(type);
+		$(".userType").attr("disabled","disabled");;
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
@@ -208,19 +219,68 @@
 		$(".mask").hide();
 		$(".unitsChoose").hide();
 	})
+	// $(".forSure").bind("click",function(){
+	// 	$(".mask").hide();
+	// 	$(".unitsChoose").hide();
+	// 	var name=$(".userName1").val();
+	// 	var password;
+	// 	var type;
+	// 	var nickname=$(".accountName").val();
+	// 	var mail=$(".mailBox").val();
+	// 	var phone=$(".phoneNum").val();
+	// 	var pw1=$(".oldpw").val();
+	// 	var pw2=$(".newpw").val();
+	// 	var entity=$(".schoolName").val();
+	// 	var department=$(".department").val();
+	// 	if(pw1!=pw2){
+	// 		alert("两次输入的密码不相同！")
+	// 	}
+	// 	else{
+	// 		password=pw2;
+	// 	}
+	// 	var val=$(".userType").val();
+	// 	if(val=="学校管理员"){
+	// 		type=2;
+	// 		$.when(CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone)).done(function(data){
+	// 			console.log(data);
+	// 			if(data.state==1){
+	// 				alert("新增学校管理员成功！");
+	// 			}
+	// 			else{
+	// 				alert(data.error);
+	// 			}
+	// 		})
+	// 	}
+	// 	else{
+	// 		if(val=="普通用户"){
+	// 			type=0;
+	// 		}
+	// 		else{
+	// 			type=1;
+	// 		}
+	// 		$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
+	// 			if(data.state==1){
+	// 				alert("新增用户成功！");
+	// 			}
+	// 			else{
+	// 				alert(data.error);
+	// 			}
+	// 		})
+	// 	}
+	// })
 	$(".forSure").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-		var name=$(".userName1").val();
+		var id=$(this).parents(".bottomBtn").attr("data-id");
+		console.log(id);
+		var name=$(".accountName").val();
 		var password;
 		var type;
-		var nickname=$(".accountName").val();
+		var nickname=$(".userName").val();
 		var mail=$(".mailBox").val();
 		var phone=$(".phoneNum").val();
 		var pw1=$(".oldpw").val();
 		var pw2=$(".newpw").val();
-		var entity=$(".schoolName").val();
 		var department=$(".department").val();
+		var entity=$(".schoolName").val();
 		if(pw1!=pw2){
 			alert("两次输入的密码不相同！")
 		}
@@ -230,15 +290,27 @@
 		var val=$(".userType").val();
 		if(val=="学校管理员"){
 			type=2;
-			$.when(CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone)).done(function(data){
-				console.log(data);
-				if(data.state==1){
-					alert("新增学校管理员成功！");
-				}
-				else{
-					alert(data.error);
-				}
-			})
+			if(id){
+				$.when(UpdateAccount(id,password,type,nickname,department,mail,phone,entity)).done(function(data){
+					console.log(data);
+					if(data.state==1){
+						alert("修改用户成功！");
+					}
+					else{
+						alert(data.error);
+					}
+				})
+			}
+			else{
+				$.when(CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone)).done(function(data){
+					if(data.state==1){
+						alert("新增学校管理员成功！");
+					}
+					else{
+						alert(data.error);
+					}
+				})
+			}
 		}
 		else{
 			if(val=="普通用户"){
@@ -247,15 +319,31 @@
 			else{
 				type=1;
 			}
-			$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
-				if(data.state==1){
-					alert("新增用户成功！");
-				}
-				else{
-					alert(data.error);
-				}
-			})
+			if(id){
+				$.when(UpdateAccount(id,password,type,nickname,department,mail,phone,entity)).done(function(data){
+					console.log(data);
+					if(data.state==1){
+						alert("修改用户成功！");
+					}
+					else{
+						alert(data.error);
+					}
+				})
+			}
+			else{
+				$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
+					if(data.state==1){
+						alert("新增用户成功！");
+					}
+					else{
+						alert(data.error);
+					}
+				})
+			}
 		}
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+		// window.location.reload();
 	})
 	$(".forLogOut1").bind("click",function(){
 		var name=$(".accountName").val();
@@ -276,23 +364,26 @@
 		})
 	})
 	$(".deleteUser").bind("click",function(){
-		var name=$(".accountName").val();
+		var id=$(this).parents(".bottomBtn").attr("data-id");
+		console.log(id);
 		$.ajax({
 			url:'/DeleteAccount',
 			type:'post',
 			data:{
-				"name":name,
+				"id":id
 			},
 			success:function(data){
 				if(data.state==1){
 					alert("删除用户成功");
 				}
 				else{
-					alert(data.error);
+					alert("网络异常！");
 				}
+				window.location.reload();
 			}
-
 		})
+		$(".mask").hide();
+		$(".unitsChoose").hide();
 	})
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
@@ -315,13 +406,18 @@
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
 					for (var j=0;j<result[i].length;j++) {
-							var mytd=$('<td></td>');
+						var mytd=$('<td></td>');
+						if(j==0){
+							searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
+						}
+						else{
 							if(result[i][j]==null){
 								result[i][j]="";
 							}
 							mytd.text(result[i][j]);
 							searchInfo.append(mytd);
 						}
+					}
 					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')
 					searchInfo.append(newtd);
 					$(".infoTable1").children('tbody').append(searchInfo);
@@ -332,8 +428,8 @@
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		var entity=$(".schoolNameEnter").val();
-		var name=$(".userNameEnter").val();
-		var nickname=$(".accountNameEnter").val();
+		var name=$(".accountNameEnter").val();
+		var nickname=$(".userNameEnter").val();
 		var pageindex;
 		var params={
 			'pageindex':1,
@@ -341,7 +437,7 @@
 			'name':name,
 			'nickname':nickname,
 		}
-		getDataBox(params,'/GiveAccountfromEntity');
+		getDataBox(params,'/GiveEntityAccount');
 	})
 	doForSearch(".schoolName","/Landentity0");
 </script>

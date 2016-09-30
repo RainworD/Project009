@@ -1200,12 +1200,30 @@ function askPatent(entitys,type,year1,year2,pageindex){//专利数据查询
     });
     return ajax;
 }
-function CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone){
+function CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity){//新增用户数据
     var ajax=$.ajax({
             url: "/CreateOrdinaryAccount",
             type: "POST",
             data:{
                 'name':name,
+                'password':password,
+                'type':type,
+                'nickname':nickname,
+                'department':department,
+                'mail':mail,
+                'phone':phone,
+                'entity':entity
+            }
+        });
+    return ajax;
+}
+function UpdateAccount(entity,id,password,type,nickname,department,mail,phone){
+    var ajax=$.ajax({
+            url: "/UpdateAccount",
+            type: "POST",
+            data:{
+                'id':id,
+                'entity':entity,
                 'password':password,
                 'type':type,
                 'nickname':nickname,
@@ -1374,7 +1392,7 @@ function BlogPaperSta(unit,disciplines,first_year,last_year,subject){//优博统
     });
     return ajax;
 }
-function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,tutor){//优博统计
+function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title){//优博明细
     var ajax = $.ajax({
         url: "/BlogPaper/detail",
         type: "POST",
@@ -1388,9 +1406,64 @@ function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,tu
             'first_year':first_year,
             'last_year':last_year,
             'author':author,
-            'tutor':tutor
+            'title':title
         }
     });
     return ajax;
 }
+function ImportantRewardsSta(unit,category,first_year,last_year){//重要奖励统计
+    var ajax = $.ajax({
+        url: "/ImportantRewards/statistic",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            'unit':unit,
+            'category':category,
+            'first_year':first_year,
+            'last_year':last_year,
+        }
+    });
+    return ajax;
+}
+function ImportantRewardsDetail(unit,category,first_year,last_year,reward_name,user){//重要奖励明细
+    var ajax = $.ajax({
+        url: "/ImportantRewards/detail",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            'unit':unit,
+            'category':category,
+            'first_year':first_year,
+            'last_year':last_year,
+            'reward_name':reward_name,
+            'user':user,
+        }
+    });
+    return ajax;
+}
+ function LandHSSAlevel(){//人文社科奖励类型
+    var ajax = $.ajax({
+        url: "/LandHSSAlevel",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+ function LandHSSAsubject(){//人文社科学科名称
+    var ajax = $.ajax({
+        url: "/LandHSSAsubject",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+
 

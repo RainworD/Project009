@@ -52,7 +52,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<!-- <tr>
 						<td>1</td>
 						<td>zjupj</td>
 						<td>张三</td>
@@ -73,7 +73,7 @@
 						<td>管理员</td>
 						<td>注销</td>
 						<td><a class="manageBtn commonFor">管理</a></td>
-					</tr>
+					</tr> -->
 				</tbody>				
 			</table>
 		</div>
@@ -176,19 +176,24 @@
 		$(".deleteUser").hide();
 	})
 	$(".infoTable1").delegate(".manageBtn","click",function(){
-		var accountName=$(this).parent("tr").children('td').eq(1).text();
-		var userName=$(this).parent("tr").children('td').eq(2).text();
-		var department=$(this).parent("tr").children('td').eq(3).text();
-		var email=$(this).parent("tr").children('td').eq(4).text();
-		var phoneNum=$(this).parent("tr").children('td').eq(5).text();
-		var type=$(this).parent("tr").children('td').eq(6).text();
+		var accountName=$(this).parents("tr").children('td').eq(1).text();
+		var userName=$(this).parents("tr").children('td').eq(2).text();
+		var department=$(this).parents("tr").children('td').eq(3).text();
+		var email=$(this).parents("tr").children('td').eq(4).text();
+		var phoneNum=$(this).parents("tr").children('td').eq(5).text();
+		var type=$(this).parents("tr").children('td').eq(6).text();
+		var id=$(this).parents("tr").children('td').eq(0).attr("data-id");
+		console.log(id);
+		$(".bottomBtn").attr("data-id",id);
 		// var td1=$(this).parent("tr").children('td').eq(7).text();
 		$(".userName").val(userName);
 		$(".accountName").val(accountName);
+		$(".accountName").attr("disabled","disabled");
 		$(".department").val(department);
 		$(".mailBox").val(email);
 		$(".phoneNum").val(phoneNum);
 		$(".userType").val(type);
+		$(".userType").attr("disabled","disabled");;
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
@@ -198,43 +203,6 @@
 	$(".cancelBtn").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose").hide();
-	})
-	$(".addForSure").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose").hide();
-		var name=$(".userName").val();
-		var password;
-		var type;
-		var nickname=$(".accountName").val();
-		var mail=$(".mailBox").val();
-		var phone=$(".phoneNum").val();
-		var pw1=$(".oldpw").val();
-		var pw2=$(".newpw").val();
-		console.log("pw1"+pw1);
-		console.log("pw2"+pw2);
-		var department=$(".department").val();
-		if(pw1!=pw2){
-			alert("两次输入的密码不相同！")
-		}
-		else{
-			password=pw2;
-		}
-		var val=$(".userType").val();
-		if(val=="普通用户"){
-			type=0;
-		}
-		else{
-			type=1;
-		}
-		$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
-			console.log(data);
-			if(data.state==1){
-				alert("新增用户成功！");
-			}
-			else{
-				alert(data.error);
-			}
-		})
 	})
 	$(".forLogOut1").bind("click",function(){
 		var name=$(".accountName").val();
@@ -255,23 +223,77 @@
 		})
 	})
 	$(".deleteUser").bind("click",function(){
-		var name=$(".accountName").val();
+		var id=$(this).parents(".bottomBtn").attr("data-id");
+		console.log(id);
 		$.ajax({
 			url:'/DeleteAccount',
 			type:'post',
 			data:{
-				"name":name,
+				"id":id
 			},
 			success:function(data){
 				if(data.state==1){
 					alert("删除用户成功");
 				}
 				else{
+					alert("网络异常！");
+				}
+				window.location.reload();
+			}
+		})
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+	})
+	$(".forSure").bind("click",function(){
+		var id=$(this).parents(".bottomBtn").attr("data-id");
+		console.log(id);
+		var name=$(".accountName").val();
+		var password;
+		var type;
+		var nickname=$(".userName").val();
+		var mail=$(".mailBox").val();
+		var phone=$(".phoneNum").val();
+		var pw1=$(".oldpw").val();
+		var pw2=$(".newpw").val();
+		var department=$(".department").val();
+		if(pw1!=pw2){
+			alert("两次输入的密码不相同！")
+		}
+		else{
+			password=pw2;
+		}
+		var val=$(".userType").val();
+		if(val=="普通用户"){
+			type=0;
+		}
+		else{
+			type=1;
+		}
+		if(id){
+			$.when(UpdateAccount(id,password,type,nickname,department,mail,phone,entity)).done(function(data){
+				console.log(data);
+				if(data.state==1){
+					alert("修改用户成功！");
+				}
+				else{
 					alert(data.error);
 				}
-			}
-
-		})
+			})
+		}
+		else{
+			$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
+				console.log(data);
+				if(data.state==1){
+					alert("新增用户成功！");
+				}
+				else{
+					alert(data.error);
+				}
+			})
+		}
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+		window.location.reload();
 	})
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
@@ -286,7 +308,6 @@
 			'</tr>');
 			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
 			searchInfo.children('td').eq(0).addClass('nowrap');
-			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
@@ -295,11 +316,16 @@
 					searchInfo.children('td').eq(0).text(i+1);
 					for (var j=0;j<result[i].length;j++) {
 							var mytd=$('<td></td>');
-							if(result[i][j]==null){
-								result[i][j]="";
+							if(j==0||j==1){
+								searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
 							}
-							mytd.text(result[i][j]);
-							searchInfo.append(mytd);
+							else{
+								if(result[i][j]==null){
+									result[i][j]="";
+								}
+								mytd.text(result[i][j]);
+								searchInfo.append(mytd);
+							}
 						}
 					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')
 					searchInfo.append(newtd);
@@ -311,8 +337,8 @@
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		var entity=localStorage.school;
-		var name=$(".userNameEnter").val();
-		var nickname=$(".accountNameEnter").val();
+		var name=$(".accountNameEnter").val();
+		var nickname=$(".userNameEnter").val();
 		var pageindex;
 		var params={
 			'pageindex':1,
@@ -320,7 +346,7 @@
 			'name':name,
 			'nickname':nickname,
 		}
-		getDataBox(params,'/GiveAccountfromEntity');
+		getDataBox(params,'/GiveEntityAccount');
 	})
 
 </script>

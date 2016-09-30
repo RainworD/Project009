@@ -146,7 +146,6 @@
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
-		console.log("selfResult:"+newindex);
 		var eq=newindex%50;
 		if(eq==0){
 			eq=50;
@@ -163,9 +162,6 @@
 							var mytd=$('<td></td>');
 							if(result[i][j]==null){
 								result[i][j]="";
-							}
-							else if(j==1){
-								result[i][j]=year1+'-'+year2;
 							}
 							mytd.text(result[i][j]);
 							searchInfo.append(mytd);
