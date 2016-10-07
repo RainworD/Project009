@@ -40,7 +40,6 @@
           {     
                "position": "left",
                "type": "value",
-               "interval": 50,
                "axisTick": {
                     "show": false    
                },

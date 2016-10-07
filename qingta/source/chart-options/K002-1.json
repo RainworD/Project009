@@ -4,9 +4,35 @@
         "y": "bottom",
         "data": null
     },
+    "title": [
+        {
+            "text": "数量",
+            "left": "23%",
+            "top": "center",
+            "textStyle": {
+                "color": "#999"
+            }
+        },
+        {
+            "text": "金额",
+            "left": "73%",
+            "top": "center",
+            "textStyle": {
+                "color": "#999"
+            }
+        }
+    ],
+    "color": [
+        "rgb(255,192,0)",
+        "rgb(86,217,233)",
+        "rgb(0,175,239)",
+        "rgb(77,224,169)",
+        "rgb(226,158,207)",
+        "rgb(75,145,208)",
+        "rgb(0, 197, 192)"
+    ],
     "series": [
         {
-            "name":null,
             "type":"pie",
             "radius": ["40%", "70%"],
             "center" : ["25%", "50%"],
@@ -15,7 +41,7 @@
             	"normal": {
                     "show": true,
                     "position": "inside",
-                    "formatter": null
+                    "formatter": "{d}%"
                 }
             },
             "labelLine": {
@@ -29,74 +55,9 @@
             	    "shadowBlur": 10
             	}
             },
-            "data": [
-            	{ 
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(255,192,0)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(86,217,233)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(0,175,239)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(77,224,169)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{ 
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(226,158,207)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(75,145,208)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},	
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(0, 197, 192)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	}
-            ]
+            "data": []
         },
         {
-            "name":null,
             "type":"pie",
             "radius": ["40%", "70%"],
             "center" : ["75%", "50%"],
@@ -105,7 +66,7 @@
             	"normal": {
                     "show": true,
                     "position": "inside",
-                    "formatter": null
+                    "formatter": "{d}%"
                 }
             },
             "labelLine": {
@@ -119,71 +80,7 @@
             	    "shadowBlur": 10
             	}
             },
-            "data": [
-            	{ 
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(255,192,0)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(86,217,233)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(0,175,239)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(77,224,169)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{ 
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(226,158,207)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(75,145,208)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	},	
-            	{
-            		"itemStyle": {
-            			"normal": {
-            				"color": "rgb(0, 197, 192)"
-            			}
-            		},
-            		"name": null,
-            		"value": null
-            	}
-            ]
+            "data": []
         }
     ]
 }

@@ -40,13 +40,13 @@
           {     
                "position": "left",
                "type": "value",
-               "interval": 10,
                "axisTick": {
                     "show": false    
                },
                "axisLine": {
                     "show": false
                },
+               "minInterval": 1,
                "axisLabel": {
                     "textStyle": {
                          "color": "#999"
@@ -70,7 +70,6 @@
                          "color": "#ccc"
                     }
                },
-               "interval": 200,
                "axisLabel": {
                     "textStyle": {
                          "color": "#999"

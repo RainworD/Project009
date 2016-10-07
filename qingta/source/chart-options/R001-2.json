@@ -42,7 +42,6 @@
   "yAxis": {
     "position": "left",
     "type": "value",
-    "interval": 1, 
     "axisTick": {
       "show": false
     },

@@ -11,18 +11,14 @@
   "grid": [
     {
       "x": "0%",
-      "y": "0%",
-      "y2": "10%",
+      "y": "10%",
       "width": "50%",
       "height": "90%",
       "containLabel": true
     },
     {
       "x2": "10%",
-      "y": "0%",
-      "y2": "10%",
       "width": "40%",
-      "height": "90%",
       "containLabel": true
     }
   ],
@@ -76,7 +72,7 @@
       "type": "pie",
       "center": [
         "25%",
-        "40%"
+        "50%"
       ],
       "itemStyle": {
         "normal": {

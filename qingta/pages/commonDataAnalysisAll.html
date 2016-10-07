@@ -264,337 +264,516 @@
 
 	var cache = {}
 
-	//var curYear = (new Date()).getFullYear()
+	var curYear = (new Date()).getFullYear()
 
-	function getMarkData(university, tabIndex, result){
-		if (cache[university.id] === undefined) {
-			cache[university.id] = {}
+	var toInt = Number.parseInt
+
+	function makeTenItems(){
+		return [undefined,undefined,undefined,
+			undefined,undefined,undefined,
+			undefined,undefined,undefined,
+			undefined]
+	}
+	function makeYears(){
+		var ret = []
+		for (var _year = curYear - 9; _year < curYear + 1; _year++) {
+			ret.push(_year)
 		}
-		var university_data = cache[university.id]
-		if (university_data[tabIndex] === undefined) {
-			switch (Number.parseInt(tabIndex)) {
-				case 1: loadK(university, tabIndex, result);break; // 科研数据分析
-				case 2: loadR(university, tabIndex, result);break; // 人才数据分析
-				case 3: loadX(university, tabIndex, result);break; // 学科数据分析
-				case 4: loadJ(university, tabIndex, result);break; // 奖励数据分析
-				case 5: loadM(university, tabIndex, result);break; // 经费数据分析
-				case 6: loadZ(university, tabIndex, result);break; // 专利与成果数据分析
-				default: alert('不支持的指标分析');
-			}
-		} else {
-			university_data[tabIndex].forEach(function(item){
-				result.push(item)
-			})
+		return ret
+	}
+	function makeOddYears(){
+		var ret = []
+		for (var _year = curYear - 19; _year < curYear + 1; _year+=2) {
+			ret.push(_year)
+		}
+		return ret
+	}
+
+	function yearToIndex(yearStr){
+		var _year = toInt(yearStr)
+		return 9 - curYear + _year
+	}
+
+	function yearOddToIndex(yearStr){
+		var _year = toInt(yearStr)
+		return (19 - curYear + _year) / 2 | 0	
+	}
+	function getMarkData(university, tabIndex, result){
+		switch (Number.parseInt(tabIndex)) {
+			case 1: loadK(university, tabIndex, result);break; // 科研数据分析
+			case 2: loadR(university, tabIndex, result);break; // 人才数据分析
+			case 3: loadX(university, tabIndex, result);break; // 学科数据分析
+			case 4: loadJ(university, tabIndex, result);break; // 奖励数据分析
+			case 5: loadM(university, tabIndex, result);break; // 经费数据分析
+			case 6: loadZ(university, tabIndex, result);break; // 专利与成果数据分析
+			default: alert('不支持的指标分析');
 		}
 	}
 
 	function loadK(university, tabIndex, result){
-		Promise.resolve([
-					{
-						title: '国家自然科学基金总体立项数据分析',
-						tabs: [
-							{
-								name: '总体分析',
-								options: [],
-								options_placeholder: "",
-								getOptions: function(option, chart){
-									var options_promise = getJSON('K001')
-									return options_promise.then(function(res){
-										res.xAxis.data = [
-											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
-										]
-										res.series[0].data = [
-											230,250,223,290,245,330,350,324,390,410
-										]
-										res.series[1].data = [
-											6800,7000,7500,8000,6800,7000,6239,8000,9000,12345
-										]
-										res.yAxis[1].min = 5800
-										return Promise.resolve(res)
-									})
-								}
-							}
-						]
-					},
-					{
-						title: '国家自然科学基金分学部数据分析',
-						tabs: [
-							{
-								name: '分年份总体分析',
-								options: ['近10年', '近5年', '近3年', '近1年'],
-								options_placeholder: "最近年份选择",
-								getOptions: function(_option, chart){
-									var obj = {'近10年':10, '近5年':5, '近3年':3, '近1年':1}
-									var option = obj[_option]
-									var options_promise = getJSON('K002-1')
-									return options_promise.then(function(res){
-										console.dir(res)
-										res.legend.data = ["数理科学部", "化学课学部", "生命科学部", "地球科学部", "信息科学部", "医学科学部", "其他科学部"]
-										var data = res.series[0].data
-										data[0].value = 31 + option * 2
-										data[0].name = '生命科学部'
-										data[1].value = 28 + option * 2
-										data[1].name = '地球科学部'
-										data[2].value = 17 + option * 2
-										data[2].name = '信息科学部'
-										data[3].value = 7 + option * 2
-										data[3].name = '数理科学部'
-										data[4].value = 7 + option * 2
-										data[4].name = '医学科学部'
-										data[5].value = 7 + option * 2
-										data[5].name = '其他科学部'
-										data[6].value = 3 + option * 2
-										data[6].name = '化学课学部'
-										res.series[0].label.normal.formatter = function(item){
-											return item.percent + '%'
-										}
+		Promise.all([
+			Promise.resolve($.ajax({
+				url: '/k001',
+				data: {
+					entity: university.id,
+					error: function(){}
+				}
+			})).then(function(res){
+				console.dir(res)
+				var result = res.result || []
 
-										var data = res.series[1].data
-										data[0].value = 31 + option * 3
-										data[0].name = '生命科学部'
-										data[1].value = 28 + option * 3
-										data[1].name = '地球科学部'
-										data[2].value = 17 + option * 3
-										data[2].name = '信息科学部'
-										data[3].value = 7 + option * 3
-										data[3].name = '数理科学部'
-										data[4].value = 7 + option * 3
-										data[4].name = '医学科学部'
-										data[5].value = 7 + option * 3
-										data[5].name = '其他科学部'
-										data[6].value = 3 + option * 3
-										data[6].name = '化学课学部'
-										res.series[1].label.normal.formatter = function(item){
-											return item.percent + '%'
-										}
-										return Promise.resolve(res)
-									})
-								}
-							},
-							{
-								name: '分学部分析',
-								options: ['a', 'b'],
-								options_placeholder: "学部选择",
-								getOptions: function(_option, chart){
-									var object = {
-										'a': [
-											47, 48, 50, 50, 47, 48, 50, 50, 56, 60
-										],
-										'b': [
-											37, 48, 30, 40, 27, 58, 50, 40, 56, 34
-										]
-									}
-									var options_promise = getJSON('K002-2')
-									return options_promise.then(function(res){
-										res.xAxis.data = [
-											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
-										]
-										res.series[0].data = object[_option]
-										res.series[1].data = [
-											680, 700, 750, 800, 680, 700, 750, 800, 900, 1500
-										]
-										res.yAxis[1].max = 1600
-										return Promise.resolve(res)
-									})
-								}
-							}
-						]
-					},
-					{
-						title: '国家社科基金总体立项数据分析',
-						tabs: [
-							{
-								name: '',
-								options: ['总体', '类别1', '类别2', '类别3'],
-								options_placeholder: "选择类别",
-								getOptions: function(_option, chart){
-									var options_promise = getJSON('K003')
-									return options_promise.then(function(res){
-										var object = {
-											'总体': [
-												47, 48, 50, 50, 47, 48, 50, 50, 56, 60
-											],
-											'类别1': [
-												47/2|0, 48/2|0, 50/2|0, 50/2|0, 47/2|0, 48/2|0, 50/2|0, 50/2|0, 56/2|0, 60/2|0
-											], 
-											'类别2': [
-												47/3|0, 48/3|0, 50/3|0, 50/3|0, 47/3|0, 48/3|0, 50/3|0, 50/3|0, 56/3|0, 60/3|0
-											], 
-											'类别3': [
-												47/6|0, 48/6|0, 50/6|0, 50/6|0, 47/6|0, 48/6|0, 50/6|0, 50/6|0, 56/6|0, 60/6|0
-											]
-										}
-										res.xAxis.data = [
-											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
-										]
-										res.series[0].data = object[_option]
-										return Promise.resolve(res)
-									})
-								}
-							}
-						]
-					},
-					{
-						title: '国家社科基金学科数据分析',
-						tabs: [
-							{
-								name: '分学科立项数分析',
-								options: ['学科1', '学科2'],
-								options_placeholder: "选择学科",
-								getOptions: function(option, chart){
-									var object = {
-										'学科1': [
-											12,13,17,15,25,21,17,28,31,25
-										], 
-										'学科2': [
-											10,32,17,22,9,20,14,28,22,21	
-										]
-									}
-									var options_promise = getJSON('K004-1')
-									return options_promise.then(function(res){
-										console.dir(res)
-										res.yAxis.data = [
-											"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
-										]
-										res.series[0].data.forEach(function(item, index){
-											item.value = object[option][index]
-										})
-										return Promise.resolve(res)
-									})
-								}
-							},
-							{
-								name: '分学科占比分析',
-								options: ['近10年', '近5年', '近3年', '近1年'],
-								options_placeholder: "选择学科",
-								getOptions: function(option, chart){
-									var object = {
-										'近10年': {
-											"社会学":12, "政治学": 9, "哲学": 1, "体育学": 5,"宗教学": 4, "马列社科": 4, "应用经济学": 2, "其他学科": 23
-										},
-										'近5年': {
-											"社会学":8, "政治学": 4, "哲学": 2, "体育学": 2,"宗教学": 4, "马列社科": 3, "应用经济学": 5, "其他学科": 12
-										},
-										'近3年': {
-											"社会学":9, "政治学": 4, "哲学": 7, "体育学": 7,"宗教学": 4, "马列社科": 7, "应用经济学": 4, "其他学科": 17
-										},
-										'近1年': {
-											"社会学":10, "政治学": 2, "哲学": 8, "体育学": 12,"宗教学": 4, "马列社科": 3, "应用经济学": 3, "其他学科": 11
-										}
-									}
-									var options_promise = getJSON('K004-2')
-									return options_promise.then(function(res){
-										var data = object[option]
-										var keys = Object.keys(data)
-										res.legend.data = keys
-										res.yAxis[0].data = keys
-										res.series[0].data = keys.map(function(key){
-											return {
-												name: key,
-												value: data[key]
-											}
-										})
-										res.series[1].data = res.series[0].data.map(function(item, index){
-											item.itemStyle = {
-												normal: {
-												    color: res.color[index]
-												}
-											}
-											return item
-										})
-										return Promise.resolve(res)
-									})
-								}
-							}
-						]
+				var curYear = Number.parseInt(res.year) || curYear
+
+				var years = makeYears()
+				var quantities = makeTenItems()
+				var moneyArr = makeTenItems()
+				var minMoney = Infinity
+				result.forEach(function(item){
+					var year = toInt(item[0])
+					var quantity = toInt(item[1])
+					var money = toInt(item[2])
+					var index = 9 - (curYear - year)
+					quantities[index] = quantity
+					moneyArr[index] = money
+					if (minMoney > money) {
+						minMoney = money
 					}
-				]).then(function(formattedData){
-					console.dir(formattedData)
-					formattedData.forEach(function(item){
-						result.push(item)
-					})
-					cache[university.id][tabIndex] = formattedData
 				})
+
+				var minMoney = Number.isFinite(minMoney) ? minMoney : 0
+				//minMoney = (Number.parseInt(minMoney / 100) - 4) * 100
+				return Promise.resolve({
+					title: '国家自然科学基金总体立项数据分析',
+					tabs: [
+						{
+							name: '总体分析',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart){
+								var options_promise = getJSON('K001')
+								return options_promise.then(function(res){
+									res.xAxis.data = years
+									res.series[0].data = quantities
+									res.series[1].data = moneyArr
+									res.yAxis[1].min = minMoney
+									return Promise.resolve(res)
+								})
+							}
+						}
+					]
+				})
+			}),
+			Promise.all([
+				Promise.resolve({
+					name: '分年份总体分析',
+					options: ['近10年', '近5年', '近3年', '近1年'],
+					options_placeholder: "最近年份选择",
+					getOptions: function(_option, chart){
+						var obj = {'近10年':10, '近5年':5, '近3年':3, '近1年':1} 
+						return Promise.all([
+							getJSON('K002-1'),
+							Promise.resolve($.ajax({
+								url: "/k002-1",
+								data: {
+									"entity": university.id,
+									"numofyear": obj[_option]
+								}
+							}))
+						]).then(function(resArr){
+							var chartOption = resArr[0]
+							var res = resArr[1]
+
+							var _result = res.result || []
+							var result = _result.map(function(item){
+								return {
+									department:item[0],
+									quantity:toInt(item[1]),
+									money:toInt(item[2])
+								}
+							})
+							result.sort(function(depA, depB){
+								return depB.quantity - depA.quantity
+							})
+							var other = result.slice(3).reduce(function(prev, cur){
+								prev.quantity += cur.quantity
+								prev.money += cur.money
+								return prev
+							}, {
+								department: "其他学部",
+								quantity: 0,
+								money: 0
+							})
+							var ret = result.slice(0, 6).concat(other)
+
+							var colors = chartOption.color
+
+							chartOption.legend.data = ret.map(function(item){
+								return item.department
+							})
+							chartOption.series[0].data = ret.map(function(item, index){
+								return {
+									name: item.department,
+									value: item.quantity,
+									itemStyle: {
+										normal: {
+											color: colors[index]
+										}
+									}
+								}
+							})
+							chartOption.series[1].data = ret.map(function(item, index){
+								return {
+									name: item.department,
+									value: item.money,
+									itemStyle: {
+										normal: {
+											color: colors[index]
+										}
+									}
+								}
+							})
+
+							return Promise.resolve(chartOption)
+						})
+					}
+				}), /* K002-1 */
+				Promise.resolve({
+					name: '分学部分析',
+					options: ["数理科学部", "化学科学部","生命科学部","地球科学部","工程与材料科学部","信息科学部","管理科学部","医学科学部","计划局","联合基金领域","办公室","国际合作局"
+					],
+					options_placeholder: "学部选择",
+					getOptions: function(_option, chart){
+						return Promise.all([
+								getJSON('K002-2'),
+								Promise.resolve($.ajax({
+									url: "/k002-2",
+									data: {
+										entity: university.id,
+										department: _option
+									}
+								}))
+							]).then(function(resArr){
+								var chartOption = resArr[0]
+								var res = resArr[1].result || []
+
+								var quantities = makeTenItems()
+								var moneyArr = makeTenItems()
+								res.forEach(function(item){
+									var index = yearToIndex(item[0])
+									var quantity = toInt(item[1])
+									var money = toInt(item[2])
+									quantities[index] = quantity
+									moneyArr[index] = money
+								})
+								chartOption.xAxis.data = makeYears()
+								chartOption.series[0].data = quantities
+								chartOption.series[1].data = moneyArr
+								return Promise.resolve(chartOption)
+							})
+					}
+				}) /* K002-2 */
+			]).then(function(tabs){
+				return Promise.resolve({
+					title: '国家自然科学基金分学部数据分析',
+					tabs: tabs
+				})
+			}),
+			Promise.resolve($.ajax({
+				url: "/LandNSSFtype"
+			})).then(function(_options){
+				var options = _options.result || []
+				options.unshift('总体')
+				return Promise.resolve({
+					title: '国家社科基金总体立项数据分析',
+					tabs: [
+						{
+							name: '',
+							options: options,
+							options_placeholder: "选择类别",
+							getOptions: function(_option, chart){
+								return Promise.all([
+									getJSON('K003'),
+									Promise.resolve($.ajax({
+										url: "/k003",
+										data: _option == '总体' ? {
+											entity: university.id
+										} : {
+											entity: university.id,
+											type: _option
+										}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].result || []
+
+									chartOption.xAxis.data = makeYears()
+									var quantities = makeTenItems()
+									res.forEach(function(item) {
+										var index = yearToIndex(item[0])
+										quantities[index] = toInt(item[1])
+									})
+									chartOption.series[0].data = quantities
+									return Promise.resolve(chartOption)
+								})
+							}
+						}
+					]
+				})
+			}),
+			Promise.all([
+				Promise.resolve($.ajax({
+					url: '/LandNSSFsubject'
+				})).then(function(subjects){
+					var options = subjects.result || []
+					options.unshift('全部')
+					return Promise.resolve({
+						name: '分学科立项数分析',
+						options: options,
+						options_placeholder: "选择学科",
+						getOptions: function(option, chart){
+							return Promise.all([
+								getJSON('K004-1'),
+								Promise.resolve($.ajax({
+									url: '/k004-1',
+									data: option == '全部' ? {
+										entity: university.id
+									} : {
+										entity: university.id,
+										subject: option
+									}
+								}))
+							]).then(function(resArr){
+								var chartOption = resArr[0]
+								var res = resArr[1].result || []
+
+								chartOption.yAxis.data = makeYears()
+
+								var quantities = makeTenItems()
+								res.forEach(function(item){
+									var index = yearToIndex(item[0])
+									quantities[index] = toInt(item[1])
+								})
+								chartOption.series[0].data.forEach(function(item, index){
+									item.value = quantities[index]
+								})
+								return Promise.resolve(chartOption)
+							})
+						}
+					})
+				}),
+				Promise.resolve({
+					name: '分学科占比分析',
+					options: ['近10年', '近5年', '近3年', '近1年'],
+					options_placeholder: "选择学科",
+					getOptions: function(option, chart){
+						var object = { '近10年': 10,'近5年': 5,'近3年': 3,'近1年': 1 }
+						return Promise.all([
+							getJSON('K004-2'),
+							Promise.resolve($.ajax({
+								url: "/K004-2",
+								data: {
+									entity: university.id,
+									numofyear: object[option]
+								}
+							}))
+						]).then(function(resArr){
+							var chartOption = resArr[0]
+							var _res = resArr[1].result || []
+
+							var otherIndex = -1
+							var res = _res.map(function(item, index){
+								var subject = item[0]
+								if (subject === null) {
+									otherIndex = index
+									subject = "其他学科"
+								}
+								return {
+									name: subject,
+									value: toInt(item[1])
+								}
+							})
+							var otherSubject = null
+							if (otherIndex !== -1) {
+								otherSubject = res.splice(otherIndex, 1)[0]
+							} else {
+								otherSubject = {
+									name: "其他学科",
+									value: 0
+								}
+							}
+
+							res.sort(function(itemA, itemB) {
+								return itemB.value - itemA.value
+							})
+
+							var otherSubject = res.slice(7).reduce(function(prev, item){
+								prev.value += item.value
+								return prev
+							}, otherSubject)
+							
+							var ret = res.slice(0, 7).concat(otherSubject)
+
+							chartOption.legend.data = ret.map(function(item){
+								return item.subject
+							})
+
+							chartOption.yAxis[0].data = chartOption.legend.data 
+							chartOption.series[0].data = ret
+							//console.dir(ret)
+							chartOption.series[1].data = chartOption.series[0].data.map(function(item, index){
+								item.itemStyle = {
+									normal: {
+									    color: chartOption.color[index]
+									}
+								}
+								return item
+							})
+
+							return Promise.resolve(chartOption)
+						})
+					}
+				})
+			]).then(function(tabs){
+				return Promise.resolve({
+					title: '国家社科基金学科数据分析',
+					tabs: tabs
+				})
+			})
+		])
+		.then(function(formattedData){
+			formattedData.forEach(function(item){
+				result.push(item)
+			})
+		})
 	}
 
 	function loadR(university, tabIndex, result) {
-		Promise.resolve([
-				{
-					title: '人才数据分析',
-					tabs: [
-						{
+		Promise.all([
+				Promise.all([
+					Promise.resolve($.ajax({
+						url: '/R001-1',
+						data: {
+							entity: university.id
+						}
+					})).then(function(res){
+						var engineeringAcademy = res.EngineeringAcademy || []
+						var sciencesAcademy = res.SciencesAcademy || []
+						var years = makeOddYears()
+						var eA = makeTenItems()
+						var sA = makeTenItems()
+
+						engineeringAcademy.forEach(function(item){
+							var index = yearOddToIndex(item[0])
+							var persons = toInt(item[1])
+							eA[index] = persons
+						})
+						sciencesAcademy.forEach(function(item){
+							var index = yearOddToIndex(item[0])
+							var persons = toInt(item[1])
+							sA[index] = persons
+						})
+
+						return Promise.resolve({
 							name: '两院院士数据分析',
 							options: [],
 							options_placeholder: "",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('R001-1')
 								return options_promise.then(function(res){
-									res.xAxis.data = [
-										"1997年","1999年","2001年","2003年","2005年","2007年","2009年","2011年","2013年","2015年"
-									]
-									res.yAxis.interval = 1
-									res.yAxis.max = 2
-									res.series[0].data = [
-										1,0,1,1,1,0,1,1,0,1
-									]
-									res.series[1].data = [
-										2,1,1,0,2,1,1,0,1,1	
-									]
+									res.xAxis.data = years
+									res.series[0].data = sA
+									res.series[1].data = eA
 									return Promise.resolve(res)
 								})
 							}
-						},
-						{
+						})
+					}),
+					Promise.resolve($.ajax({
+						url: '/R001-2',
+						data: {
+							entity: university.id
+						}
+					})).then(function(res){
+						var outstandingYouth = res.OutstandingYouth || []
+						var changJiangScholar = res.ChangJiangScholar || []
+						var years = makeYears()
+						var oY = makeTenItems()
+						var cS = makeTenItems()
+
+						outstandingYouth.forEach(function(item){
+							var index = yearToIndex(item[0])
+							var persons = toInt(item[1])
+							oY[index] = persons
+						})
+						changJiangScholar.forEach(function(item){
+							var index = yearToIndex(item[0])
+							var persons = toInt(item[1])
+							cS[index] = persons
+						})
+
+						return Promise.resolve({
 							name: '杰青&长江数据分析',
 							options: [],
 							options_placeholder: "",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('R001-2')
 								return options_promise.then(function(res){
-									res.xAxis.data = [
-										"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
-									]
-									res.yAxis.interval = 1
-									res.yAxis.max = 7
-									res.series[0].data = [
-										2,1,2,5,3,2,3,2,4,6
-									]
-									res.series[1].data = [
-										3,2,1,4,4,5,2,4,2,5	
-									]
+									res.xAxis.data = years
+									res.series[0].data = oY
+									res.series[1].data = cS
 									return Promise.resolve(res)
 								})
 							}
-						},
-						{
+						})
+					}),
+					Promise.resolve($.ajax({
+						url: '/R001-3',
+						data: {
+							entity: university.id
+						}
+					})).then(function(res){
+						var excellentYouths = res.ExcellentYouths || []
+						var thousandsYouths = res.ThousandsYouths || []
+						var years = makeYears()
+						var eY = makeTenItems()
+						var tY = makeTenItems()
+
+						excellentYouths.forEach(function(item){
+							var index = yearToIndex(item[0])
+							var persons = toInt(item[1])
+							eY[index] = persons
+						})
+						thousandsYouths.forEach(function(item){
+							var index = yearToIndex(item[0])
+							var persons = toInt(item[1])
+							tY[index] = persons
+						})
+
+						return Promise.resolve({
 							name: '优青&青千数据分析',
 							options: [],
 							options_placeholder: "",
 							getOptions: function(option, chart){
 								var options_promise = getJSON('R001-2')
 								return options_promise.then(function(res){
-									res.xAxis.data = [
-										"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
-									]
-									res.yAxis.interval = 3
-									res.yAxis.max = 15
-									res.series[0].data = [
-										undefined,undefined,undefined,undefined,undefined,5,6, 8, 4, 6
-									]
-									res.series[1].data = [
-										5,4,3,5,7,10,8,11,13,12
-									]
+									res.xAxis.data = years
+									res.series[0].data = eY
+									res.series[1].data = tY
 									return Promise.resolve(res)
 								})
 							}
-						}
-					]
-				}
+						})
+					})
+				]).then(function(tabs){
+					return Promise.resolve({
+						title: '人才数据分析',
+						tabs: tabs
+					})
+				})
 			]).then(function(formattedData){
 				formattedData.forEach(function(item){
 					result.push(item)
 				})
-				cache[university.id][tabIndex] = formattedData
 			})
 	}
 
@@ -686,45 +865,55 @@
 				formattedData.forEach(function(item){
 					result.push(item)
 				})
-				cache[university.id][tabIndex] = formattedData
 			})
 	}
 
 	function loadX(university, tabIndex, result) {
-		Promise.resolve([
-				{
-					title: '学科数据分析',
-					tabs: [
-						{
-							name: '学科数据分析',
-							options: [],
-							options_placeholder: "",
-							getOptions: function(option, chart) {
-								var options_promise = getJSON('X001')
-								return options_promise.then(function(res){
-									res.xAxis.data = [
-										"TOP1", "TOP3", "TOP5", "TOP10", "TOP20", "TOP50"
-									]
-									res.series[0].data = [ 1,2,4,5,7,18 ] 
-									res.series[1].data = [ 2,3,5,6,10,22 ] 
-									res.series[2].data = [ 3,5,6,7,12,30 ]
-									return Promise.resolve(res)
-								})
+		Promise.all([
+				Promise.resolve($.ajax({
+					url: "/X001",
+					data: {
+						entity: university.id
+					}
+				})).then(function(res){
+					var result = res.result || [[], [], []]
+					var turn_one = result[0]
+					var turn_two = result[1]
+					var turn_three = result[2]
+
+					return {
+						title: '学科数据分析',
+						tabs: [
+							{
+								name: '学科数据分析',
+								options: [],
+								options_placeholder: "",
+								getOptions: function(option, chart) {
+									var options_promise = getJSON('X001')
+									return options_promise.then(function(res){
+										res.xAxis.data = [
+											"TOP1", "TOP3", "TOP5", "TOP10", "TOP20", "TOP50"
+										]
+										res.series[0].data = turn_one 
+										res.series[1].data = turn_two
+										res.series[2].data = turn_three
+										return Promise.resolve(res)
+									})
+								}
 							}
-						}
-					]
-				}
+						]
+					}
+				})
 			]).then(function(formattedData){
 				formattedData.forEach(function(item){
 					result.push(item)
 				})
-				cache[university.id][tabIndex] = formattedData
 			})
 	}
 	function loadM(university, tabIndex, result) {
 		Promise.resolve([
 				{
-					title: '空数据',
+					title: '年度科技经费总体拨入与支出数据分析',
 					tabs: [
 						{
 							name: '',
@@ -740,7 +929,6 @@
 				formattedData.forEach(function(item){
 					result.push(item)
 				})
-				cache[university.id][tabIndex] = formattedData
 			})
 	}
 	function loadZ(university, tabIndex, result) {
@@ -762,7 +950,6 @@
 				formattedData.forEach(function(item){
 					result.push(item)
 				})
-				cache[university.id][tabIndex] = formattedData
 			})
 	}
 
@@ -891,22 +1078,6 @@
 				tab_index: 0
 			}
 		},
-		watch: {
-			'university.id': function(id){
-				if (id === '') {
-					return
-				}
-			},
-			'tab_index': function(val){
-				if (val === "" || val === 0) {
-					return 
-				}
-				var university = JSON.parse(JSON.stringify(this.university))
-
-				this.mark_data = []
-				getMarkData(university, val, this.mark_data)
-			}
-		},
 		methods: {
 			convertToPDF: function(){
 				var $pageDom = $('.rightBox').clone()
@@ -979,6 +1150,19 @@
 		},
 		ready: function(){
 			this.getUniversityData()
+
+			this.$watch(function(){
+				return [this.university.id, this.tab_index]
+			}, function(val){
+				var tab_index = val[1]
+				if (tab_index === "" || tab_index === 0) {
+					return 
+				}
+				var university = JSON.parse(JSON.stringify(this.university))
+
+				this.mark_data = []
+				getMarkData(university, tab_index, this.mark_data)
+			})
 		}
 	})
 

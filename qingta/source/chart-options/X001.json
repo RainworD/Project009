@@ -38,7 +38,6 @@
       },
       "yAxis": {
         "type": "value",
-        "interval": 5,
         "axisTick": {
              "show": false    
         },
