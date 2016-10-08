@@ -1,7 +1,7 @@
 
 $.ajaxSetup({ 
     type: "POST",
-    error: errorHandle,
+    error: errorHandle
 })
 
 function beforeHandle(){
@@ -29,7 +29,7 @@ function errorHandle(data){
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
     $(".searchUndo").removeClass("searchDo");
 }
-function askNKRPsta(pageindex,entitys,type,year1,year2,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby,schoolOnly){
+function askNKRPsta(entitys,year1,year2,pageindex,type,centermoney1,centermoney2,totalmoney1,totalmoney2,orderby,schoolOnly){
     var ajax = $.ajax({
         url: "/askNKRPsta",
         type: "POST",
@@ -52,7 +52,7 @@ function askNKRPsta(pageindex,entitys,type,year1,year2,centermoney1,centermoney2
     });
     return ajax;
 }
-function askNNSFsta(entitys,type,year1,year2,money1,money2,pageindex,orderby,applicationcode){
+function askNNSFsta(entitys,year1,year2,type,money1,money2,pageindex,orderby,applicationcode){
     var ajax = $.ajax({
         url: "/askNNSFsta",
         type: "POST",
@@ -111,7 +111,7 @@ function askNKRP(entity,type,name,year1,year2,centermoney1,centermoney2,totalmon
             "totalmoney1":totalmoney1,
             "totalmoney2":totalmoney2,
             "centermoney1":centermoney1,
-            "centermoney2":centermoney2,
+            "centermoney2":centermoney2
         }
     });
     return ajax;
@@ -166,7 +166,7 @@ function LandNSSFtype(){//社科项目类型
     });
     return ajax;
 }
-function askNSSFsta(entitys,subject,system,type,year1,year2,pageindex,orderby){//社科统计查询
+function askNSSFsta(entitys,year1,year2,subject,system,type,pageindex,orderby){//社科统计查询
     var ajax = $.ajax({
         url: "/askNSSFsta",
         type: "POST",
@@ -227,7 +227,7 @@ function askNSSF(subject,name,type,manager,entity,year1,year2,pageindex){//社�
     });
     return ajax;
 }
-function askHSSsta(entitys,type,year1,year2,_class,subject,pageindex){//教育部统计查询
+function askHSSsta(entitys,year1,year2,type,_class,subject,pageindex){//教育部统计查询
     var ajax = $.ajax({
         url: "/askHSSsta",
         type: "POST",
@@ -241,7 +241,7 @@ function askHSSsta(entitys,type,year1,year2,_class,subject,pageindex){//教育�
         "type": type,//项目类型
         "year1":year1,//年度范围左侧
         "year2":year2,//年度范围右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -282,7 +282,7 @@ function askMPsta( entitys,year1,year2,pageindex,_index1,_index2){
         "year2":year2,//公布年度右侧
         "_index1":_index1,//当选批次左侧
         "_index2":_index2,//当选批次右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -303,7 +303,7 @@ function askMP(entity,name,type,year1,year2,pageindex,_index1,_index2){
         "year2":year2,//公布年度右侧
         "_index1":_index1,//当选批次左侧
         "_index2":_index2,//当选批次右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -335,7 +335,7 @@ function askSAsta(entitys,year1,year2,subject,pageindex,gender,department,ageofE
         "year2":year2,//当选年度右侧
         "ageofElected1":ageofElected1,//当选年龄左侧
         "ageofElected2":ageofElected2,//当选年龄右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -368,7 +368,7 @@ function askSA(entity,year1,year2,subject,pageindex,gender,department,ageofElect
         "year2":year2,//当选年度右侧
         "ageofElected1":ageofElected1,//当选年龄左侧
         "ageofElected2":ageofElected2,//当选年龄右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -386,7 +386,7 @@ function askCJSchsta(entitys,year1,year2,subject,pageindex){
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
         "year2":year2,//年度范围右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -406,7 +406,7 @@ function askCJSch(entity,year1,year2,subject,pageindex,name,type){
         "type":type,//聘任类型
         "year1":year1,//年度范围左侧
         "year2":year2,//年度范围右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -434,7 +434,7 @@ function askTYsta(entitys,year1,year2,subject,pageindex){
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
         "year2":year2,//年度范围右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -453,7 +453,7 @@ function askTY(entity,year1,year2,subject,pageindex,name){
         "entity": entity, //选择的学校列表
         "year1":year1,//年度范围左侧
         "year2":year2,//年度范围右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -585,7 +585,7 @@ function askEAsta(entitys,year1,year2,subject,pageindex,gender,department,ageofE
         "year2":year2,//当选年度右侧
         "ageofElected1":ageofElected1,//当选年龄左侧
         "ageofElected2":ageofElected2,//当选年龄右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -608,7 +608,7 @@ function askEA(entity,year1,year2,subject,pageindex,gender,department,ageofElect
         "year2":year2,//当选年度右侧
         "ageofElected1":ageofElected1,//当选年龄左侧
         "ageofElected2":ageofElected2,//当选年龄右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -659,7 +659,7 @@ function askNKSsta(entitys,pageindex){//重点学科统计
         success:successHandle,
         data:{
         "entitys": entitys, //选择的学校列表
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -676,7 +676,7 @@ function askNKS(entity,type,name,pageindex){//重点学科明细
         "entity": entity, //选择的学校列表
         "type": type, //类型
         "name": name, //项目名称
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -692,7 +692,7 @@ function askNSsta(entitys,_index,pageindex){//特色专业统计
         data:{
         "entitys": entitys, //选择的学校列表
         "_index":_index,//当选批次
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
         }
     });
     return ajax;
@@ -708,7 +708,7 @@ function askNS(entity,_index,name,pageindex){//特色专业明细
         "entity": entity, //选择的学校列表
         "_index":_index,//当选批次
         "name":name,//专业名称
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -727,7 +727,7 @@ function askMSDsta(entitys,subject,turn,place1,place2,pageindex){//教育第三�
         "turn":turn,//批次
         "place1":place1,//排名左
         "place2":place2,//排名右
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -748,13 +748,13 @@ function askMSD(entity,subject,turn,place1,place2,score1,score2,pageindex){//教
         "place2":place2,//排名右
         "score1":score1,//学科分数左
         "score2":score2,//学科分数右
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
     return ajax;
 }
-function getStatistics(first_unit,participate_unit,first_year,last_year,unit,level){//国家科技奖统计
+function getStatistics(entitys,year1,year2,first_unit,participate_unit,level){//国家科技奖统计
     var ajax = $.ajax({
         url: "/NationalScience/getStatistics",
         type: "POST",
@@ -764,10 +764,10 @@ function getStatistics(first_unit,participate_unit,first_year,last_year,unit,lev
         data:{
             "first_unit":first_unit,
             "participate_unit":participate_unit,
-            "first_year":first_year,
-            "last_year":last_year,
-            "unit":unit,
-            "level":level,
+            "first_year":year1,
+            "last_year":year2,
+            "unit":entitys,
+            "level":level
         }
     });
     return ajax;
@@ -857,7 +857,7 @@ function getLearnSearchProject(sub){//教学成果名称搜索
     });
     return ajax;
 }
-function educationScienceSta(first_unit,participate_unit,first_year,last_year,unit,level){//教育部科技奖统计
+function educationScienceSta(entitys,year1,year2,first_unit,participate_unit,level){//教育部科技奖统计
     var ajax = $.ajax({
         url: "/EducationScience/getStatistics",
         type: "POST",
@@ -867,10 +867,10 @@ function educationScienceSta(first_unit,participate_unit,first_year,last_year,un
         data:{
             "first_unit":first_unit,
             "participate_unit":participate_unit,
-            "first_year":first_year,
-            "last_year":last_year,
-            "unit":unit,
-            "level":level,
+            "first_year":year1,
+            "last_year":year2,
+            "unit":entitys,
+            "level":level
         }
     });
     return ajax;
@@ -900,7 +900,7 @@ function educationScience(type,user,first_user,participate_user,participate_unit
     });
     return ajax;
 }
-function LearnScienceSta(first_unit,participate_unit,first_year,last_year,unit){//教育部科技奖统计
+function LearnScienceSta(entitys,year1,year2,first_unit,participate_unit){//教学成果奖统计
     var ajax = $.ajax({
         url: "/LearnScience/getStatistics",
         type: "POST",
@@ -910,14 +910,14 @@ function LearnScienceSta(first_unit,participate_unit,first_year,last_year,unit){
         data:{
             "first_unit":first_unit,
             "participate_unit":participate_unit,
-            "first_year":first_year,
-            "last_year":last_year,
-            "unit":unit,
+            "first_year":year1,
+            "last_year":year2,
+            "unit":entitys
         }
     });
     return ajax;
 }
-function LearnScience(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教育科技奖明细
+function LearnScience(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教学成果奖明细
     var ajax = $.ajax({
         url: "/LearnScience/getDetail",
         type: "POST",
@@ -953,7 +953,25 @@ function askOY(entity,applicationcode,research,manager,year1,year2,pageindex){//
         "manager": manager,//性别
         "year1":year1,//当选年度左侧
         "year2":year2,//当选年度右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
+        }
+    });
+    return ajax;
+}
+function askOYsta(entitys,year1,year2,applicationcode,schoolOnly,pageindex){//杰青明细
+    var ajax = $.ajax({
+        url: "/askOYsta",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        'year1':year1,
+        'year2':year2,
+        'entitys':entitys,
+        'applicationcode':applicationcode,
+        'schoolOnly':schoolOnly,
+        "pageindex":pageindex//分页数
         }
     });
     return ajax;
@@ -969,7 +987,25 @@ function askEY(entity,applicationcode,research,manager,year1,year2,pageindex){//
         "manager": manager,//性别
         "year1":year1,//当选年度左侧
         "year2":year2,//当选年度右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
+        }
+    });
+    return ajax;
+}
+function askEYsta(entitys,year1,year2,applicationcode,schoolOnly,pageindex){//优青明细
+    var ajax = $.ajax({
+        url: "/askEYsta",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        'year1':year1,
+        'year2':year2,
+        'entitys':entitys,
+        'applicationcode':applicationcode,
+        'schoolOnly':schoolOnly,
+        "pageindex":pageindex//分页数
         }
     });
     return ajax;
@@ -986,7 +1022,7 @@ function askNSFCIG(entity,research,head,year1,year2,money1,money2,pageindex){
         "year2":year2,//公布年度右侧
         "money1":money1,//当选批次左侧
         "money2":money2,//当选批次右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -996,13 +1032,16 @@ function askNSFCIGsta(entitys,year1,year2,money1,money2,pageindex){//国家基�
     var ajax = $.ajax({
         url: "/askNSFCIGsta",
         type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
         data:{
         "entitys": entitys, //当选单位
         "year1":year1,//公布年度左侧
         "year2":year2,//公布年度右侧
         "money1":money1,//当选批次左侧
         "money2":money2,//当选批次右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -1018,7 +1057,7 @@ function askIT(entity,research,head,year1,year2,pageindex){
         "head":head,//人才类型
         "year1":year1,//公布年度左侧
         "year2":year2,//公布年度右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
         }
     });
     return ajax;
@@ -1027,11 +1066,14 @@ function askITsta(entitys,year1,year2,pageindex){
     var ajax = $.ajax({
         url: "/askITsta",
         type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//公布年度左侧
         "year2":year2,//公布年度右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
         }
     });
     return ajax;
@@ -1177,13 +1219,35 @@ function askCUMOEfund(entitys,year1,year2,totalincoming1,totalincoming2,totalexp
         "totalincoming2":totalincoming2,//总拨入右侧
         "totalexpenditure1":totalexpenditure1,//总拨入左侧
         "totalexpenditure2":totalexpenditure2,//总拨入右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
     return ajax;
 }
-function askPatent(entitys,type,year1,year2,pageindex){//专利数据查询
+function askCUMOEfundsta(entitys,year1,year2,totalincoming1,totalincoming2,totalexpenditure1,totalexpenditure2,pageindex){//教育部直属明细查询
+    var ajax = $.ajax({
+        url: "/askCUMOEfundsta",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//年度范围左侧
+        "year2":year2,//年度范围右侧
+        "totalincoming1":totalincoming1,//总拨入左侧
+        "totalincoming2":totalincoming2,//总拨入右侧
+        "totalexpenditure1":totalexpenditure1,//总拨入左侧
+        "totalexpenditure2":totalexpenditure2,//总拨入右侧
+        "pageindex":pageindex//分页数
+
+        }
+    });
+    return ajax;
+}
+
+function askPatent(entitys,year1,year2,pageindex,type){//专利数据查询
     var ajax = $.ajax({
         url: "/askPatent",
         type: "POST",
@@ -1194,7 +1258,7 @@ function askPatent(entitys,type,year1,year2,pageindex){//专利数据查询
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
         "year2":year2,//年度范围右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -1256,7 +1320,7 @@ function GiveAccountfromEntity(entity){//某大学的普通用户信息表
             url: "/GiveAccountfromEntity",
             type: "POST",
             data:{
-                "entity":entity,
+                "entity":entity
             }
         });
     return ajax;
@@ -1277,7 +1341,7 @@ function LandNKSname(sub){//重点学科学科名称搜索
         data:{
 
         "sub": sub //查询时返回的子串
-        },
+        }
     });
     return ajax;
 }
@@ -1289,7 +1353,7 @@ function LandNSname(sub){
 
         "sub": sub //查询时返回的子串
 
-        },
+        }
     })
     return ajax;
 }
@@ -1331,6 +1395,9 @@ function askBD(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpen
     var ajax = $.ajax({
         url: "/askBD",
         type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
@@ -1343,7 +1410,78 @@ function askBD(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpen
         "totalincome2":totalincome2,//总拨入右侧
         "totalexpenditure1":totalexpenditure1,//总拨入左侧
         "totalexpenditure2":totalexpenditure2,//总拨入右侧
-        "pageindex":pageindex,//分页数
+        "pageindex":pageindex//分页数
+
+        }
+    });
+    return ajax;
+}
+function askBDsta(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpenditure1,nowtotalexpenditure2,totalincome1,totalincome2,totalexpenditure1,totalexpenditure2,pageindex){
+    var ajax = $.ajax({
+        url: "/askBDsta",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//年度范围左侧
+        "year2":year2,//年度范围右侧
+        "nowtotalincome1":nowtotalincome1,//总拨入左侧
+        "nowtotalincome2":nowtotalincome2,//总拨入右侧
+        "nowtotalexpenditure1":nowtotalexpenditure1,//总拨入左侧
+        "nowtotalexpenditure2":nowtotalexpenditure2,//总拨入右侧
+        "totalincome1":totalincome1,//总拨入左侧
+        "totalincome2":totalincome2,//总拨入右侧
+        "totalexpenditure1":totalexpenditure1,//总拨入左侧
+        "totalexpenditure2":totalexpenditure2,//总拨入右侧
+        "pageindex":pageindex//分页数
+
+        }
+    });
+    return ajax;
+}
+function askSTF(entitys,year1,year2,totalincoming1,totalincoming2,sciencefund1,sciencefund2,expenditure1,expenditure2,pageindex){
+    var ajax = $.ajax({
+        url: "/askSTF",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//年度范围左侧
+        "year2":year2,//年度范围右侧
+        "totalincoming1":totalincoming1,
+        "totalincoming2":totalincoming2,
+        "sciencefund1":sciencefund1,
+        "sciencefund2":sciencefund2,
+        "expenditure1":expenditure1,
+        "expenditure2":expenditure2,
+        "pageindex":pageindex//分页数
+
+        }
+    });
+    return ajax;
+}
+function askSTFsta(entitys,year1,year2,totalincoming1,totalincoming2,sciencefund1,sciencefund2,expenditure1,expenditure2,pageindex){
+    var ajax = $.ajax({
+        url: "/askSTFsta",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+        "entitys": entitys, //选择的学校列表
+        "year1":year1,//年度范围左侧
+        "year2":year2,//年度范围右侧
+        "totalincoming1":totalincoming1,
+        "totalincoming2":totalincoming2,
+        "sciencefund1":sciencefund1,
+        "sciencefund2":sciencefund2,
+        "expenditure1":expenditure1,
+        "expenditure2":expenditure2,
+        "pageindex":pageindex//分页数
 
         }
     });
@@ -1360,12 +1498,12 @@ function STtransfer(unit,order,first_year,last_year){//教育部科技奖统计
             'unit':unit,
             'order':order,
             'first_year':first_year,
-            'last_year':last_year,
+            'last_year':last_year
         }
     });
     return ajax;
 }
-function BlogPaperSta(unit,disciplines,first_year,last_year,subject){//优博统计
+function BlogPaperSta(entitys,year1,year2,disciplines,subject){//优博统计
     var ajax = $.ajax({
         url: "/BlogPaper/statistic",
         type: "POST",
@@ -1373,11 +1511,11 @@ function BlogPaperSta(unit,disciplines,first_year,last_year,subject){//优博统
         beforeSend:beforeHandle,
         success:successHandle,
         data:{
-            'unit':unit,
+            'unit':entitys,
             'disciplines':disciplines,
             'subject':subject,
-            'first_year':first_year,
-            'last_year':last_year,
+            'first_year':year1,
+            'last_year':year2
         }
     });
     return ajax;
@@ -1422,7 +1560,7 @@ function ImportantRewardsSta(unit,category,first_year,last_year){//重要奖励�
             'unit':unit,
             'category':category,
             'first_year':first_year,
-            'last_year':last_year,
+            'last_year':last_year
         }
     });
     return ajax;
@@ -1440,7 +1578,7 @@ function ImportantRewardsDetail(unit,category,first_year,last_year,reward_name,u
             'first_year':first_year,
             'last_year':last_year,
             'reward_name':reward_name,
-            'user':user,
+            'user':user
         }
     });
     return ajax;
@@ -1455,12 +1593,116 @@ function ImportantRewardsDetail(unit,category,first_year,last_year,reward_name,u
     });
     return ajax;
 }
- function LandHSSAsubject(){//人文社科学科名称
+function LandHSSAsubject(){//人文社科学科名称
     var ajax = $.ajax({
         url: "/LandHSSAsubject",
         type: "POST",// or GET
         data:{
 
+        }
+    });
+    return ajax;
+}
+function LandHSSAsta(entitys,year1,year2,pageindex,subject,level,_index1,_index2){//人文社科统计
+    var ajax = $.ajax({
+        url: "/askHSSAsta",
+        type: "POST",// or GET
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            'pageindex':pageindex,
+            'subject':subject,
+            'level':level,
+            'entitys':entitys,
+            'year1':year1,
+            'year2':year2,
+            '_index1':_index1,
+            '_index2':_index2
+        }
+    });
+    return ajax;
+}
+function LandEntityprovince(){//返回所有的省份类型
+    var ajax = $.ajax({
+        url: "/LandEntityprovince",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandEntitytype(){//返回所有的大学类型
+    var ajax = $.ajax({
+        url: "/LandEntitytype",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function newEntity(id,name,type,province,upperid,uppername,topid,topname,isleaf,istop){//新增大学
+    var ajax = $.ajax({
+        url: "/newEntity",
+        type: "POST",// or GET
+        data:{
+            "id":id,
+            "name":name,
+            "type":type,
+            "province":province,
+            "upperid":upperid,
+            "uppername":uppername,
+            "topid":topid,
+            "topname":topname,
+            "isleaf":isleaf,
+            "istop":istop
+        }
+    });
+    return ajax;
+}
+function askEntity(id,name,province){//查询大学
+    var ajax = $.ajax({
+        url: "/askEntity",
+        type: "POST",// or GET
+        data:{
+            "id":id,
+            "name":name,
+            "province":province
+        }
+    });
+    return ajax;
+}
+function updateEntity(oldid,id,name,type,province,upperid,uppername,topid,topname,isleaf,istop){//新增大学
+    var ajax = $.ajax({
+        url: "/updateEntity",
+        type: "POST",// or GET
+        data:{
+            "oldid":oldid,
+            "id":id,
+            "name":name,
+            "type":type,
+            "province":province,
+            "upperid":upperid,
+            "uppername":uppername,
+            "topid":topid,
+            "topname":topname,
+            "isleaf":isleaf,
+            "istop":istop
+        }
+    });
+    return ajax;
+}
+function getESIData(entitys){//获得ESI数据
+    var ajax = $.ajax({
+        url: "/esi/get",
+        type: "POST",
+        traditional:true,
+        beforeSend:beforeHandle,
+        success:successHandle,
+        data:{
+            'unit':entitys
         }
     });
     return ajax;

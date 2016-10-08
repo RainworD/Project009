@@ -246,7 +246,7 @@
 		}
 		for (var i=(eq-1)*20;i<eq*20;i++) {
 			var searchInfo=$('<tr>'+
-				'<td></td>'+
+				'<td></td>'+ 
 			'</tr>');
 			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
 			searchInfo.children('td').eq(0).addClass('nowrap');
@@ -280,13 +280,13 @@
 		var entitys=projectUnits;
 		var _index1=$(".chooseNum1").val();
 		var _index2=$(".chooseNum2").val();
-		// var schoolOnly1=$("#schoolOnly").prop("checked");
-		// if(schoolOnly1){
-		// 	schoolOnly=1;
-		// }
-		// else{
-		// 	schoolOnly=0;
-		// }
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
 		var params={
 			'pageindex':1,
 			'name':name,
@@ -296,7 +296,7 @@
 			'year2':year2,
 			'_index1':_index1,
 			'_index2':_index2,
-			// 'schoolOnly':schoolOnly,
+			'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askMPsta');
 	})

@@ -261,13 +261,7 @@
 					if(result[i][j]==null){
 						text="";
 					}
-
-					if(j==1){
-						result[i][j]=year1+'-'+year2;
-						text = madeNowrapText(result[i][j]);
-					}
 					else if(j==0){
-						text=year1+'-'+year2;
 						text = madeNowrapText(text);
 					}
 					else{
@@ -327,6 +321,7 @@
 	        "expenditure1":expenditure1,
 	        "expenditure2":expenditure2,
 	        "pageindex":1,//分页数
+	        "schoolOnly":schoolOnly,
 		}
 		getDataBox(params,'/askSTF');
 	})

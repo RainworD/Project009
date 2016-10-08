@@ -1,0 +1,133 @@
+.ztree {
+  margin: 0;
+  padding: 0px;
+  border: 1px solid #ccc;
+}
+.ztree * {
+  padding: 0;
+  margin: 0;
+}
+.ztree ul {
+  list-style: none;
+  border-top: 1px solid #ccc;
+}
+.ztree li {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  white-space: nowrap;
+  outline: 0;
+  border-bottom: 1px solid #ccc;
+}
+.ztree li:last-child {
+  border-bottom: none;
+}
+.ztree a {
+  display: table;
+  width: 100%;
+  box-sizing: border-box;
+  table-layout: fixed;
+  background-color: transparent;
+  text-decoration: none;
+  padding: 0px 70px 0px 50px;
+}
+.ztree a.curSelectedNode {
+  background: #ddd;
+}
+.ztree a > .node_name {
+  display: table-cell;
+  box-sizing: border-box;
+  width: 150px;
+  line-height: 40px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-right: 1px solid #ccc;
+  padding-left: 10px;
+}
+.ztree a > .node_name:nth-child(2) {
+  border-left: 1px solid #ccc;
+}
+.ztree a > .node_name:last-child {
+  width: auto;
+}
+.ztree li.level0 > a {
+  background: #FFFFDF;
+}
+.ztree li.level0 > a .node_name {
+  font-size: 18px;
+  color: #111;
+  /*font-weight: bolder;*/
+}
+.ztree li.level0 > a .node_name-code {
+  padding-left: 10px;
+}
+.ztree li.level1 > a {
+  background: #FFFFF2;
+}
+.ztree li.level1 > a .node_name {
+  font-size: 16px;
+  color: #333;
+}
+.ztree li.level1 > a .node_name-code {
+  padding-left: 20px;
+}
+.ztree li.level2 > a {
+  background: #f7f8f7;
+}
+.ztree li.level2 > a .node_name {
+  font-size: 14px;
+  color: #666;
+}
+.ztree li.level2 > a .node_name-code {
+  padding-left: 30px;
+}
+.ztree li.level3 > a {
+  background: #fff;
+}
+.ztree li.level3 > a .node_name {
+  font-size: 12px;
+  color: #999;
+}
+.ztree li.level3 > a .node_name-code {
+  padding-left: 40px;
+}
+[treenode_ico] {
+  display: none;
+}
+[treenode_switch],
+[treenode_check] {
+  position: absolute;
+}
+[treenode_switch] {
+  width: 50px;
+  left: 0;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+}
+[treenode_switch].noline_open:before {
+  content: "-";
+}
+[treenode_switch].noline_close:before {
+  content: "+";
+}
+[treenode_check] {
+  width: 70px;
+  right: 0;
+  text-align: center;
+  line-height: 40px;
+  font-family: FontAwesome;
+}
+[treenode_check].checkbox_true_part:before,
+[treenode_check].checkbox_true_part_focus:before {
+  content: "\f14a";
+}
+[treenode_check].checkbox_false_full_focus:before,
+[treenode_check][treenode_check].checkbox_false_full:before {
+  content: "\f096";
+}
+[treenode_check].checkbox_true_full_focus:before,
+[treenode_check]:before,[treenode_check].checkbox_true_full:before {
+  content: "\f046";
+}

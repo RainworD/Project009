@@ -13,19 +13,23 @@
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td> 
 				<th style="width:10.6%;">省份 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
-						<select class="selBox">
+						<select class="selBox province province1">
+							<option selected="selected"></option>
 						</select>
 					</div>
 				</td>
 				<th style="width:10.6%;">编码 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput codeNum">
 					</div>
 				</td> 
 				<td colspan="2" style="width: 26.3%">
@@ -51,7 +55,7 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">中国科学院院士统计数据</span>
+				<span class="topLeft">单位基本信息维护数据</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -74,7 +78,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
+					<!-- <tr>
 						<td>1</td>
 						<td>北京大学</td>
 						<td>北京市</td>
@@ -94,7 +98,7 @@
 								<i class="fa fa-times fa-lg removeBtn "></i>
 							</div>
 						</td>
-					</tr>
+					</tr> -->
 				</tbody>		
 			</table>
 		</div>
@@ -128,13 +132,13 @@
 							<th style="width:100px;">编码 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput newCode">
 								</div>
 							</td>
 							<th style="width:100px;">单位名称 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput unitsName">
 								</div>
 							</td>
 						</tr>
@@ -142,18 +146,14 @@
 							<th>单位类型 :</th>
 							<td>
 								<div class="commonselect"  style="width:100%;">
-									<select class="selBox">
-										<option>1</option>
-										<option>2</option>
+									<select class="selBox unitsType">
 									</select>
 								</div>
 							</td>
 							<th>省份 :</th>
 							<td>
 								<div class="commonselect"  style="width:100%;">
-									<select class="selBox">
-										<option>1</option>
-										<option>2</option>
+									<select class="selBox province province2">
 									</select>
 								</div>
 							</td>
@@ -162,13 +162,16 @@
 							<th>上级编码 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput upperCode" disabled="disabled">
 								</div>
 							</td>
 							<th>上级名称 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput upperName">
+									<ul class="showElse">
+							
+									</ul>
 								</div>
 							</td>
 						</tr>
@@ -176,13 +179,16 @@
 							<th>顶级编码 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput topCode" disabled="disabled">
 								</div>
 							</td>
 							<th>顶级名称 :</th>
 							<td>
 								<div class="commonInputBox" style="width:100%;">
-									<input class="commonput">
+									<input class="commonput topName">
+									<ul class="showElse">
+							
+									</ul>
 								</div>
 							</td>
 						</tr>
@@ -190,7 +196,7 @@
 							<th>是否叶子节点 :</th>
 							<td>
 								<div class="commonselect"  style="width:100%;">
-									<select class="selBox">
+									<select class="selBox leafNode">
 										<option>是</option>
 										<option>否</option>
 									</select>
@@ -199,7 +205,7 @@
 							<th>是否顶级节点 :</th>
 							<td>
 								<div class="commonselect"  style="width:100%;">
-									<select class="selBox">
+									<select class="selBox topNode">
 										<option>是</option>
 										<option>否</option>
 									</select>
@@ -226,29 +232,222 @@
 		popAlertBox(".unitsChoose2");
 		dragBox(".unitsChoose2");
 	})
-	$(".addLine").bind("click",function(){
-		$(".mask").show();
-		popAlertBox(".unitsChoose2");
-		dragBox(".unitsChoose2");
-	})
-	$(".forConsole").bind("click",function(){
-		$(this).parents('.unitsContent').find("input").val("");
-	})
-	$(".infoTable").delegate(".removeData","click",function(){
-		if(confirm("您确定删除该行数据吗？")){
-			$(this).parents('tr').remove();
-		}
-	})
-	$(".cancelBtn").bind("click",function(){
+	// $(".addLine").bind("click",function(){
+	// 	$(".mask").show();
+	// 	popAlertBox(".unitsChoose2");
+	// 	dragBox(".unitsChoose2");
+	// })
+	// $(".forConsole").bind("click",function(){
+	// 	$(this).parents('.unitsContent').find("input").val("");
+	// })
+	// $(".infoTable").delegate(".removeData","click",function(){
+	// 	if(confirm("您确定删除该行数据吗？")){
+	// 		$(this).parents('tr').remove();
+	// 	}
+	// })
+	$(".cancelBtn,.forConsole").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose2").hide();
 	})
-	$(".infoTable").delegate(".addLine","click",function(){		
-		$(".mask").show();
-		$(".unitsChoose2").show();
+	// $(".infoTable").delegate(".addLine","click",function(){		
+	// 	$(".mask").show();
+	// 	$(".unitsChoose2").show();
+	// })
+	// $(".forSure").bind("click",function(){
+	// 	$(".mask").hide();
+	// 	$(".unitsChoose2").hide();
+	// })
+</script>
+<script type="text/javascript">
+	 $.when(LandEntityprovince()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".province").append(newopt);
+				}
+			}
+		}
 	})
+	$.when(LandEntitytype()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".unitsType").append(newopt);
+				}
+			}
+		}
+	})
+	doForSearch(".unitsEnter","/Landentity0");
+	doForSearch(".upperName","/Landentity0");
+	doForSearch(".topName","/Landentity0");
 	$(".forSure").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose2").hide();
+		var oldid=$(this).parents(".bottomBtn").attr("data-id");
+		var id=$(".newCode").val();
+		var name=$(".unitsName").val();
+		var type=$(".unitsType").val();
+		var province=$(".province2").val();
+		var upperid=$(".upperCode").val();
+		var uppername=$(".upperName").val();
+		var topid=$(".topCode").val();
+		var topname=$(".topName").val();
+		var isleaf=$(".leafNode").val();
+		var istop=$(".topNode").val();
+		if(oldid){
+			console.log("111");
+			$.when(updateEntity(oldid,id,name,type,province,upperid,uppername,topid,topname,isleaf,istop)).done(function(data){
+				if(data.state==1){
+					alert("修改数据成功!");
+				}
+			})
+		}
+		else{
+			$.when(newEntity(id,name,type,province,upperid,uppername,topid,topname,isleaf,istop)).done(function(data){
+				if(data.state==1){
+					alert("新增数据成功!");
+				}
+			})
+		}
+		window.location.reload();
+	})
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		console.log("selfResult:"+newindex);
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					var text = result[i][j];
+					if(j==2||j==3){
+						text = madeNowrapText(result[i][j]);
+					}
+					else if(j==1||j==5||j==8){
+						text = madeTwoLineText(result[i][j])
+					}
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
+				var newtd=$('<td>'+
+							'<div class="addLine">'+
+								'<i class="fa fa-edit fa-lg removeBtn "></i>'+
+							'</div>'+
+							'<div class="removeData">'+
+								'<i class="fa fa-times fa-lg removeBtn "></i>'+
+							'</div>'+
+						'</td>')
+				searchInfo.append(newtd);
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}		
+			searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').last().addClass('nowrap');
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var name=$(".unitsEnter").val();
+		var province=$('.province1').val();
+		var id=$(".codeNum").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var params={
+			'pageindex':1,
+			"id":id,
+            "name":name,
+            "province":province,
+            "schoolOnly":schoolOnly
+		}
+		getDataBox(params,'/askEntity');
+	})
+	$(".infoTable1").delegate(".removeData","click",function(){
+		var id=$(this).parents("tr").children("td").eq(1).text();
+		if(confirm("您确定删除该行数据吗？")){
+			$(this).parents('tr').remove();
+			$.ajax({
+				url:'/deleteEntity',
+				type:'post',
+				data:{
+					"id":id
+				},
+				success:function(data){
+					if(data.state==1){
+						alert("删除用户成功");
+					}
+					else{
+						alert("网络异常！");
+					}
+				}
+			})
+		}
+	})
+	$(".infoTable1").delegate(".addLine","click",function(){
+		var id=$(this).parents("tr").children('td').eq(1).text();
+		var name=$(this).parents("tr").children('td').eq(2).text();
+		var type=$(this).parents("tr").children('td').eq(3).text();
+		var province=$(this).parents("tr").children('td').eq(4).text();
+		var upperid=$(this).parents("tr").children('td').eq(5).text();
+		var uppername=$(this).parents("tr").children('td').eq(6).text();
+		var isleaf=$(this).parents("tr").children('td').eq(7).text();
+		var topid=$(this).parents("tr").children('td').eq(8).text();
+		var topname=$(this).parents("tr").children('td').eq(9).text();
+		var istop=$(this).parents("tr").children('td').eq(10).text();
+		$(".bottomBtn").attr("data-id",id);
+		$(".newCode").val(id);
+		$(".unitsName").val(name);
+		$(".unitsType").val(type);
+		$(".province2").val(province);
+		$(".upperCode").val(upperid);
+		$(".upperName").val(uppername);
+		$(".topCode").val(topid);
+		$(".topName").val(topname);
+		$(".topCode").val(topid);
+		$(".topName").val(topname);
+		if(isleaf=="1"){
+			$(".leafNode").val("是");
+		}
+		else{
+			$(".leafNode").val("否");
+		}
+		if(istop=="1"){
+			$(".topNode").val("是");
+		}
+		else{
+			$(".topNode").val("否");
+		}
+		$(".mask").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
+		// $(".forLogOut1").show();
+		// $(".deleteUser").show();
 	})
 </script>

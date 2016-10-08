@@ -232,13 +232,13 @@
 		var turn=$(".subjectEvaluate").val();
 		var place1=$(".subjectLevel1").val();
 		var place2=$(".subjectLevel2").val(); 
-		// var schoolOnly1=$("#schoolOnly").prop("checked");
-		// if(schoolOnly1){
-		// 	schoolOnly=1;
-		// }
-		// else{
-		// 	schoolOnly=0;
-		// }
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
 		var params={
 			'pageindex':1,
 			'entitys':entitys,
@@ -246,7 +246,7 @@
 			'place1':place1,
 			'place2':place2,
 			'subject':subject,	
-			// 'schoolOnly':schoolOnly,	
+			'schoolOnly':schoolOnly,	
 		}
 		getDataBox(params,'/askMSDsta');
 	})

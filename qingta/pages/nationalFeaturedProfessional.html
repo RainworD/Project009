@@ -60,7 +60,7 @@
 						<th>序号</th>
 						<th>学校名称</th>
 						<th>批准批次</th>
-						<th>课程数量</th>
+						<th>专业数量</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -204,18 +204,18 @@
 		var pageindex;
 		var entitys=projectUnits;
 		var _index=$(".indexNum").val();
-		// var schoolOnly1=$("#schoolOnly").prop("checked");
-		// if(schoolOnly1){
-		// 	schoolOnly=1;
-		// }
-		// else{
-		// 	schoolOnly=0;
-		// }
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
 		var params={
 			'pageindex':1,
 			'_index':_index,
 			'entitys':entitys,
-			// 'schoolOnly':schoolOnly,
+			'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askNSsta');
 	})

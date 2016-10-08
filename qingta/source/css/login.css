@@ -18,7 +18,7 @@ body {
 .leftBox {
   padding-right: 360px;
   width: 100%;
-  padding-top: 80px;
+  padding-top: 50px;
   padding-left: 20px;
 }
 .leftContent1 {
@@ -45,6 +45,7 @@ body {
 }
 .leftBottomList {
   margin: auto;
+  width: 80%;
 }
 .leftBottomList li {
   display: inline-block;

@@ -1,0 +1,445 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox" style="background-color:#fff;">
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">单位基本信息维护</a>
+	</div>
+	<div class="addDataBtn" style="margin-right:0;">新增数据</div>
+	<p class="hideBtn" style="right: 150px;">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">单位名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td> 
+				<th style="width:10.6%;">省份 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox province province1">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>
+				<th style="width:10.6%;">编码 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput codeNum">
+					</div>
+				</td> 
+				<td colspan="2" style="width: 26.3%">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="schoolOnly">
+						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
+					</label>
+				</th>
+				<td></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">单位基本信息维护数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>单位编码</th>
+						<th>依托单位</th>
+						<th>类型</th>
+						<th>省份</th>
+						<th>上级编码</th>
+						<th>上级名称</th>
+						<th>是否叶子节点</th>
+						<th>顶级编码</th>
+						<th>顶级名称</th>
+						<th>是否顶级节点</th>
+						<th>维护</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<!-- <tr>
+						<td>1</td>
+						<td>北京大学</td>
+						<td>北京市</td>
+						<td>北京市</td>
+						<td>北京市</td>
+						<td>北京市</td>
+						<td>北京市</td>
+						<td>北京市</td>
+						<td>北京市</td>
+						<td>北京市</td>
+						<td>北京市</td>
+						<td>
+							<div class="addLine">
+								<i class="fa fa-edit fa-lg removeBtn "></i>
+							</div>
+							<div class="removeData">
+								<i class="fa fa-times fa-lg removeBtn "></i>
+							</div>
+						</td>
+					</tr> -->
+				</tbody>		
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<div class="mask"></div>
+<div class="unitsChoose unitsChoose2">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader">
+			<p class="unitsTitle">单位信息维护</p>
+		</div>
+		<div class="unitsContent unitsContent2">
+			<div class="showTotalData">
+				<div class="ESIContent" style="padding-top: 30px;">
+					<table class="ESITable topTable">
+						<tr>
+							<th style="width:100px;">编码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput newCode">
+								</div>
+							</td>
+							<th style="width:100px;">单位名称 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput unitsName">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>单位类型 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox unitsType">
+									</select>
+								</div>
+							</td>
+							<th>省份 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox province province2">
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>上级编码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput upperCode" disabled="disabled">
+								</div>
+							</td>
+							<th>上级名称 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput upperName">
+									<ul class="showElse">
+							
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>顶级编码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput topCode" disabled="disabled">
+								</div>
+							</td>
+							<th>顶级名称 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput topName">
+									<ul class="showElse">
+							
+									</ul>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>是否叶子节点 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox leafNode">
+										<option>是</option>
+										<option>否</option>
+									</select>
+								</div>
+							</td>
+							<th>是否顶级节点 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox topNode">
+										<option>是</option>
+										<option>否</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	topBarControl();
+	$(".addDataBtn").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
+	})
+	// $(".addLine").bind("click",function(){
+	// 	$(".mask").show();
+	// 	popAlertBox(".unitsChoose2");
+	// 	dragBox(".unitsChoose2");
+	// })
+	// $(".forConsole").bind("click",function(){
+	// 	$(this).parents('.unitsContent').find("input").val("");
+	// })
+	// $(".infoTable").delegate(".removeData","click",function(){
+	// 	if(confirm("您确定删除该行数据吗？")){
+	// 		$(this).parents('tr').remove();
+	// 	}
+	// })
+	$(".cancelBtn,.forConsole").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose2").hide();
+	})
+	// $(".infoTable").delegate(".addLine","click",function(){		
+	// 	$(".mask").show();
+	// 	$(".unitsChoose2").show();
+	// })
+	// $(".forSure").bind("click",function(){
+	// 	$(".mask").hide();
+	// 	$(".unitsChoose2").hide();
+	// })
+</script>
+<script type="text/javascript">
+	 $.when(LandEntityprovince()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".province").append(newopt);
+				}
+			}
+		}
+	})
+	$.when(LandEntitytype()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".unitsType").append(newopt);
+				}
+			}
+		}
+	})
+	doForSearch(".unitsEnter","/Landentity0");
+	doForSearch(".upperName","/Landentity0");
+	doForSearch(".topName","/Landentity0");
+	$(".forSure").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose2").hide();
+		var oldid=$(this).parents(".bottomBtn").attr("data-id");
+		var id=$(".newCode").val();
+		var name=$(".unitsName").val();
+		var type=$(".unitsType").val();
+		var province=$(".province2").val();
+		var upperid=$(".upperCode").val();
+		var uppername=$(".upperName").val();
+		var topid=$(".topCode").val();
+		var topname=$(".topName").val();
+		var isleaf=$(".leafNode").val();
+		var istop=$(".topNode").val();
+		if(oldid){
+			console.log("111");
+			$.when(updateEntity(oldid,id,name,type,province,upperid,uppername,topid,topname,isleaf,istop)).done(function(data){
+				if(data.state==1){
+					alert("修改数据成功!");
+				}
+			})
+		}
+		else{
+			$.when(newEntity(id,name,type,province,upperid,uppername,topid,topname,isleaf,istop)).done(function(data){
+				if(data.state==1){
+					alert("新增数据成功!");
+				}
+			})
+		}
+		window.location.reload();
+	})
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		console.log("selfResult:"+newindex);
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					var text = result[i][j];
+					if(j==2||j==3){
+						text = madeNowrapText(result[i][j]);
+					}
+					else if(j==1||j==5||j==8){
+						text = madeTwoLineText(result[i][j])
+					}
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
+				var newtd=$('<td>'+
+							'<div class="addLine">'+
+								'<i class="fa fa-edit fa-lg removeBtn "></i>'+
+							'</div>'+
+							'<div class="removeData">'+
+								'<i class="fa fa-times fa-lg removeBtn "></i>'+
+							'</div>'+
+						'</td>')
+				searchInfo.append(newtd);
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}		
+			searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').last().addClass('nowrap');
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var name=$(".unitsEnter").val();
+		var province=$('.province1').val();
+		var id=$(".codeNum").val();
+		var params={
+			'pageindex':1,
+			"id":id,
+            "name":name,
+            "province":province,
+		}
+		getDataBox(params,'/askEntity');
+	})
+	$(".infoTable1").delegate(".removeData","click",function(){
+		var id=$(this).parents("tr").children("td").eq(1).text();
+		if(confirm("您确定删除该行数据吗？")){
+			$(this).parents('tr').remove();
+			$.ajax({
+				url:'/deleteEntity',
+				type:'post',
+				data:{
+					"id":id
+				},
+				success:function(data){
+					if(data.state==1){
+						alert("删除用户成功");
+					}
+					else{
+						alert("网络异常！");
+					}
+				}
+			})
+		}
+	})
+	$(".infoTable1").delegate(".addLine","click",function(){
+		var id=$(this).parents("tr").children('td').eq(1).text();
+		var name=$(this).parents("tr").children('td').eq(2).text();
+		var type=$(this).parents("tr").children('td').eq(3).text();
+		var province=$(this).parents("tr").children('td').eq(4).text();
+		var upperid=$(this).parents("tr").children('td').eq(5).text();
+		var uppername=$(this).parents("tr").children('td').eq(6).text();
+		var isleaf=$(this).parents("tr").children('td').eq(7).text();
+		var topid=$(this).parents("tr").children('td').eq(8).text();
+		var topname=$(this).parents("tr").children('td').eq(9).text();
+		var istop=$(this).parents("tr").children('td').eq(10).text();
+		$(".bottomBtn").attr("data-id",id);
+		$(".newCode").val(id);
+		$(".unitsName").val(name);
+		$(".unitsType").val(type);
+		$(".province2").val(province);
+		$(".upperCode").val(upperid);
+		$(".upperName").val(uppername);
+		$(".topCode").val(topid);
+		$(".topName").val(topname);
+		$(".topCode").val(topid);
+		$(".topName").val(topname);
+		if(isleaf=="1"){
+			$(".leafNode").val("是");
+		}
+		else{
+			$(".leafNode").val("否");
+		}
+		if(istop=="1"){
+			$(".topNode").val("是");
+		}
+		else{
+			$(".topNode").val("否");
+		}
+		$(".mask").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
+		// $(".forLogOut1").show();
+		// $(".deleteUser").show();
+	})
+</script>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>首页</title>
+	<link rel="stylesheet" type="text/css" href="../source/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/font-awesome-4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../source/css/public.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/init.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/login.css">
+	<script type="text/javascript" src="../source/js/jquery-1.7.2.js"></script>
+</head>
+<style type="text/css"> 
+</style>
+<body>
+	<div class="loginContainer">
+		<div class="loginContent">
+			<div class="topTitle">
+				<span class="topPara1">H</span><span class="topPara2">D</span><span class="topPara3">I</span>高等教育发展指标数据库
+			</div>
+			<div class="leftBox">
+				<div class="leftContent1">
+					<div class="leftPic"></div>
+					<div class="leftPara">
+						<ul class="leftBottomList">
+							<li>全新可视化呈现</li>
+							<li>全面数据收录</li>
+							<li>多维数据分析</li>
+							<li>支持个性定制</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="rightBox">
+				<div class="rightTop">
+					平台登录
+				</div>
+				<div class="rightContent">
+					<div class="enterAccountBox">
+						<input type="text" class="enterAccount" placeholder="账号">
+						<!-- <i class="fa fa-bar-chart fa-lg inputBtn "></i> -->
+					</div>
+					<div class="enterpwBox">
+						<input class="enterpw" placeholder="密码" type="password">
+						<!-- <i class="fa fa-bar-chart fa-lg inputBtn "></i> -->
+					</div>
+					<div class="bottomBox">
+						<label for="rememberMe">
+							<input type="checkbox" class="rememberMe" id="rememberMe" >
+							记住我
+						</label>
+						<a class="forgetpw">
+							忘记密码？
+						</a>
+					</div>
+					<a class="loginBtn">
+						登录
+					</a>
+				</div>	
+				<p class="bottomTips">建议使用Chrome或IE9以上浏览器登录</p>
+			</div>
+		</div>
+		<p class="rightBelong">Copyright&nbsp;©&nbsp;2016&nbsp;青塔</p>
+	</div>
+</body>
+<script>
+	function loginIn(name,password){
+	    var ajax = $.ajax({
+	        url: "/Login",
+	        type: "POST",
+	        data:{
+	            'name':name,
+	            'password':password
+	        }
+	    });
+	    return ajax;
+	}
+	$(".loginBtn").bind("click",function(){
+		var name=$(".enterAccount").val();
+		var password=$(".enterpw").val();
+		$.when(loginIn(name,password)).done(function(data){
+			var state=data.state;
+			if(state==1){
+				localStorage.userid=data.id;//用户id
+				localStorage.userlevel=data.Powerlevel;//用户等级权限
+				localStorage.usertype=data.Type;//用户类型
+				localStorage.userName=data.Name;//用户名
+				localStorage.school=data.Entity;//用户学校
+				window.location.href="index.html";
+			}
+		})
+	})
+	function changeH(){
+		var height_h=$(window).height();
+		$(".leftPic").css("min-height",height_h*0.7);
+	}
+	window.onload=function(){  
+	  	window.onresize = changeH;  
+	  	changeH();  
+	}
+</script>
+</html>

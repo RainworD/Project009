@@ -307,36 +307,30 @@
 			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			if(result[i]){
-				for (var i=0,len=result.length;i<len;i++) {
-					var searchInfo=$('<tr>'+
-						'<td></td>'+
-					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length-1;j++) {
-						var mytd=$('<td></td>');
-						if(subject==""){
-							result[i][2]="全部学科分类";
-						}
-						else{}
-						if(_class==""){
-							result[i][4]="全部项目类别";
-						}
-						else{}
-						if(type==""){
-							result[i][1]="全部项目类型";
-						}
-						else{}
-						if(result[i][j]==null){
-							result[i][j]="";
-						}
-						else if(j==3){
-							result[i][j]=year1+'-'+year2;
-						}
-						mytd.text(result[i][j]);
-						searchInfo.append(mytd);
+				for (var j=0;j<result[i].length-1;j++) {
+					var mytd=$('<td></td>');
+					if(subject==""){
+						result[i][2]="全部学科分类";
 					}
-					$(".infoTable1").children('tbody').append(searchInfo);
+					else{}
+					if(_class==""){
+						result[i][4]="全部项目类别";
+					}
+					else{}
+					if(type==""){
+						result[i][1]="全部项目类型";
+					}
+					else{}
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					else if(j==3){
+						result[i][j]=year1+'-'+year2;
+					}
+					mytd.text(result[i][j]);
+					searchInfo.append(mytd);
 				}
+				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 			searchInfo.children('td').eq(3).addClass('nowrap');
 			searchInfo.children('td').css("height","57px");

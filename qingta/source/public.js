@@ -755,4 +755,5 @@ function paginationCallback(index,params,url){
 $(document).bind("click",function(){
 	$(".showElse").removeClass('showBtn');
 	$(".lookMore").removeClass('showMore');
+	$(".showElse").prev("input").val("");
 })

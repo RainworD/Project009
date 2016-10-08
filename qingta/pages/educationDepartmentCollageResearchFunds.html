@@ -294,13 +294,13 @@
 		var totalexpenditure1=$(".outcomeFee1").val();
 		var totalexpenditure2=$(".outcomeFee2").val();
 		var entitys=projectUnits;
-		// var schoolOnly1=$("#schoolOnly").prop("checked");
-		// if(schoolOnly1){
-		// 	schoolOnly=1;
-		// }
-		// else{
-		// 	schoolOnly=0;
-		// }
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
 		var params={
 			'pageindex':pageindex,
 			'year1':year1,
@@ -310,7 +310,7 @@
 			'totalexpenditure1'	:totalexpenditure1,
 			'totalexpenditure2':totalexpenditure2,
 			'entitys':entitys,
-			// 'schoolOnly':schoolOnly,
+			'schoolOnly':schoolOnly,
 		}
 		getDataBox(params,'/askCUMOEfund');
 	})

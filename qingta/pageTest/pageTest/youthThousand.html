@@ -1,0 +1,274 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox">
+		<a class="changeLeft green changeButton" href="#/youthThousand.html">青年千人统计</a>
+		<a class="changeRight changeButton" href="#/youthThousandDetail.html">青年千人明细</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">申报单位 :</th> 
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
+						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>	
+				</td>
+				<th style="width:10.6%;">专业领域 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput professionArea" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td> 
+				<th style="width:10.6%;">公布年度 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span class="starAfter">*</span>
+				</td>
+				<td colspan="2" width="26.3%">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<label for="schoolOnly">
+						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
+					</label>
+				</th>
+				<td></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">青年千人统计数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>申报单位</th>
+						<th>公布年度</th>
+						<th>专业领域</th>
+						<th>人数</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<div class="mask mask1"></div>
+<div class="unitsChoose unitsChoose1">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目牵头单位选择</p>
+		</div>
+		<div class="unitsContent unitsContent1">
+			<div class="totalModel">
+				<div class="leftColumn" style="cursor:default">
+					<div class="leftColumnBox">
+						<div class="leftColumnBar">
+							<div class="searchp">
+								<input class="searchBox">
+								<ul class="showElse">
+							
+								</ul>
+								<a class="leftSearchBtn">查询</a>
+							</div>
+						</div>
+						<div class="leftColumnContent">
+							<div class="leftColumnProvinces">
+								<ul id="tree" class="ztree">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="middleColumn">
+					<div class="btnBox">
+						<i class="fa fa-long-arrow-right moveRight"></i>
+						<i class="fa fa-long-arrow-left moveLeft"></i>
+					</div>
+				</div>
+				<div class="rightColumn">
+					<div class="rightColumnContent">
+						<p class="rightColumnBar">
+							已选单位：
+						</p>
+						<div class="chooseAlready">
+							<ul class="chooseAlreadyList">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="beforeShow">
+			<p class="enterSearchInfo">
+				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+				<span class="sr-only">Loading...</span>
+			</p>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var projectUnits=[];
+	$(".showDetailBox1").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
+	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
+	doForSearch(".searchBox","/Landentity0");
+	topBarControl();
+</script>
+<script type="text/javascript">
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var eq=newindex%50;
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					else if(j==1){
+						result[i][j]=year1+'-'+year2;
+					}
+					mytd.text(result[i][j]);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+			// searchInfo.children('td').eq(1).addClass("nowrap");
+			// searchInfo.children('td').eq(2).addClass("nowrap");
+			searchInfo.children('td').css("height","57px");
+			// searchInfo.children('td').eq(3).css("text-align","left");
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entitys=projectUnits;
+		var subject=$(".professionArea").val();
+		// var schoolOnly1=$("#schoolOnly").prop("checked");
+		// if(schoolOnly1){
+		// 	schoolOnly=1;
+		// }
+		// else{
+		// 	schoolOnly=0;
+		// }
+		var params={
+			"subject": subject,//专业领域
+	        "entitys": entitys, //选择的学校列表
+	        "year1":year1,//年度范围左侧
+	        "year2":year2,//年度范围右侧
+	        "pageindex":pageindex,//分页数	
+	        // 'schoolOnly':schoolOnly,
+		}
+		getDataBox(params,'/askTYsta');
+	})
+	doForSearch(".professionArea","/LandTYsubject");
+
+</script>

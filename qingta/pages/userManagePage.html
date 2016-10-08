@@ -224,7 +224,6 @@
 	})
 	$(".deleteUser").bind("click",function(){
 		var id=$(this).parents(".bottomBtn").attr("data-id");
-		console.log(id);
 		$.ajax({
 			url:'/DeleteAccount',
 			type:'post',

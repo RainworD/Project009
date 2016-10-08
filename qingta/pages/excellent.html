@@ -249,16 +249,16 @@
 </script>
 <script type="text/javascript">
 	$(".searchBtn").bind("click",function(){
-		var first_year=$(".yearName1").val();
-		var last_year=$(".yearName2").val();
-		var unit=projectUnits;
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entitys=projectUnits;
 		var disciplines=$(".subjectType").val();
 		var subject=$(".topSubject").val();
-		$.when(BlogPaperSta(unit,disciplines,first_year,last_year,subject)).done(function(data){
+		$.when(BlogPaperSta(entitys,year1,year2,disciplines,subject)).done(function(data){
 			var result=data.data;
 			$(".infoTable1").children('tbody').empty();
 			// var count=data.count;
-			var count=data.count;
+			var count=result.length;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 			addCount.children('span').eq(0).text(count);
 			if(count<20){
@@ -287,7 +287,7 @@
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
 					searchInfo.children('td').eq(1).text(result[i][0]);
-					searchInfo.children('td').eq(2).text(first_year+'-'+last_year);
+					searchInfo.children('td').eq(2).text(year1+'-'+year2);
 					searchInfo.children('td').eq(3).text(disciplines);
 					searchInfo.children('td').eq(4).text(subject);
 					searchInfo.children('td').eq(5).text(result[i][1]);

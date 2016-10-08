@@ -1,0 +1,425 @@
+
+<div class="changeBarContainer">
+	<div class="changeBarBox" style="background-color:#fff;">
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">高校对标数据分析</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable"> 
+			<tr>
+				<th style="width:102px;">学校名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
+						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td>
+				<th style="width:10.6%;">对标年度 :</th>
+				<td style="width:19.3%">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span class="starAfter">*</span>
+				</td>
+				<th style="width:10.6%;">分析项目 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput analysisName" style="padding-right:30px;">
+						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td>
+				<td colspan="2" style="width: 28.3%;">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">分析年度(选择的学校请限制在10个以内)</span>
+			</p>
+		</div>
+		<div class="infoTableContent" style="overflow:auto">
+			<table class="infoTable infoTable1">
+				<thead style="border-bottom: 1px solid #32cdcd;">
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<div class="mask mask1"></div>
+<div class="unitsChoose unitsChoose1">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目牵头单位选择</p>
+		</div>
+		<div class="unitsContent">
+			<div class="totalModel">
+				<div class="leftColumn" style="cursor:default">
+					<div class="leftColumnBox">
+						<div class="leftColumnBar">
+							<input class="searchBox">
+							<a class="leftSearchBtn">查询</a>
+						</div>
+						<div class="leftColumnContent">
+							<div class="leftColumnProvinces">
+								<ul id="tree" class="ztree">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="middleColumn">
+					<div class="btnBox">
+						<i class="fa fa-long-arrow-right moveRight"></i>
+						<i class="fa fa-long-arrow-left moveLeft"></i>
+					</div>
+				</div>
+				<div class="rightColumn">
+					<div class="rightColumnContent">
+						<p class="rightColumnBar">
+							已选单位：
+						</p>
+						<div class="chooseAlready">
+							<ul class="chooseAlreadyList">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+<div class="unitsChoose unitsChoose2">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader">
+			<p class="unitsTitle">项目类型选择</p>
+		</div>
+		<div class="unitsContent unitsContent2" style="padding-top:20px">
+			<table class="infoTable infoTable2">
+				<thead>
+					<tr class="tableTitle">
+						<th>分析项目名称</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td data-type="1">国家重点研发计划立项数</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="1">国家重点研发计划立项金额</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="2">国家自然科学基金立项数</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="2">国家自然科学基金立项金额</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="3">国家社会科学基金立项数</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="4">教育部人文社科项目立项数</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="5">工程院、科学院院士数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="6">长江学者数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="7">国家杰出青年数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="8">万人计划入选数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="9">国家优秀青年数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="10">青年千人数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="11">教育部创新团队数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="12">国家基金委创新研究群体数</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="13">ESI全球%学科数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="13">ESI全球排名</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="14">国家级特色专业数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="15">国家级精品资源共享课数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="16">视频公开课数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="17">全国百篇优博入选数</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="18">国家科技奖(含参与单位)</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="19">教育部科技奖(含参与单位)</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="20">教育部人文社科优秀成果奖</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="21">授权专利数</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="22">年度预算收入</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="23">科技活动科技经费</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="24">年度科技经费</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".showDetailBox2").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
+	})
+	var projectUnits=[];
+	var showName=[];
+	var analysisArray=[];
+	var analysisArray_=[]
+	$(".showDetailBox1").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
+	})
+	if(finalResults){
+		judgeUnits(finalResults);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
+	doForSearch(".searchBox","/Landentity0");
+	topBarControl();
+</script>
+<script type="text/javascript">
+	$(".searchBtn").bind("click",function(){
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entitys=projectUnits;
+		var len_1=showName.length;
+		var len_2=analysisArray.length;
+		var unitsName;
+		var projectNum;
+		$(".infoTable1 thead").empty();
+		$(".infoTable1 tbody").empty();
+		if(len_1<11){
+			var thead_new=$('<tr class="tableTitle tableTitle1">'+
+						'<th>分析项目</th>'+
+					'</tr>');
+			for(var i=0;i<len_1;i++){
+				var th_add=$('<th class="nowrap"></th>');
+				// var text=madeOneLineText(showName[i])
+				th_add.text(showName[i]);
+				thead_new.append(th_add);
+			}
+			for(var j=0;j<len_2;j++){
+				var tr_add=$('<tr>'+
+					'<td class="nowrap"></td>'+
+					'</tr>');
+				for(var i=0;i<len_1;i++){
+					var td_add=$('<td></td>');
+					tr_add.append(td_add);
+				}
+				if(analysisArray_[j]=="1"){
+					getNatural(tr_add,entitys,year1,year2,len_1);
+				}
+				tr_add.children("td").eq(0).text(analysisArray[j]);
+				tr_add.children("td").eq(0).attr("data-id",analysisArray_[j])
+				// tr_add.children("td").eq(index).val(projectNum);
+				$(".infoTable1 tbody").append(tr_add);
+			}
+
+			$(".infoTable1 thead").append(thead_new);
+		}
+		else{
+			alert("选择的学校数量过多，请重新选择！")
+		}
+	})
+	function getNatural(argu,entitys,year1,year2,len_1){
+		$.when(askNKRPsta(entitys,year1,year2)).done(function(data){
+			var result=data.result;
+			for(var k=0;k<result.length;k++){
+				unitsName=result[k][0];
+				console.log(unitsName);
+				// for (var j=0;j<result[k].length-1;j++) {
+				projectNum=result[k][3];
+				console.log(projectNum);
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text(projectNum);
+					}
+				}
+			}
+		})
+	}
+	$(".unitsChoose2 .forConsole").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose2").hide();
+	})
+	$(".unitsChoose2 .cancelBtn").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose2").hide();
+	})
+	$(".unitsChoose2 .forSure").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose2").hide();
+		var len=$(".infoTable2 tbody").children("tr").length;
+		for(var i=0;i<len;i++){
+			var flag=$(".infoTable2 tbody").children("tr").eq(i).children("td").eq(1).children("input").prop("checked");
+			if(flag==true){
+				var analysisItem=$(".infoTable2 tbody").children("tr").eq(i).children("td").first().text();
+				var analysisNum=$(".infoTable2 tbody").children("tr").eq(i).children("td").first().attr("data-type");
+				analysisArray_.push(analysisNum);
+				analysisArray.push(analysisItem);
+			}
+		}
+	})
+	if(analysisArray.length){
+
+	}
+	else{
+		var len=$(".infoTable2 tbody").children("tr").length;
+		for(var i=0;i<len;i++){
+			var flag=$(".infoTable2 tbody").children("tr").eq(i).children("td").eq(1).children("input").prop("checked");
+			if(flag==true){
+				var analysisItem=$(".infoTable2 tbody").children("tr").eq(i).children("td").first().text();
+				var analysisNum=$(".infoTable2 tbody").children("tr").eq(i).children("td").first().attr("data-type");
+				analysisArray_.push(analysisNum);
+				analysisArray.push(analysisItem);
+			}
+		}
+	}
+</script>
