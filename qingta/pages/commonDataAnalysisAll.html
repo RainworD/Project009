@@ -274,6 +274,15 @@
 			undefined,undefined,undefined,
 			undefined]
 	}
+
+	function makeItems(length){
+		var ret = new Array(length)
+		for (var i = 0; i < length ; i++) {
+			ret[i] = undefined
+		}
+		return ret
+	}
+
 	function makeYears(){
 		var ret = []
 		for (var _year = curYear - 9; _year < curYear + 1; _year++) {
@@ -787,24 +796,42 @@
 							options: ['全部', '第一单位'],
 							options_placeholder: "选择单位",
 							getOptions: function(option, chart){
-								var options_promise = getJSON('J001-1')
-								return options_promise.then(function(res){
-									res.xAxis.data = [
-										"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
-									]
-									res.series[0].data = option === "全部" ? 
-										[ 6,5,4,4,6,5,4,4,3,3 ]:
-										[ 6,5,4,4,6,5,4,4,3,3 ].map(function(item){return item-2}) 
-									res.series[1].data = option === "全部" ? 
-										[12,8,4,6,12,8,4,6,5,6]:
-										[12,8,4,6,12,8,4,6,5,6].map(function(item){return item-1}) 
-									res.series[2].data = option === "全部" ?
-										[7,2,5,2,7,2,5,2,3,2]:
-										[7,2,5,2,7,2,5,2,3,2].map(function(item){return item-2})
-									res.series[3].data = option === "全部" ?
-										[25,15,13,12,25,15,13,12,11,11]:
-										[25,15,13,12,25,15,13,12,11,11].map(function(item){return item-5})
-									return Promise.resolve(res)
+								return Promise.all([
+									getJSON('J001-1'),
+									Promise.resolve($.ajax({
+										url: '/NationalScience/getSchoolStatistics',
+										data: {
+											unit: university.id,
+											first_unit: option === "全部",
+											participate_unit: true
+										}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].data || []
+
+									chartOption.xAxis.data = makeYears()
+
+									var natural = makeTenItems()
+									var tech = makeTenItems()
+									var science = makeTenItems()
+									var all = makeTenItems()
+
+									res.forEach(function(item){
+										var index = yearToIndex(item.year)
+										if (index < 0) { return }
+										natural[index] = item.natural
+										science[index] = item.science
+										tech[index] = item.tech
+										all[index] = item.natural + item.science + item.tech
+									})
+
+									chartOption.series[0].data = natural
+									chartOption.series[1].data = tech
+									chartOption.series[2].data = science
+									chartOption.series[3].data = all
+
+									return Promise.resolve(chartOption)
 								})
 							}
 						},
@@ -813,26 +840,49 @@
 							options: ['全部', '第一单位'],
 							options_placeholder: "选择单位",
 							getOptions: function(option, chart){
-								var options_promise = getJSON('J001-2')
-								return options_promise.then(function(res){
-									res.xAxis.data = [
-										"2006年","2007年","2008年","2009年","2010年","2011年","2012年","2013年","2014年","2015年"
-									]
-									res.series[0].data = option === "全部" ? 
-										[ 6,5,4,4,6,5,4,4,3,3 ]:
-										[ 6,5,4,4,6,5,4,4,3,3 ].map(function(item){return item-2}) 
-									res.series[1].data = option === "全部" ? 
-										[12,8,4,6,12,8,4,6,5,6]:
-										[12,8,4,6,12,8,4,6,5,6].map(function(item){return item-1}) 
-									res.series[2].data = option === "全部" ?
-										[7,2,5,2,7,2,5,2,3,2]:
-										[7,2,5,2,7,2,5,2,3,2].map(function(item){return item-2})
-									res.series[3].data = [0,0,0,1,0,0,0,1,0,0]
-									res.series[4].data = [0,0,1,0,0,0,1,0,0,0]
-									res.series[5].data = option === "全部" ?
-										[25,15,13,12,25,15,13,12,11,11]:
-										[25,15,13,12,25,15,13,12,11,11].map(function(item){return item-5})
-									return Promise.resolve(res)
+								return Promise.all([
+									getJSON('J001-2'),
+									Promise.resolve($.ajax({
+										url: '/EducationScience/getSchoolStatistics',
+										data: {
+											unit: university.id,
+											first_unit: option === "全部",
+											participate_unit: true
+										}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].data || []
+
+									chartOption.xAxis.data = makeYears()
+
+									var natural = makeTenItems()
+									var invention = makeTenItems()
+									var tech = makeTenItems()
+									var youth = makeTenItems()
+									var patent = makeTenItems()
+									var all = makeTenItems()
+
+									res.forEach(function(item){
+										var index = yearToIndex(item.year)
+										if (index < 0) { return }
+										natural[index] = item['自然科学奖']
+										invention[index] = item['技术发明奖']
+										tech[index] = item['科技进步奖']
+										youth[index] = item['青年科学奖']
+										patent[index] = item['专利奖']
+										
+										all[index] = item['自然科学奖'] + item['技术发明奖'] + item['科技进步奖'] + item['青年科学奖'] + item['专利奖']
+									})
+									
+									chartOption.xAxis.data = makeYears()
+									chartOption.series[0].data = natural
+									chartOption.series[1].data = invention
+									chartOption.series[2].data = tech
+									chartOption.series[3].data = youth
+									chartOption.series[4].data = patent
+									chartOption.series[5].data = all
+									return Promise.resolve(chartOption)
 								})
 							}
 						}
@@ -846,16 +896,48 @@
 							options: [],
 							options_placeholder: "",
 							getOptions: function(option, chart){
-								var options_promise = getJSON('J002')
-								return options_promise.then(function(res){
-									res.xAxis.data = [
-										"2001年","2005年","2009年","2014年"
-									]
-									res.series[0].data = [ 5,4,4,3 ] 
-									res.series[1].data = [ 6,4,6,5 ]
-									res.series[2].data = [ 2,5,2,3 ]
-									res.series[3].data = [ 15,13,12,11 ]
-									return Promise.resolve(res)
+								return Promise.all([
+									getJSON('J002'),
+									Promise.resolve($.ajax({
+										url: '/LearnScience/getSchoolStatistics',
+										data: {
+											unit: university.id
+										}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var _res = resArr[1].data || []
+
+									var res = _res.filter(function(item){
+										return !(item['特等奖'] === 0 &&
+											item['一等奖'] === 0 &&
+											item['二等奖'] === 0)
+									}).sort(function(itemA, itemB){
+										return itemA.year - itemB.year
+									})
+
+									var special = makeItems(res.length)
+									var award_1 = makeItems(res.length)
+									var award_2 = makeItems(res.length)
+									var all = makeItems(res.length)
+
+									res.forEach(function(item, index){
+										special[index] = item['特等奖']
+										award_1[index] = item['一等奖']
+										award_2[index] = item['二等奖'] 
+										all[index] = item['特等奖'] + item['一等奖'] + item['二等奖'] 
+									})
+
+									chartOption.xAxis.data = res.map(function(item){
+										return item.year
+									})
+
+									chartOption.series[0].data = special
+									chartOption.series[1].data = award_1
+									chartOption.series[2].data = award_2
+									chartOption.series[3].data = all
+
+									return Promise.resolve(chartOption)
 								})
 							}
 						}
