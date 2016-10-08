@@ -126,39 +126,9 @@
 			<p class="unitsTitle">项目牵头单位选择</p>
 		</div>
 		<div class="unitsContent">
-			<div class="totalModel">
-				<div class="leftColumn" style="cursor:default">
-					<div class="leftColumnBox">
-						<div class="leftColumnBar">
-							<input class="searchBox">
-							<a class="leftSearchBtn">查询</a>
-						</div>
-						<div class="leftColumnContent">
-							<div class="leftColumnProvinces">
-								<ul id="tree" class="ztree">
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="middleColumn">
-					<div class="btnBox">
-						<i class="fa fa-long-arrow-right moveRight"></i>
-						<i class="fa fa-long-arrow-left moveLeft"></i>
-					</div>
-				</div>
-				<div class="rightColumn">
-					<div class="rightColumnContent">
-						<p class="rightColumnBar">
-							已选单位：
-						</p>
-						<div class="chooseAlready">
-							<ul class="chooseAlreadyList">
-								
-							</ul>
-						</div>
-					</div>
-				</div>
+			<div class="totalModel" style="height:450px;overflow-y:auto;">
+				<ul id="tree" class="ztree">
+				</ul>
 			</div>
 		</div>
 		<div class="bottomBtn">
@@ -492,7 +462,7 @@
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
-					unitsName=result[k][0];
+					unitsName=result[k][1];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][5];
 					for(var i=0;i<len_1;i++){
@@ -509,7 +479,7 @@
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
-					unitsName=result[k][0];
+					unitsName=result[k][1];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][4];
 					for(var i=0;i<len_1;i++){
@@ -528,7 +498,7 @@
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][5];
+					projectNum=Number(result[k][5]).toFixed(2);
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
