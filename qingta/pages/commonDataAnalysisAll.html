@@ -51,7 +51,7 @@
 	.custom-modal-foot [data-drag-enter] {
 		position:absolute;width:100%;height:100%;
 	}
-	.custom-modal-foot .button {
+	.custom-modal-foot .qingta-button {
 		float: right;
 		margin-top: 21px;
 		margin-right: 20px;
@@ -84,7 +84,7 @@
 		box-shadow: 0 0 8px #3cc;
 	}
 	.custom-search-bar {
-		padding:10px 0px;margin:0 20px;border-bottom: 2px dashed #ebebeb;
+		padding:10px 0px;margin:0 20px;
 	}
 </style>
 <div id="common_data_container">
@@ -115,34 +115,42 @@
 	</div>
 	
 	<mark-chart v-for="mark in mark_data" :tabs.sync="mark.tabs" :title="mark.title"></mark-chart>
-
-	<div class="mask"></div>
-	<div class="unitsChoose unitsChoose1">
-		<div class="unitsContainer">
-			<div class="cancelBtn" v-on:click="closeSearchNameModal">
-				<i class="fa fa-close showCollege"></i>
+	
+	<div class="custom-modal" data-drag-modal="false" v-el:modal>
+		<div class="custom-modal-content" style="width:500px;" drag-modal-content>
+			<div class="custom-modal-close" @click="closeSearchNameModal">
+				<i class="fa fa-close"></i>
 			</div>
-			<div class="unitsHeader unitsHeader1">
-				<p class="unitsTitle">机构单位选择</p>
+			<div class="custom-modal-head" data-drag-enter>
+				<span>选择选择类别</span>
 			</div>
-			<div class="unitsContent">
-				<div class="totalModel">
-					<div class="leftColumn" style="cursor:default;width:100%;">
-						<div class="leftColumnBox" style="height:100%;">
-							<div class="leftColumnContent" style="height:100%;">
-								<div class="leftColumnProvinces" style="height:100%;">
-									<ul id="tree" class="ztree">
-									</ul>
-								</div>
-							</div>
+			<div class="custom-modal-body">
+				<div class="custom-search-bar">
+					<div style="display:table-cell;width:100%;">
+						<input type="text" class="custom-input">
+					</div>
+					<div style="display:table-cell;width:130px;">
+						<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;">查询</a>
+					</div>
+				</div>
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">单位名称</span>
 						</div>
+					</div>
+					<div class="qingta-ztree-table">
+						<ul id="tree" class="ztree ztree-at-top">
+						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="bottomBtn">
-				<p>
-					<a class="button button-green" style="float:right;" v-on:click="closeSearchNameModal">确定</a>
-				</p>
+			<div class="custom-modal-foot">
+				<div data-drag-enter></div>
+				<a class="qingta-button button-blue" @click="closeSearchNameModal(false)">取消</a>
+				<a class="qingta-button button-green" @click="closeSearchNameModal(true)">确定</a>
 			</div>
 		</div>
 	</div>
@@ -185,7 +193,7 @@
 							<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchOption">
 						</div>
 						<div style="display:table-cell;width:130px;">
-							<a class="button button-green" style="margin-right:0px;margin-left:20px;" @click="searchOption">查询</a>
+							<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;" @click="searchOption">查询</a>
 						</div>
 					</div>
 					<ul style="height:400px;overflow-y:auto;" v-el:list>
@@ -194,8 +202,8 @@
 				</div>
 				<div class="custom-modal-foot">
 					<div data-drag-enter></div>
-					<a class="button button-blue" @click="closeSelectOptionModal(false)">取消</a>
-					<a class="button button-green" @click="closeSelectOptionModal(true)">确定</a>
+					<a class="qingta-button button-blue" @click="closeSelectOptionModal(false)">取消</a>
+					<a class="qingta-button button-green" @click="closeSelectOptionModal(true)">确定</a>
 				</div>
 			</div>
 		</div>
@@ -313,8 +321,8 @@
 			case 2: loadR(university, tabIndex, result);break; // 人才数据分析
 			case 3: loadX(university, tabIndex, result);break; // 学科数据分析
 			case 4: loadJ(university, tabIndex, result);break; // 奖励数据分析
-			case 5: loadM(university, tabIndex, result);break; // 经费数据分析
-			case 6: loadZ(university, tabIndex, result);break; // 专利与成果数据分析
+			case 5: loadZ(university, tabIndex, result);break; // 专利与成果数据分析
+			case 6: loadM(university, tabIndex, result);break; // 经费数据分析
 			default: alert('不支持的指标分析');
 		}
 	}
@@ -623,7 +631,7 @@
 							var ret = res.slice(0, 7).concat(otherSubject)
 
 							chartOption.legend.data = ret.map(function(item){
-								return item.subject
+								return item.name
 							})
 
 							chartOption.yAxis[0].data = chartOption.legend.data 
@@ -789,7 +797,7 @@
 	function loadJ(university, tabIndex, result) {
 		Promise.resolve([
 				{
-					title: '奖项数据分析',
+					title: '国家三大奖数据分析 & 教育部科技奖数据分析',
 					tabs: [
 						{
 							name: '国家三大奖数据分析',
@@ -809,7 +817,6 @@
 								]).then(function(resArr){
 									var chartOption = resArr[0]
 									var res = resArr[1].data || []
-
 									chartOption.xAxis.data = makeYears()
 
 									var natural = makeTenItems()
@@ -1002,7 +1009,146 @@
 							options: [],
 							options_placeholder: "",
 							getOptions: function(option, chart){
-									return Promise.resolve({})
+								return Promise.all([
+									getJSON('F001'),
+									Promise.resolve($.ajax({
+										url: '/F001',
+										data: {
+											entity: university.id
+										}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].result || []
+
+									var in_ = makeItems(8)
+									var out_ = makeItems(8)
+
+									var years = new Array(8)
+									for (var i = 0; i < 8; i++) {
+										years[i] = curYear + i - 7
+									}
+
+									res.forEach(function(item){
+										var index = item[0] - curYear + 7
+										in_[index] = item[1]
+										out_[index] = item[2]
+									})
+
+									chartOption.xAxis.data = years
+									chartOption.series[0].data = in_
+									chartOption.series[1].data = out_
+									return Promise.resolve(chartOption)
+								})
+							}
+						}
+					]
+				},
+				{
+					title: '年度拨入科技经费结构分析',
+					tabs: [
+						{
+							name: '',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart){
+								return Promise.all([
+									getJSON('F002'),
+									Promise.resolve($.ajax({
+										url: '/F002',
+										data: {
+											entity: university.id
+										}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].result || []
+
+									var goverment = makeItems(8)
+									var enter = makeItems(8)
+									var other = makeItems(8)
+
+									var years = new Array(8)
+									for (var i = 0; i < 8; i++) {
+										years[i] = curYear + i - 7
+									}
+
+									chartOption.yAxis.data = years
+
+									res.forEach(function(item){
+										var index = item[0] - curYear + 7
+										goverment[index] = item[1]
+										enter[index] = item[2]
+										other[index] = item[3]
+									})
+
+									chartOption.series[0].data = goverment
+									chartOption.series[1].data = enter
+									chartOption.series[2].data = other
+									return Promise.resolve(chartOption)
+								})
+							}
+						}
+					]
+				},
+				{
+					title: '年度科技课题数量与投入人数数据分析',
+					tabs: [
+						{
+							name: '',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart){
+								return Promise.all([
+									getJSON('F003')/*,
+									Promise.resolve($.ajax({
+										url: '/F003',
+										data: {
+											entity: university.id
+										}
+									}))*/
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									/*var _res = resArr[1].data || []*/
+
+									var quantities = [4576,4328,4215,4102,4013,3987,3872,3650]
+									var persons = [4377,4298,4164,4026,3941,3762,3679,3494]
+
+									var average = quantities.map(function(quantity, index){
+										return quantity / (persons[index] || 0)
+									}).map(function(num){
+										if (Number.isFinite(num)) {
+											return (num * 100 | 0)
+										} else {
+											return undefined
+										}
+									})
+
+									chartOption.xAxis.data = [2008,2009,2010,2011,2012,2013,2014,2015].reverse()
+
+									var min = Math.min.apply(null, average)
+									var max = Math.max.apply(null, average)
+
+									var min = (min - 2) / 100
+									var max = (max + 2) / 100
+
+									average = average.map(function(item){
+										return item / 100
+									})
+									if (Number.isNaN(min)) {
+										min = "auto"
+									} 
+									if (Number.isNaN(max)) {
+										max = "auto"
+									}
+
+ 									chartOption.yAxis[1].min = min
+ 									chartOption.yAxis[1].max = max
+									chartOption.series[0].data = quantities
+									chartOption.series[1].data = persons
+									chartOption.series[2].data = average
+									return Promise.resolve(chartOption)
+								})
 							}
 						}
 					]
@@ -1016,14 +1162,172 @@
 	function loadZ(university, tabIndex, result) {
 		Promise.resolve([
 				{
-					title: '空数据',
+					title: '授权专利数据分析',
+					tabs: [
+						{
+							name: '总体分析',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart){
+								return Promise.all([
+									getJSON('Z001-1'),
+									Promise.resolve($.ajax({
+										url: '/Z001-1',
+										data: {
+											entity: university.id
+										},
+										error: function(){}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].result || []
+
+									var quantities = makeTenItems()
+									chartOption.xAxis.data = makeYears()
+
+									res.forEach(function(item){
+										var index = yearToIndex(item)
+										quantities[index] = toInt(item[1])
+									})
+									chartOption.series[0].data = quantities
+									return Promise.resolve(chartOption)
+								})
+							}
+						},
+						{
+							name: '分项分析',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart){
+								return Promise.all([
+									getJSON('Z001-2'),
+									Promise.resolve($.ajax({
+										url: '/Z001-2',
+										data: {
+											entity: university.id
+										},
+										error: function(){}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].result || []
+
+									var invention = makeTenItems()
+									var practical = makeTenItems()
+									var design = makeTenItems()
+
+									chartOption.xAxis.data = makeYears()
+
+									res.forEach(function(item){
+										var index = yearToIndex(item)
+										invention[index] = toInt(item[1])
+										practical[index] = toInt(item[2])
+										design[index] = toInt(item[3])
+									})
+
+									chartOption.series[0].data = invention
+									chartOption.series[1].data = practical
+									chartOption.series[2].data = design
+
+									return Promise.resolve(chartOption)
+								})
+							}
+						}
+					]
+				},
+				{
+					title: '技术转让合同数与收入数据分析',
 					tabs: [
 						{
 							name: '',
 							options: [],
 							options_placeholder: "",
 							getOptions: function(option, chart){
-									return Promise.resolve({})
+								return Promise.all([
+									getJSON('Z002'),
+									Promise.resolve($.ajax({
+										url: '/Z002',
+										data: {
+											entity: university.name
+										},
+										error: function(){}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].result || []
+
+									var quantities = makeItems(8)
+									var money = makeItems(8)
+
+									var years = new Array(8)
+									for (var i = 0; i < 8; i++) {
+										years[i] = curYear + i - 7
+									}
+
+									res.forEach(function(item){
+										var index = item[0] - curYear + 7
+										quantities[index] = item[1]
+										money[index] = item[2]
+									})
+
+									chartOption.xAxis.data = years
+
+
+									chartOption.series[0].data = quantities
+									chartOption.series[1].data = money
+
+									return Promise.resolve(chartOption)
+								})
+							}
+						}
+					]
+				},
+				{
+					title: '学术论文发表数量数据分析',
+					tabs: [
+						{
+							name: '',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart){
+								return Promise.all([
+									getJSON('Z003'),
+									Promise.resolve($.ajax({
+										url: '/Z003',
+										data: {
+											entity: university.name
+										},
+										error: function(){}
+									}))
+								]).then(function(resArr){
+									var chartOption = resArr[0]
+									var res = resArr[1].result || []
+
+									var other = makeItems(8)
+									var global_ = makeItems(8)
+									var all = makeItems(8)
+
+									var years = new Array(8)
+									for (var i = 0; i < 8; i++) {
+										years[i] = curYear + i - 7
+									}
+
+									res.forEach(function(item){
+										var index = item[0] - curYear + 7
+										other[index] = item[1]
+										global_[index] = item[2]
+										all[index] = item[1] + item[2]
+									})
+
+									chartOption.xAxis.data = years.reverse()
+
+
+									chartOption.series[0].data = other.reverse()
+									chartOption.series[1].data = global_.reverse()
+									chartOption.series[2].data = all.reverse()
+
+									return Promise.resolve(chartOption)
+								})
 							}
 						}
 					]
@@ -1162,7 +1466,7 @@
 		},
 		methods: {
 			convertToPDF: function(){
-				var $pageDom = $('.rightBox').clone()
+				/*var $pageDom = $('.rightBox').clone()
 				var originEchart = $('.rightBox').find('[_echarts_instance_]')
 				var cloneEcharts = $pageDom.find('[_echarts_instance_]')
 				originEchart.each(function(index, dom){
@@ -1175,15 +1479,13 @@
 				})
 				$pageDom.find('link, style, script, .mask, .unitsChoose, .custom-modal, .topBar, .convert-button').remove()
 				
-				console.dir($pageDom.html())
+				console.dir($pageDom.html())*/
 			},
 			switchTab: function(index){
 				this.tab_index = index
 			},
 			openSearchNameModal: function(){
-				$('.mask').show()
-				popAlertBox('.unitsChoose1')
-				dragBox('.unitsChoose1')
+				openModal($(this.$els.modal))
 			},
 			closeSearchNameModal: function(){
 				var zTree = $.fn.zTree.getZTreeObj('tree')
@@ -1193,14 +1495,14 @@
 					this.university.name = selectedNode[0].name
 					this.university.id = selectedNode[0].id
 				}
-				$('.mask').hide()
-				$('.unitsChoose1').hide()
+				hideModal($(this.$els.modal))
 			},
 			initZtree: function(){
 				var self = this
 				$.fn.zTree.init($("#tree"), {
 					view: {
-						showIcon: false
+						showIcon: false,
+						showLine: false
 					},
 					callback: {
 						beforeClick: function(treeId, treeNode){
@@ -1218,7 +1520,7 @@
 					url: '/LandEntity',
 					error: function(){}
 				})).then(function(res){
-					baseTree = transferToTree(res.result)
+					baseTree = res.result
 					self.initZtree()
 					var firstUniversity = baseTree[0].children[0]
 					self.university.name = firstUniversity.name
@@ -1252,9 +1554,11 @@
 		el: '#common_data_container'
 	})
 
-	function transferToTree(weirdData){
+	/*function transferToTree(weirdData){
 		var ret = []
+		console.dir(weirdData)
 		weirdData.forEach(function(weirdItem){
+			console.dir(weirdItem)
 			var children = []
 			weirdItem.slice(1).forEach(function(weirdUni){
 				children.push({
@@ -1268,7 +1572,7 @@
 			})
 		})
 		return ret
-	}
+	}*/
 
 	var _chartOption = {}
 	function getJSON(json_name, notDefault){

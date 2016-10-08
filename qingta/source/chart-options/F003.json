@@ -1,0 +1,157 @@
+{
+  "legend": {
+    "data": [
+      "科技课题",
+      "投入人数",
+      "人均课题数"
+    ],
+    "bottom": "bottom"
+  },
+  "toolbox": {
+    "show": true,
+    "feature": {
+      "saveAsImage": {
+        "title": " "
+      }
+    },
+    "left": "40px"
+  },
+  "grid": {
+    "left": "40px",
+    "right": "40px",
+    "bottom": "40px",
+    "top": "40px",
+    "containLabel": true
+  },
+  "xAxis": {
+    "type": "category",
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#ccc"
+      }
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    },
+    "data": null
+  },
+  "yAxis": [
+    {
+      "type": "value",
+      "axisTick": {
+        "show": false
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisLabel": {
+        "textStyle": {
+          "color": "#999"
+        }
+      },
+      "splitLine": {
+        "lineStyle": {
+          "color": "#eee"
+        }
+      }
+    },
+    {
+      "type": "value",
+      "axisTick": {
+        "show": true
+      },
+      "axisLine": {
+        "show": true,
+        "lineStyle": {
+          "color": "#eee"
+        }
+      },
+      "axisLabel": {
+        "textStyle": {
+          "color": "#999"
+        }
+      },
+      "splitLine": {
+        "show": false
+      }
+    }
+  ],
+  "series": [
+    {
+      "type": "bar",
+      "name": "科技课题",
+      "yAxisIndex": 0,
+      "data": null,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(86, 217, 233)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#666"
+          }
+        }
+      },
+      "barWidth": "40%",
+      "barGap": 0
+    },
+    {
+      "type": "bar",
+      "name": "投入人数",
+      "yAxisIndex": 0,
+      "data": null,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(255, 204, 102)"
+        }
+      },
+      "barWidth": "40%",
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#666"
+          }
+        }
+      }
+    },
+    {
+      "name": "人均课题数",
+      "type": "line",
+      "yAxisIndex": 1,
+      "symbolSize": 1,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(9, 190, 255)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#333"
+          }
+        }
+      },
+      "lineStyle": {
+        "normal": {
+          "color": "rgb(9, 190, 255)",
+          "width": 6
+        }
+      },
+      "data": null,
+      "z": 3
+    }
+  ]
+}

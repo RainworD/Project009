@@ -1,0 +1,134 @@
+{
+  "legend": {
+    "data": [
+      "签订合同数",
+      "实际技术转让收入"
+    ],
+    "bottom": "bottom"
+  },
+  "toolbox": {
+    "show": true,
+    "feature": {
+      "saveAsImage": {
+        "title": " "
+      }
+    },
+    "left": "40px"
+  },
+  "grid": {
+    "left": "40px",
+    "right": "40px",
+    "bottom": "40px",
+    "top": "40px",
+    "containLabel": true
+  },
+  "xAxis": {
+    "type": "category",
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#ccc"
+      }
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    },
+    "data": null
+  },
+  "yAxis": [
+    {
+      "type": "value",
+      "axisTick": {
+        "show": false
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisLabel": {
+        "textStyle": {
+          "color": "#999"
+        }
+      },
+      "splitLine": {
+        "lineStyle": {
+          "color": "#eee"
+        }
+      }
+    },
+    {
+      "type": "value",
+      "axisTick": {
+        "show": true
+      },
+      "axisLine": {
+        "show": true,
+        "lineStyle": {
+          "color": "#ccc"
+        }
+      },
+      "axisLabel": {
+        "textStyle": {
+          "color": "#999"
+        }
+      },
+      "splitLine": {
+        "show": false
+      }
+    }
+  ],
+  "series": [
+    {
+      "yAxisIndex": 0,
+      "type": "bar",
+      "barWidth": "40%",
+      "name": "签订合同数",
+      "data": null,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(9,190,255)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#666"
+          }
+        }
+      }
+    },
+    {
+      "yAxisIndex": 1,
+      "name": "实际技术转让收入",
+      "type": "line",
+      "symbolSize": 1,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(255, 211, 124)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#333"
+          }
+        }
+      },
+      "lineStyle": {
+        "normal": {
+          "color": "rgb(255, 211, 124)",
+          "width": 3
+        }
+      },
+      "data": null,
+      "z": 3
+    }
+  ]
+}

@@ -10,7 +10,6 @@
 @level0-font-size: 18px;
 @level0-font-color: #111;
 
-// @level1-bg-color: #ffffeb;
 @level1-bg-color: #FFFFF2;
 @level1-font-size: 16px;
 @level1-font-color: #333;
@@ -22,6 +21,64 @@
 @level3-bg-color: #fff;
 @level3-font-size: 12px;
 @level3-font-color: #999;
+
+.qingta-ztree-table {
+    width:475px;height:400px;overflow-y:auto;overflow-x:hidden;position:relative;
+}
+.ztree-at-top {
+    width:458px;position:absolute;left:0px;top:0px;
+}
+
+.qingta-ztree-header {
+    border-top: @border-style;
+    border-left: @border-style;
+    border-right: @border-style;
+
+    position: relative;
+
+    .qingta-ztree-cell {
+        line-height: 40px;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .qingta-ztree-switch, .qingta-ztree-check {
+        position: absolute;
+    } 
+
+    .qingta-ztree-switch {
+        left: 0px;
+        width: @switch-width;
+    }
+
+    .qingta-ztree-check {
+        right: 0px;
+        width: @check-width;
+    }
+
+    .qingta-ztree-name {
+        padding-left: @switch-width;
+        padding-right: @check-width;
+        box-sizing: border-box;
+        table-layout: fixed;
+
+        display: table;
+        width: 100%;
+
+        .qingta-ztree-cell {
+            display: table-cell;
+
+            width: @span-node-width;
+            border-left: @border-style;
+
+            &:last-child {
+                width: auto;
+                border-right: @border-style;
+            }
+        }
+    }
+}
 
 .ztree {
     margin: 0;
@@ -67,7 +124,7 @@
         padding: 0px @check-width 0px @switch-width;
 
         &.curSelectedNode {
-            background: #ddd;
+            background: lighten(#33ccff,5%) !important;
         }
 
         > .node_name {

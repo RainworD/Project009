@@ -1,0 +1,103 @@
+{
+     "legend": {
+          "data" : ["拨入科技经费","支出科技经费"],
+          "bottom": "bottom"
+      },
+      "toolbox": {
+          "show": true,
+          "feature": {
+               "saveAsImage": {
+                    "title": " "
+               }
+          },
+          "left": "40px"
+      },
+      "grid": {
+          "left": "40px",
+          "right": "40px",
+          "bottom": "40px",
+          "top": "40px",
+          "containLabel": true
+      },
+      "xAxis": {
+          "type": "category",
+          "axisTick": {
+               "show": false    
+          },
+          "axisLine": {
+               "lineStyle": {
+                    "color": "#ccc"
+               }
+          },
+          "axisLabel": {
+               "textStyle": {
+                    "color": "#999"
+               }    
+          },
+          "data": null
+      },
+      "yAxis": {
+        "type": "value",
+        "axisTick": {
+             "show": false    
+        },
+        "axisLine": {
+             "show": false
+        },
+        "axisLabel": {
+             "textStyle": {
+                  "color": "#999"
+             }    
+        },
+        "splitLine": {
+             "lineStyle": {
+                  "color": "#eee"
+             }
+        }
+      },
+     "series": [
+          {
+               "type":"bar",
+               "name": "拨入科技经费",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(86, 217, 233)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "barWidth": "40%",
+               "barGap": 0,
+               "data": null
+          },
+          {
+               "type":"bar",
+               "name": "支出科技经费",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(255, 204, 102)"
+                    }
+               },
+               "barWidth": "40%",
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "data": null
+          }
+     ]
+}
