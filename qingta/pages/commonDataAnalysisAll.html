@@ -127,10 +127,10 @@
 			<div class="custom-modal-body">
 				<div class="custom-search-bar">
 					<div style="display:table-cell;width:100%;">
-						<input type="text" class="custom-input">
+						<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
 					</div>
 					<div style="display:table-cell;width:130px;">
-						<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;">查询</a>
+						<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;" @click="searchNode">查询</a>
 					</div>
 				</div>
 				<div style="padding:0px 20px;">
@@ -266,6 +266,41 @@
 			overflow: 'auto'
 		})*/
 		$modal.hide()
+	}
+
+	function searchAndScrollToNode(zTreeObj, str) {
+		var attrs = Array.prototype.slice.call(arguments, 2)
+
+		var node = zTreeObj.getNodesByFilter(function(node){
+			return attrs.every(function(attr){
+				return node[attr].indexOf(str) !== -1
+			})
+		}, true)
+
+		if (!node) {
+			alert('未找到相关数据')
+			return false 
+		}
+		
+		var stack = [node], parentNode = node.getParentNode()
+		while(parentNode) { 
+			stack.push(parentNode)
+			parentNode = parentNode.getParentNode()
+		}
+
+		stack.reverse().forEach(function(item){
+			zTreeObj.expandNode(item, true, false, false)
+		})
+
+		var $node = $('#'+ node.tId)
+		var $container = $node.parents('.ztree').parent()
+		
+		var offset = $('#tree_1').offset()
+
+		$container.animate({
+			scrollTop: $node.offset().top - (offset && offset.top)
+		}, 1000)
+		return true
 	}
 
 	var baseTree
@@ -1461,10 +1496,18 @@
 					id: "",
 				},
 				mark_data: [],
-				tab_index: 0
+				tab_index: 0,
+				search_str: ""
 			}
 		},
 		methods: {
+			searchNode: function(){
+				var zTreeObj = $.fn.zTree.getZTreeObj('tree')
+				var find = searchAndScrollToNode(zTreeObj, this.search_str, 'name')
+				if (!find) {
+					this.search_str = ""
+				}
+			},
 			convertToPDF: function(){
 				/*var $pageDom = $('.rightBox').clone()
 				var originEchart = $('.rightBox').find('[_echarts_instance_]')
@@ -1522,7 +1565,7 @@
 				})).then(function(res){
 					baseTree = res.result
 					self.initZtree()
-					var firstUniversity = baseTree[0].children[0]
+					var firstUniversity = baseTree[0].children[0].children[0]
 					self.university.name = firstUniversity.name
 					self.university.id = firstUniversity.id
 					self.tab_index = 1
