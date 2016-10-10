@@ -152,13 +152,32 @@ function getUnits(){
 var objnew={};
 var finalResults=objnew.finalResults;
 function judgeUnits(result){
-	var zNodes=result;
+	var zNodes=[];
+	for (var i=0,len=result.length;i<len;i++ ) {
+		var obj={};
+		var array=[];
+		for (var j=0,mylen=result[i].length;j<mylen;j++) {
+			if(j==0){
+				obj.name=result[i][0];
+				obj.id="";
+			}
+			else{
+				var obj2=new Object();
+				obj2.name=result[i][j][0];
+				obj2.id=result[i][j][1];
+				array.push(obj2);
+				obj.children=array;
+			}
+		}
+		zNodes.push(obj);
+	}
+	// for (var i=0;i<zNodes.length;i++) {
+	// 	zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
+		
+	// }
 	$.fn.zTree.init($("#tree"), setting, zNodes);
 	rootObj=$.fn.zTree.getZTreeObj("tree");
-	rootObj.expandNode(rootObj.getNodes()[0], true)
-	// $(".qingta-ztree-table").delegate("li.level0","click",function(){
-	// 	$(this).parents(".ztree").find(".level2 a").css("background-color","#fff");
-	// })
+	// rootObj.expandNode(rootObj.getNodes()[0], true)
 }
 function loadContent() {
 	$(document).unbind("mousedown");
@@ -185,20 +204,27 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	var myleft,mytop;
 	var ismousedown=false;
 	var downX,downY;
+	// myleft=$(selector).offset().left;
+	// mytop=$(selector).offset().top;
 	myleft=$(selector).position().left;
 	mytop=$(selector).position().top;
 	$(selector).bind("mousedown",function(e){
 		var targ = $(e.target);
+		// var name=targ.className;
 		var flag=targ.closest('.unitsContent');
 		if(flag.length){
 			ismousedown=false;
 		}
 		else{
 			ismousedown=true;
+			// myleft=$(selector).position().left;
+			// mytop=$(selector).position().top;
 			var _dom = $(selector).get(0)
 			var offset = _dom.getBoundingClientRect()
 			myleft=offset.left;
 			mytop=offset.top;
+			// downX=e.screenX;
+			// downY=e.screenY;
 			downX=e.clientX;
 			downY=e.clientY;
 		}
@@ -222,12 +248,110 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	})
 }
 function dragBoxUnitsChoose(selector,projectUnits){
+	// var array=[];
+	// var rootObj=$.fn.zTree.getZTreeObj("tree");
 	var checkedArray=[];
 	var _array=[];
 	$(selector).on("click",".cancelBtn",function(){
 		$(".mask").hide();
 		$(selector).hide();
 	})
+	// $(".leftColumnProvinces").on("click",".provinceItems",function(){
+	// 	var flag=$(this).find(".provinces").prop("checked");
+	// 	if(flag){
+	// 		$(this).children().find(".commonCollege").prop("checked",true);
+	// 	}
+	// 	else{
+	// 		$(this).children().find(".commonCollege").prop("checked",false);
+	// 	}
+	// })
+	// $(".leftColumnProvinces").on("click",".commonCollege",function(e){
+	// 	e.stopPropagation();
+	// 	var myinput=$(this).parents(".provinceItems").find(".commonCollege");
+	// 	var len=myinput.length;
+	// 	var trueArray=[];
+	// 	for(i=0;i<len;i++){
+	// 		var getTrue=myinput.eq(i).prop("checked");
+	// 		if(getTrue){
+	// 			trueArray.length++;
+	// 		}
+	// 	}
+	// 	if(trueArray.length==len){
+	// 		$(this).parents().prev().prop("checked",true);
+	// 	}
+	// 	else{
+	// 		$(this).parents().prev().prop("checked",false);
+	// 	}
+	// })
+	// $(".moveRight").bind("click",function(){
+		// getTreeNodes(checkedArray,_array);
+		// var checkedLen=checkedArray.length;
+		// for (var i =0;i<checkedLen;i++ ) {
+			// var hasSame=false;
+			// var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
+			// for (var k=0;k<findLi.length;k++) {
+			// 	var txt=findLi.eq(k).text();
+			// 	if(txt==checkedArray[i].name){
+			// 		hasSame = true;
+   //              	break;
+			// 	}
+			// }
+			// if(!hasSame){
+	   //         	var liItems=$('<li class="chooseItems"></li>');
+				// liItems.append(checkedArray[i].name);
+				// liItems.attr("data-id",checkedArray[i].id)
+				// $(".rightColumn").find(".chooseAlreadyList").append(liItems);
+	        // }
+		// }
+	// })
+	// $(".rightColumn .chooseAlreadyList").delegate('.chooseItems', 'click', function(event) {
+	// 	var txt=$(this).text();
+	// 	var className=$(this).attr("class");
+	// 	var array=className.split(" ");
+	// 	if(array.length>1){
+	// 		$(this).removeClass("addSomeColor");
+	// 	}
+	// 	else{
+	// 		$(this).addClass("addSomeColor");
+	// 	}
+	// })
+	// $(".moveLeft").bind("click",function(){
+	// 	var toLeftUnits=[];
+	// 	var obj_new={};
+	// 	toLeftUnits.length=0;
+	// 	_array=rootObj.getCheckedNodes();
+	// 	var rightChoosen=$(".rightColumn").find(".chooseAlreadyList").children('.chooseItems');
+	// 	for (var i=0,len=rightChoosen.length;i<len;i++) {
+	// 		var className=rightChoosen.eq(i).attr("class");
+	// 		var myarray=className.split(" ");
+	// 		if(myarray.length>1){
+	// 			var txt1=rightChoosen.eq(i).text();
+	// 			toLeftUnits.push(txt1);
+	// 			rightChoosen.eq(i).remove();
+	// 		}
+	// 	}
+	// 	for (var m=0;m<_array.length;m++) {
+	// 		var _arrayChildren=_array[m].children;
+	// 		for (var k=0;k<_arrayChildren.length;k++) {
+	// 			for (var j =0; j<toLeftUnits.length;j++) {
+	// 				if(_arrayChildren[k].name==toLeftUnits[j]){
+	// 					_arrayChildren[k].chkDisabled=false;
+	// 					_arrayChildren[k].checked=false;
+	// 					// _array.splice(m,1);
+	// 					// _arrayChildren.splice(k,1);
+	// 					cancelCheckedState();
+	// 				}
+	// 			}
+	// 			if(_array[m].isParent){
+	// 			}
+	// 			else{
+	// 				obj_new=_arrayChildren[k].name;
+	// 				obj_new=_arrayChildren[k].id;
+	// 				checkedArray.push(obj_new);
+	// 			}
+	// 		};
+	// 	}
+	// })
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
@@ -248,19 +372,12 @@ function dragBoxUnitsChoose(selector,projectUnits){
 				}
 			}
 		},10);
+		// var projectUnits=[];
+		//$(".unitsEnter").val(showName);
 	})
 	$(selector).on("click",".forConsole",function(){
 		$(".mask").hide();
 		$(selector).hide();
-	})
-	$(selector).on("click",".search-box",function(){
-		var search_str=$(this).siblings(".custom-input-box").find("input").val();
-		console.log(search_str);
-		var find = searchAndScrollToNode_(rootObj, search_str,"name");
-		console.log(find);
-		if (!find) {
-			search_str = ""
-		}
 	})
 }
 function dragBoxSortsChoose(selector){
@@ -268,6 +385,9 @@ function dragBoxSortsChoose(selector){
 		$(".mask").hide();
 		$(selector).hide();
 	})
+	// $(selector).on("click",".forConsole",function(){
+	// 	$(this).parents('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
+	// })
 	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
 		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
 	})
@@ -314,8 +434,6 @@ function dragBoxSortsChoose(selector){
 					var state=data.state;
 					var result=data.result;
 					if(state==1){
-						var nullopt=$('<option selected="selected"></option>');
-						$(".projectClass").append(nullopt);
 						for (var i=0;i<result.length;i++) {
 							var newopt=$('<option></option>');
 							if (result[i]) {
@@ -334,10 +452,7 @@ function topBarControl(){
 	$(".resetBtn").bind("click",function(){
 		if(confirm("你确定重置所有查询条件？")){
 			$(this).parents(".topTable").find("input").val("");
-			// $(this).parents(".topTable").find("select").first().val();
-			if(projectUnits){
-				projectUnits.length=0;
-			}
+			projectUnits.length=0;
 		}	
 	})
 	$(".changeBarContainer").on("click",".hideBtn",function(){
@@ -450,7 +565,7 @@ $("body").on("click",".showMoreContent",function(event){
 })
 function doForSearch(selector,url){
 	$(selector).bind('input propertychange', function(event) {
-		// $(selector).parents("td").find("input").val("");
+		$(selector).parents("td").siblings("td").find("input").val("");
 		var sub=$(selector).val();
 		getWholeList(sub,url,selector);
 		$(selector).siblings('.showElse').addClass('showBtn'); 
@@ -585,6 +700,11 @@ function ajaxMorePages(pageindex,newindex,params,url){
 	})
 	return ajax;
 }	
+// function getMoreResults(result,pageindex,newindex){
+// 	$(".infoTable1").children('tbody').empty();
+// 	selfResult(pageindex,result,newindex);
+// }
+
 function paginationCallback(index,params,url){
 	newindex=index;
     if(index>50){
@@ -604,39 +724,44 @@ function paginationCallback(index,params,url){
     	selfResult(1,dataBox[1],newindex);
     }
 }
-function searchAndScrollToNode_(zTreeObj, str) {
-	var attrs = Array.prototype.slice.call(arguments, 2)
+// function searchAndScrollToNode_(zTreeObj, str) {
+// 	var attrs = Array.prototype.slice.call(arguments, 2)
 
-	var node = zTreeObj.getNodesByFilter(function(node){
-		return attrs.every(function(attr){
-			return node[attr].indexOf(str) !== -1
-		})
-	}, true)
+// 	var node = zTreeObj.getNodesByFilter(function(node){
+// 		return attrs.every(function(attr){
+// 			return node[attr].indexOf(str) !== -1
+// 		})
+// 	}, true)
 
-	if (!node) {
-		alert('未找到相关数据')
-		return false 
-	}
-	console.log(node);
-	var stack = [node], parentNode = node.getParentNode()
-	console.log(stack);
-	console.log(parentNode);
-	while(parentNode) { 
-		stack.push(parentNode)
-		parentNode = parentNode.getParentNode()
-		console.log(stack);
-	}
-
-	stack.reverse().forEach(function(item){
-		zTreeObj.expandNode(item, true,false,false)
-	})
-	var $node = $('#'+ node.tId)
-	var $container = $node.parents('.ztree').parent()
+// 	if (!node) {
+// 		alert('未找到相关数据')
+// 		return false 
+// 	}
 	
-	var offset = $('#tree_1').offset()
+// 	var stack = [node], parentNode = node.getParentNode()
+// 	while(parentNode) { 
+// 		stack.push(parentNode)
+// 		parentNode = parentNode.getParentNode()
+// 	}
 
-	$container.animate({
-		scrollTop: $node.offset().top - (offset && offset.top)
-	}, 1000)
-	return true
-}
+// 	stack.reverse().forEach(function(item){
+// 		zTreeObj.expandNode(item, true, false, false)
+// 	})
+
+// 	var $node = $('#'+ node.tId)
+// 	var $container = $node.parents('.ztree').parent()
+	
+// 	var offset = $('#tree_1').offset()
+
+// 	$container.animate({
+// 		scrollTop: $node.offset().top - (offset && offset.top)
+// 	}, 1000)
+// 	return true
+// }
+// $(".search-box").bind("click",function(){
+// 	var search_str=$(this).siblings(".custom-input-box").find("input").val();
+// 	var find = searchAndScrollToNode(rootObj, search_str, 'name')
+// 	if (!find) {
+// 		search_str = ""
+// 	}
+// })

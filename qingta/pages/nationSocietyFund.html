@@ -87,20 +87,21 @@
 				</td>
 			</tr>
 			<tr>				
-				<th>所属系统 :</th>
+				<!-- <th>所属系统 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox systemBelong" style="padding-right: 30px;">
 							<option selected="selected"></option>
 						</select>
 					</div>
-				</td>
+				</td> -->
 				<th>
 					<label for="schoolOnly">
 						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
 					</label>
 				</th>
 				<td></td>
+				<td colspan="2"></td>
 				<td colspan="2"></td>
 				<td colspan="2">
 					<a class="searchBtn rightMinBtn">查询</a>
@@ -125,7 +126,7 @@
 						<th>学科分类</th>
 						<th>项目类别</th>
 						<th>依托单位</th>
-						<th>所属系统</th>
+						<!-- <th>所属系统</th> -->
 						<th>立项时间</th>
 						<th>立项数</th>
 					</tr>
@@ -312,14 +313,10 @@
 							result[i][1]="全部项目类别";
 						}
 						else{}
-						if(system==""){
-							result[i][3]="全部所属系统";
-						}
-						else{}
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
-						else if(j==4){
+						else if(j==3){
 							result[i][j]=year1+'-'+year2;
 						}
 						mytd.text(result[i][j]);
@@ -327,8 +324,6 @@
 					}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			searchInfo.children('td').eq(3).css("text-align","left");
-			searchInfo.children('td').css("height","57px");
 			searchInfo.children('td').last().addClass('nowrap');
 		}
 	}

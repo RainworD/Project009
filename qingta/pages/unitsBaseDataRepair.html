@@ -18,6 +18,14 @@
 						</ul>
 					</div>
 				</td> 
+				<th style="width:80px;">单位类型 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox unitsType unitsType1">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td> 
 				<th style="width:10.6%;">省份 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
@@ -30,12 +38,11 @@
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
 						<input class="commonput codeNum">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td> 
-				<td colspan="2" style="width: 26.3%">
-					<a class="searchBtn rightMinBtn">查询</a>
-					<a class="resetBtn rightMinBtn">重置</a>
-				</td>
 			</tr>
 			<tr>
 				<th>
@@ -46,7 +53,10 @@
 				<td></td>
 				<td colspan="2"></td>
 				<td colspan="2"></td>
-				<td colspan="2"></td>
+				<td colspan="2" style="width: 26.3%">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
 			</tr>
 		</table>
 	</div>
@@ -64,7 +74,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>单位编码</th>
-						<th>依托单位</th>
+						<th>单位名称</th>
 						<th>类型</th>
 						<th>省份</th>
 						<th>上级编码</th>
@@ -288,6 +298,7 @@
 	doForSearch(".unitsEnter","/Landentity0");
 	doForSearch(".upperName","/Landentity0");
 	doForSearch(".topName","/Landentity0");
+	doForSearch(".codeNum","/LandNNSFentity")
 	$(".forSure").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose2").hide();
@@ -317,7 +328,7 @@
 				}
 			})
 		}
-		window.location.reload();
+		// window.location.reload();
 	})
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
@@ -347,7 +358,7 @@
 						text = madeNowrapText(result[i][j]);
 					}
 					else if(j==1||j==5||j==8){
-						text = madeTwoLineText(result[i][j])
+						text = madeOneLineText(result[i][j])
 					}
 					mytd.html(text);
 					searchInfo.append(mytd);
@@ -363,7 +374,7 @@
 				searchInfo.append(newtd);
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}		
-			searchInfo.children('td').css("height","57px");
+			// searchInfo.children('td').css("height","57px");
 			searchInfo.children('td').last().addClass('nowrap');
 		}
 	}
@@ -374,6 +385,7 @@
 		var province=$('.province1').val();
 		var id=$(".codeNum").val();
 		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var unitsType=$(".unitsType1").val();
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
@@ -385,10 +397,20 @@
 			"id":id,
             "name":name,
             "province":province,
-            "schoolOnly":schoolOnly
+            "schoolOnly":schoolOnly,
+            "type":unitsType
 		}
 		getDataBox(params,'/askEntity');
 	})
+	var params_={
+		'pageindex':1,
+		"id":"",
+        "name":"",
+        "province":"",
+        "schoolOnly":"",
+        "type":""
+	}
+	getDataBox(params_,'/askEntity');
 	$(".infoTable1").delegate(".removeData","click",function(){
 		var id=$(this).parents("tr").children("td").eq(1).text();
 		if(confirm("您确定删除该行数据吗？")){
@@ -401,7 +423,7 @@
 				},
 				success:function(data){
 					if(data.state==1){
-						alert("删除用户成功");
+						alert("删除单位成功");
 					}
 					else{
 						alert("网络异常！");

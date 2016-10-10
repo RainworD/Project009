@@ -63,32 +63,6 @@ body {
   position: relative;
   width: 150px;
 }
-.mainContainer .commonInputBox .showElse,
-.mainContainer .commonInputBox .showElse2 {
-  display: none;
-  position: absolute;
-  top: 27px;
-  left: 0;
-  background-color: #fff;
-  z-index: 1;
-  width: 100%;
-  border: 1px solid #bdbdbd;
-  max-height: 300px;
-  overflow: auto;
-}
-.mainContainer .commonInputBox .showElse li,
-.mainContainer .commonInputBox .showElse2 li {
-  padding: 5px;
-  cursor: pointer;
-}
-.mainContainer .commonInputBox .showElse li:hover,
-.mainContainer .commonInputBox .showElse2 li:hover {
-  background-color: #fffcf3;
-  width: auto;
-}
-.mainContainer .commonInputBox .showBtn {
-  display: block;
-}
 .mainContainer .commonInputBox .commonput {
   border: none;
   width: 100%;
@@ -199,17 +173,17 @@ body {
 .mainContainer .infoTable td .addLine {
   display: inline-block;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   color: #fff;
   margin: auto;
   background-color: #3cc;
-  margin: 5px;
+  margin: 0 5px;
 }
 .mainContainer .infoTable td .removeData {
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   background-color: #f33;
   color: #fff;
   margin: auto;
@@ -741,7 +715,7 @@ body {
   color: #fff;
   cursor: pointer;
 }
-.mainContainer .rightBox .topBar .leftImg .showBtn {
+.mainContainer .rightBox .topBar .leftImg .showBtn_ {
   font-size: 23px;
 }
 .mainContainer .rightBox .topBar .leftImg:hover {
@@ -1372,6 +1346,32 @@ body {
 }
 .mainContainer .nowrapTable th {
   white-space: normal;
+}
+.showElse,
+.showElse2 {
+  display: none;
+  position: absolute;
+  top: 27px;
+  left: 0;
+  background-color: #fff;
+  z-index: 1;
+  width: 100%;
+  border: 1px solid #bdbdbd;
+  max-height: 300px;
+  overflow: auto;
+}
+.showElse li,
+.showElse2 li {
+  padding: 5px;
+  cursor: pointer;
+}
+.showElse li:hover,
+.showElse2 li:hover {
+  background-color: #fffcf3;
+  width: auto;
+}
+.showBtn {
+  display: block;
 }
 .nowrap {
   text-overflow: ellipsis;

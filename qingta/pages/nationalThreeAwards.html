@@ -113,7 +113,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>完成单位</th>
-						<th>获奖年度</th>
+						<th>年度</th>
 						<th>获奖级别</th>
 						<th>国家最高奖</th>
 						<th>国家技术发明奖</th>
@@ -245,8 +245,8 @@
 	        url: "/NationalScience/getStatistics",
 	        type: "POST",
 	        traditional:true,
-	        beforeSend:beforeHandle,
-	        success:successHandle,
+	        // beforeSend:beforeHandle,
+	        // success:successHandle,
 	        data:{
 	            "first_unit":first_unit,
 	            "participate_unit":participate_unit,
@@ -272,7 +272,6 @@
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
 		var level=$(".awardsLevel").val();
-		count=data.count;
 		var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 		addCount.children('span').eq(0).text(count);
 		if(count<20){
@@ -328,6 +327,28 @@
 		var year2=$(".yearName2").val();
 		var entitys=projectUnits;
 		var level=$(".awardsLevel").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		if(projectUnits.length){
+			count=projectUnits.length;
+		}
+		else{
+			$.ajax({
+				url:"/askEntityCount",
+				type:"POST",
+				data:{
+					schoolOnly:schoolOnly
+				},
+				success:function(data){
+					count=data.count;
+				}
+			})
+		}
 		start=0;
 		var rows=20;
 		$.when(getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows)).done(function(data){

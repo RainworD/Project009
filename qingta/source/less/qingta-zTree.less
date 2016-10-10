@@ -7,11 +7,11 @@
 @span-node-indent: 5px;
 
 @level0-bg-color: #FFFFDF; 
-@level0-font-size: 18px;
+@level0-font-size: 16px;
 @level0-font-color: #111;
 
 @level1-bg-color: #FFFFF2;
-@level1-font-size: 16px;
+@level1-font-size: 14px;
 @level1-font-color: #333;
 
 @level2-bg-color: #f7f8f7;
@@ -39,7 +39,7 @@
     .qingta-ztree-cell {
         line-height: 40px;
         font-size: 16px;
-        font-weight: bold;
+        // font-weight: bold;
         text-align: center;
     }
 
@@ -250,7 +250,7 @@
         content: "\f096";
     }
 
-    &.checkbox_true_full_focus:before, &[treenode_check].checkbox_true_full:before {
+    &.checkbox_true_full_focus:before, &[treenode_check].checkbox_true_full:before ,&:before{
         content: "\f046";
     }
 }
