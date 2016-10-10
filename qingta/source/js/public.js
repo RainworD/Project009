@@ -608,7 +608,7 @@ function searchAndScrollToNode_(zTreeObj, str) {
 	var attrs = Array.prototype.slice.call(arguments, 2)
 
 	var node = zTreeObj.getNodesByFilter(function(node){
-		return attrs.every(function(attr){
+		return attrs.some(function(attr){
 			return node[attr].indexOf(str) !== -1
 		})
 	}, true)
@@ -629,12 +629,13 @@ function searchAndScrollToNode_(zTreeObj, str) {
 		zTreeObj.expandNode(item, true,false,false)
 	})
 	var $node = $('#'+ node.tId)
+	var $ztree = $node.parents('.ztree')
 	var $container = $node.parents('.ztree').parent()
 	
-	var offset = $('#tree_1').offset()
+	var offset = $ztree.children(":first-child").get(0).getBoundingClientRect()
 
 	$container.animate({
-		scrollTop: $node.offset().top - (offset && offset.top)
+		scrollTop: $node.get(0).getBoundingClientRect().top - (offset && offset.top)
 	}, 1000)
 	return true
 }
