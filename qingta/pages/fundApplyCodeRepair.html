@@ -1,4 +1,9 @@
 <link rel="stylesheet" href="../source/css/chart.css">
+<style>
+	.mainContainer .topTable .commonInputBox .commonput {
+		border: 1px solid #ddd;
+	}
+</style>
 <div id="fund_apply_code_container">
 	<fund-apply-code></fund-apply-code>
 </div>
@@ -7,7 +12,7 @@
 		<div class="changeBarBox" style="background-color:#fff;">
 			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">基金-申请代码维护</a>
 		</div>
-		<div class="addDataBtn" style="margin-right:0;" v-on:click="openFundCodeModal(false)">新增数据</div>
+		<div class="addDataBtn" style="margin-right:0;" v-on:click="openModifyModal(false)">新增数据</div>
 		<p class="hideBtn" style="right: 150px;" v-on:click="hideSearchBar=!hideSearchBar">{{hideSearchBar ? '显示' : '隐藏'}}查询条件</p>
 	</div>
 	<div class="enterBox" v-show="!hideSearchBar">
@@ -49,7 +54,7 @@
 			</table>
 		</div>
 	</div>
-	<div class="tableContent" id="fund_code_tablecontent">
+	<div class="tableContent">
 		<div class="infoTableBox" style="padding-bottom:0px;">
 			<div class="infoTableTop">
 				<p class="infoTablePara">
@@ -77,7 +82,7 @@
 							<td>{{code.leaf ? '是': '否'}}</td>
 							<td>
 								<div class="addLine">
-									<i class="fa fa-edit fa-lg removeBtn" v-on:click="openFundCodeModal(code)"></i>
+									<i class="fa fa-edit fa-lg removeBtn" v-on:click="openModifyModal(code)"></i>
 								</div>
 								<div class="removeData">
 									<i class="fa fa-times fa-lg removeBtn" v-on:click="deleteCode(code)"></i>
@@ -89,145 +94,127 @@
 			</div>
 		</div>
 	</div>
-	<div class="mask mask0"></div>
-	<div class="unitsChoose unitsChoose1">
-		<div class="unitsContainer">
-			<div class="cancelBtn">
-				<i class="fa fa-close showCollege" v-on:click="closeFundCodeModal(false)"></i>
+	<div class="M-box"></div>
+	<div class="custom-modal" data-drag-modal="false" v-el:modifymodal>
+		<div class="custom-modal-content" style="width:720px;" drag-modal-content>
+			<div class="custom-modal-close" @click="closeModifyModal(false)">
+				<i class="fa fa-close"></i>
 			</div>
-			<div class="unitsHeader">
-				<p class="unitsTitle">申请代码维护</p>
+			<div class="custom-modal-head" data-drag-enter>
+				<span>申请代码维护</span>
 			</div>
-			<div class="unitsContent">
-				<div class="showTotalData">
-					<div class="ESIContent" style="padding-top: 40px;">
-						<table class="ESITable topTable">
-							<tr>
-								<th style="width:110px;">申请代码编码 :</th>
-								<td>
-									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="edit_code">
-									</div>
-								</td>
-								<th style="width:110px;">申请代码名称 :</th>
-								<td>
-									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="edit_name">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<th v-if="selectedId!==null">级次 :</th>
-								<td v-if="selectedId!==null">
-									{{selectedId.level}}
-								</td>
-								<th style="width:80px;">上级编码 :</th>
-								<td>
-									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-on:focus="openFundCodeParentModal" v-model="parentNode_string">
-									</div>
-								</td>
-							</tr>
-						</table>
-					</div>
-				</div>
+			<div class="custom-modal-body" style="padding:20px 20px;">
+				<table class="topTable">
+					<tr>
+						<th style="width:110px;">申请代码编码 :</th>
+						<td>
+							<div class="commonInputBox" style="width:100%;">
+								<input class="commonput" v-model="edit_code">
+							</div>
+						</td>
+						<th style="width:110px;">申请代码名称 :</th>
+						<td>
+							<div class="commonInputBox" style="width:100%;">
+								<input class="commonput" v-model="edit_name">
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th v-if="selectedId!==null">级次 :</th>
+						<td v-if="selectedId!==null">
+							{{selectedId.level}}
+						</td>
+						<th style="width:80px;">上级编码 :</th>
+						<td>
+							<div class="commonInputBox" style="width:100%;">
+								<input class="commonput" v-on:focus="openFundCodeParentModal" v-model="parentNode_string">
+							</div>
+						</td>
+					</tr>
+				</table>
 			</div>
-			<div class="bottomBtn">
-				<p>
-					<a class="button button-green" style="float:right;" v-on:click="closeFundCodeModal(true)">确定</a>
-					<a class="button button-blue" style="float:right;" v-on:click="closeFundCodeModal(false)">取消</a>
-				</p>
+			<div class="custom-modal-foot">
+				<div data-drag-enter></div>
+				<a class="qingta-button button-blue" @click="closeModifyModal(false)">取消</a>
+				<a class="qingta-button button-green" @click="closeModifyModal(true)">确定</a>
 			</div>
 		</div>
 	</div>
-	<div class="unitsChoose unitsChoose2">
-		<div class="unitsContainer">
-			<div class="cancelBtn" v-on:click="closeSearchNameModal">
-				<i class="fa fa-close showCollege"></i>
+	<div class="custom-modal" data-drag-modal="false" v-el:searchmodal>
+		<div class="custom-modal-content" style="width:720px;" drag-modal-content>
+			<div class="custom-modal-close" @click="closeSearchNameModal(false)">
+				<i class="fa fa-close"></i>
 			</div>
-			<div class="unitsHeader unitsHeader1">
-				<p class="unitsTitle">项目牵头单位选择</p>
+			<div class="custom-modal-head" data-drag-enter>
+				<span>项目单位选择</span>
 			</div>
-			<div class="unitsContent">
-				<div class="totalModel">
-					<div class="leftColumn" style="cursor:default">
-						<div class="leftColumnBox">
-<<<<<<< HEAD
-							<div class="leftColumnBar">
-								<div class="searchp">
-									<input class="searchBox">
-									<ul class="showElse">
-									</ul>
-									<a class="leftSearchBtn">查询</a>
-								</div>
-							</div>
-=======
->>>>>>> origin/master
-							<div class="leftColumnContent">
-								<div class="leftColumnProvinces">
-									<ul id="fund-tree" class="ztree">
-									</ul>
-								</div>
-							</div>
+			<div class="custom-modal-body">
+				<div class="custom-search-bar">
+					<div style="display:table-cell;width:100%;">
+						<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode('fund-tree')">
+					</div>
+					<div style="display:table-cell;width:130px;">
+						<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;" @click="searchNode('fund-tree')">查询</a>
+					</div>
+				</div>
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">单位编码</span>
+							<span class="qingta-ztree-cell">单位名称</span>
 						</div>
 					</div>
-					<div class="middleColumn">
-						<div class="btnBox">
-							<i class="fa fa-long-arrow-right code-right-arrow"></i>
-							<i class="fa fa-long-arrow-left code-left-arrow"></i>
-						</div>
-					</div>
-					<div class="rightColumn">
-						<div class="rightColumnContent">
-<<<<<<< HEAD
-							<p class="rightColumnBar">
-								已选单位：
-							</p>
-=======
->>>>>>> origin/master
-							<div class="chooseAlready">
-								<ul class="chooseAlreadyList">
-									<li class="chooseItems" v-for="item in search_name" v-on:click="removeItemFromSearch(item.nodeTree)" track-by="id">{{item.name}}</li>
-								</ul>
-							</div>
-						</div>
+					<div class="qingta-ztree-table" style="width:678px;">
+						<ul id="fund-tree" class="ztree ztree-at-top" style="width:678px;">
+						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="bottomBtn">
-				<p>
-					<a class="button button-green" style="float:right;" v-on:click="closeSearchNameModal">确定</a>
-				</p>
+			<div class="custom-modal-foot">
+				<div data-drag-enter></div>
+				<a class="qingta-button button-blue" @click="closeSearchNameModal(false)">取消</a>
+				<a class="qingta-button button-green" @click="closeSearchNameModal(true)">确定</a>
 			</div>
 		</div>
 	</div>
-	<div class="mask mask1"></div>
-	<div class="unitsChoose unitsChoose3">
-		<div class="unitsContainer">
-			<div class="cancelBtn" v-on:click="closeFundCodeParentModal(false)">
-				<i class="fa fa-close showCollege"></i>
+	<div class="custom-modal" data-drag-modal="false" v-el:parentmodal>
+		<div class="custom-modal-content" style="width:720px;" drag-modal-content>
+			<div class="custom-modal-close" @click="closeFundCodeParentModal(false)">
+				<i class="fa fa-close"></i>
 			</div>
-			<div class="unitsHeader unitsHeader1">
-				<p class="unitsTitle">上级单位选择</p>
+			<div class="custom-modal-head" data-drag-enter>
+				<span>上级单位选择</span>
 			</div>
-			<div class="unitsContent">
-				<div class="totalModel">
-					<div class="leftColumn" style="cursor:default;width:100%;">
-						<div class="leftColumnBox">
-							<div class="leftColumnContent">
-								<div class="leftColumnProvinces">
-									<ul id="fund-parent-tree" class="ztree">
-									</ul>
-								</div>
-							</div>
+			<div class="custom-modal-body">
+				<div class="custom-search-bar">
+					<div style="display:table-cell;width:100%;">
+						<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode('fund-tree')">
+					</div>
+					<div style="display:table-cell;width:130px;">
+						<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;" @click="searchNode('fund-tree')">查询</a>
+					</div>
+				</div>
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">单位编码</span>
+							<span class="qingta-ztree-cell">单位名称</span>
 						</div>
+					</div>
+					<div class="qingta-ztree-table" style="width:678px;">
+						<ul id="fund-parent-tree" class="ztree ztree-at-top" style="width:678px;">
+						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="bottomBtn">
-				<p>
-					<a class="button button-green" style="float:right;" v-on:click="closeFundCodeParentModal(true)">确定</a>
-				</p>
+			<div class="custom-modal-foot">
+				<div data-drag-enter></div>
+				<a class="qingta-button button-blue" @click="closeFundCodeParentModal(false)">取消</a>
+				<a class="qingta-button button-green" @click="closeFundCodeParentModal(true)">确定</a>
 			</div>
 		</div>
 	</div>
@@ -238,7 +225,6 @@
 
 	var baseTree = null
 	var baseData = null
-	var mbox = null
 
 	Vue.component('fund-apply-code', {
 		template: $(fund_apply_code_template).html(),
@@ -260,10 +246,125 @@
 					code: ""
 				},
 				selectedId: null,
-				parentNode_string: ""
+				parentNode_string: "",
+				search_str: ""
 			}
 		},
 		methods: {
+			searchNode: function(id){
+				var zTreeObj = $.fn.zTree.getZTreeObj(id)
+				var find = searchAndScrollToNode_(zTreeObj, this.search_str, 'name', 'code')
+				if (!find) {
+					this.search_str = ""
+				}
+			},
+			closeModifyModal: function(save){
+				var self = this
+
+				if (save) {
+					if (this.selectedId == null) {
+						if (this.edit_code == "" || this.edit_name == "") {
+							alert('请完整填写代码编号与名称')
+						} else {
+							var parentId = this.selectedFundCode.id || null
+							var params = null
+							if (parentId !== null) {
+								params = {
+									code: this.edit_code,
+									name: this.edit_name,
+									parent: parentId
+								}
+							} else {
+								params = {
+									code: this.edit_code,
+									name: this.edit_name
+								}
+							}
+
+							var self = this
+							Promise.resolve($.ajax({
+								url: '/FundCode/add',
+								error: function(){},
+								data: params 
+							})).then(function(res){
+								if (res.state == '0') {
+									self.initData()
+									hideModal($(self.$els.modifymodal))
+								} else {
+									return Promise.reject(new Error(res.state))
+								}
+							}).catch(function(e){
+								console.dir(e)
+								alert('新增申请代码失败')
+							})
+						}
+					} else {
+						if (this.edit_code == "" || this.edit_name == "") {
+							alert('请完整填写代码编号与名称')
+						} else {
+							var parentId = this.selectedFundCode.id || null
+							var params = null
+							if (parentId !== null) {
+								params = {
+									id: this.selectedId.id,
+									code: this.edit_code,
+									name: this.edit_name,
+									parent: parentId
+								}
+							} else {
+								params = {
+									id: this.selectedId.id,
+									code: this.edit_code,
+									name: this.edit_name
+								}
+							}
+
+							var self = this
+							Promise.resolve($.ajax({
+								url: '/FundCode/update',
+								error: function(){},
+								data: params 
+							})).then(function(res){
+								if (res.state == '0') {
+									self.initData()
+									hideModal($(self.$els.modifymodal))
+								} else {
+									return Promise.reject(new Error(res.state))
+								}
+							}).catch(function(e){
+								console.dir(e)
+								alert('修改申请代码失败')
+							})
+						}
+					}
+
+					return
+				}
+
+				hideModal($(this.$els.modifymodal))
+			},
+			openModifyModal: function(code){
+				if (code === false) {
+					this.selectedId = null
+				} else {
+					this.selectedId = JSON.parse(JSON.stringify(code))
+				}
+				if (this.selectedId == null) {
+					this.edit_code = ""
+					this.edit_name = ""
+					this.selectedFundCode.id = ""
+					this.selectedFundCode.code = ""
+					this.selectedFundCode.name = ""
+				} else {
+					this.edit_code = code.code
+					this.edit_name = code.name
+					this.selectedFundCode.id = code.parent_id
+					this.selectedFundCode.name = code.parent_name
+					this.selectedFundCode.code = code.parent_code
+				}
+
+				openModal($(this.$els.modifymodal))
+			},
 			getPageOrder: function($index){
 				return this.page * pageNumber + $index + 1
 			},
@@ -306,38 +407,8 @@
 				this.search_level = ""
 				this.initPagination()
 			},
-			initZtree: function(){
-				var self = this
-				$.fn.zTree.init($("#fund-tree"), {
-					check:{
-						chkStyle:"checkbox",
-						enable:true
-						//chkboxType:{ "Y": "ps", "N": "ps" },
-					},
-					view: {
-						showIcon: false
-					},
-					callback: {
-						onCheck: function(event, treeId, treeNode){
-							var zTreeObj = self.getZTreeObj()
-							var checkNodes = zTreeObj.getCheckedNodes()
-							self.search_name = []
-							checkNodes.forEach(function(node){
-								self.pushItemToSearch(node)
-							})
-						}
-					}
-				}, baseTree)
-				$.fn.zTree.init($("#fund-parent-tree"), {
-					view: {
-						showIcon: false
-					}
-				}, baseTree)
-			},
 			openFundCodeParentModal: function(){
-				$('.mask.mask1').show()
-				popAlertBox(".unitsChoose3");
-				dragBox(".unitsChoose3");
+				openModal($(this.$els.parentmodal))
 			},
 			closeFundCodeParentModal: function(save){
 				var zTreeObj = this.getParentZTreeObj()
@@ -350,125 +421,13 @@
 					this.selectedFundCode.code = selectedNode.code
 				} 
 				
-				$(".mask.mask1").hide();
-				$(".unitsChoose3").hide();
+				hideModal($(this.$els.parentmodal))
 			},
 			openSearchNameModal: function(){
-				$('.mask.mask0').show()
-				popAlertBox(".unitsChoose2");
-				dragBox(".unitsChoose2");
+				openModal($(this.$els.searchmodal))
 			},
 			closeSearchNameModal: function(){
-				$(".mask.mask0").hide();
-				$(".unitsChoose2").hide();
-			},
-			openFundCodeModal: function(code){
-				if (code === false) {
-					this.selectedId = null
-				} else {
-					this.selectedId = JSON.parse(JSON.stringify(code))
-				}
-				if (this.selectedId == null) {
-					this.edit_code = ""
-					this.edit_name = ""
-					this.selectedFundCode.id = ""
-					this.selectedFundCode.code = ""
-					this.selectedFundCode.name = ""
-				} else {
-					this.edit_code = code.code
-					this.edit_name = code.name
-					this.selectedFundCode.id = code.parent_id
-					this.selectedFundCode.name = code.parent_name
-					this.selectedFundCode.code = code.parent_code
-				}
-				$('.mask.mask0').show()
-				popAlertBox(".unitsChoose1");
-				dragBox(".unitsChoose1");
-			},
-			closeFundCodeModal: function(save){
-				if (save) {
-					if (this.selectedId == null) {
-						if (this.edit_code == "" || this.edit_name == "") {
-							alert('请完整填写代码编号与名称')
-						} else {
-							var parentId = this.selectedFundCode.id || null
-							var params = null
-							if (parentId !== null) {
-								params = {
-									code: this.edit_code,
-									name: this.edit_name,
-									parent: parentId
-								}
-							} else {
-								params = {
-									code: this.edit_code,
-									name: this.edit_name
-								}
-							}
-
-							var self = this
-							Promise.resolve($.ajax({
-								url: '/FundCode/add',
-								error: function(){},
-								data: params 
-							})).then(function(res){
-								if (res.state == '0') {
-									self.initData()
-									$(".mask.mask0").hide();
-									$(".unitsChoose1").hide();
-								} else {
-									alert('新增申请代码失败')
-								}
-							}).catch(function(e){
-								console.dir(e)
-								alert('新增申请代码失败')
-							})
-						}
-					} else {
-						if (this.edit_code == "" || this.edit_name == "") {
-							alert('请完整填写代码编号与名称')
-						} else {
-							var parentId = this.selectedFundCode.id || null
-							var params = null
-							if (parentId !== null) {
-								params = {
-									id: this.selectedId.id,
-									code: this.edit_code,
-									name: this.edit_name,
-									parent: parentId
-								}
-							} else {
-								params = {
-									id: this.selectedId.id,
-									code: this.edit_code,
-									name: this.edit_name
-								}
-							}
-
-							var self = this
-							Promise.resolve($.ajax({
-								url: '/FundCode/update',
-								error: function(){},
-								data: params 
-							})).then(function(res){
-								if (res.state == '0') {
-									self.initData()
-									$(".mask.mask0").hide();
-									$(".unitsChoose1").hide();
-								} else {
-									alert('修改申请代码失败')
-								}
-							}).catch(function(e){
-								console.dir(e)
-								alert('修改申请代码失败')
-							})
-						}
-					}
-
-					return
-				}
-				$(".mask.mask0").hide();
-				$(".unitsChoose1").hide();
+				hideModal($(this.$els.searchmodal))
 			},
 			deleteCode: function(code){
 				var self = this
@@ -490,12 +449,6 @@
 			initData: function(){
 				var self = this
 				self.table_codes = []
-				
-				if (mbox !== null) {
-					mbox.remove()
-				}
-				mbox = $('<div class="M-box"></div>')
-				mbox.insertAfter(fund_code_tablecontent)
 
 				Promise.resolve($.ajax({
 					url: '/FundCode/get',
@@ -507,12 +460,47 @@
 						self.initPagination()
 						self.initZtree()
 					} else {
-						alert('获取数据失败')
+						return Promise.reject(new Error(res.state))
 					}
 				}).catch(function(e){
 					console.dir(e)
 					alert('获取数据失败')
 				})
+			},
+			initZtree: function(){
+				var self = this
+				$.fn.zTree.init($("#fund-tree"), {
+					check:{
+						chkStyle:"checkbox",
+						enable:true
+					},
+					view: {
+						showIcon: false,
+						showLine: false,
+						addDiyDom: addDiyDom
+					},
+					callback: {
+						onCheck: function(event, treeId, treeNode){
+							var zTreeObj = self.getZTreeObj()
+							var checkNodes = zTreeObj.getCheckedNodes()
+							self.search_name = []
+							checkNodes.forEach(function(node){
+								self.pushItemToSearch(node)
+							})
+						}
+					}
+				}, baseTree)
+				$.fn.zTree.init($("#fund-parent-tree"), {
+					check:{
+						chkStyle:"checkbox",
+						enable:false
+					},
+					view: {
+						showIcon: false,
+						showLine: false,
+						addDiyDom: addDiyDom
+					}
+				}, baseTree)
 			},
 			initPagination: function(length){
 				var self = this
@@ -546,12 +534,9 @@
 					})
 				}
 
-				//console.dir(filtered_data)
-				//console.dir(filtered_data)
 				var length = filtered_data.length
-				//console.log(`length: ${length}`)
 
-				mbox.pagination({
+				$('.M-box').pagination({
 					totalData: length,
 					showData: pageNumber,
 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
@@ -616,5 +601,12 @@
 
 		_addNode(tree, {id: null, name: ""})
 		return ret
+	}
+
+	function addDiyDom(treeId, treeNode){
+		var code_span = $('<span class="node_name node_name-code"></span>')
+		code_span.attr('id', 'treeDemo_'+ treeId + '_code')
+		  .text(treeNode.code)
+		  .insertBefore($('#' + treeNode.tId + "_span"))
 	}
 </script>

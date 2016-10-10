@@ -70,11 +70,14 @@
             display: table-cell;
 
             width: @span-node-width;
-            border-left: @border-style;
+            border-right: @border-style;
+
+            &:first-child {
+                border-left: @border-style;
+            }
 
             &:last-child {
                 width: auto;
-                border-right: @border-style;
             }
         }
     }
