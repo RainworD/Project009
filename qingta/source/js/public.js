@@ -161,7 +161,7 @@ function judgeUnits(result){
 	// })
 }
 function loadContent() {
-	$(document).unbind("mousedown");
+	$(document).unbind("mousedown.drag");
 	$(document).unbind("mouseover");
     var hash = window.location.hash;
     if (hash == "") {
@@ -187,7 +187,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	var downX,downY;
 	myleft=$(selector).position().left;
 	mytop=$(selector).position().top;
-	$(selector).bind("mousedown",function(e){
+	$(selector).bind("mousedown.drag",function(e){
 		var targ = $(e.target);
 		var flag=targ.closest('.unitsContent');
 		if(flag.length){
@@ -617,14 +617,12 @@ function searchAndScrollToNode_(zTreeObj, str) {
 		alert('未找到相关数据')
 		return false 
 	}
-	console.log(node);
+	
 	var stack = [node], parentNode = node.getParentNode()
-	console.log(stack);
-	console.log(parentNode);
+	
 	while(parentNode) { 
 		stack.push(parentNode)
 		parentNode = parentNode.getParentNode()
-		console.log(stack);
 	}
 
 	stack.reverse().forEach(function(item){
@@ -639,4 +637,61 @@ function searchAndScrollToNode_(zTreeObj, str) {
 		scrollTop: $node.offset().top - (offset && offset.top)
 	}, 1000)
 	return true
+}
+
+$(document).on('mousemove.modal', '[data-drag-modal]', function(e){
+	var $modal = $(this)
+	var dragging = $modal.attr('data-drag-modal')
+
+	if (dragging === 'true') {
+		var top = Number.parseFloat($modal.attr('data-drag-top'))
+		var left = Number.parseFloat($modal.attr('data-drag-left'))
+		var mouseStartY = Number.parseFloat($modal.attr('data-drag-mousey'))
+		var mouseStartX = Number.parseFloat($modal.attr('data-drag-mousex'))
+		var $content = $modal.children('.custom-modal-content')
+		$content.css({
+			top: top + e.screenY - mouseStartY,
+			left: left  + e.screenX - mouseStartX
+		})
+	}
+})
+
+$(document).on('mouseup.modal', '[data-drag-modal]', function(){
+	var $modal = $(this)
+	$modal.attr('data-drag-modal', false)
+})
+
+$(document).on('mousedown.modal', '[data-drag-enter]', function(e){
+	var $modal = $(this).parents('[data-drag-modal]')
+	$modal.attr('data-drag-modal', true)
+	var $content = $modal.children('.custom-modal-content')
+	var offset = $content.get(0).getBoundingClientRect()
+	$modal.attr('data-drag-top', offset.top)
+	$modal.attr('data-drag-left', offset.left)
+	$modal.attr('data-drag-mousex', e.screenX)
+	$modal.attr('data-drag-mousey', e.screenY)
+	$content.css({
+		top: offset.top,
+		left: offset.left,
+		transform: "translate(0,0)"
+	})
+})
+
+function openModal($modal){
+	$modal.find('[drag-modal-content]').css({
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%,-50%)'
+	})
+	/*$(document.body).css({
+		overflow: 'hidden'
+	})*/
+	$modal.show()
+}
+
+function hideModal($modal){
+	/*$(document.body).css({
+		overflow: 'auto'
+	})*/
+	$modal.hide()
 }
