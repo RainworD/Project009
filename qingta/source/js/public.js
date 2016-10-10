@@ -334,7 +334,8 @@ function topBarControl(){
 	$(".resetBtn").bind("click",function(){
 		if(confirm("你确定重置所有查询条件？")){
 			$(this).parents(".topTable").find("input").val("");
-			// $(this).parents(".topTable").find("select").first().val();
+			var val_=$(this).parents(".topTable").find("select").children("option").first().val();
+			$(this).parents(".topTable").find("select").val(val_);
 			if(projectUnits){
 				projectUnits.length=0;
 			}
@@ -578,6 +579,7 @@ function ajaxMorePages(pageindex,newindex,params,url){
 			else{
 				alert("没有符合查询条件的记录！");
 				count=0;
+				$(".M-box").empty();
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
 			}

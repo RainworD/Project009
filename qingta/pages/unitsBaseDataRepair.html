@@ -236,8 +236,19 @@
 	</div>
 </div>
 <script type="text/javascript">
+	var projectUnits=[];
 	topBarControl();
 	$(".addDataBtn").bind("click",function(){
+		$(".newCode").val("");
+		$(".unitsName").val("");
+		$(".unitsType").val("");
+		$(".province2").val("");
+		$(".upperCode").val("");
+		$(".upperName").val("");
+		$(".topCode").val("");
+		$(".topName").val("");
+		$(".leafNode").val("");
+		$(".topNode").val("");
 		$(".mask").show();
 		popAlertBox(".unitsChoose2");
 		dragBox(".unitsChoose2");
@@ -298,7 +309,7 @@
 	doForSearch(".unitsEnter","/Landentity0");
 	doForSearch(".upperName","/Landentity0");
 	doForSearch(".topName","/Landentity0");
-	doForSearch(".codeNum","/LandNNSFentity")
+	// doForSearch(".codeNum","/LandNNSFentity")
 	$(".forSure").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose2").hide();

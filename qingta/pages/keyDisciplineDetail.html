@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a href="#/keyDiscipline.html" class="changeLeft changeButton">国家重点学科评估统计</a>
-		<a href="#/keyDisciplineDetail.html" class="changeRight green changeButton">国家重点学科评估明细</a>
+		<a href="#/keyDiscipline.html" class="changeLeft changeButton">重点学科统计</a>
+		<a href="#/keyDisciplineDetail.html" class="changeRight green changeButton">重点学科明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -81,6 +81,7 @@
 	</p>
 </div>
 <script>
+var projectUnits=[];
 topBarControl();
 doForSearch(".schoolName","/Landentity0");
 </script>
@@ -108,7 +109,6 @@ doForSearch(".schoolName","/Landentity0");
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
-				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 			// searchInfo.children('td').eq(1).addClass("nowrap");

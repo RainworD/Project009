@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox"> 
-		<a href="#/keyDiscipline.html" class="changeLeft green changeButton">国家重点学科评估统计</a>
-		<a href="#/keyDisciplineDetail.html" class="changeRight changeButton">国家重点学科评估明细</a>
+		<a href="#/keyDiscipline.html" class="changeLeft green changeButton">重点学科统计</a>
+		<a href="#/keyDisciplineDetail.html" class="changeRight changeButton">重点学科明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -45,7 +45,7 @@
 						<th>序号</th>
 						<th>学校名称</th>
 						<th>国家一级重点学科</th>
-						<th>国家二级重点学科<br />（一级重点学科覆盖的二级学科除外）</th>
+						<th>国家二级重点学科(不含一级覆盖）</th>
 						<th>国家重点培育学科</th>
 					</tr>
 				</thead>
@@ -165,7 +165,6 @@
 			'</tr>');
 			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
 			searchInfo.children('td').eq(0).addClass('nowrap');
-			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
 				for (var j=0;j<result[i].length-1;j++) {
 					var mytd=$('<td></td>');
@@ -175,13 +174,8 @@
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
-				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(1).addClass("nowrap");
-			// searchInfo.children('td').eq(2).addClass("nowrap");
-			// searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

@@ -141,6 +141,7 @@
 	</p>
 </div>
 <script type="text/javascript">
+	var projectUnits=[];
 	topBarControl();
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
@@ -169,9 +170,6 @@
 			}
 			searchInfo.children('td').eq(1).addClass("nowrap");
 			searchInfo.children('td').last().addClass("nowrap");
-			searchInfo.children('td').css("height","57px");
-			searchInfo.children('td').eq(3).css("text-align","left");
-			searchInfo.children('td').eq(6).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){
@@ -182,8 +180,7 @@
 		var applicationcode=$(".applyCode").val();
 		var entity=$(".projectUnits").val();
 		var manager=$(".applyer").val();
-		var research=$(".searchArea").val();
-		var manager=$(".manager").val();
+		var research=$(".studyArea").val();
 		var params={
 			"entity": entity,//学科
 	        "applicationcode": applicationcode,//学部

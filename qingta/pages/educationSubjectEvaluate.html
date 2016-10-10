@@ -47,6 +47,7 @@
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
 						<input class="commonput subjectLevel2" style="width:100%;ime-mode:disabled;" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')">
 					</div>
+					<span class="starAfter">*</span>
 				</td>
 			</tr>
 			<tr>
@@ -193,7 +194,8 @@
 		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
 		var place1=$(".subjectLevel1").val();
-		var place2=$(".subjectLevel2").val(); 
+		var place2=$(".subjectLevel2").val();
+		var subject=$(".firstSubject").val(); 
 		if(eq==0){
 			eq=50;
 		}
@@ -210,6 +212,9 @@
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
+						if(subject==""){
+							result[i][1]="全部学科";
+						}
 						if(j==3){
 							result[i][j]=place1+'-'+place2;
 						}
@@ -218,10 +223,6 @@
 					}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(1).addClass("nowrap");
-			// searchInfo.children('td').eq(2).addClass("nowrap");
-			searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){
@@ -238,6 +239,9 @@
 		}
 		else{
 			schoolOnly=0;
+		}
+		if(place1!=""&&place2!=""&&(place1-0)>(place2-0)){
+			alert("排名区间输入不合法！");
 		}
 		var params={
 			'pageindex':1,

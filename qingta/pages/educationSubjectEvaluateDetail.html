@@ -49,6 +49,7 @@
 					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
 						<input class="commonput subjectLevel2" style="width:100%;ime-mode:disabled;" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')">
 					</div>
+					<span class="starAfter">*</span>
 				</td>
 			</tr>
 			<tr>		
@@ -109,6 +110,7 @@
 	</p>
 </div>
 <script type="text/javascript">
+	var projectUnits=[];
 	topBarControl();
 	doForSearch(".schoolName","/Landentity0");
 </script>
@@ -154,6 +156,9 @@
 		var place2=$(".subjectLevel2").val();
 		var score1=$(".subjectScore1").val();
 		var score2=$(".subjectScore2").val();
+		if(place1!=""&&place2!=""&&(place1-0)>(place2-0)){
+			alert("排名区间输入不合法！");
+		}
 		var params={
 			'pageindex':1,
 			'entity':entity,
