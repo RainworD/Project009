@@ -42,6 +42,14 @@
 					</div>
 					<!-- <span style="color:red;width: 1%;">*</span> -->
 				</td>
+				<th style="width:10.6%;">奖励级别 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox awardLevel">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>
 				<th style="width:10.6%;">入选年度 :</th>
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -99,14 +107,6 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<th style="width:10.6%;">奖励级别 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox awardLevel">
-							<option selected="selected"></option>
-						</select>
-					</div>
-				</td>
 			</tr>
 			<tr>
 				<th style="width:10.6%;">学科分类 :</th>
@@ -146,7 +146,7 @@
 						<th>序号</th>
 						<th>学校名称</th>
 						<th>届数</th>
-						<th>入选年度</th>
+						<th>年度</th>
 						<th>学科分类</th>
 						<th>奖励级别</th>
 						<th>成果数</th>
@@ -350,7 +350,6 @@
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			searchInfo.children('td').css("height","57px");
 		}
 	}	
 	$(".searchBtn").bind("click",function(){

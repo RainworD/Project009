@@ -19,6 +19,19 @@
 							</ul>
 						</div>
 					</div>
+				</td>	
+				<th style="width:10.6%;">课程名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput lessonName" style="width:100%;">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%;">课程负责人 :</th>
+				<td style="width:18.3%;">
+					<input class="commonput lessonManager" style="width:100%;">
 				</td>
 				<th style="width:10.6%;">入选年度 :</th>
 				<td style="width:18.3%">
@@ -66,20 +79,7 @@
 						</select>
 					</div>
 					<span class="starAfter">*</span>
-				</td>		
-				<th style="width:10.6%;">课程名称 :</th>
-				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%;">
-						<input class="commonput lessonName" style="width:100%;">
-						<ul class="showElse">
-							
-						</ul>
-					</div>
-				</td>
-				<th style="width:10.6%;">课程负责人 :</th>
-				<td style="width:18.3%;">
-					<input class="commonput lessonManager" style="width:100%;">
-				</td>
+				</td>	
 			</tr>
 			<tr>
 				<td colspan="2"></td>
@@ -106,7 +106,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>学校名称</th>
-						<th>入选年度</th>
+						<th>年度</th>
 						<th>课程名称</th>
 						<th>课程负责人</th>
 						<!-- <th>备注</th> -->
@@ -118,6 +118,16 @@
 		</div>
 	</div>
 	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
 </div>
 <script>
 	var projectUnits=[];
@@ -145,13 +155,8 @@
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
-				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(1).addClass("nowrap");
-			// searchInfo.children('td').eq(2).addClass("nowrap");
-			// searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){
@@ -159,7 +164,7 @@
 		var pageindex;
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
-		var entity=$(".projectUnits").val();
+		var entity=$(".schoolName").val();
 		var name=$(".lessonName").val();
 		var manager=$(".lessonManager").val();
 		var params={

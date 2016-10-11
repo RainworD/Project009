@@ -233,6 +233,8 @@
 </script>
 <script type="text/javascript">
 	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
 		if(eq==0){
 			eq=50;
@@ -253,8 +255,9 @@
 					if(result[i][j]==null){
 						text="";
 					}
-					else if(j==0){
-						text=madeTwoLineText(result[i][j]);
+					if(j==0){
+						text=madeOneLineText(result[i][0]);
+						mytd.css("width","150px")
 					}
 					else if(j==1){
 						text=year1+'-'+year2;
@@ -278,8 +281,6 @@
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
-				searchInfo.children('td').eq(3).css("text-align","left");
-				searchInfo.children('td').css("height","57px");
 			}
 			searchInfo.children('td').eq(2).addClass('nowrap');
 		}
@@ -302,7 +303,7 @@
 			schoolOnly=0;
 		}
 		var params={
-			'pageindex':pageindex,
+			'pageindex':1,
 			'year1':year1,
 			'year2':year2,
 			'totalincoming1':totalincoming1,	

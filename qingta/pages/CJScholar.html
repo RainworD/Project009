@@ -16,6 +16,15 @@
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>	
 				</td>
+				<th style="width:10.6%;">岗位名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput jobName"type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
 				<th style="width:10.6%;">公布年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -63,15 +72,6 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<th style="width:10.6%;">岗位名称 :</th>
-				<td style="width:18.3%;">
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput jobName"type="text">
-						<ul class="showElse">
-							
-						</ul>
-					</div>
-				</td>
 				<td colspan="2" style="width: 26.3%;">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
@@ -104,7 +104,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>推荐单位</th>
-						<th>公布年度</th>
+						<th>年度</th>
 						<th>岗位名称</th>
 						<th>特聘教授</th>
 						<th>讲座教授</th>
@@ -237,7 +237,6 @@
 						}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			searchInfo.children('td').css("height","57px");
 			searchInfo.children('td').last().addClass('nowrap');
 		}
 	}

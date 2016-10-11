@@ -156,7 +156,7 @@
 							<th>单位类型 :</th>
 							<td>
 								<div class="commonselect"  style="width:100%;">
-									<select class="selBox unitsType">
+									<select class="selBox unitsType unitsType2">
 									</select>
 								</div>
 							</td>
@@ -240,6 +240,7 @@
 	topBarControl();
 	$(".addDataBtn").bind("click",function(){
 		$(".newCode").val("");
+		$(".newCode").removeAttr("disabled");
 		$(".unitsName").val("");
 		$(".unitsType").val("");
 		$(".province2").val("");
@@ -311,12 +312,10 @@
 	doForSearch(".topName","/Landentity0");
 	// doForSearch(".codeNum","/LandNNSFentity")
 	$(".forSure").bind("click",function(){
-		$(".mask").hide();
-		$(".unitsChoose2").hide();
 		var oldid=$(this).parents(".bottomBtn").attr("data-id");
 		var id=$(".newCode").val();
 		var name=$(".unitsName").val();
-		var type=$(".unitsType").val();
+		var type=$(".unitsType2").val();
 		var province=$(".province2").val();
 		var upperid=$(".upperCode").val();
 		var uppername=$(".upperName").val();
@@ -324,22 +323,35 @@
 		var topname=$(".topName").val();
 		var isleaf=$(".leafNode").val();
 		var istop=$(".topNode").val();
-		if(oldid){
-			console.log("111");
-			$.when(updateEntity(oldid,id,name,type,province,upperid,uppername,topid,topname,isleaf,istop)).done(function(data){
-				if(data.state==1){
-					alert("修改数据成功!");
-				}
-			})
+		if(id==""){
+			alert("编码不能为空！")
+		}
+		else if(name==""){
+			alert("单位名称不能为空！")
+		}
+		else if(topname==""){
+			alert("顶级名称不能为空！")
 		}
 		else{
-			$.when(newEntity(id,name,type,province,upperid,uppername,topid,topname,isleaf,istop)).done(function(data){
-				if(data.state==1){
-					alert("新增数据成功!");
-				}
-			})
+			$(".mask").hide();
+			$(".unitsChoose2").hide();
+			if(oldid){
+				$(this).parents(".bottomBtn").removeAttr("data-id");
+				$.when(updateEntity(oldid,id,name,type,province,upperid,uppername,topid,topname,isleaf,istop)).done(function(data){
+					if(data.state==1){
+						alert("修改数据成功!");
+					}
+				})
+			}
+			else{
+				$.when(newEntity(id,name,type,province,upperid,uppername,topid,topname,isleaf,istop)).done(function(data){
+					if(data.state==1){
+						alert("新增数据成功!");
+					}
+				})
+			}
+			window.location.reload();
 		}
-		// window.location.reload();
 	})
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
@@ -387,6 +399,7 @@
 			}		
 			// searchInfo.children('td').css("height","57px");
 			searchInfo.children('td').last().addClass('nowrap');
+			searchInfo.children('td').eq(2).css("width","180px");
 		}
 	}
 	$(".searchBtn").bind("click",function(){
@@ -396,7 +409,7 @@
 		var province=$('.province1').val();
 		var id=$(".codeNum").val();
 		var schoolOnly1=$("#schoolOnly").prop("checked");
-		var unitsType=$(".unitsType1").val();
+		var type=$(".unitsType1").val();
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
@@ -409,17 +422,12 @@
             "name":name,
             "province":province,
             "schoolOnly":schoolOnly,
-            "type":unitsType
+            "type":type
 		}
 		getDataBox(params,'/askEntity');
 	})
 	var params_={
 		'pageindex':1,
-		"id":"",
-        "name":"",
-        "province":"",
-        "schoolOnly":"",
-        "type":""
 	}
 	getDataBox(params_,'/askEntity');
 	$(".infoTable1").delegate(".removeData","click",function(){
@@ -456,8 +464,9 @@
 		var istop=$(this).parents("tr").children('td').eq(10).text();
 		$(".bottomBtn").attr("data-id",id);
 		$(".newCode").val(id);
+		$(".newCode").attr("disabled","disabled");
 		$(".unitsName").val(name);
-		$(".unitsType").val(type);
+		$(".unitsType2").val(type);
 		$(".province2").val(province);
 		$(".upperCode").val(upperid);
 		$(".upperName").val(uppername);

@@ -113,7 +113,6 @@ topBarControl();
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
-				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 		}
@@ -134,24 +133,24 @@ topBarControl();
 	})
 	doForSearch(".schoolName","/Landentity0");
 	doForSearch(".professionName","/LandNSname");
-	$(".professionName").bind('input propertychange', function(event) {
-		if($(this).val()){
-			$(".schoolName").attr("disabled","disabled");
-		}
-		else{
-			$(".schoolName").removeAttr("disabled");
-		}
-		event.stopPropagation();
-	})
-	$(".schoolName").bind('input propertychange', function(event) {
-		if($(this).val()){
-			$(".professionName").attr("disabled","disabled");
-		}
-		else{
-			$(".professionName").removeAttr("disabled");
-		}
-		event.stopPropagation();
-	})
+	// $(".professionName").bind('input propertychange', function(event) {
+	// 	if($(this).val()){
+	// 		$(".schoolName").attr("disabled","disabled");
+	// 	}
+	// 	else{
+	// 		$(".schoolName").removeAttr("disabled");
+	// 	}
+	// 	event.stopPropagation();
+	// })
+	// $(".schoolName").bind('input propertychange', function(event) {
+	// 	if($(this).val()){
+	// 		$(".professionName").attr("disabled","disabled");
+	// 	}
+	// 	else{
+	// 		$(".professionName").removeAttr("disabled");
+	// 	}
+	// 	event.stopPropagation();
+	// })
 </script>
 
 

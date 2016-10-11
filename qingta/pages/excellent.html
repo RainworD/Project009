@@ -111,7 +111,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>学校名称</th>
-						<th>入选年度</th>
+						<th>年度</th>
 						<th>学科分类</th>
 						<th>一级学科</th>
 						<th>优博数</th>
@@ -257,6 +257,7 @@
 		$.when(BlogPaperSta(entitys,year1,year2,disciplines,subject)).done(function(data){
 			var result=data.data;
 			$(".infoTable1").children('tbody').empty();
+			$(".infoTable1 thead").find('th').addClass("nowrap");
 			// var count=data.count;
 			var count=result.length;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
@@ -288,6 +289,12 @@
 					searchInfo.children('td').eq(0).text(i+1);
 					searchInfo.children('td').eq(1).text(result[i][0]);
 					searchInfo.children('td').eq(2).text(year1+'-'+year2);
+					if(disciplines==""){
+						disciplines="全部学科分类";
+					}
+					if(subject==""){
+						subject="全部一级学科"
+					}
 					searchInfo.children('td').eq(3).text(disciplines);
 					searchInfo.children('td').eq(4).text(subject);
 					searchInfo.children('td').eq(5).text(result[i][1]);
@@ -314,6 +321,9 @@
 				count=0;
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			    $(".searchUndo").removeClass("searchDo");
+			    $(".tableContent").removeClass('tableShow');
 			}
 		})		
 	})

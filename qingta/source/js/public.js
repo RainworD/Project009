@@ -564,6 +564,7 @@ function ajaxMorePages(pageindex,newindex,params,url){
 		type:'POST',
 		data:params,
 		traditional:true,
+		beforeSend:beforeHandle,
 		success:function(data){
 			var result=data.result;
 			dataBox[pageindex]=result;
@@ -588,6 +589,9 @@ function ajaxMorePages(pageindex,newindex,params,url){
 			if(data.state==1){
 				// getMoreResults(result,pageindex,newindex);
 				selfResult(pageindex,result,newindex);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+				$(".tableContent").addClass('tableShow');
+				$(".searchUndo").addClass("searchDo");
 			}
 			else{
 				alert("没有符合查询条件的记录！");
@@ -595,6 +599,9 @@ function ajaxMorePages(pageindex,newindex,params,url){
 				$(".M-box").empty();
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+	    		$(".searchUndo").removeClass("searchDo");
+	    		$(".tableContent").removeClass('tableShow');
 			}
 		}
 	})
@@ -619,7 +626,10 @@ function paginationCallback(index,params,url){
     	selfResult(1,dataBox[1],newindex);
     }
 }
-
+function beforeHandle(){
+    $(".beforeSearch").addClass("tableShow");
+    $(".searchUndo").addClass("searchDo");
+}
 var searchAndScrollToNode_ = (function _searchAndScrollToNode_(){
 	var pre_search, pre_results = null
 	return function (zTreeObj, str) {

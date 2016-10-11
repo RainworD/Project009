@@ -36,23 +36,7 @@
 						</ul>
 					</div>
 				</td>
-				<th style="width:10.6%;">资助类别 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox projectType">
-							<option selected="selected"></option>
-						</select>
-					</div>
-				</td>
-			</tr>
-			<tr>					
-				<th>项目负责人 :</th>
-				<td class="commonPlus">
-					<div class="commonInputBox" style="width:100%">
-						<input class="commonput projectManager">
-					</div>
-				</td>	
-				<th>批准年度 :</th>
+				<th style="width:10.6%;">批准年度 :</th>
 				<td style="width:19.3%;">
 					<div class="commonselect" style="width:42.8%;margin-right:1%;">
 						<select class="selBox yearName1">
@@ -105,6 +89,22 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
+			</tr>
+			<tr>
+				<th>资助类别 :</th>
+				<td>
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox projectType">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>					
+				<th>项目负责人 :</th>
+				<td class="commonPlus">
+					<div class="commonInputBox" style="width:100%">
+						<input class="commonput projectManager">
+					</div>
+				</td>	
 				<th>批准金额 :</th>
 				<td>
 					<div class="commonputBox" style="width:42.8%;margin-right:1%;">
@@ -141,7 +141,7 @@
 						<th>资助类别</th>
 						<th>项目负责人</th>
 						<th>依托单位</th>
-						<th>批准年度</th>
+						<th>年度</th>
 						<th>批准金额</th>
 						<th>项目起止年月</th>
 					</tr>
@@ -205,7 +205,8 @@
 						text = madeNowrapText(result[i][j]);
 					}
 					else if(j==2||j==5){
-						text = madeTwoLineText(result[i][j]);
+						text = madeOneLineText(result[i][j]);
+						mytd.css("width","120px");
 					}
 					else{}
 					mytd.html(text);
@@ -213,8 +214,7 @@
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(3).css("text-align","left");
-			searchInfo.children('td').css("height","57px");
+			searchInfo.children('td').last().addClass("nowrap");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

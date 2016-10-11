@@ -108,7 +108,7 @@
 							<option>5</option>
 						</select>
 					</div>
-					<span class="starAfter">*</span>
+					<!-- <span class="starAfter">*</span> -->
 				</td>
 				<td colspan="2"></td>				
 				<td colspan="2"></td>
@@ -132,7 +132,7 @@
 				<thead>
 					<tr class="tableTitle">
 						<th>序号</th>
-						<th>入选年度</th>
+						<th>年度</th>
 						<th>入选批次</th>
 						<th>学校</th>
 						<th>课程名称</th>
@@ -219,13 +219,8 @@
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
-				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(1).addClass("nowrap");
-			// searchInfo.children('td').eq(2).addClass("nowrap");
-			// searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

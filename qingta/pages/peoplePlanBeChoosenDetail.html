@@ -26,6 +26,12 @@
 						</select>
 					</div> 
 				</td>
+				<th>姓名 :</th>
+				<td>
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput name">
+					</div>
+				</td>
 				<th style="width:10.6%;">公布年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -73,6 +79,8 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
+			</tr>
+			<tr>			
 				<th style="width:10.6%;">当选批次 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -96,14 +104,6 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-			</tr>
-			<tr>			
-				<th>姓名 :</th>
-				<td>
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput name">
-					</div>
-				</td>
 				<td colspan="2"></td>
 				<td colspan="2"></td>
 				<td colspan="2">
@@ -126,7 +126,7 @@
 				<thead>
 					<tr class="tableTitle">
 						<th>序号</th>
-						<th>公布年度</th>
+						<th>年度</th>
 						<th>当选批次</th>
 						<th>当选单位</th>
 						<th>姓名</th>
@@ -193,10 +193,6 @@
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(1).addClass("nowrap");
-			// searchInfo.children('td').eq(2).addClass("nowrap");
-			searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

@@ -106,7 +106,7 @@
 						<th>学校名称</th>
 						<th>奖励类别</th>
 						<th>获奖级别</th>
-						<th>获奖年度</th>
+						<th>年度</th>
 						<th>奖励数</th>
 					</tr>
 				</thead>
@@ -331,6 +331,9 @@
 				count=0;
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			    $(".searchUndo").removeClass("searchDo");
+			    $(".tableContent").removeClass('tableShow');
 			}
 		})		
 	})

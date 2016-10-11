@@ -16,12 +16,23 @@ function successHandle(data){
    if(data.state==1){
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
     $(".tableContent").addClass('tableShow');
+    $(".searchUndo").addClass("searchDo");
     return data.result;
     console.log(data.result);
    }
    else{
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
     $(".searchUndo").removeClass("searchDo");
+    $(".tableContent").removeClass('tableShow');
+    }
+}
+function successHandleSec(data){
+   if(data.state==0){
+    $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+    $(".tableContent").addClass('tableShow');
+    $(".searchUndo").addClass("searchDo");
+    return data.result;
+    console.log(data.result);
    }
 }
 function errorHandle(data){
@@ -1493,7 +1504,7 @@ function STtransfer(unit,order,first_year,last_year){//教育部科技奖统计
         type: "POST",
         traditional:true,
         beforeSend:beforeHandle,
-        success:successHandle,
+        success:successHandleSec,
         data:{
             'unit':unit,
             'order':order,
@@ -1509,7 +1520,7 @@ function BlogPaperSta(entitys,year1,year2,disciplines,subject){//优博统计
         type: "POST",
         traditional:true,
         beforeSend:beforeHandle,
-        success:successHandle,
+        success:successHandleSec,
         data:{
             'unit':entitys,
             'disciplines':disciplines,
@@ -1536,7 +1547,7 @@ function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,ti
         type: "POST",
         traditional:true,
         beforeSend:beforeHandle,
-        success:successHandle,
+        success:successHandleSec,
         data:{
             'unit':unit,
             'disciplines':disciplines,
@@ -1555,7 +1566,7 @@ function ImportantRewardsSta(unit,category,first_year,last_year){//重要奖励�
         type: "POST",
         traditional:true,
         beforeSend:beforeHandle,
-        success:successHandle,
+        success:successHandleSec,
         data:{
             'unit':unit,
             'category':category,
@@ -1571,7 +1582,7 @@ function ImportantRewardsDetail(unit,category,first_year,last_year,reward_name,u
         type: "POST",
         traditional:true,
         beforeSend:beforeHandle,
-        success:successHandle,
+        success:successHandleSec,
         data:{
             'unit':unit,
             'category':category,

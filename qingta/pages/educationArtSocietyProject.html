@@ -23,6 +23,14 @@
 						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>
+				<th style="width:10.6%;">学科分类 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox subjectType">
+							<option selected="selected"></option>
+						</select> 
+					</div>
+				</td>
 				<th style="width:10.6%;">批准年度 :</th>	
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -70,14 +78,6 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<th style="width:10.6%;">学科分类 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox subjectType">
-							<option selected="selected"></option>
-						</select> 
-					</div>
-				</td>
 			</tr>
 			<tr>	
 				<th style="width:10.6%;">项目类别 :</th>			
@@ -118,7 +118,7 @@
 						<th>学校名称</th>
 						<th>项目类型</th>
 						<th>学科门类</th>
-						<th>批准年度</th>
+						<th>年度</th>
 						<th>项目类别</th>
 						<th>项目数</th>
 					</tr>
@@ -333,8 +333,6 @@
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 			searchInfo.children('td').eq(3).addClass('nowrap');
-			searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(2).addClass('nowrap');
 		}
 	}
 	$(".searchBtn").bind("click",function(){

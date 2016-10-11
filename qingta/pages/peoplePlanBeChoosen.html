@@ -14,7 +14,31 @@
 					<div class="commonInputBox"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
-					</div>				</td> 
+					</div>				
+				</td> 
+				<th style="width:10.6%;">当选批次 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox chooseNum1">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox chooseNum2">
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+					</div>
+					<span class="starAfter">*</span>
+				</td>
 				<th style="width:10.6%;">公布年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -62,29 +86,6 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<th style="width:10.6%;">当选批次 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox chooseNum1">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						</select>
-					</div>
-					<span style="text-align: center;width:7%;">至</span>
-					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox chooseNum2">
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						</select>
-					</div>
-					<span class="starAfter">*</span>
-				</td>
 				<td colspan="2" width="26.3%">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
@@ -117,7 +118,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>当选单位</th>
-						<th>公布年度</th>
+						<th>年度</th>
 						<th>当选批次</th>
 						<th>杰出人才</th>
 						<th>科技创新</th>
@@ -268,7 +269,6 @@
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			searchInfo.children('td').css("height","57px");
 		}
 	}	
 	$(".searchBtn").bind("click",function(){

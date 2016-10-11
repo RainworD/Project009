@@ -90,7 +90,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>学校名称</th>
-						<th>入选年度</th>
+						<th>年度</th>
 						<th>课程数量</th>
 					</tr>
 				</thead>
@@ -100,6 +100,16 @@
 		</div>
 	</div>
 	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
 </div>
 <div class="mask mask1"></div>
 <div class="unitsChoose unitsChoose1">
@@ -215,13 +225,8 @@
 					mytd.text(result[i][j])
 					searchInfo.append(mytd);
 				}
-				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(1).addClass("nowrap");
-			// searchInfo.children('td').eq(2).addClass("nowrap");
-			// searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

@@ -24,6 +24,15 @@
 						<input class="commonput applyer">
 					</div>
 				</td>
+				<th  style="width:10.6%;">群体名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput groupName">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
 				<th style="width:10.6%;">批准年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -71,15 +80,6 @@
 					</div>
 					<span style="color:red;width: 1%">*</span>
 				</td>
-				<th  style="width:10.6%;">群体名称 :</th>
-				<td style="width:18.3%;">
-					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput groupName">
-						<ul class="showElse">
-							
-						</ul>
-					</div>
-				</td>
 			</tr>
 			<tr>			
 				<th>批准金额 :</th>
@@ -114,7 +114,7 @@
 				<thead>
 					<tr class="tableTitle">
 						<th>序号</th>
-						<th>批准年度</th>
+						<th>年度</th>
 						<th>申请代码</th>
 						<th>申请代码名称</th>
 						<th>群体名称</th>
@@ -161,14 +161,18 @@
 			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
 						var mytd=$('<td></td>');
+						var text=result[i][j];
 						if(result[i][j]==null){
-							result[i][j]="";
+							text="";
 						}
-						mytd.text(result[i][j])
+						if(j==2||j==3||j==5){
+							text=madeOneLineText(result[i][j]);
+						}
+						mytd.html(text)
 						searchInfo.append(mytd);
 					}
-				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
+				searchInfo.children('td').last().addClass("nowrap");
 			}
 		}
 	}

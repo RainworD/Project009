@@ -16,6 +16,13 @@
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>
+				<th style="width:10.6%;">分析项目 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput analysisName" style="padding-right:30px;">
+						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td>
 				<th style="width:10.6%;">对标年度 :</th>
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -73,13 +80,6 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<th style="width:10.6%;">分析项目 :</th>
-				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%">
-						<input class="commonput analysisName" style="padding-right:30px;">
-						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
-					</div>
-				</td>
 				<td colspan="2" style="width: 28.3%;">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
@@ -117,19 +117,52 @@
 	</p>
 </div>
 <div class="mask mask1"></div>
-<div class="unitsChoose unitsChoose1">
+<div class="unitsChoose unitsChoose1" style="width:560px;">
 	<div class="unitsContainer">
-		<div class="cancelBtn">
+		<div class="cancelBtn"> 
 			<i class="fa fa-close showCollege"></i>
 		</div>
 		<div class="unitsHeader unitsHeader1">
 			<p class="unitsTitle">项目牵头单位选择</p>
 		</div>
-		<div class="unitsContent">
-			<div class="totalModel" style="height:450px;overflow-y:auto;">
-				<ul id="tree" class="ztree">
-				</ul>
+		<div class="unitsContent unitsContent1" style="cursor:default;padding:0;">
+			<!-- <div class="topSearch">
+				<p class="topSearchContent"><input placeholder="快速查找单位"><i class="fa fa-search fa-lg"></i></p> 
+			</div> -->
+			<div class="custom-search-bar">
+				<div class="custom-input-box">
+					<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
+					<ul class="showElse" style="top: 28px;border-top: none;border: 1px solid #ebebeb;">
+							
+					</ul>
+				</div>
+				<div class="search-box">
+					<i class="fa fa-search fa-lg"></i>
+				</div>
 			</div>
+			<div class="totalModel" style="height:400px;margin-top:0">
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">单位名称</span>
+						</div>
+					</div>
+					<div class="qingta-ztree-table" style="width:533px">
+						<ul id="tree" class="ztree ztree-at-top" style="width:518px">
+						</ul>
+					</div>
+				</div>
+				<!-- <ul id="tree" class="ztree">
+				</ul> -->
+			</div>
+		</div>
+		<div class="beforeShow">
+			<p class="enterSearchInfo">
+				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+				<span class="sr-only">Loading...</span>
+			</p>
 		</div>
 		<div class="bottomBtn">
 			<p>
@@ -989,4 +1022,15 @@
 			}
 		}
 	}
+</script>
+<script type="text/javascript">
+	doForSearch(".custom-input","/Landentity0");
+	$(".qingta-ztree-table").delegate("li.level0","click",function(){
+		$(this).parents(".ztree").find(".level2 a").css("background-color","#fff");
+	})
+	$("body").keydown(function() {
+        if (event.keyCode == "13") {//keyCode=13是回车键
+            $('.search-box').click();
+        }
+    })
 </script>

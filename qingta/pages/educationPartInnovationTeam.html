@@ -90,7 +90,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>所在单位</th>
-						<th>入选年度</th>
+						<th>年度</th>
 						<th>群体数</th>
 						<th>资助经费汇总</th>
 					</tr>
@@ -226,7 +226,6 @@ topBarControl();
 						mytd.text(result[i][j])
 						searchInfo.append(mytd);
 					}
-				searchInfo.children('td').css("height","57px");
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 		}

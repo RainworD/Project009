@@ -17,6 +17,14 @@
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td> 
+				<th style="width:10.6%;">获奖级别 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox awardsLevel">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>
 				<th style="width:10.6%;">获奖年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -64,14 +72,6 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>
-				<th style="width:10.6%;">获奖级别 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox awardsLevel">
-							<option selected="selected"></option>
-						</select>
-					</div>
-				</td>
 				<td colspan="2" style="width:26.3%;">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
@@ -113,7 +113,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>完成单位</th>
-						<th>获奖年度</th>
+						<th>年度</th>
 						<th>获奖级别</th>
 						<th>技术发明奖</th>
 						<th>技术发明奖-专利类</th>
@@ -251,8 +251,8 @@
 	        url: "/EducationScience/getStatistics",
 	        type: "POST",
 	        traditional:true,
-	        // beforeSend:beforeHandle,
-	        // success:successHandle,
+	        beforeSend:beforeHandle,
+	        success:successHandle,
 	        data:{
 	            "first_unit":first_unit,
 	            "participate_unit":participate_unit,
@@ -294,6 +294,9 @@
 			$(".tableContent .infoTablePara").append(addCount);
 		}
 		if(data.state==0&&count!=0){
+			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			$(".tableContent").addClass('tableShow');
+			$(".searchUndo").addClass("searchDo");
 			for (var i=0,len=result.length;i<len;i++) {
 				var searchInfo=$('<tr>'+
 					'<td></td>'+
@@ -333,6 +336,9 @@
 			count=0;
 			addCount.children('span').eq(0).text(count);
 			addCount.children('span').eq(1).text(count);
+			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+    		$(".searchUndo").removeClass("searchDo");
+    		$(".tableContent").removeClass('tableShow');
 		}
 	}
 	$(".searchBtn").bind("click",function(){

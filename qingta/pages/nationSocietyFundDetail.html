@@ -205,7 +205,7 @@
 					}
 					var text = result[i][j];
 						if(j==2||j==5){
-							text = madeTwoLineText(result[i][j]);
+							text = madeOneLineText(result[i][j]);
 						}
 						else{}
 					mytd.html(text);
@@ -216,8 +216,6 @@
 			}
 			searchInfo.children('td').eq(1).addClass("nowrap");
 			searchInfo.children('td').eq(2).addClass("nowrap");
-			searchInfo.children('td').css("height","57px");
-			searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

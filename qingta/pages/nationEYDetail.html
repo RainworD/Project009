@@ -117,7 +117,7 @@
 						<th>申请代码</th>
 						<th>申请代码名称</th> 
 						<th>申请人</th>
-						<th>批准年度</th>
+						<th>年度</th>
 						<th>研究领域</th>
 						<th>批准金额</th>
 						<th>项目起止年月</th>
@@ -160,15 +160,19 @@
 			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
+					var text=result[i][j];
 					if(result[i][j]==null){
-						result[i][j]="";
+						text="";
 					}
-					mytd.text(result[i][j]);
+					if(j==0||j==2||j==5){
+						text=madeOneLineText(result[i][j]);
+					}
+					mytd.html(text);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			searchInfo.children('td').eq(1).addClass("nowrap");
+			// searchInfo.children('td').eq(1).addClass("nowrap");
 			searchInfo.children('td').last().addClass("nowrap");
 		}
 	}

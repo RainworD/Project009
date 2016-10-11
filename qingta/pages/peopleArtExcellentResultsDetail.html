@@ -36,33 +36,6 @@
 						</select>
 					</div>
 				</td>
-				<th style="width:10.6%;">届数 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect" style="width:42.8%;margin-right:1%;">
-						<select class="selBox chooseNum1">
-							<option selected="selected"></option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						</select>
-					</div>
-					<span style="text-align: center;width:7%;">至</span>
-					<div class="commonselect" style="width:42.8%;margin-left:1%;">
-						<select class="selBox chooseNum2">
-							<option selected="selected"></option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-						</select>
-					</div>
-					<!-- <span style="color:red;width: 1%;">*</span> -->
-				</td>	
-			</tr>
-			<tr>
 				<th style="width:10.6%">入选年度 :</th>
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:42.8%;margin-right:1%;">
@@ -120,6 +93,33 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>	
+			</tr>
+			<tr>
+				<th style="width:10.6%;">届数 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:42.8%;margin-right:1%;">
+						<select class="selBox chooseNum1">
+							<option selected="selected"></option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:42.8%;margin-left:1%;">
+						<select class="selBox chooseNum2">
+							<option selected="selected"></option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+						</select>
+					</div>
+					<!-- <span style="color:red;width: 1%;">*</span> -->
+				</td>	
 				<th style="width:10.6%;">学科分类 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect"  style="width:100%;">
@@ -157,7 +157,7 @@
 						<th>学校名称</th>
 						<th>成果名称</th>
 						<th>届数</th>
-						<th>入选年度</th>
+						<th>年度</th>
 						<th>学科分类</th>
 						<th>奖励级别</th>
 						<th>作者名称</th>
@@ -264,18 +264,18 @@
 			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
+					var text=result[i][j];
 					if(result[i][j]==null){
-						result[i][j]="";
+						text="";
 					}
-					mytd.text(result[i][j]);
+					if(j==0||j==1||j==6||j==7){
+						text=madeOneLineText(result[i][j])
+					}
+					mytd.html(text);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(1).addClass("nowrap");
-			// searchInfo.children('td').eq(2).addClass("nowrap");
-			searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

@@ -16,6 +16,14 @@
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td> 
+				<th style="width:10.6%;">获奖级别 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox awardsLevel">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>
 				<th style="width:10.6%;">获奖年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -62,14 +70,6 @@
 						</select>
 					</div>
 					<span class="starAfter">*</span>
-				</td>
-				<th style="width:10.6%;">获奖级别 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox awardsLevel">
-							<option selected="selected"></option>
-						</select>
-					</div>
 				</td>
 				<td colspan="2" width="26.3%">
 					<a class="searchBtn rightMinBtn">查询</a>
@@ -245,8 +245,7 @@
 	        url: "/NationalScience/getStatistics",
 	        type: "POST",
 	        traditional:true,
-	        // beforeSend:beforeHandle,
-	        // success:successHandle,
+	        beforeSend:beforeHandle,
 	        data:{
 	            "first_unit":first_unit,
 	            "participate_unit":participate_unit,
@@ -289,6 +288,9 @@
 			$(".tableContent .infoTablePara").append(addCount);
 		}
 		if(data.state==0&&count!=0){
+			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			$(".tableContent").addClass('tableShow');
+			$(".searchUndo").addClass("searchDo");
 			for (var i=0,len=result.length;i<len;i++) {
 				var searchInfo=$('<tr>'+
 					'<td></td>'+
@@ -301,15 +303,15 @@
 					'<td></td>'+
 					'<td></td>'+
 				'</tr>');
-				searchInfo.children('td').eq(0).text(start+i+1);
+				searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
 				searchInfo.children('td').eq(1).html(madeOneLineText(result[i].unit));
-				searchInfo.children('td').eq(2).text(year1+'-'+year2);
-				searchInfo.children('td').eq(3).text(level);
-				searchInfo.children('td').eq(4).text(result[i].highest);
-				searchInfo.children('td').eq(5).text(result[i].tech);
-				searchInfo.children('td').eq(6).text(result[i].science);
-				searchInfo.children('td').eq(7).text(result[i].natural);
-				searchInfo.children('td').eq(8).text(Number(result[i].highest+result[i].tech+result[i].science+result[i].natural));
+				searchInfo.children('td').eq(2).html(madeNowrapText(year1+'-'+year2));
+				searchInfo.children('td').eq(3).html(madeNowrapText(level));
+				searchInfo.children('td').eq(4).html(madeNowrapText(result[i].highest));
+				searchInfo.children('td').eq(5).html(madeNowrapText(result[i].tech));
+				searchInfo.children('td').eq(6).html(madeNowrapText(result[i].science));
+				searchInfo.children('td').eq(7).html(madeNowrapText(result[i].natural));
+				searchInfo.children('td').eq(8).html(madeNowrapText(Number(result[i].highest+result[i].tech+result[i].science+result[i].natural)));
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 		}
@@ -318,6 +320,9 @@
 			count=0;
 			addCount.children('span').eq(0).text(count);
 			addCount.children('span').eq(1).text(count);
+			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+    		$(".searchUndo").removeClass("searchDo");
+    		$(".tableContent").removeClass('tableShow');
 		}
 	}
 	$(".searchBtn").bind("click",function(){

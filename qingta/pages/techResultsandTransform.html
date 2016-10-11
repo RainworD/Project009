@@ -106,18 +106,19 @@
 					<tr class="tableTitle">
 						<th rowspan="2">序号</th>
 						<th rowspan="2">学校名称</th>
-						<th rowspan="2">预算年度</th>
+						<th rowspan="2">年度</th>
+						<th rowspan="2">教学与科研人员</th>
 						<th colspan="2">专著</th>
 						<th colspan="2">学术论文（篇）</th>
-						<th rowspan="2">鉴定成果数（项）</th>
+						<th rowspan="2">鉴定成果</th>
 						<th colspan="2">技术转让</th>
 					</tr>
 					<tr class="tableTitle">
-						<th>数量（部）</th>
-						<th>字数（千字）</th>
+						<th>数量</th>
+						<th>字数(千字)</th>
 						<th>合计</th>
-						<th>其中：国外及全国性刊物发表</th>
-						<th>签订合同数（项）</th>
+						<th>国外及全国性论文</th>
+						<th>合同数</th>
 						<th>当年实际收入</th>
 					</tr>
 				</thead>
@@ -233,6 +234,7 @@
 		$.when(STtransfer(unit,order,first_year,last_year)).done(function(data){
 			var result=data.data;
 			$(".infoTable1").children('tbody').empty();
+			$(".infoTable1 thead").find('th').addClass("nowrap");
 			// var count=data.count;
 			var count=result.length;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
@@ -265,16 +267,16 @@
 						'<td></td>'+
 						'<td></td>'+
 					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
-					searchInfo.children('td').eq(1).text(result[i].unit);
-					searchInfo.children('td').eq(2).text(first_year+'-'+last_year);
-					searchInfo.children('td').eq(3).text(result[i].patent_number);
-					searchInfo.children('td').eq(4).text(result[i].patent_count);
-					searchInfo.children('td').eq(5).text(result[i].paper_number);
-					searchInfo.children('td').eq(6).text(result[i].paper_among);
-					searchInfo.children('td').eq(7).text(result[i].identification);
-					searchInfo.children('td').eq(8).text(result[i].contract);
-					searchInfo.children('td').eq(9).text(result[i].income);
+					searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
+					searchInfo.children('td').eq(1).html(madeOneLineText(result[i].unit));
+					searchInfo.children('td').eq(2).html(madeNowrapText(first_year+'-'+last_year));
+					searchInfo.children('td').eq(3).html(madeNowrapText(result[i].patent_number));
+					searchInfo.children('td').eq(4).html(madeNowrapText(result[i].patent_count));
+					searchInfo.children('td').eq(5).html(madeNowrapText(result[i].paper_number));
+					searchInfo.children('td').eq(6).html(madeNowrapText(result[i].paper_among));
+					searchInfo.children('td').eq(7).html(madeNowrapText(result[i].identification));
+					searchInfo.children('td').eq(8).html(madeNowrapText(result[i].contract));
+					searchInfo.children('td').eq(9).html(madeNowrapText(result[i].income));
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 				getPages(0);
@@ -298,6 +300,9 @@
 				count=0;
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			    $(".searchUndo").removeClass("searchDo");
+			    $(".tableContent").removeClass('tableShow');
 			}
 		})		
 	})

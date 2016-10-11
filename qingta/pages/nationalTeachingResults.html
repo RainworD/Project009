@@ -105,7 +105,7 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>完成单位</th>
-						<th>获奖年度</th>
+						<th>年度</th>
 						<th>特等奖</th>
 						<th>一等奖</th>
 						<th>二等奖</th>
@@ -223,8 +223,8 @@
 	        url: "/LearnScience/getStatistics",
 	        type: "POST",
 	        traditional:true,
-	        // beforeSend:beforeHandle,
-	        // success:successHandle,
+	        beforeSend:beforeHandle,
+	        success:successHandle,
 	        data:{
 	            "first_unit":first_unit,
 	            "participate_unit":participate_unit,
@@ -264,6 +264,9 @@
 				$(".tableContent .infoTablePara").append(addCount);
 			}
 			if(data.state==0){
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+				$(".tableContent").addClass('tableShow');
+				$(".searchUndo").addClass("searchDo");
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
 						'<td></td>'+
@@ -289,6 +292,9 @@
 				count=0;
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+	    		$(".searchUndo").removeClass("searchDo");
+	    		$(".tableContent").removeClass('tableShow');
 			}
 	}
 	$(".searchBtn").bind("click",function(){

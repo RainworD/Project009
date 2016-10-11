@@ -26,6 +26,14 @@
 						</select>
 					</div>
 				</td>
+				<th style="width:10.6%;">获奖级别 :</th>
+				<td style="width:18.3%">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox awardsLevel">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>
 				<th style="width:10.6%;">获奖年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -72,14 +80,6 @@
 						</select>
 					</div>
 					<span class="starAfter">*</span>
-				</td>
-				<th style="width:10.6%;">获奖级别 :</th>
-				<td style="width:18.3%">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox awardsLevel">
-							<option selected="selected"></option>
-						</select>
-					</div>
 				</td>
 			</tr>
 			<tr>				
@@ -147,13 +147,13 @@
 						<th>项目编号</th>
 						<th>奖项类型</th>
 						<th>项目名称</th>
-						<th>获奖年度</th>
+						<th>年度</th>
 						<th>获奖级别</th>
 						<th>第一完成人</th>
 						<th>参与人</th>
 						<th>第一单位</th>
 						<th>参与单位</th>
-						<th>推荐单位</th>
+						<!-- <th>推荐单位</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -217,8 +217,8 @@
 	        url: "/EducationScience/getDetail",
 	        type: "POST",
 	        traditional:true,
-	        // beforeSend:beforeHandle,
-	        // success:successHandle,
+	        beforeSend:beforeHandle,
+	        success:successHandle,
 	        data:{
 	            "type":type,
 	            "user":user,
@@ -244,8 +244,6 @@
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var result=data.data;
-		var personArray=[];
-		var unitArray=[];
 		count=data.count;
 		var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 		addCount.children('span').eq(0).text(count);
@@ -264,7 +262,12 @@
 			$(".tableContent .infoTablePara").append(addCount);
 		}
 		if(data.state==0&&count!=0){
+			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			$(".tableContent").addClass('tableShow');
+			$(".searchUndo").addClass("searchDo");
 			for (var i=0,len=result.length;i<len;i++) {
+				var personArray=[];
+				var unitArray=[];
 				var searchInfo=$('<tr>'+
 					'<td></td>'+
 					'<td></td>'+
@@ -276,7 +279,7 @@
 					'<td></td>'+
 					'<td></td>'+
 					'<td></td>'+
-					'<td></td>'+
+					// '<td></td>'+
 				'</tr>');
 				searchInfo.children('td').eq(0).text(start+i+1);
 				searchInfo.children('td').eq(1).html(madeNowrapText(result[i].code));
@@ -290,21 +293,25 @@
 					personArray.push(personList[j].name);
 				}
 				searchInfo.children('td').eq(7).html(madeOneLineText(personArray));
-				searchInfo.children('td').eq(8).html(madeOneLineText(result[i].unit));
+				searchInfo.children('td').eq(8).html(madeNowrapText(result[i].unit));
 				var unitList=result[i].unitList;
 				for (var j=0;j<unitList.length;j++) {
 					unitArray.push(unitList[j].name);
 				}
 				searchInfo.children('td').eq(9).html(madeOneLineText(unitArray));
-				searchInfo.children('td').eq(10).html(madeOneLineText(result[i].recommend));
+				// searchInfo.children('td').eq(10).html(madeOneLineText(result[i].recommend));
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
+			searchInfo.children('td').eq(3).css("width","180px");
 		}
 		else{
 			alert("没有符合查询条件的记录！");
 			count=0;
 			addCount.children('span').eq(0).text(count);
 			addCount.children('span').eq(1).text(count);
+			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+    		$(".searchUndo").removeClass("searchDo");
+    		$(".tableContent").removeClass('tableShow');
 		}
 	}
 	$(".searchBtn").bind("click",function(){

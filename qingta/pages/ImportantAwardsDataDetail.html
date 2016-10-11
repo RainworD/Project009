@@ -26,7 +26,15 @@
 							<option selected="selected"></option>
 						</select>
 					</div>
-				</td>	
+				</td>		
+				<th style="width:10.6%;">奖励类别 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox awardType">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>
 				<th style="width:10.6%">获奖年度 :</th>
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
@@ -73,14 +81,6 @@
 						</select>
 					</div>
 					<span class="starAfter">*</span>
-				</td>	
-				<th style="width:10.6%;">奖励类别 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox awardType">
-							<option selected="selected"></option>
-						</select>
-					</div>
 				</td>		
 			</tr>
 			<tr>				
@@ -115,7 +115,7 @@
 						<th>学校名称</th>
 						<th>奖励名称</th>
 						<th>奖励类别</th>
-						<th>获奖年度</th>
+						<th>年度</th>
 						<th>奖励级别</th>
 						<th>获奖人</th>
 						<th>备注</th>
@@ -214,6 +214,7 @@
 		$.when(ImportantRewardsDetail(unit,category,first_year,last_year,reward_name,user)).done(function(data){
 			var result=data.data;
 			$(".infoTable1").children('tbody').empty();
+			$(".infoTable1 thead").find('th').addClass("nowrap");
 			// var count=data.count;
 			var count=result.length;
 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
@@ -244,14 +245,14 @@
 						'<td></td>'+
 						'<td></td>'+
 					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
-					searchInfo.children('td').eq(1).text(result[i].unit);
-					searchInfo.children('td').eq(2).text(result[i].reward_name);
-					searchInfo.children('td').eq(3).text(result[i].category);
-					searchInfo.children('td').eq(4).text(result[i].year);
-					searchInfo.children('td').eq(5).text(result[i].level);
-					searchInfo.children('td').eq(6).text(result[i].user);
-					searchInfo.children('td').eq(7).text(result[i].note);
+					searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
+					searchInfo.children('td').eq(1).html(madeOneLineText(result[i].unit));
+					searchInfo.children('td').eq(2).html(madeOneLineText(result[i].reward_name));
+					searchInfo.children('td').eq(3).html(madeNowrapText(result[i].category));
+					searchInfo.children('td').eq(4).html(madeNowrapText(result[i].year));
+					searchInfo.children('td').eq(5).html(madeNowrapText(result[i].level));
+					searchInfo.children('td').eq(6).html(madeOneLineText(result[i].user));
+					searchInfo.children('td').eq(7).html(madeOneLineText(result[i].note));
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 				getPages(0);
@@ -275,6 +276,9 @@
 				count=0;
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			    $(".searchUndo").removeClass("searchDo");
+			    $(".tableContent").removeClass('tableShow');
 			}
 		})		
 	})
