@@ -1,5 +1,5 @@
 .qingta-ztree-table {
-  width: 475px;
+  width: 476px;
   height: 400px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -86,9 +86,9 @@
   background-color: transparent;
   text-decoration: none;
   padding: 0px 70px 0px 50px;
-}
-.ztree a.curSelectedNode {
-  background: #4dd2ff !important;
+  /*  &.curSelectedNode {
+           background: lighten(#33ccff,5%) !important;
+       } */
 }
 .ztree a > .node_name {
   display: table-cell;
@@ -171,6 +171,7 @@
   text-align: center;
   line-height: 40px;
   font-family: FontAwesome;
+  /* radio 单选*/
 }
 [treenode_check].checkbox_true_part:before,
 [treenode_check].checkbox_true_part_focus:before {
@@ -181,7 +182,22 @@
   content: "\f096";
 }
 [treenode_check].checkbox_true_full_focus:before,
-[treenode_check][treenode_check].checkbox_true_full:before,
-[treenode_check]:before {
+[treenode_check][treenode_check].checkbox_true_full:before {
   content: "\f046";
+}
+[treenode_check].radio_true_full_focus:before,
+[treenode_check][treenode_check].radio_true_full:before {
+  content: "\f192";
+}
+[treenode_check].radio_true_part_focus:before,
+[treenode_check][treenode_check].radio_true_part:before {
+  content: "\f192";
+}
+[treenode_check].radio_false_full_focus:before,
+[treenode_check][treenode_check].radio_false_full:before {
+  content: "\f10c";
+}
+[treenode_check].radio_false_part_focus:before,
+[treenode_check][treenode_check].radio_false_part:before {
+  content: "\f10c";
 }

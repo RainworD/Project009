@@ -23,7 +23,7 @@
 @level3-font-color: #999;
 
 .qingta-ztree-table {
-    width:475px;height:400px;overflow-y:auto;overflow-x:hidden;position:relative;
+    width:476px;height:400px;overflow-y:auto;overflow-x:hidden;position:relative;
 }
 .ztree-at-top {
     width:458px;position:absolute;left:0px;top:0px;
@@ -126,9 +126,9 @@
 
         padding: 0px @check-width 0px @switch-width;
 
-        &.curSelectedNode {
-            background: lighten(#33ccff,5%) !important;
-        }
+       /*  &.curSelectedNode {
+           background: lighten(#33ccff,5%) !important;
+       } */
 
         > .node_name {
             display: table-cell;
@@ -253,7 +253,25 @@
         content: "\f096";
     }
 
-    &.checkbox_true_full_focus:before, &[treenode_check].checkbox_true_full:before ,&:before{
+    &.checkbox_true_full_focus:before, &[treenode_check].checkbox_true_full:before{
         content: "\f046";
+    }
+
+    
+    /* radio 单选*/
+    &.radio_true_full_focus:before, &[treenode_check].radio_true_full:before {
+        content: "\f192";
+    }
+
+    &.radio_true_part_focus:before, &[treenode_check].radio_true_part:before {
+        content: "\f192";
+    }
+    
+    &.radio_false_full_focus:before, &[treenode_check].radio_false_full:before {
+        content: "\f10c";
+    }
+
+    &.radio_false_part_focus:before, &[treenode_check].radio_false_part:before {
+        content: "\f10c";
     }
 }

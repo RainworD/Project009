@@ -25,7 +25,7 @@
 	
 	<div class="custom-modal" data-drag-modal="false" v-el:modal>
 		<div class="custom-modal-content" style="width:500px;" drag-modal-content>
-			<div class="custom-modal-close" @click="closeSearchNameModal">
+			<div class="custom-modal-close" @click="closeSearchNameModal(false)">
 				<i class="fa fa-close"></i>
 			</div>
 			<div class="custom-modal-head" data-drag-enter>
@@ -33,11 +33,11 @@
 			</div>
 			<div class="custom-modal-body">
 				<div class="custom-search-bar">
-					<div style="display:table-cell;width:100%;">
+					<div class="custom-input-box">
 						<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
 					</div>
-					<div style="display:table-cell;width:130px;">
-						<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;" @click="searchNode">查询</a>
+					<div class="search-box"  @click="searchNode">
+						<i class="fa fa-search fa-lg"></i>
 					</div>
 				</div>
 				<div style="padding:0px 20px;">
@@ -56,15 +56,15 @@
 			</div>
 			<div class="custom-modal-foot">
 				<div data-drag-enter></div>
-				<a class="qingta-button button-blue" @click="closeSearchNameModal(false)">取消</a>
 				<a class="qingta-button button-green" @click="closeSearchNameModal(true)">确定</a>
+				<a class="qingta-button button-blue" @click="closeSearchNameModal(false)">取消</a>
 			</div>
 		</div>
 	</div>
 </script>
 
 <script type="text/x-vue-template" id="mark_chart_template">
-	<div class="tableContent">
+	<div class="tableContent" style="display:block;">
 		<div class="infoTableBox">
 			<div class="infoTableContent"  style="padding-top:10px;">
 				<div class="infoTableTop">
@@ -83,7 +83,7 @@
 						<a :class="['changeButton changeButtonTab', tab_index==$index?'yellow':'']" v-for="tab in tabs" @click="switchTab($index)">{{tab.name}}</a>
 					</div>
 				</div>
-				<div style="width:100%;height:300px;background:#eee;" v-el:chart></div>
+				<div :style="{width:'100%',height:getHeight(),background:'#eef'}" v-el:chart></div>
 			</div>
 		</div>
 		<div class="custom-modal" data-drag-modal="false" v-el:modal v-if="tabs[tab_index]">
@@ -200,6 +200,9 @@
 			}
 		},
 		methods: {
+			getHeight: function(){
+				return ((window.innerWidth - 240) * 0.3 | 0) + 'px'
+			},
 			switchTab: function(index){
 				if (!this.mounting) {
 					this.tab_index = index
@@ -313,32 +316,45 @@
 			openSearchNameModal: function(){
 				openModal($(this.$els.modal))
 			},
-			closeSearchNameModal: function(){
-				var zTree = $.fn.zTree.getZTreeObj('tree')
-				//console.dir(zTree)
-				var selectedNode = zTree.getSelectedNodes()
-				if (selectedNode[0]) {
-					this.university.name = selectedNode[0].name
-					this.university.id = selectedNode[0].id
+			closeSearchNameModal: function(save){
+				if (save) {
+					var zTree = $.fn.zTree.getZTreeObj('tree')
+					//console.dir(zTree)
+					var selectedNode = zTree.getSelectedNodes()
+					if (selectedNode[0]) {
+						this.university.name = selectedNode[0].name
+						this.university.id = selectedNode[0].id
+					}
 				}
 				hideModal($(this.$els.modal))
 			},
 			initZtree: function(){
 				var self = this
-				$.fn.zTree.init($("#tree"), {
+				var zTreeObj = $.fn.zTree.init($("#tree"), {
+					check: {
+						enable: true,
+						chkStyle: "radio",
+						level: 3
+					},
 					view: {
 						showIcon: false,
-						showLine: false
+						showLine: false,
+						selectedMulti:false
 					},
 					callback: {
-						beforeClick: function(treeId, treeNode){
-							if (treeNode.id === undefined) {
-								return false
+						onDblClick: function(e, treeNode, node){
+							if (!node.nocheck) {
+								console.dir(node)
+								zTreeObj.checkNode(node, true, true)
+								self.closeSearchNameModal(true)
 							}
-							return true
 						}
 					}
 				}, baseTree)
+				var node = zTreeObj.getNodesByFilter(function(node){
+					return node.level == 1
+				}, true)
+				zTreeObj.expandNode(node, true, false)
 			},
 			getUniversityData: function(){
 				var self = this
@@ -346,7 +362,16 @@
 					url: '/LandEntity',
 					error: function(){}
 				})).then(function(res){
-					baseTree = res.result
+					var _data = res.result || []
+					baseTree = [_data.find(function(item){
+						return item.name == "高等院校"
+					})]
+					baseTree.forEach(function(level1){
+						level1.nocheck = true
+						level1.children.forEach(function(level2){
+							level2.nocheck = true
+						})
+					})
 					self.initZtree()
 					var firstUniversity = baseTree[0].children[0].children[0]
 					self.university.name = firstUniversity.name
