@@ -348,5 +348,10 @@
 		}
 		getDataBox(params,'/GiveEntityAccount');
 	})
-
+	var entity=localStorage.school;
+	var params_={
+		'pageindex':1,
+		'entity':entity,
+	}
+	getDataBox(params_,'/GiveEntityAccount');
 </script>

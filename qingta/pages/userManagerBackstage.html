@@ -31,7 +31,7 @@
 		</tr>
 	</table>
 </div>
-<div class="tableContent">
+<div class="tableContent" style="display:block">
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
@@ -344,7 +344,7 @@
 		}
 		$(".mask").hide();
 		$(".unitsChoose").hide();
-		window.location.reload();
+		// window.location.reload();
 	})
 	$(".forLogOut1").bind("click",function(){
 		var name=$(".accountName").val();
@@ -440,5 +440,9 @@
 		}
 		getDataBox(params,'/GiveEntityAccount');
 	})
+	var params_={
+		'pageindex':1,
+	};
+	getDataBox(params_,'/GiveEntityAccount')
 	doForSearch(".schoolName","/Landentity0");
 </script>
