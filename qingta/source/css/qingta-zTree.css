@@ -12,9 +12,9 @@
   top: 0px;
 }
 .qingta-ztree-header {
-  border-top: 1px solid #cccccc;
-  border-left: 1px solid #cccccc;
-  border-right: 1px solid #cccccc;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
   position: relative;
 }
 .qingta-ztree-header .qingta-ztree-cell {
@@ -45,18 +45,27 @@
 .qingta-ztree-header .qingta-ztree-name .qingta-ztree-cell {
   display: table-cell;
   width: 150px;
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #ccc;
 }
 .qingta-ztree-header .qingta-ztree-name .qingta-ztree-cell:first-child {
-  border-left: 1px solid #cccccc;
+  border-left: 1px solid #ccc;
 }
 .qingta-ztree-header .qingta-ztree-name .qingta-ztree-cell:last-child {
   width: auto;
 }
+.ztree.ztree3 a.level0 {
+  background-color: #FFFFDF;
+}
+.ztree.ztree3 a.level1 {
+  background-color: #FFFFF2;
+}
+.ztree.ztree3 a.level2 {
+  background-color: #fff;
+}
 .ztree {
   margin: 0;
   padding: 0px;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
 }
 .ztree * {
   padding: 0;
@@ -64,7 +73,7 @@
 }
 .ztree ul {
   list-style: none;
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid #ccc;
 }
 .ztree li {
   position: relative;
@@ -73,7 +82,7 @@
   list-style: none;
   white-space: nowrap;
   outline: 0;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #ccc;
 }
 .ztree li:last-child {
   border-bottom: none;
@@ -97,53 +106,53 @@
   line-height: 40px;
   text-overflow: ellipsis;
   overflow: hidden;
-  border-right: 1px solid #cccccc;
+  border-right: 1px solid #ccc;
   padding-left: 10px;
 }
 .ztree a > .node_name:nth-child(2) {
-  border-left: 1px solid #cccccc;
+  border-left: 1px solid #ccc;
 }
 .ztree a > .node_name:last-child {
   width: auto;
 }
-.ztree li.level0 > a {
-  background: #ffffdf;
+.ztree a.level0 {
+  background: #FFFFDF;
 }
-.ztree li.level0 > a .node_name {
+.ztree a.level0 .node_name {
   font-size: 16px;
-  color: #111111;
+  color: #111;
 }
-.ztree li.level0 > a .node_name-code {
+.ztree a.level0 .node_name-code {
   padding-left: 10px;
 }
-.ztree li.level1 > a {
-  background: #fffff2;
+.ztree a.level1 {
+  background: #FFFFF2;
 }
-.ztree li.level1 > a .node_name {
+.ztree a.level1 .node_name {
   font-size: 14px;
-  color: #333333;
+  color: #333;
 }
-.ztree li.level1 > a .node_name-code {
+.ztree a.level1 .node_name-code {
   padding-left: 20px;
 }
-.ztree li.level2 > a {
+.ztree a.level2 {
   background: #f7f8f7;
 }
-.ztree li.level2 > a .node_name {
+.ztree a.level2 .node_name {
   font-size: 14px;
-  color: #666666;
+  color: #666;
 }
-.ztree li.level2 > a .node_name-code {
+.ztree a.level2 .node_name-code {
   padding-left: 30px;
 }
-.ztree li.level3 > a {
-  background: #ffffff;
+.ztree a.level3 {
+  background: #fff;
 }
-.ztree li.level3 > a .node_name {
+.ztree a.level3 .node_name {
   font-size: 12px;
-  color: #999999;
+  color: #999;
 }
-.ztree li.level3 > a .node_name-code {
+.ztree a.level3 .node_name-code {
   padding-left: 40px;
 }
 [treenode_ico] {

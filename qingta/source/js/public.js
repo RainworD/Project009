@@ -1,3 +1,16 @@
+var origin_fn_init = $.fn.zTree.init
+$.fn.zTree.init = function($el, options, data){
+	var level = 1
+	console.dir(data)
+	var children = data[0].children
+	while(children) {
+		console.dir(children)
+		children = children[0].children
+		level++
+	}
+	$el.addClass('ztree' + level)
+	return origin_fn_init($el, options, data)
+}
 
 var ADMIN_CONFIG = {
 	"homePage": "home.html",
