@@ -55,6 +55,12 @@
 							<option>2002</option>
 							<option>2001</option>
 							<option>2000</option>
+							<option>1999</option>
+							<option>1998</option>
+							<option>1997</option>
+							<option>1996</option>
+							<option>1995</option>
+							<option>1994</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
@@ -77,6 +83,12 @@
 							<option>2002</option>
 							<option>2001</option>
 							<option>2000</option>
+							<option>1999</option>
+							<option>1998</option>
+							<option>1997</option>
+							<option>1996</option>
+							<option>1995</option>
+							<option>1994</option>
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -138,6 +150,7 @@
 	</p>
 </div>
 <div class="mask mask1"></div>
+<div class="mask mask1"></div>
 <div class="unitsChoose unitsChoose1" style="width:560px;">
 	<div class="unitsContainer">
 		<div class="cancelBtn"> 
@@ -163,15 +176,15 @@
 			</div>
 			<div class="totalModel" style="height:400px;margin-top:0">
 				<div style="padding:0px 20px;">
-					<div class="qingta-ztree-header" style="width:503px">
+					<div class="qingta-ztree-header">
 						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
 						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
 						<div class="qingta-ztree-name">
 							<span class="qingta-ztree-cell">单位名称</span>
 						</div>
 					</div>
-					<div class="qingta-ztree-table" style="width:auto">
-						<ul id="tree" class="ztree ztree-at-top" style="width:auto">
+					<div class="qingta-ztree-table" style="width:535px">
+						<ul id="tree" class="ztree ztree-at-top" style="width:518px">
 						</ul>
 					</div>
 				</div>
@@ -235,6 +248,7 @@
 		var year2=$(".yearName2").val();
 		// var subject=$(".profession").val();
 		var department=$(".studyPart").val();
+		var gender=$(".gender").val();
 		var eq=newindex%50;
 		if(eq==0){
 			eq=50;
@@ -258,6 +272,9 @@
 						}
 						else if(j==1){
 							result[i][j]=year1+'-'+year2;
+						}
+						else if(j==3){
+							result[i][j]="全部性别";
 						}
 						mytd.text(result[i][j]);
 						searchInfo.append(mytd);

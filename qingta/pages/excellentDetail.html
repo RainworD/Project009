@@ -26,10 +26,10 @@
 						</select>
 					</div> 
 				</td>	
-				<th style="width:12%;">一级学科 :</th> 
+				<th style="width:12%;">论文类型 :</th> 
 				<td style="width:18.3%;"> 
 					<div class="commonselect"  style="width:100%;">
-						<select class="selBox topSubject">
+						<select class="selBox articleType">
 							<option selected="selected"></option>
 						</select>
 					</div> 
@@ -55,6 +55,7 @@
 							<option>2002</option>
 							<option>2001</option>
 							<option>2000</option>
+							<option>1999</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
@@ -77,6 +78,7 @@
 							<option>2002</option>
 							<option>2001</option>
 							<option>2000</option>
+							<option>1999</option>
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -92,12 +94,30 @@
 						</ul>
 					</div>
 				</td>
+				<th style="width:12%;">一级学科 :</th> 
+				<td style="width:18.3%;"> 
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox topSubject">
+							<option selected="selected"></option>
+						</select>
+					</div> 
+				</td>
 				<th style="width:10.6%;">作者姓名 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
 						<input class="commonput professorName">
 					</div>
 				</td>
+				<th style="width:10.6%;">导师姓名 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput leaderName">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
 				<td colspan="2"></td>
 				<td colspan="2">
 					<a class="searchBtn rightMinBtn">查询</a>
@@ -126,6 +146,7 @@
 						<th>论文题目</th>
 						<th>作者姓名</th>
 						<th>导师姓名</th>
+						<th>论文类型</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -206,6 +227,7 @@
 			if(data.state==0&&count!=0){
 				for (var i=0,len=result.length;i<len;i++) {
 					var searchInfo=$('<tr>'+
+						'<td></td>'+
 						'<td></td>'+
 						'<td></td>'+
 						'<td></td>'+

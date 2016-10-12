@@ -1,11 +1,10 @@
 var origin_fn_init = $.fn.zTree.init
 $.fn.zTree.init = function($el, options, data){
 	var level = 1
-	console.dir(data)
 	var children = data[0].children
 	while(children) {
-		console.dir(children)
-		children = children[0].children
+		// children = children[0].children
+		children = children[0] && children[0].children
 		level++
 	}
 	$el.addClass('ztree' + level)
@@ -23,6 +22,7 @@ $(document).bind("click",function(){
 })
 init();
 var rootObj;
+var codeObj;
 function init(){
 	eventBind();
 	matchLeft();
@@ -168,10 +168,7 @@ function judgeUnits(result){
 	var zNodes=result;
 	$.fn.zTree.init($("#tree"), setting, zNodes);
 	rootObj=$.fn.zTree.getZTreeObj("tree");
-	rootObj.expandNode(rootObj.getNodes()[0], true)
-	// $(".qingta-ztree-table").delegate("li.level0","click",function(){
-	// 	$(this).parents(".ztree").find(".level2 a").css("background-color","#fff");
-	// })
+	rootObj.expandNode(rootObj.getNodes()[0], true);
 }
 function loadContent() {
 	$(document).unbind("mousedown.drag");
@@ -216,7 +213,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 			downY=e.clientY;
 		}
 	})
-	$(document).bind("mousemove",function(e){
+	$(selector).bind("mousemove",function(e){
 		if(ismousedown){
 			_mytop=e.clientY-downY + mytop;
 			_myleft=e.clientX-downX + myleft;
@@ -224,7 +221,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 			$(selector).css("top",_mytop);
 		}
 	});
-	$(document).bind("mouseup",function(){
+	$(selector).bind("mouseup",function(){
 		ismousedown=false;
 		mytop=$(selector).position().top;
 		myleft=$(selector).position().left;
@@ -245,10 +242,8 @@ function dragBoxUnitsChoose(selector,projectUnits){
 		$(".mask").hide();
 		$(selector).hide();
 		$(this).addClass("getUnitsInfo");
-		getTreeNodes(checkedArray,_array);
+		getTreeNodes(rootObj,checkedArray,_array);
 		var checkedLen=checkedArray.length;
-		console.log(checkedLen);
-		// var mylen=$(".chooseAlreadyList").children('.chooseItems').length;
 		showName=[];
 		var timeOutId=setTimeout(function(){
 			if(checkedLen){
@@ -268,9 +263,46 @@ function dragBoxUnitsChoose(selector,projectUnits){
 	})
 	$(selector).on("click",".search-box",function(){
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
-		console.log(search_str);
 		var find = searchAndScrollToNode_(rootObj, search_str,"name");
-		console.log(find);
+		if (!find) {
+			search_str = ""
+		}
+	})
+}
+function dragBoxCodesChoose(selector,projectCodes){
+	console.log(codeObj);
+	var checkedArray=[];
+	var _array=[];
+	$(selector).on("click",".cancelBtn",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
+	$(selector).on("click",".forSure",function(){
+		$(".mask").hide();
+		$(selector).hide();
+		$(this).addClass("getUnitsInfo");
+		getTreeNodes(codeObj,checkedArray,_array);
+		var checkedLen=checkedArray.length;
+		showName=[];
+		var timeOutId=setTimeout(function(){
+			if(checkedLen){
+				for (var i=0;i<checkedLen;i++) {
+					var pushItem=checkedArray[i].name;
+					var pushid=checkedArray[i].id;
+					projectCodes.push(pushid);
+					showName.push(pushItem);
+					$(".applyCode").val(showName[0]+'...');
+				}
+			}
+		},10);
+	})
+	$(selector).on("click",".forConsole",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
+	$(selector).on("click",".search-box",function(){
+		var search_str=$(this).siblings(".custom-input-box").find("input").val();
+		var find = searchAndScrollToNode_(codeObj, search_str,"name");
 		if (!find) {
 			search_str = ""
 		}
@@ -343,9 +375,49 @@ function dragBoxSortsChoose(selector){
 	})
 
 }
+function ajaxTree(){
+	var ajax=$.ajax({
+    	url: '/FundCode/get',
+    	type:'POST',
+    	data:{},
+    	success:function(data){
+    	}
+    })
+    return ajax;
+}
+$.when(ajaxTree()).done(function(data){
+	baseTree=data.data;
+	codeObj=$.fn.zTree.init($("#fund-parent-tree"), {
+		check:{
+			chkStyle:"checkbox",
+			enable:true
+		},
+		view: {
+			showIcon: false,
+			showLine: false,
+			addDiyDom: addDiyDom
+		}
+	}, baseTree);
+	})
+function addDiyDom(treeId, treeNode){
+	var code_span = $('<span class="node_name node_name-code"></span>')
+	code_span.attr('id', 'treeDemo_'+ treeId + '_code')
+	  .text(treeNode.code)
+	  .insertBefore($('#' + treeNode.tId + "_span"))
+}
+function resetAlertBox(treeObj){
+	var nodes_=treeObj.getCheckedNodes();
+	for(var i=0;i<nodes_.length;i++){
+		treeObj.checkNode(nodes_[i],false);
+		treeObj.expandNode(nodes_[i],false);
+	}
+	treeObj.expandNode(treeObj.getNodes()[0], true)
+}
 function topBarControl(){
 	$(".resetBtn").bind("click",function(){
 		if(confirm("你确定重置所有查询条件？")){
+			resetAlertBox(rootObj);
+			resetAlertBox(codeObj);
 			$(this).parents(".topTable").find("input").val("");
 			var val_=$(this).parents(".topTable").find("select").children("option").first().val();
 			$(this).parents(".topTable").find("select").val(val_);
@@ -371,42 +443,30 @@ function topBarControl(){
 	var decHeight=parseInt(myheight1)-parseInt(myheight2)-80;
 	$(".tableContent").css("min-height",decHeight);
 }
-function getTreeNodes(checkedArray,_array){
-	// var rootObj=$.fn.zTree.getZTreeObj("tree");
+function getTreeNodes(treeObj,checkedArray,_array){
 	var hasSame=false;
 	checkedArray.length=0;
 	if(_array.length){
-		var _array1=rootObj.getCheckedNodes();
+		var _array1=treeObj.getCheckedNodes();
 		var _len1=_array1.length;
 		for (var k=1;k<_len1;k++) {
 			_array.push(_array1[k]);
 		}
 	}
 	else{
-		_array=rootObj.getCheckedNodes();
+		_array=treeObj.getCheckedNodes();
 	}
 	for (var i=0;i<_array.length;i++) {
 		var checkedObj={};
 		if(_array[i].isParent){
 		}
 		else{
-			// for (var j=0;j<checkedArray.length;j++) {
-			// 	if(_array[i].name==checkedArray[j]){
-			// 		hasSame=true;
-			// 		break;
-			// 	}
-			// }
-			// if(!hasSame){
-				checkedObj.name=_array[i].name;
-				checkedObj.id=_array[i].id;
-				// checkedArray.push(_array[i].name);
-				checkedArray.push(checkedObj);
-				_array[i].chkDisabled=true;
-				// rootObj.refresh();
-			// }
+			checkedObj.name=_array[i].name;
+			checkedObj.id=_array[i].id;
+			checkedArray.push(checkedObj);
 		}
 	}
-	rootObj.refresh();
+	treeObj.refresh();
 }
 function cancelCheckedState(){
 	// var rootObj=$.fn.zTree.getZTreeObj("tree");
