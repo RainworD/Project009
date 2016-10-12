@@ -3,7 +3,10 @@ $.fn.zTree.init = function($el, options, data){
 	var level = 1
 	var children = data[0].children
 	while(children) {
+<<<<<<< HEAD
 		// children = children[0].children
+=======
+>>>>>>> origin/master
 		children = children[0] && children[0].children
 		level++
 	}
