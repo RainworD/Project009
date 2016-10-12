@@ -83,7 +83,7 @@
 						<a :class="['changeButton changeButtonTab', tab_index==$index?'yellow':'']" v-for="tab in tabs" @click="switchTab($index)">{{tab.name}}</a>
 					</div>
 				</div>
-				<div :style="{width:'100%',height:getHeight(),background:'#eef'}" v-el:chart></div>
+				<div :style="{width:'100%',height:getHeight(),background:'#eef'}" class="qingta-chart-container"v-el:chart></div>
 			</div>
 		</div>
 		<div class="custom-modal" data-drag-modal="false" v-el:modal v-if="tabs[tab_index]">
@@ -266,8 +266,20 @@
 				}
 			})
 			this.tab_index = 0
-			this.chart = echarts.init(this.$els.chart) 
+			this.chart = echarts.init(this.$els.chart)
+
+
+			var self = this
+			$('.leftImg').on('click.chart', function(){
+				setTimeout(function(){
+					self.chart.resize()
+				}, 0)
+			})
 			//console.dir(this.chart)
+		},
+		destroyed: function(){
+			console.log('unbind')
+			$('.leftImg').unbind('chart')
 		}
 	})
 
