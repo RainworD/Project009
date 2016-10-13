@@ -237,6 +237,7 @@
 		var result=data.data;
 			$(".infoTable1").children('tbody').empty();
 			// count=result.length;
+			count=data.count;
 			var year1=$(".yearName1").val();
 			var year2=$(".yearName2").val();
 			// var count=projectUnits.length;
@@ -303,21 +304,21 @@
 		else{
 			schoolOnly=0;
 		}
-		if(projectUnits.length){
-			count=projectUnits.length;
-		}
-		else{
-			$.ajax({
-				url:"/askEntityCount",
-				type:"POST",
-				data:{
-					schoolOnly:schoolOnly
-				},
-				success:function(data){
-					count=data.count;
-				}
-			})
-		}
+		// if(projectUnits.length){
+		// 	count=projectUnits.length;
+		// }
+		// else{
+		// 	$.ajax({
+		// 		url:"/askEntityCount",
+		// 		type:"POST",
+		// 		data:{
+		// 			schoolOnly:schoolOnly
+		// 		},
+		// 		success:function(data){
+		// 			count=data.count;
+		// 		}
+		// 	})
+		// }
 		start=0;
 		var rows=20;
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){

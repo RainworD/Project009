@@ -5,7 +5,8 @@ $.ajaxSetup({
 })
 
 function beforeHandle(){
-    $(".beforeSearch").addClass("tableShow");
+    $(".tableContent").removeClass("tableShow");
+    $(".beforeSearch").addClass("tableShow").removeClass("searchDo");
     $(".searchUndo").addClass("searchDo");
 }
 function successHandlesub(){

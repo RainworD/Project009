@@ -214,7 +214,7 @@ function loadContent() {
         hash = "#/"+ADMIN_CONFIG.homePage;
     }
     $(ADMIN_CONFIG.contentSelector).load(hash.split("/")[1], function(){
-    	
+
     	$(".leftInfo").text(localStorage.school);
 		// $(".userName").text(localStorage.userName);
 		$(".logOutBtn").bind("click",function(){
@@ -292,11 +292,9 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	});
 	$(document).bind("mouseup.drag",function(){
 		ismousedown=false;
-		console.log(selector);
 		mytop=$(selector).position().top;
 		myleft=$(selector).position().left;
-	});
-	
+	})
 }
 $(document).on("click",".unitsChoose .cancelBtn,.unitsChoose .forConsole,.unitsChoose .forSure",function(){
 	$(this).closest('.unitsChoose').hide();
@@ -313,7 +311,7 @@ $(document).on("click",".unitsChoose .cancelBtn,.unitsChoose .forConsole,.unitsC
 })
 function dragBoxUnitsChoose(selector,projectUnits){
 	var checkedArray=[];
-	var _array=[];	
+	var _array=[];
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
@@ -344,7 +342,6 @@ function dragBoxUnitsChoose(selector,projectUnits){
 	})
 }
 function dragBoxCodesChoose(selector,projectCodes){
-	console.log(codeObj);
 	var checkedArray=[];
 	var _array=[];
 	$(selector).on("click",".forSure",function(){
@@ -726,7 +723,8 @@ function paginationCallback(index,params,url){
     }
 }
 function beforeHandle(){
-    $(".beforeSearch").addClass("tableShow");
+	$(".tableContent").removeClass("tableShow");
+    $(".beforeSearch").addClass("tableShow").removeClass("searchDo");
     $(".searchUndo").addClass("searchDo");
 }
 var searchAndScrollToNode_ = (function _searchAndScrollToNode_(){

@@ -837,6 +837,7 @@ body {
   width: 100%;
   background-color: #f8f9fd;
   display: none;
+  display: block;
 }
 .mainContainer .rightBox .rightContent .tableContent .infoTableBox {
   width: 100%;
@@ -1618,4 +1619,7 @@ body {
   color: #aaa;
   text-align: center;
   cursor: pointer;
+}
+.rightContent > .tableContent {
+  display: none;
 }

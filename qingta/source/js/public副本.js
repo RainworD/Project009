@@ -1,7 +1,18 @@
+var origin_fn_init = $.fn.zTree.init
+$.fn.zTree.init = function($el, options, data){
+	var level = 1
+	var children = data[0].children
+	while(children) {
+		children = children[0] && children[0].children
+		level++
+	}
+	$el.addClass('ztree' + level)
+	return origin_fn_init($el, options, data)
+}
 
 var ADMIN_CONFIG = {
 	"homePage": "home.html",
-	"contentSelector": "#rightContent",
+	"contentSelector": "#rightContent"
 };
 $(document).bind("click",function(){
 	$(".showElse").removeClass('showBtn');
@@ -10,6 +21,7 @@ $(document).bind("click",function(){
 })
 init();
 var rootObj;
+var codeObj;
 function init(){
 	eventBind();
 	matchLeft();
@@ -134,9 +146,13 @@ var setting = {
 			key:{
 				children:"children",
 				name:"name",
-				id:"id",
+				id:"id"
 			}
 		},
+	    view: {
+	      showIcon: false,
+	      showLine: false
+	    }
 	};
 function getUnits(){
 	$.when(LandEntity()).done(function(data){
@@ -147,43 +163,90 @@ function getUnits(){
 }
 var objnew={};
 var finalResults=objnew.finalResults;
+var objCode={};
+var baseTree=objCode.baseTree;
 function judgeUnits(result){
-	var zNodes=[];
-	for (var i=0,len=result.length;i<len;i++ ) {
-		var obj={};
-		var array=[];
-		for (var j=0,mylen=result[i].length;j<mylen;j++) {
-			if(j==0){
-				obj.name=result[i][0];
-				obj.id="";
-			}
-			else{
-				var obj2=new Object();
-				obj2.name=result[i][j][0];
-				obj2.id=result[i][j][1];
-				array.push(obj2);
-				obj.children=array;
-			}
-		}
-		zNodes.push(obj);
-	}
-	for (var i=0;i<zNodes.length;i++) {
-		zNodes[i].icon="../source/zTree/css/zTreeStyle/img/diy/1_open.png";
-		
-	}
-
+	var zNodes=result;
 	$.fn.zTree.init($("#tree"), setting, zNodes);
 	rootObj=$.fn.zTree.getZTreeObj("tree");
-
+	if(rootObj){
+		rootObj.expandNode(rootObj.getNodes()[0], true);
+	}
+}
+function ajaxTree(){
+	var ajax=$.ajax({
+    	url: '/FundCode/get',
+    	type:'POST',
+    	data:{},
+    })
+    return ajax;
+}
+function getCodes(){
+	$.when(ajaxTree()).done(function(data){
+		baseTree=data.data;
+		judgeCodes(baseTree);
+	})
+}
+function judgeCodes(result){
+	codeObj=$.fn.zTree.init($("#fund-parent-tree"), {
+		check:{
+			chkStyle:"checkbox",
+			enable:true
+		},
+		view: {
+			showIcon: false,
+			showLine: false,
+			addDiyDom: addDiyDom
+		}
+	}, result);
+}
+function addDiyDom(treeId, treeNode){
+	var code_span = $('<span class="node_name node_name-code"></span>')
+	code_span.attr('id', 'treeDemo_'+ treeId + '_code')
+	  .text(treeNode.code)
+	  .insertBefore($('#' + treeNode.tId + "_span"))
 }
 function loadContent() {
-	$(document).unbind("mousedown");
+	$(document).unbind("mousedown.drag");
 	$(document).unbind("mouseover");
     var hash = window.location.hash;
     if (hash == "") {
         hash = "#/"+ADMIN_CONFIG.homePage;
     }
     $(ADMIN_CONFIG.contentSelector).load(hash.split("/")[1], function(){
+
+    	$(".leftInfo").text(localStorage.school);
+		// $(".userName").text(localStorage.userName);
+		$(".logOutBtn").bind("click",function(){
+			$.ajax({
+		        url: "/Logout",
+		        type: "POST",
+		        data:{
+		        },
+		        success:function(data){
+		        	if(data.state==1){
+		        		alert("退出登录成功！");
+		        		// window.location.href="login.html";
+		        	}
+		        	else{
+		        		alert("网络异常！");
+		        	}
+		        }
+		    });
+	})
+	var userlevel=localStorage.userlevel;
+	if(userlevel==0){
+		$(".mainUserSection").removeClass("showMenu");
+		$(".userSection").removeClass("showMenu");
+	}
+	else if(userlevel==1){
+		$(".mainUserSection").addClass("showMenu");
+		$(".userSection").removeClass("showMenu");
+	}
+	else if(userlevel==2){
+		$(".mainUserSection").addClass("showMenu");
+		$(".userSection").addClass("showMenu");
+	}
     });
 }
 function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗上绑定的一些事件
@@ -197,36 +260,29 @@ function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗
 
 }
 function dragBox(selector){//弹窗窗口的拖拽方法
-	$(document).unbind("mousemove,mouseup");
+	$(document).unbind(".drag");
 	var myleft,mytop;
 	var ismousedown=false;
 	var downX,downY;
-	// myleft=$(selector).offset().left;
-	// mytop=$(selector).offset().top;
 	myleft=$(selector).position().left;
 	mytop=$(selector).position().top;
-	$(selector).bind("mousedown",function(e){
+	$(selector).bind("mousedown.drag",function(e){
 		var targ = $(e.target);
-		// var name=targ.className;
 		var flag=targ.closest('.unitsContent');
 		if(flag.length){
 			ismousedown=false;
 		}
 		else{
 			ismousedown=true;
-			// myleft=$(selector).position().left;
-			// mytop=$(selector).position().top;
 			var _dom = $(selector).get(0)
 			var offset = _dom.getBoundingClientRect()
 			myleft=offset.left;
 			mytop=offset.top;
-			// downX=e.screenX;
-			// downY=e.screenY;
 			downX=e.clientX;
 			downY=e.clientY;
 		}
 	})
-	$(document).bind("mousemove",function(e){
+	$(selector).bind("mousemove",function(e){
 		if(ismousedown){
 			_mytop=e.clientY-downY + mytop;
 			_myleft=e.clientX-downX + myleft;
@@ -234,143 +290,98 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 			$(selector).css("top",_mytop);
 		}
 	});
-	$(document).bind("mouseup",function(){
+	$(document).bind("mouseup.drag",function(){
 		ismousedown=false;
+		console.log(selector);
 		mytop=$(selector).position().top;
 		myleft=$(selector).position().left;
 	})
-	$(selector).on("click",".forConsole",function(){
-		$(".mask").hide();
-		$(selector).hide();
-	})
+	// $(selector).on("click",".forConsole",function(){
+	// 	$(".mask").hide();
+	// 	$(selector).hide();
+	// 	$(document).unbind(".drag");
+	// })
 }
 function dragBoxUnitsChoose(selector,projectUnits){
-	// var array=[];
-	// var rootObj=$.fn.zTree.getZTreeObj("tree");
 	var checkedArray=[];
 	var _array=[];
 	$(selector).on("click",".cancelBtn",function(){
 		$(".mask").hide();
 		$(selector).hide();
 	})
-	$(".leftColumnProvinces").on("click",".provinceItems",function(){
-		var flag=$(this).find(".provinces").prop("checked");
-		if(flag){
-			$(this).children().find(".commonCollege").prop("checked",true);
-		}
-		else{
-			$(this).children().find(".commonCollege").prop("checked",false);
-		}
-	})
-	$(".leftColumnProvinces").on("click",".commonCollege",function(e){
-		e.stopPropagation();
-		var myinput=$(this).parents(".provinceItems").find(".commonCollege");
-		var len=myinput.length;
-		var trueArray=[];
-		for(i=0;i<len;i++){
-			var getTrue=myinput.eq(i).prop("checked");
-			if(getTrue){
-				trueArray.length++;
-			}
-		}
-		if(trueArray.length==len){
-			$(this).parents().prev().prop("checked",true);
-		}
-		else{
-			$(this).parents().prev().prop("checked",false);
-		}
-	})
-	$(".moveRight").bind("click",function(){
-		getTreeNodes(checkedArray,_array);
-		var checkedLen=checkedArray.length;
-		for (var i =0;i<checkedLen;i++ ) {
-			// var hasSame=false;
-			// var findLi=$(".rightColumn").find(".chooseAlreadyList").children("li");
-			// for (var k=0;k<findLi.length;k++) {
-			// 	var txt=findLi.eq(k).text();
-			// 	if(txt==checkedArray[i].name){
-			// 		hasSame = true;
-   //              	break;
-			// 	}
-			// }
-			// if(!hasSame){
-	           	var liItems=$('<li class="chooseItems"></li>');
-				liItems.append(checkedArray[i].name);
-				liItems.attr("data-id",checkedArray[i].id)
-				$(".rightColumn").find(".chooseAlreadyList").append(liItems);
-	        // }
-		}
-	})
-	$(".rightColumn .chooseAlreadyList").delegate('.chooseItems', 'click', function(event) {
-		var txt=$(this).text();
-		var className=$(this).attr("class");
-		var array=className.split(" ");
-		if(array.length>1){
-			$(this).removeClass("addSomeColor");
-		}
-		else{
-			$(this).addClass("addSomeColor");
-		}
-	})
-	$(".moveLeft").bind("click",function(){
-		var toLeftUnits=[];
-		var obj_new={};
-		toLeftUnits.length=0;
-		_array=rootObj.getCheckedNodes();
-		var rightChoosen=$(".rightColumn").find(".chooseAlreadyList").children('.chooseItems');
-		for (var i=0,len=rightChoosen.length;i<len;i++) {
-			var className=rightChoosen.eq(i).attr("class");
-			var myarray=className.split(" ");
-			if(myarray.length>1){
-				var txt1=rightChoosen.eq(i).text();
-				toLeftUnits.push(txt1);
-				rightChoosen.eq(i).remove();
-			}
-		}
-		for (var m=0;m<_array.length;m++) {
-			var _arrayChildren=_array[m].children;
-			for (var k=0;k<_arrayChildren.length;k++) {
-				for (var j =0; j<toLeftUnits.length;j++) {
-					if(_arrayChildren[k].name==toLeftUnits[j]){
-						_arrayChildren[k].chkDisabled=false;
-						_arrayChildren[k].checked=false;
-						// _array.splice(m,1);
-						// _arrayChildren.splice(k,1);
-						cancelCheckedState();
-					}
-				}
-				if(_array[m].isParent){
-				}
-				else{
-					obj_new=_arrayChildren[k].name;
-					obj_new=_arrayChildren[k].id;
-					checkedArray.push(obj_new);
-				}
-			};
-		}
+	$(selector).on("click",".forConsole",function(){
+		$(".mask").hide();
+		$(selector).hide();
+		// $(document).unbind(".drag");
 	})
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
 		$(this).addClass("getUnitsInfo");
-		var mylen=$(".chooseAlreadyList").children('.chooseItems').length;
-		var push1=$(".chooseAlreadyList").children('.chooseItems').eq(0).text();
+		getTreeNodes(rootObj,checkedArray,_array);
+		var checkedLen=checkedArray.length;
 		showName=[];
 		var timeOutId=setTimeout(function(){
-			for (var i=0;i<mylen;i++) {
-				var pushItem=$(".chooseAlreadyList").children('.chooseItems').eq(i).text();
-				var pushid=$(".chooseAlreadyList").children('.chooseItems').eq(i).attr("data-id");
-				projectUnits.push(pushid);
-				showName.push(pushItem);
+			if(checkedLen){
+				for (var i=0;i<checkedLen;i++) {
+					var pushItem=checkedArray[i].name;
+					var pushid=checkedArray[i].id;
+					projectUnits.push(pushid);
+					showName.push(pushItem);
+					$(".unitsEnter").val(showName[0]+'...');
+				}
 			}
 		},10);
-		$(".unitsEnter").val(push1+'...');
-		// var projectUnits=[];
-		//$(".unitsEnter").val(showName);
 	})
 	$(selector).on("click",".forConsole",function(){
 		$(".mask").hide();
 		$(selector).hide();
+	})
+	$(selector).on("click",".search-box",function(){
+		var search_str=$(this).siblings(".custom-input-box").find("input").val();
+		var find = searchAndScrollToNode_(rootObj, search_str,"name");
+		if (!find) {
+			search_str = ""
+		}
+	})
+}
+function dragBoxCodesChoose(selector,projectCodes){
+	console.log(codeObj);
+	var checkedArray=[];
+	var _array=[];
+	$(selector).on("click",".cancelBtn",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
+	$(selector).on("click",".forSure",function(){
+		$(".mask").hide();
+		$(selector).hide();
+		$(this).addClass("getUnitsInfo");
+		getTreeNodes(codeObj,checkedArray,_array);
+		var checkedLen=checkedArray.length;
+		showName=[];
+		var timeOutId=setTimeout(function(){
+			if(checkedLen){
+				for (var i=0;i<checkedLen;i++) {
+					var pushItem=checkedArray[i].name;
+					var pushcode=checkedArray[i].code;
+					projectCodes.push(pushcode);
+					showName.push(pushItem);
+					$(".applyCode").val(showName[0]+'...');
+				}
+			}
+		},10);
+	})
+	$(selector).on("click",".forConsole",function(){
+		$(".mask").hide();
+		$(selector).hide();
+	})
+	$(selector).on("click",".search-box",function(){
+		var search_str=$(this).siblings(".custom-input-box").find("input").val();
+		var find = searchAndScrollToNode_(codeObj, search_str,"name");
+		if (!find) {
+			search_str = ""
+		}
 	})
 }
 function dragBoxSortsChoose(selector){
@@ -378,9 +389,6 @@ function dragBoxSortsChoose(selector){
 		$(".mask").hide();
 		$(selector).hide();
 	})
-	// $(selector).on("click",".forConsole",function(){
-	// 	$(this).parents('.bottomBtn').siblings().children('.infoTable2').children("tbody").children("tr").removeClass('beChoosen');
-	// })
 	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
 		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
 	})
@@ -427,6 +435,8 @@ function dragBoxSortsChoose(selector){
 					var state=data.state;
 					var result=data.result;
 					if(state==1){
+						var nullopt=$('<option selected="selected"></option>');
+						$(".projectClass").append(nullopt);
 						for (var i=0;i<result.length;i++) {
 							var newopt=$('<option></option>');
 							if (result[i]) {
@@ -441,11 +451,29 @@ function dragBoxSortsChoose(selector){
 	})
 
 }
+function resetAlertBox(treeObj){
+	var nodes_=treeObj.getCheckedNodes();
+	for(var i=0;i<nodes_.length;i++){
+		treeObj.checkNode(nodes_[i],false);
+		treeObj.expandNode(nodes_[i],false);
+	}
+	treeObj.expandNode(treeObj.getNodes()[0], true)
+}
 function topBarControl(){
 	$(".resetBtn").bind("click",function(){
 		if(confirm("你确定重置所有查询条件？")){
+			if(rootObj){
+				resetAlertBox(rootObj);
+			}
+			if(codeObj){
+				resetAlertBox(codeObj);
+			}
 			$(this).parents(".topTable").find("input").val("");
-			projectUnits.length=0;
+			var val_=$(this).parents(".topTable").find("select").children("option").first().val();
+			$(this).parents(".topTable").find("select").val(val_);
+			if(projectUnits){
+				projectUnits.length=0;
+			}
 		}	
 	})
 	$(".changeBarContainer").on("click",".hideBtn",function(){
@@ -465,42 +493,33 @@ function topBarControl(){
 	var decHeight=parseInt(myheight1)-parseInt(myheight2)-80;
 	$(".tableContent").css("min-height",decHeight);
 }
-function getTreeNodes(checkedArray,_array){
-	// var rootObj=$.fn.zTree.getZTreeObj("tree");
+function getTreeNodes(treeObj,checkedArray,_array){
 	var hasSame=false;
 	checkedArray.length=0;
 	if(_array.length){
-		var _array1=rootObj.getCheckedNodes();
+		var _array1=treeObj.getCheckedNodes();
 		var _len1=_array1.length;
 		for (var k=1;k<_len1;k++) {
 			_array.push(_array1[k]);
 		}
 	}
 	else{
-		_array=rootObj.getCheckedNodes();
+		_array=treeObj.getCheckedNodes();
 	}
 	for (var i=0;i<_array.length;i++) {
 		var checkedObj={};
 		if(_array[i].isParent){
 		}
 		else{
-			// for (var j=0;j<checkedArray.length;j++) {
-			// 	if(_array[i].name==checkedArray[j]){
-			// 		hasSame=true;
-			// 		break;
-			// 	}
-			// }
-			// if(!hasSame){
-				checkedObj.name=_array[i].name;
-				checkedObj.id=_array[i].id;
-				// checkedArray.push(_array[i].name);
-				checkedArray.push(checkedObj);
-				_array[i].chkDisabled=true;
-				// rootObj.refresh();
-			// }
+			checkedObj.name=_array[i].name;
+			checkedObj.id=_array[i].id;
+			if(_array[i].code){
+				checkedObj.code=_array[i].code;
+			}
+			checkedArray.push(checkedObj);
 		}
 	}
-	rootObj.refresh();
+	treeObj.refresh();
 }
 function cancelCheckedState(){
 	// var rootObj=$.fn.zTree.getZTreeObj("tree");
@@ -558,7 +577,7 @@ $("body").on("click",".showMoreContent",function(event){
 })
 function doForSearch(selector,url){
 	$(selector).bind('input propertychange', function(event) {
-		$(selector).parents("td").siblings("td").find("input").val("");
+		// $(selector).parents("td").find("input").val("");
 		var sub=$(selector).val();
 		getWholeList(sub,url,selector);
 		$(selector).siblings('.showElse').addClass('showBtn'); 
@@ -614,7 +633,7 @@ function getMatchCode(txt,selector){
 		url:"/getEntityID",
 		type:"POST",
 		data:{
-			"name":txt,
+			"name":txt
 		},
 		success:function(data){
 			if(data.state==1){
@@ -658,6 +677,7 @@ function ajaxMorePages(pageindex,newindex,params,url){
 		type:'POST',
 		data:params,
 		traditional:true,
+		beforeSend:beforeHandle,
 		success:function(data){
 			var result=data.result;
 			dataBox[pageindex]=result;
@@ -682,22 +702,24 @@ function ajaxMorePages(pageindex,newindex,params,url){
 			if(data.state==1){
 				// getMoreResults(result,pageindex,newindex);
 				selfResult(pageindex,result,newindex);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+				$(".tableContent").addClass('tableShow');
+				$(".searchUndo").addClass("searchDo");
 			}
 			else{
 				alert("没有符合查询条件的记录！");
 				count=0;
+				$(".M-box").empty();
 				addCount.children('span').eq(0).text(count);
 				addCount.children('span').eq(1).text(count);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+	    		$(".searchUndo").removeClass("searchDo");
+	    		$(".tableContent").removeClass('tableShow');
 			}
 		}
 	})
 	return ajax;
 }	
-// function getMoreResults(result,pageindex,newindex){
-// 	$(".infoTable1").children('tbody').empty();
-// 	selfResult(pageindex,result,newindex);
-// }
-
 function paginationCallback(index,params,url){
 	newindex=index;
     if(index>50){
@@ -717,73 +739,112 @@ function paginationCallback(index,params,url){
     	selfResult(1,dataBox[1],newindex);
     }
 }
-// function getDataBox(params,url){
-// 	var dataBox={};
-// 	var newindex=1;
-// 	ajaxMorePages(1,1);
-// 	function ajaxMorePages(pageindex,newindex){
-// 		params.pageindex=pageindex;
-// 		$.post(url,params, function(data, textStatus, xhr) {
-// 			var result=data.result;
-// 			dataBox[pageindex]=result;
-// 			var count=data.count;
-// 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-// 			addCount.children('span').eq(0).text(count);
-// 			if(count<20){
-// 				addCount.children('span').eq(1).text(count);
-// 			}
-// 			else{
-	
-// 				addCount.children('span').eq(1).text("20");
-// 			}
-// 			var lee=$(".tableContent .infoTablePara").children('.topRight');
-// 			if(lee){
-// 				lee.empty();
-// 				$(".tableContent .infoTablePara").append(addCount);
-// 			}
-// 			else{
-// 				$(".tableContent .infoTablePara").append(addCount);
-// 			}
-// 			if(data.state==1){
-// 				getMoreResults(result,pageindex,count,newindex);
-// 			}
-// 			else{
-// 				alert("没有符合查询条件的记录！");
-// 				count=0;
-// 				addCount.children('span').eq(0).text(count);
-// 				addCount.children('span').eq(1).text(count);
-// 			}
-// 		})
-// 	}	
-// 	function getMoreResults(result,pageindex,count,newindex){
-// 		$(".infoTable1").children('tbody').empty();
-// 		selfResult(pageindex,result,newindex);
-// 		$('.M-box').pagination({
-// 			totalData:count,
-// 		    showData:20,
-// 		    current:newindex,
-// 		    // count:2,
-// 		    jump:true,
-// 			coping:true,
-// 			prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-// 			nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-// 		    callback:function(index){
-// 		    	newindex=index;
-// 		        if(index>50){        	
-// 		        	var _index=Math.ceil(index/50);
-// 					pageindex=_index;
-// 					if(dataBox[pageindex]){
-// 						var result1=dataBox[pageindex];
-// 						getMoreResults(result1,pageindex,count,newindex);
-// 					}
-// 					else{
-// 						ajaxMorePages(pageindex,newindex);
-// 					}
-// 		        }
-// 		        else{
-// 		        	getMoreResults(dataBox[1],1,count,newindex);
-// 		        }			       
-// 		    }
-// 		});
-// 	}	
-// }
+function beforeHandle(){
+    $(".beforeSearch").addClass("tableShow");
+    $(".searchUndo").addClass("searchDo");
+}
+var searchAndScrollToNode_ = (function _searchAndScrollToNode_(){
+	var pre_search, pre_results = null
+	return function (zTreeObj, str) {
+		var attrs = Array.prototype.slice.call(arguments, 2)
+
+		var nodes, node
+		if (pre_search !== undefined && str === pre_search) {
+			nodes = pre_results
+		} else {
+			nodes = zTreeObj.getNodesByFilter(function(node){
+				return attrs.some(function(attr){
+					return node[attr].indexOf(str) !== -1
+				})
+			}, false)
+		}
+		node = nodes.shift()
+		pre_results = nodes
+		pre_search = str
+
+		if (!node) {
+			// alert('未找到相关数据')
+			pre_search = ""
+			pre_results = []
+			return false 
+		}
+		
+		var stack = [node], parentNode = node.getParentNode()
+		
+		while(parentNode) { 
+			stack.push(parentNode)
+			parentNode = parentNode.getParentNode()
+		}
+
+		stack.reverse().forEach(function(item){
+			zTreeObj.expandNode(item, true,false,false)
+		})
+		var $node = $('#'+ node.tId)
+		var $ztree = $node.parents('.ztree')
+		var $container = $node.parents('.ztree').parent()
+		
+		var offset = $ztree.children(":first-child").get(0).getBoundingClientRect()
+
+		$container.animate({
+			scrollTop: $node.get(0).getBoundingClientRect().top - (offset && offset.top)
+		}, 1000)
+		return true
+	}
+}());
+
+$(document).on('mousemove.modal', '[data-drag-modal]', function(e){
+	var $modal = $(this)
+	var dragging = $modal.attr('data-drag-modal')
+
+	if (dragging === 'true') {
+		var top = Number.parseFloat($modal.attr('data-drag-top'))
+		var left = Number.parseFloat($modal.attr('data-drag-left'))
+		var mouseStartY = Number.parseFloat($modal.attr('data-drag-mousey'))
+		var mouseStartX = Number.parseFloat($modal.attr('data-drag-mousex'))
+		var $content = $modal.children('.custom-modal-content')
+		$content.css({
+			top: top + e.screenY - mouseStartY,
+			left: left  + e.screenX - mouseStartX
+		})
+	}
+})
+
+$(document).on('mouseup.modal', '[data-drag-modal]', function(){
+	var $modal = $(this)
+	$modal.attr('data-drag-modal', false)
+})
+
+$(document).on('mousedown.modal', '[data-drag-enter]', function(e){
+	var $modal = $(this).parents('[data-drag-modal]')
+	$modal.attr('data-drag-modal', true)
+	var $content = $modal.children('.custom-modal-content')
+	var offset = $content.get(0).getBoundingClientRect()
+	$modal.attr('data-drag-top', offset.top)
+	$modal.attr('data-drag-left', offset.left)
+	$modal.attr('data-drag-mousex', e.screenX)
+	$modal.attr('data-drag-mousey', e.screenY)
+	$content.css({
+		top: offset.top,
+		left: offset.left,
+		transform: "translate(0,0)"
+	})
+})
+
+function openModal($modal){
+	$modal.find('[drag-modal-content]').css({
+		top: '50%',
+		left: '50%',
+		transform: 'translate(-50%,-50%)'
+	})
+	/*$(document.body).css({
+		overflow: 'hidden'
+	})*/
+	$modal.show()
+}
+
+function hideModal($modal){
+	/*$(document.body).css({
+		overflow: 'auto'
+	})*/
+	$modal.hide()
+}

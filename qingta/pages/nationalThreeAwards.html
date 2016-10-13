@@ -258,6 +258,7 @@
 	function getDetailData(data){
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
+		count=data.count;
 		var result=data.data;
 		var personArray=[];
 		var unitArray=[];
@@ -281,7 +282,7 @@
 			$(".tableContent .infoTablePara").append(addCount);
 		}
 		if(data.state==0&&count!=0){
-			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			$(".beforeSearch").addClass("searchDo");
 			$(".tableContent").addClass('tableShow');
 			$(".searchUndo").addClass("searchDo");
 			for (var i=0,len=result.length;i<len;i++) {
@@ -318,7 +319,7 @@
 			count=0;
 			addCount.children('span').eq(0).text(count);
 			addCount.children('span').eq(1).text(count);
-			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			$(".beforeSearch").addClass("searchDo");
     		$(".searchUndo").removeClass("searchDo");
     		$(".tableContent").removeClass('tableShow');
 		}
@@ -337,21 +338,21 @@
 		else{
 			schoolOnly=0;
 		}
-		if(projectUnits.length){
-			count=projectUnits.length;
-		}
-		else{
-			$.ajax({
-				url:"/askEntityCount",
-				type:"POST",
-				data:{
-					schoolOnly:schoolOnly
-				},
-				success:function(data){
-					count=data.count;
-				}
-			})
-		}
+		// if(projectUnits.length){
+		// 	count=projectUnits.length;
+		// }
+		// else{
+		// 	$.ajax({
+		// 		url:"/askEntityCount",
+		// 		type:"POST",
+		// 		data:{
+		// 			schoolOnly:schoolOnly
+		// 		},
+		// 		success:function(data){
+		// 			count=data.count;
+		// 		}
+		// 	})
+		// }
 		start=0;
 		var rows=20;
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
