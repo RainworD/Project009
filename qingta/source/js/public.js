@@ -727,54 +727,45 @@ function beforeHandle(){
     $(".beforeSearch").addClass("tableShow").removeClass("searchDo");
     $(".searchUndo").addClass("searchDo");
 }
-var searchAndScrollToNode_ = (function _searchAndScrollToNode_(){
-	var pre_search, pre_results = null
-	return function (zTreeObj, str) {
-		var attrs = Array.prototype.slice.call(arguments, 2)
+var searchAndScrollToNode_ = function (zTreeObj, str) {
+	var attrs = Array.prototype.slice.call(arguments, 2)
 
-		var nodes, node
-		if (pre_search !== undefined && str === pre_search) {
-			nodes = pre_results
-		} else {
-			nodes = zTreeObj.getNodesByFilter(function(node){
-				return attrs.some(function(attr){
-					return node[attr].indexOf(str) !== -1
-				})
-			}, false)
-		}
-		node = nodes.shift()
-		pre_results = nodes
-		pre_search = str
-
-		if (!node) {
-			// alert('未找到相关数据')
-			pre_search = ""
-			pre_results = []
-			return false 
-		}
-		
-		var stack = [node], parentNode = node.getParentNode()
-		
-		while(parentNode) { 
-			stack.push(parentNode)
-			parentNode = parentNode.getParentNode()
-		}
-
-		stack.reverse().forEach(function(item){
-			zTreeObj.expandNode(item, true,false,false)
+	var nodes = zTreeObj.getNodesByFilter(function(node){
+		return attrs.some(function(attr){
+			return node[attr].indexOf(str) !== -1
 		})
-		var $node = $('#'+ node.tId)
-		var $ztree = $node.parents('.ztree')
-		var $container = $node.parents('.ztree').parent()
-		
-		var offset = $ztree.children(":first-child").get(0).getBoundingClientRect()
+	}, false)
+	console.dir(nodes)
+	var node = nodes.slice(0,10).sort(function(item1, item2){
+		return item1.name.length - item2.name.length
+	})[0]
 
-		$container.animate({
-			scrollTop: $node.get(0).getBoundingClientRect().top - (offset && offset.top)
-		}, 1000)
-		return true
+	if (!node) {
+		alert('未找到相关数据')
+		return false 
 	}
-}());
+	
+	var stack = [node], parentNode = node.getParentNode()
+	
+	while(parentNode) { 
+		stack.push(parentNode)
+		parentNode = parentNode.getParentNode()
+	}
+
+	stack.reverse().forEach(function(item){
+		zTreeObj.expandNode(item, true,false,false)
+	})
+	var $node = $('#'+ node.tId)
+	var $ztree = $node.parents('.ztree')
+	var $container = $node.parents('.ztree').parent()
+	
+	var offset = $ztree.children(":first-child").get(0).getBoundingClientRect()
+
+	$container.animate({
+		scrollTop: $node.get(0).getBoundingClientRect().top - (offset && offset.top)
+	}, 1000)
+	return true
+}
 
 $(document).on('mousemove.modal', '[data-drag-modal]', function(e){
 	var $modal = $(this)

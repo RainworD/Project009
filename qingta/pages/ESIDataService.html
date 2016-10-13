@@ -120,13 +120,13 @@
 								<th>国内排名 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="selectedEsi.china_rank">
+										<input type="number" min="0" class="commonput" v-model="selectedEsi.china_rank">
 									</div>
 								</td>
 								<th>全球排名 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="selectedEsi.international_rank">
+										<input type="number" min="0" class="commonput" v-model="selectedEsi.international_rank">
 									</div>
 								</td>
 							</tr>
@@ -134,13 +134,13 @@
 								<th>1%学科数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="selectedEsi.one_percent">
+										<input type="number" min="0" class="commonput" v-model="selectedEsi.one_percent">
 									</div>
 								</td>
 								<th>1‰学科数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.thousandth" class="commonput">
+										<input type="number" min="0" v-model="selectedEsi.thousandth" class="commonput">
 									</div>
 								</td>
 							</tr>
@@ -148,13 +148,13 @@
 								<th>总引用数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.total_reference" class="commonput">
+										<input type="number" min="0" v-model="selectedEsi.total_reference" class="commonput">
 									</div>
 								</td>
 								<th>总论文数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.total_paper" class="commonput">
+										<input type="number" min="0" v-model="selectedEsi.total_paper" class="commonput">
 									</div>
 								</td>
 							</tr>
@@ -162,13 +162,13 @@
 								<th>高被引论文 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.high_powered" class="commonput">
+										<input type="number" min="0" v-model="selectedEsi.high_powered" class="commonput">
 									</div>
 								</td>
 								<th>篇均引用 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.average_paper" class="commonput">
+										<input type="number" min="0" v-model="selectedEsi.average_paper" class="commonput">
 									</div>
 								</td>
 							</tr>
@@ -195,9 +195,9 @@
 									<tr v-for="item in selectedEsi.esiSelect">
 										<td>{{$index+1}}</td>
 										<td><input type="text" class="esi-table-input" v-model="item.name"></td>
-										<td><input type="text" class="esi-table-input" v-model="item.international_rank"></td>		
-										<td><input type="text" class="esi-table-input" v-model="item.unit_number"></td>
-										<td><input type="text" class="esi-table-input" v-model="item.percent"></td>
+										<td><input type="number" min="0" class="esi-table-input" v-model="item.international_rank"></td>		
+										<td><input type="number" min="0" class="esi-table-input" v-model="item.unit_number"></td>
+										<td><input type="number" min="0" class="esi-table-input" v-model="item.percent"></td>
 										<td>
 											<div class="removeData" v-on:click="removeChosenData($index)">
 												<i class="fa fa-times fa-lg removeBtn"></i>
@@ -232,9 +232,9 @@
 									<tr v-for="item in selectedEsi.esiNotSelect">
 										<td>{{$index+1}}</td>
 										<td><input type="text" class="esi-table-input" v-model="item.name"></td>
-										<td><input type="text" class="esi-table-input" v-model="item.reference"></td>				
-										<td><input type="text" class="esi-table-input" v-model="item.last_reference"></td>
-										<td><input type="text" class="esi-table-input" v-model="item.percent"></td>
+										<td><input type="number" min="0" class="esi-table-input" v-model="item.reference"></td>				
+										<td><input type="number" min="0" class="esi-table-input" v-model="item.last_reference"></td>
+										<td><input type="number" min="0" class="esi-table-input" v-model="item.percent"></td>
 										<td>
 											<div class="removeData" v-on:click="removeUnChosenData($index)">
 												<i class="fa fa-times fa-lg removeBtn "></i>
@@ -356,6 +356,12 @@ var vm = new Vue({
 			var self = this
 			self.posting = true
 			var params = JSON.parse(JSON.stringify(self.selectedEsi))
+			params.esiSelect && params.esiSelect.forEach(function(item){
+				delete item.touched
+			})
+			params.esiNotSelect && params.esiNotSelect.forEach(function(item){
+				delete item.touched
+			})
 			Promise.resolve($.ajax({
 				url: '/esi/add',
 				contentType: "application/json",

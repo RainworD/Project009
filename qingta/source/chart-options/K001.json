@@ -65,13 +65,18 @@
                },
                "min": null,
                "axisLine": {
-                    "show": false    
+                    "show": true,
+                    "lineStyle": {
+                         "color": "#999"
+                    }    
                },
                "axisLabel": {
-                    "show": false    
+                    "textStyle": {
+                         "color": "#999"
+                    }   
                },
                "axisTick": {
-                    "show": false    
+                    "show": true    
                }
           }
      ],

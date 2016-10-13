@@ -38,7 +38,6 @@
 		<div class="changeBarBox" style="background-color:#fff;">
 			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">ESI数据维护</a>
 		</div>
-		<!-- <div class="addDataBtn" style="margin-right: 0;" v-on:click="addNewEsi">新增数据</div> -->
 	</div>
 	<div class="tableContent" style="display: block;">
 		<div class="infoTableBox">
@@ -106,13 +105,13 @@
 								<th>单位名称 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="selectedEsi.unit">
+										<span>{{selectedEsi.unit}}</span>
 									</div>
 								</td>
 								<th>发布日期 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" id="esi-dateselect" v-model="selectedEsi.in_time | toYMD" v-on:click="openDate" v-on:focus="openDate">
+										<span>{{selectedEsi.in_time | toYMD}}</span>
 									</div>
 								</td>
 							</tr>
@@ -120,13 +119,13 @@
 								<th>国内排名 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="selectedEsi.china_rank">
+										<span>{{selectedEsi.china_rank}}</span>
 									</div>
 								</td>
 								<th>全球排名 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="selectedEsi.international_rank">
+										<span>{{selectedEsi.international_rank}}</span>
 									</div>
 								</td>
 							</tr>
@@ -134,13 +133,13 @@
 								<th>1%学科数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input class="commonput" v-model="selectedEsi.one_percent">
+										<span>{{selectedEsi.one_percent}}</span>
 									</div>
 								</td>
 								<th>1‰学科数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.thousandth" class="commonput">
+										<span>{{selectedEsi.thousandth}}</span>
 									</div>
 								</td>
 							</tr>
@@ -148,13 +147,13 @@
 								<th>总引用数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.total_reference" class="commonput">
+										<span>{{selectedEsi.total_reference}}</span>
 									</div>
 								</td>
 								<th>总论文数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.total_paper" class="commonput">
+										<span>{{selectedEsi.total_paper}}</span>
 									</div>
 								</td>
 							</tr>
@@ -162,13 +161,13 @@
 								<th>高被引论文 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.high_powered" class="commonput">
+										<span>{{selectedEsi.high_powered}}</span>
 									</div>
 								</td>
 								<th>篇均引用 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input v-model="selectedEsi.average_paper" class="commonput">
+										<span>{{selectedEsi.average_paper}}</span>
 									</div>
 								</td>
 							</tr>
@@ -178,7 +177,6 @@
 						<div class="tableContent2">
 							<div class="ESITop">
 								<p class="ESITitle">入选学科数据</p>
-								<a class="editData" v-on:click="addChosenData"><i class="fa fa-plus fa-lg editBtn"></i>增加</a>
 							</div>
 							<table class="infoTable" style="table-layout:inherit">
 								<thead>
@@ -188,24 +186,15 @@
 										<th style="width:15%;">国际排名</th>
 										<th>该学科入选机构总数</th>
 										<th>学科排名百分位</th>
-										<th style="width:10%;">数据操作</th>
 									</tr>
 								</thead>
 								<tbody id="esi_chosen_container">
 									<tr v-for="item in selectedEsi.esiSelect">
 										<td>{{$index+1}}</td>
-										<td><input type="text" class="esi-table-input" v-model="item.name"></td>
-										<td><input type="text" class="esi-table-input" v-model="item.international_rank"></td>		
-										<td><input type="text" class="esi-table-input" v-model="item.unit_number"></td>
-										<td><input type="text" class="esi-table-input" v-model="item.percent"></td>
-										<td>
-											<div class="removeData" v-on:click="removeChosenData($index)">
-												<i class="fa fa-times fa-lg removeBtn"></i>
-											</div>
-											<div class="addLine" v-if="currentEdit!==null&&item.touched" v-on:click="saveChosenData($index)">
-												<i class="fa fa-check fa-lg"></i>
-											</div>
-										</td>
+										<td>{{item.name}}</td>
+										<td>{{item.international_rank}}</td>		
+										<td>{{item.unit_number}}</td>
+										<td>{{item.percent}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -215,7 +204,6 @@
 						<div class="tableContent">
 							<div class="ESITop">
 								<p class="ESITitle">未入选学科数据</p>
-								<a class="editData addData" v-on:click="addUnChosenData"><i class="fa fa-plus fa-lg editBtn "></i>增加</a>
 							</div>
 							<table class="infoTable">
 								<thead>
@@ -225,24 +213,15 @@
 										<th style="width:15%;">被引用次数</th>
 										<th>末位机构的被引用次数</th>
 										<th style="width:15%;">差距比例</th>
-										<th style="width:10%;">数据操作</th>
 									</tr>
 								</thead>
 								<tbody id="esi_unchosen_container">
 									<tr v-for="item in selectedEsi.esiNotSelect">
 										<td>{{$index+1}}</td>
-										<td><input type="text" class="esi-table-input" v-model="item.name"></td>
-										<td><input type="text" class="esi-table-input" v-model="item.reference"></td>				
-										<td><input type="text" class="esi-table-input" v-model="item.last_reference"></td>
-										<td><input type="text" class="esi-table-input" v-model="item.percent"></td>
-										<td>
-											<div class="removeData" v-on:click="removeUnChosenData($index)">
-												<i class="fa fa-times fa-lg removeBtn "></i>
-											</div>
-											<div class="addLine"  v-if="currentEdit!==null&&item.touched" v-on:click="saveUnChosenData($index)">
-												<i class="fa fa-check fa-lg"></i>
-											</div>
-										</td>
+										<td>{{item.name}}</td>
+										<td>{{item.reference}}</td>				
+										<td>{{item.last_reference}}</td>
+										<td>{{item.percent}}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -252,8 +231,7 @@
 			</div>
 			<div class="bottomBtn">
 				<p>
-					<a class="forSure" v-on:click="comfirmEdit">确定</a>
-					<a class="forConsole" v-on:click="closeModal(false)">取消</a>
+					<a class="forSure" v-on:click="closeModal(false)">确定</a>
 				</p>
 			</div>
 		</div>
@@ -292,21 +270,6 @@ var vm = new Vue({
 			dragBox(".unitsChoose");
 		},
 		closeModal: function(save){
-			var self = this
-			if (save) {
-				var find_ret
-				this.esiArr.find(function(item, index){
-					if (item.id === self.selectedEsi.id) {
-						find_ret = index
-					}
-				})
-				if (find_ret !== undefined) {
-					console.log(find_ret)
-					self.esiArr.splice(find_ret, 1, self.selectedEsi)
-				} else {
-					self.esiArr.push(self.selectedEsi)
-				}
-			}
 			$(".mask").hide()
 			$(".unitsChoose").hide()
 		},
@@ -322,284 +285,14 @@ var vm = new Vue({
 				return item
 			})
 			this.selectedEsi = dumb
-			var self = this
-			self.selectedEsi.esiSelect.forEach(function(item){
-				self.watchSelectedData(item)
-			})
-			self.selectedEsi.esiNotSelect.forEach(function(item){
-				self.watchUnSelectedData(item)
-			})
-			this.currentEdit = index
-			this.openModal()
-		},
-		addNewEsi: function(){
-			this.currentEdit = null
-			this.selectedEsi = getDumbData()
+
 			this.openModal()
 		},
 		openDate: function(){
 			WdatePicker({
 				el: 'esi-dateselect'
 			})
-		},
-		comfirmEdit: function(){
-			var self = this
-			if (self.currentEdit == null) {
-				// new Data
-				self.postNewEsi()
-			} else {
-				// edit data
-				self.postEditEsi()
-			}
-		},
-		postNewEsi: function(){
-			var self = this
-			self.posting = true
-			var params = JSON.parse(JSON.stringify(self.selectedEsi))
-			Promise.resolve($.ajax({
-				url: '/esi/add',
-				contentType: "application/json",
-				data: JSON.stringify(noId(params)),
-				error: function(){}
-			})).then(function(res){
-				self.posting = false
-				if (res.state == 0) {
-					self.selectedEsi.id = res.id
-					self.closeModal(true)
-				} else {
-					alert('输入数据不正确.')
-					console.dir(res)
-				}
-			}).catch(function(e){
-				self.posting = false
-				alert('输入数据不正确')
-				console.dir(e)
-			})
-		},
-		postEditEsi: function(){
-			var valid = this.selectedEsi.esiSelect.every(function(item){
-				return !item.touched
-			}) && this.selectedEsi.esiNotSelect.every(function(item){
-				return !item.touched
-			})
-
-			if (!valid) {
-				alert('请提交完所有更改的入选数据和未入选数据')
-			} else {
-				var self = this
-				self.posting = true
-				var params = {
-					id: this.selectedEsi.id,
-					unit: this.selectedEsi.unit,
-					in_time: this.selectedEsi.in_time,
-					china_rank:	this.selectedEsi.china_rank,
-					international_rank:	this.selectedEsi.international_rank,
-					one_percent: this.selectedEsi.one_percent,
-					thousandth:	this.selectedEsi.thousandth,
-					total_reference: this.selectedEsi.total_reference,
-					total_paper: this.selectedEsi.total_paper,
-					high_powered: this.selectedEsi.high_powered,
-					average_paper: this.selectedEsi.average_paper,
-				}	
-				Promise.resolve($.ajax({
-					url: '/esi/update',
-					data: params 
-				})).then(function(res){
-					self.posting = false
-					if (res.state == 0) {
-						self.closeModal(true)
-					} else {
-						alert('输入数据不正确.')
-						console.dir(res)
-					}
-				}).catch(function(e){
-					self.posting = false
-					alert('输入数据不正确')
-					console.dir(e)
-				})
-			}
-		},
-		watchSelectedData: function(data){
-			//console.log('watching')
-			var count = 0
-			var unwatch = this.$watch(function(){
-				//console.log('watching ... ' + count++)
-				return selectedProps.map(function(prop){
-					return data[prop]
-				})
-			}, function(val, oldVal) {
-				data.touched = true
-			}, {deep:true})
-		},
-		watchUnSelectedData: function(data){
-			//console.log('watching')
-			var count = 0
-			var unwatch = this.$watch(function(){
-				//console.log('watching ... ' + count++)
-				return unselectedProps.map(function(prop){
-					return data[prop]
-				})
-			}, function(val, oldVal) {
-				data.touched = true
-			}, {deep:true})
-		},
-		addChosenData: function(){
-			var arr = this.selectedEsi.esiSelect
-			var data = getSelectedData()
-			data.touched = true
-			arr.push(data)
-			this.watchSelectedData(data)
-		}, // 增加esi入选数据项
-		removeChosenData: function(index){
-			var self = this
-			if (this.currentEdit === null || !this.selectedEsi.esiSelect[index].hasOwnProperty('id')) {
-				this.selectedEsi.esiSelect.splice(index, 1)
-			} else {
-				self.posting = true
-				Promise.resolve($.ajax({
-					url: '/esiSelect/delete?id=' + this.selectedEsi.esiSelect[index].id,
-					error: function(){}
-				})).then(function(res){
-					self.posting = false
-					if (res.state == 0) {
-						self.selectedEsi.esiSelect.splice(index, 1)
-					} else {
-						alert('删除失败')
-					}
-				}).catch(function(){
-					alert('删除失败')
-					self.posting = false
-				})
-			}
-		}, // 删除esi入选数据项
-		saveChosenData: function(index){
-			var self = this
-			if (this.currentEdit != null) {
-				var target = getSelectedData(self.selectedEsi.esiSelect[index])
-				var id = self.selectedEsi.esiSelect[index].id
-				if (id) {
-					target.id = id
-				}
-				target.esi_id = self.selectedEsi.id
-
-				if (target.hasOwnProperty('id')) {
-					self.posting = true
-					Promise.resolve($.ajax({
-						url: '/esiSelect/update',
-						data: target,
-						error: function(){}
-					})).then(function(res){
-						self.posting = false
-						if (res.state == 0) {
-							self.selectedEsi.esiSelect[index].touched = false
-						} else {
-							alert('保存失败')
-						}
-					}).catch(function(){
-						alert('保存失败')
-						self.posting = false
-					})
-				} else {
-					self.posting = true
-					Promise.resolve($.ajax({
-						url: '/esiSelect/add',
-						data: target,
-						error: function(){}
-					})).then(function(res){
-						self.posting = false
-						if (res.state == 0) {
-							self.selectedEsi.esiSelect[index].id = res.id
-							self.selectedEsi.esiSelect[index].touched = false
-						} else {
-							alert('保存失败')
-						}
-					}).catch(function(){
-						alert('保存失败')
-						self.posting = false
-					})
-				}
-			}
-		}, // 保存esi入选数据项
-
-		addUnChosenData: function(){
-			var arr = this.selectedEsi.esiNotSelect
-			var data = getUnSelectedData()
-			data.touched = true
-			arr.push(data)
-			this.watchUnSelectedData(data)
-		}, // 增加esi未入选数据项
-		removeUnChosenData: function(index){
-			var self = this
-			if (this.currentEdit === null || !this.selectedEsi.esiNotSelect[index].hasOwnProperty('id')) {
-				this.selectedEsi.esiNotSelect.splice(index, 1)
-			} else {
-				self.posting = true
-				Promise.resolve($.ajax({
-					url: '/esiNotSelect/delete?id=' + this.selectedEsi.esiNotSelect[index].id,
-					error: function(){}
-				})).then(function(res){
-					self.posting = false
-					if (res.state == 0) {
-						self.selectedEsi.esiNotSelect.splice(index, 1)
-					} else {
-						alert('删除失败')
-					}
-				}).catch(function(){
-					alert('删除失败')
-					self.posting = false
-				})
-			}
-		}, // 保存esi未入选数据项
-		saveUnChosenData: function(index){
-			var self = this
-			if (this.currentEdit != null) {
-				var target = getUnSelectedData(self.selectedEsi.esiNotSelect[index])
-
-				var id = self.selectedEsi.esiNotSelect[index].id
-				if (id) {
-					target.id = id
-				}
-
-				target.esi_id = self.selectedEsi.id
-
-				if (target.hasOwnProperty('id')) {
-					self.posting = true
-					Promise.resolve($.ajax({
-						url: '/esiNotSelect/update',
-						data: target,
-						error: function(){}
-					})).then(function(res){
-						self.posting = false
-						if (res.state == 0) {
-							self.selectedEsi.esiNotSelect[index].touched = false
-						} else {
-							alert('保存失败')
-						}
-					}).catch(function(){
-						alert('保存失败')
-						self.posting = false
-					})
-				} else {
-					self.posting = true
-					Promise.resolve($.ajax({
-						url: '/esiNotSelect/add',
-						data: target,
-						error: function(){}
-					})).then(function(res){
-						self.posting = false
-						if (res.state == 0) {
-							self.selectedEsi.esiNotSelect[index].id = res.id
-							self.selectedEsi.esiNotSelect[index].touched = false
-						} else {
-							alert('保存失败')
-						}
-					}).catch(function(){
-						alert('保存失败')
-						self.posting = false
-					})
-				}
-			}
-		} // 保存esi未入选数据项
+		}
  	},
 	filters: {
 		toYMD: {
