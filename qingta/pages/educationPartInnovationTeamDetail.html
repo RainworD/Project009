@@ -173,15 +173,24 @@
 		var entity=$(".projectUnits").val();
 		var head=$(".applyer").val();
 		var research=$(".searchDirection").val();
-		var params={
-			'entity':entity,
-			'year1':year1,
-			'year2':year2,
-			'pageindex':pageindex,
-			'head':head,
-			'research':research,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askIT');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'entity':entity,
+				'year1':year1,
+				'year2':year2,
+				'pageindex':pageindex,
+				'head':head,
+				'research':research,
+			}
+			getDataBox(params,'/askIT');
+		}
 	})
 	doForSearch(".projectUnits","/Landentity0");
 	doForSearch(".searchDirection","/LandITresearch");

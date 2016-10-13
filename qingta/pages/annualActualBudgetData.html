@@ -304,34 +304,63 @@
 		var nowtotalincome2=$(".income2").val();
 		var nowtotalexpenditure1=$(".outcome1").val();
 		var nowtotalexpenditure2=$(".outcome2").val();
-		var totalincome1=$(".totalincome1").val();
-		var totalincome2=$(".totalincome2").val();
+		var totalincome1=$(".totalIncome1").val();
+		var totalincome2=$(".totalIncome2").val();
 		var totalexpenditure1=$(".totalOutcome1").val();
 		var totalexpenditure2=$(".totalOutcome2").val();
 		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var pageindex;
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
 		else{
 			schoolOnly=0;
 		}
-		var pageindex;
-		var params={
-			"entitys": entitys, //选择的学校列表
-	        "year1":year1,//年度范围左侧
-	        "year2":year2,//年度范围右侧
-	        "nowtotalincome1":nowtotalincome1,
-	        "nowtotalincome2":nowtotalincome2,
-	        "nowtotalexpenditure1":nowtotalexpenditure1,
-	        "nowtotalexpenditure2":nowtotalexpenditure2,
-	        "totalincome1":totalincome1,
-	        "totalincome2":totalincome2,
-	        "totalexpenditure1":totalexpenditure1,
-	        "totalexpenditure2":totalexpenditure2,
-	        "pageindex":1,//分页数
-	        "schoolOnly":schoolOnly,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askAD');
+		else if(nowtotalincome1!=""&&nowtotalincome2!=""&&(nowtotalincome1-0)>(nowtotalincome2-0)){
+			alert("输入的起始本年收入合计不能大于终止本年收入合计！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(nowtotalexpenditure1!=""&&nowtotalexpenditure2!=""&&(nowtotalexpenditure1-0)>(nowtotalexpenditure2-0)){
+			alert("输入的起始本年支出合计不能大于终止本年支出合计！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(totalincome1!=""&&totalincome2!=""&&(totalincome1-0)>(totalincome2-0)){
+			alert("输入的起始收入总计计不能大于终止收入总计！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(totalexpenditure1!=""&&totalexpenditure2!=""&&(totalexpenditure1-0)>(totalexpenditure2-0)){
+			alert("输入的起始支出总计不能大于终止支出总计！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");		
+			var params={
+				"entitys": entitys, //选择的学校列表
+		        "year1":year1,//年度范围左侧
+		        "year2":year2,//年度范围右侧
+		        "nowtotalincome1":nowtotalincome1,
+		        "nowtotalincome2":nowtotalincome2,
+		        "nowtotalexpenditure1":nowtotalexpenditure1,
+		        "nowtotalexpenditure2":nowtotalexpenditure2,
+		        "totalincome1":totalincome1,
+		        "totalincome2":totalincome2,
+		        "totalexpenditure1":totalexpenditure1,
+		        "totalexpenditure2":totalexpenditure2,
+		        "pageindex":1,//分页数
+		        "schoolOnly":schoolOnly,
+			}
+			getDataBox(params,'/askAD');
+		}
 	})
 </script>
 <script type="text/javascript">

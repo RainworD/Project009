@@ -324,23 +324,32 @@
 		var level=$(".awardsLevel").val();
 		start=0;
 		var rows=20;
-		$.when(getThreeAwardDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,0)).done(function(data){
-			$('.M-box').pagination({
-	            totalData:count,
-	            showData:20,
-	            current:1,
-	            count:2,
-	            jump:true,
-	            coping:true,
-	            prevContent:'<i class="fa fa-angle-left"></i>',     //上一页内容
-	            nextContent:'<i class="fa fa-angle-right"></i>',        //下一页内容
-	            callback:function(api){
-	                var index=api.getCurrent();
-	                start=(index-1)*20;
-	                getThreeAwardDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)               
-	            }
-	        });
-		})		
+		if(first_year!=""&&last_year!=""&&(first_year-0)>(last_year-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			$.when(getThreeAwardDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,0)).done(function(data){
+				$('.M-box').pagination({
+		            totalData:count,
+		            showData:20,
+		            current:1,
+		            count:2,
+		            jump:true,
+		            coping:true,
+		            prevContent:'<i class="fa fa-angle-left"></i>',     //上一页内容
+		            nextContent:'<i class="fa fa-angle-right"></i>',        //下一页内容
+		            callback:function(api){
+		                var index=api.getCurrent();
+		                start=(index-1)*20;
+		                getThreeAwardDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)               
+		            }
+		        });
+			})	
+		}	
 	})
 	doForSearch(".completeUnits","/NationalScience/getUnitLike");
 	doForSearch(".projectName","/NationalScience/getNameLike");

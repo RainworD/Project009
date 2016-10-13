@@ -1,0 +1,471 @@
+<link rel="stylesheet" href="../source/css/chart.css">
+<div id="common_data_container">
+	<common-data :admin="true"></common-data>	
+</div>
+<script type="text/x-vue-template" id="common_data_template">
+	<div class="changeBarContainer">
+		<div class="changeBarBox" style="background-color:#fff;" @click="openSearchNameModal">
+			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">{{university.name}}</a>
+		</div>
+		<div class="changeBarBox convert-button" style="background-color:#fff;float:right;" @click="convertToPDF">
+			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">下载为PDF文件</a>
+		</div>
+	</div>
+	<div class="enterBox" v-if="university.id!==''">
+		<div class="topTableBox" style="padding-top:0px;">
+			<div class="changeBarContainer" style="border-top:none;">
+				<div class="changeBarBox changeBarBox6" style="width:100%;text-align:center;">
+					<a :class="['changeLeft changeButton', tab_index==point.id?'green':'']" @click="switchTab(point)" v-for="point in points_data">{{point.name}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<mark-chart v-for="mark in mark_data" :tabs.sync="mark.tabs" :title="mark.title"></mark-chart>
+	
+	<div class="custom-modal" data-drag-modal="false" v-el:modal>
+		<div class="custom-modal-content" style="width:500px;" drag-modal-content>
+			<div class="custom-modal-close" @click="closeSearchNameModal(false)">
+				<i class="fa fa-close"></i>
+			</div>
+			<div class="custom-modal-head" data-drag-enter>
+				<span>选择选择类别</span>
+			</div>
+			<div class="custom-modal-body">
+				<div class="custom-search-bar">
+					<div class="custom-input-box">
+						<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
+					</div>
+					<div class="search-box"  @click="searchNode">
+						<i class="fa fa-search fa-lg"></i>
+					</div>
+				</div>
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">单位名称</span>
+						</div>
+					</div>
+					<div class="qingta-ztree-table">
+						<ul id="tree" class="ztree ztree-at-top">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="custom-modal-foot">
+				<div data-drag-enter></div>
+				<a class="qingta-button button-green" @click="closeSearchNameModal(true)">确定</a>
+				<a class="qingta-button button-blue" @click="closeSearchNameModal(false)">取消</a>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/x-vue-template" id="mark_chart_template">
+	<div class="tableContent" style="display:block;">
+		<div class="infoTableBox">
+			<div class="infoTableContent"  style="padding-top:10px;">
+				<div class="infoTableTop">
+					<div class="infoTablePara">
+						<span class="topLeft">{{title}}</span>
+						<div style="float:right;padding-top:5px;" v-if="tabs[tab_index] && tabs[tab_index].options.length > 0">
+							<span style="color:#777;font-size:14px;">{{tabs[tab_index].options_placeholder + " :"}}</span>
+							<div class="commonInputBox" style="display:inline-block;">
+								<input class="commonput" @focus="openSelectOptionModal" v-model="selected_name">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="changeBarContainer" style="border-top:none;text-align:center;" v-if="tabs.length>1">
+					<div class="changeBarBox" style="text-align:center;margin-right:0px;float:none;">
+						<a :class="['changeButton changeButtonTab', tab_index==$index?'yellow':'']" v-for="tab in tabs" @click="switchTab($index)">{{tab.name}}</a>
+					</div>
+				</div>
+				<div :style="{width:'100%',height:getHeight(),background:'#eef'}" class="qingta-chart-container"v-el:chart></div>
+			</div>
+		</div>
+		<div class="custom-modal" data-drag-modal="false" v-el:modal v-if="tabs[tab_index]">
+			<div class="custom-modal-content" style="width:500px;" drag-modal-content>
+				<div class="custom-modal-close" @click="closeSelectOptionModal(false)">
+					<i class="fa fa-close"></i>
+				</div>
+				<div class="custom-modal-head" data-drag-enter>
+					<span>选择类别</span>
+				</div>
+				<div class="custom-modal-body">
+					<div class="custom-search-bar">
+						<div style="display:table-cell;width:100%;">
+							<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchOption">
+						</div>
+						<div style="display:table-cell;width:130px;">
+							<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;" @click="searchOption">查询</a>
+						</div>
+					</div>
+					<ul style="height:400px;overflow-y:auto;" v-el:list>
+						<li v-for="option in display_options" :class="['round-border-item', option.select?'selected':'']" v-show="option.show" @click="selectOption(option)">{{option.name}}</li>
+					</ul>
+				</div>
+				<div class="custom-modal-foot">
+					<div data-drag-enter></div>
+					<a class="qingta-button button-blue" @click="closeSelectOptionModal(false)">取消</a>
+					<a class="qingta-button button-green" @click="closeSelectOptionModal(true)">确定</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+<script type="text/javascript">
+
+	function searchAndScrollToNode(zTreeObj, str) {
+		var attrs = Array.prototype.slice.call(arguments, 2)
+
+		var node = zTreeObj.getNodesByFilter(function(node){
+			return attrs.some(function(attr){
+				return node[attr].indexOf(str) !== -1
+			})
+		}, true)
+		console.log(node);
+		if (!node) {
+			alert('未找到相关数据')
+			return false 
+		}
+		
+		var stack = [node], parentNode = node.getParentNode()
+		console.log(parentNode);
+		while(parentNode) { 
+			stack.push(parentNode)
+			parentNode = parentNode.getParentNode()
+		}
+
+		stack.reverse().forEach(function(item){
+			zTreeObj.expandNode(item, true, false, false)
+		})
+
+		var $node = $('#'+ node.tId)
+		var $container = $node.parents('.ztree').parent()
+		
+		var offset = $('#tree_1').offset()
+
+		$container.animate({
+			scrollTop: $node.offset().top - (offset && offset.top)
+		}, 1000)
+		return true
+	}
+
+	var baseTree
+
+	var chartId = 0
+
+	Vue.component('mark-chart', {
+		template: $(mark_chart_template).html(),
+		props: ['title', 'tabs'],
+		data: function(){
+			return {
+				tab_index: -1,
+				search_str: '',
+				selected_order: -1,
+				selected_name: "",
+				selected_order_pre: {
+					order: -1,
+					name: '',
+					show: true,
+					select: true
+				},
+				display_options: [],
+				mounting: false
+			}
+		},
+		watch: {
+			'tab_index': function(val){
+				if (val !== -1) {
+					this.display_options = this.tabs[val].options.map(function(item, order){
+						return {
+							order: order,
+							name: item,
+							show: true,
+							select: false
+						}
+					})
+					if (this.display_options.length > 0) {
+						var firstItem = this.display_options[0]
+						this.selected_order = firstItem.order
+						this.selected_name = firstItem.name
+						this.selected_order_pre.name = firstItem.name
+						this.selected_order_pre.order = firstItem.order
+						firstItem.select = true
+					}
+				}
+			}
+		},
+		methods: {
+			getHeight: function(){
+				return ((window.innerWidth - 240) * 0.3 | 0) + 'px'
+			},
+			switchTab: function(index){
+				if (!this.mounting) {
+					this.tab_index = index
+				}
+			},
+			searchOption: function(){
+				var str = this.search_str
+				this.display_options.forEach(function(item){
+					if (item.name.indexOf(str) !== -1) {
+						item.show = true
+					} else {
+						item.show = false
+					}
+				})
+			},
+			respondToSelect: function(order){
+				var oldOrder = this.selected_order_pre.order
+				if (oldOrder !== -1) {
+					this.display_options[oldOrder].select = false
+				}
+				this.selected_order_pre.order = order
+				this.display_options[order].select = true
+			},
+			selectOption: function(option){
+				this.respondToSelect(option.order)
+
+				this.selected_order_pre.name = option.name
+			},
+			closeSelectOptionModal: function(save){
+				if (save) {
+					this.selected_order = this.selected_order_pre.order
+					this.selected_name = this.selected_order_pre.name
+				} else {
+					this.respondToSelect(this.selected_order)
+					this.selected_order_pre.order = this.selected_order
+					this.selected_order_pre.name = this.selected_name
+				}
+				hideModal($(this.$els.modal))
+			},
+			openSelectOptionModal: function(){
+				if (!this.mounting) {
+					openModal($(this.$els.modal))
+				}
+			}
+		},
+		ready: function(){
+			this.$watch(function(){
+				return [this.selected_name, this.tab_index]
+			}, function(val, oldVal){
+				var tab = val[1]
+				var name = val[0]
+				var self = this
+				//console.log(`in ${this.title}, val: ${JSON.stringify(val)}, oldVal: ${JSON.stringify(oldVal)}`)
+				if (tab !== -1) {
+					this.chart.clear()
+					this.mounting = true
+					this.tabs[tab].getOptions(name).then(function(res){
+						self.mounting = false
+						self.chart.setOption(res)
+					})
+				}
+			})
+			this.tab_index = 0
+			this.chart = echarts.init(this.$els.chart)
+
+
+			var self = this
+			$('.leftImg').on('click.chart', function(){
+				setTimeout(function(){
+					self.chart.resize()
+				}, 0)
+			})
+			//console.dir(this.chart)
+		},
+		destroyed: function(){
+			console.log('unbind')
+			$('.leftImg').unbind('chart')
+		}
+	})
+
+	Vue.component('common-data', {
+		template: $(common_data_template).html(),
+		props: ['admin'],
+		data: function(){
+			return {
+				university: {
+					name: "",
+					id: "",
+				},
+				mark_data: [],
+				tab_index: 0,
+				search_str: "",
+				points_data: []
+			}
+		},
+		methods: {
+			searchNode: function(){
+				var zTreeObj = $.fn.zTree.getZTreeObj('tree')
+				var find = searchAndScrollToNode_(zTreeObj, this.search_str, 'name')
+				if (!find) {
+					this.search_str = ""
+				}
+			},
+			convertToPDF: function(){
+				/*var $pageDom = $('.rightBox').clone()
+				var originEchart = $('.rightBox').find('[_echarts_instance_]')
+				var cloneEcharts = $pageDom.find('[_echarts_instance_]')
+				originEchart.each(function(index, dom){
+					var echart_instance = echarts.getInstanceByDom(dom)
+					var cloneEchart = cloneEcharts.eq(index)
+					cloneEchart.children().remove()
+					var img = new Image()
+					img.style = "width:100%;height:100%;background:#ccc;"
+					cloneEchart.append(img)
+				})
+				$pageDom.find('link, style, script, .mask, .unitsChoose, .custom-modal, .topBar, .convert-button').remove()
+				
+				console.dir($pageDom.html())*/
+			},
+			switchTab: function(point){
+				this.tab_index = point.id
+			},
+			openSearchNameModal: function(){
+				openModal($(this.$els.modal))
+			},
+			closeSearchNameModal: function(save){
+				if (save) {
+					var zTree = $.fn.zTree.getZTreeObj('tree')
+					//console.dir(zTree)
+					var selectedNode = zTree.getSelectedNodes()
+					if (selectedNode[0]) {
+						this.university.name = selectedNode[0].name
+						this.university.id = selectedNode[0].id
+					}
+				}
+				hideModal($(this.$els.modal))
+			},
+			initZtree: function(){
+				var self = this
+				var zTreeObj = $.fn.zTree.init($("#tree"), {
+					check: {
+						enable: true,
+						chkStyle: "radio",
+						level: 3
+					},
+					view: {
+						showIcon: false,
+						showLine: false,
+						selectedMulti:false
+					},
+					callback: {
+						onDblClick: function(e, treeNode, node){
+							if (!node.nocheck) {
+								console.dir(node)
+								zTreeObj.checkNode(node, true, true)
+								self.closeSearchNameModal(true)
+							}
+						}
+					}
+				}, baseTree)
+				var node = zTreeObj.getNodesByFilter(function(node){
+					return node.level == 1
+				}, true)
+				zTreeObj.expandNode(node, true, false)
+			},
+			getUniversityData: function(){
+				var self = this
+				Promise.resolve($.ajax({
+					url: '/LandEntity',
+					error: function(){}
+				})).then(function(res){
+					var _data = res.result || []
+					baseTree = [_data.find(function(item){
+						return item.name == "高等院校"
+					})]
+					baseTree.forEach(function(level1){
+						level1.nocheck = true
+						level1.children.forEach(function(level2){
+							level2.nocheck = true
+						})
+					})
+					self.initZtree()
+					var firstUniversity = baseTree[0].children[0].children[0]
+					self.university.name = firstUniversity.name
+					self.university.id = firstUniversity.id
+
+					Promise.resolve($.ajax({
+						url: "/dataAnalyze/type"
+					})).then(function(res){
+						if (res.state == 0) {
+							res.data.forEach(function(item){
+								self.points_data.push({
+									id: item.id,
+									name: item.name
+								})
+							})
+							self.tab_index = res.data[0].id
+						} else {
+							return Promise.reject(new Error(res.state))
+						}
+					}).catch(function(e){
+						alert('获取指标数据失败')
+					})
+				}).catch(function(e){
+					console.dir(e)
+					alert('获取数据失败')
+				})
+			}
+		},
+		ready: function(){
+			this.getUniversityData()
+
+			this.$watch(function(){
+				return [this.university.id, this.tab_index]
+			}, function(val){
+				var tab_index = val[1]
+				if (tab_index === "" || tab_index === 0) {
+					return 
+				}
+				var university = JSON.parse(JSON.stringify(this.university))
+
+				this.mark_data = []
+
+				var self = this
+
+				if (self.admin) {
+					Promise.resolve($.ajax({
+						url: "/dataAnalyze/type"
+					})).then(function(_res){
+						var points = []
+
+						var res = _res.data.find(function(item){
+							return item.id == self.tab_index
+						})
+
+						res.chart.forEach(function(item){
+							points.push(item.code)
+						})
+
+						loadPoints(university, self.mark_data, points)
+					})
+				} else {
+					Promise.resolve($.ajax({
+						url: "/dataAnalyze/school",
+						data: {
+							university: university.id,
+							type: tab_index
+						}
+					})).then(function(res){
+						var points = []
+						res.data.forEach(function(item){
+							points.push(item.chart.code)
+						})
+
+						loadPoints(university, self.mark_data, points)
+					})
+				}
+
+			})
+		}
+	})
+
+	new Vue({
+		el: '#common_data_container'
+	})
+</script>

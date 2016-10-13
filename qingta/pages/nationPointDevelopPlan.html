@@ -345,20 +345,39 @@
 			schoolOnly=0;
 		}
 		var pageindex;
-		var params={
-			'type':type,
-			'pageindex':1,
-			'year1':year1,
-			'year2':year2,
-			'totalmoney1':totalmoney1,
-			'totalmoney2':totalmoney2,
-			'centermoney1':centermoney1,
-			'centermoney2':centermoney2,
-			'entitys':entitys,
-			'schoolOnly':schoolOnly,
-			'orderby':orderby
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askNKRPsta');
+		else if(totalmoney1!=""&&totalmoney2!=""&&(totalmoney1-0)>(totalmoney2-0)){
+			alert("输入的起始总经费不能大于终止总经费！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(centermoney1!=""&&centermoney2!=""&&(centermoney1-0)>(centermoney2-0)){
+			alert("输入的起始中央经费不能大于终止中央经费！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");	
+			var params={
+				'type':type,
+				'pageindex':1,
+				'year1':year1,
+				'year2':year2,
+				'totalmoney1':totalmoney1,
+				'totalmoney2':totalmoney2,
+				'centermoney1':centermoney1,
+				'centermoney2':centermoney2,
+				'entitys':entitys,
+				'schoolOnly':schoolOnly,
+				'orderby':orderby
+			}
+			getDataBox(params,'/askNKRPsta');
+		}
 	})
 	doForSearch(".searchBox","/Landentity0");
 </script>

@@ -222,19 +222,33 @@
 		var ageofElected1=$(".years1").val();
 		var ageofElected2=$(".years2").val();
 		var name=$(".name").val();
-		var params={
-			'pageindex':pageindex,
-			'name':name,
-			'year1':year1,
-			'year2':year2,
-			'subject':subject,
-			'entity':entity,
-			'department':department,
-			'gender':gender,
-			'ageofElected1':ageofElected1,
-			'ageofElected2':ageofElected2
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askEA');
+		else if(ageofElected1!=""&&ageofElected2!=""&&(ageofElected1-0)>(ageofElected2-0)){
+			alert("输入的起始年龄不能大于终止年龄！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':pageindex,
+				'name':name,
+				'year1':year1,
+				'year2':year2,
+				'subject':subject,
+				'entity':entity,
+				'department':department,
+				'gender':gender,
+				'ageofElected1':ageofElected1,
+				'ageofElected2':ageofElected2
+			}
+			getDataBox(params,'/askEA');
+		}
 	})
 	
 	doForSearch(".entity","/Landentity0");

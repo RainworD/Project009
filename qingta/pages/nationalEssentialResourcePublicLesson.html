@@ -308,16 +308,30 @@
 		else{
 			schoolOnly=0;
 		}
-		var params={
-			'pageindex':1,
-			'entitys':entitys,
-			'year1':year1,
-			'year2':year2,
-			'_index1':_index1,
-			'_index2':_index2,
-			'schoolOnly':schoolOnly,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askVCsta');
+		else if(_index1!=""&&_index2!=""&&(_index1-0)>(_index2-0)){
+			alert("输入的起始批次不能大于终止批次！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':1,
+				'entitys':entitys,
+				'year1':year1,
+				'year2':year2,
+				'_index1':_index1,
+				'_index2':_index2,
+				'schoolOnly':schoolOnly,
+			}
+			getDataBox(params,'/askVCsta');
+		}
 	})
 </script>
 <script type="text/javascript">

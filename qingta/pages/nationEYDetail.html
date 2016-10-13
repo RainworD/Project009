@@ -18,7 +18,7 @@
 						</ul>
 					</div>
 				</td>
-				<th style="width:10.6%">申请代码 :</th>
+				<!-- <th style="width:10.6%">申请代码 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox"  style="width:100%;">
 						<input class="commonput applyCode" type="text">
@@ -26,7 +26,14 @@
 							
 						</ul>
 					</div>
-				</td>
+				</td> -->
+				<th style="width:10.6%;">申请代码 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput applyCode">
+						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td> 
 				<th style="width:10.6%">申请人 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
@@ -107,7 +114,7 @@
 		</table>
 	</div>
 </div>
-<div class="tableContent" style="display: block">
+<div class="tableContent">
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
@@ -146,7 +153,76 @@
 		<span class="sr-only">Loading...</span>
 	</p>
 </div>
+<div class="unitsChoose unitsChoose1" style="width:720px;">
+	<div class="unitsContainer">
+		<div class="cancelBtn"> 
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">单位编码选择</p>
+		</div>
+		<div class="unitsContent unitsContent1" style="cursor:default;padding:0;">
+			<!-- <div class="topSearch">
+				<p class="topSearchContent"><input placeholder="快速查找单位"><i class="fa fa-search fa-lg"></i></p> 
+			</div> -->
+			<div class="custom-search-bar">
+				<div class="custom-input-box">
+					<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
+					<ul class="showElse" style="top: 28px;border-top: none;border: 1px solid #ebebeb;">
+							
+					</ul>
+				</div>
+				<div class="search-box">
+					<i class="fa fa-search fa-lg"></i>
+				</div>
+			</div>
+			<div class="totalModel" style="height:400px;margin-top:0;padding: 0 20px;">
+				<div class="qingta-ztree-header">
+					<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+					<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+					<div class="qingta-ztree-name">
+						<span class="qingta-ztree-cell">单位编码</span>
+						<span class="qingta-ztree-cell">单位名称</span>
+					</div>
+				</div>
+				<div class="qingta-ztree-table" style="width:695px;">
+					<ul id="fund-parent-tree" class="ztree ztree-at-top" style="width:678px;">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="beforeShow">
+			<p class="enterSearchInfo">
+				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+				<span class="sr-only">Loading...</span>
+			</p>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
+	var projectCodes=[];
+	$(".showDetailBox2").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
+	})
+	if(baseTree){
+		judgeCodes(baseTree);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getCodes();
+	}
+	dragBoxCodesChoose(".unitsChoose1",projectCodes);
 	var projectUnits=[];
 	topBarControl();
 	function selfResult(pageindex,result,newindex){
@@ -187,22 +263,31 @@
 		var pageindex;
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
-		var applicationcode=$(".applyCode").val();
+		var applicationcode	= projectCodes;
 		var entity=$(".projectUnits").val();
 		var manager=$(".applyer").val();
 		var research=$(".studyArea").val();
-		var params={
-			"entity": entity,//学科
-	        "applicationcode": applicationcode,//学部
-	        "research": research,//学部
-	        "manager": manager,//性别
-	        "year1":year1,//当选年度左侧
-	        "year2":year2,//当选年度右侧
-	        "pageindex":pageindex,//分页数		
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askEY');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				"entity": entity,//学科
+		        "applicationcode": applicationcode,//学部
+		        "research": research,//学部
+		        "manager": manager,//性别
+		        "year1":year1,//当选年度左侧
+		        "year2":year2,//当选年度右侧
+		        "pageindex":pageindex,//分页数		
+			}
+			getDataBox(params,'/askEY');
+		}
 	})
 	doForSearch(".projectUnits","/Landentity0");
-	doForSearch(".applyCode","/LandEYapplicationcode");
+	// doForSearch(".applyCode","/LandEYapplicationcode");
 	doForSearch(".studyArea","/LandEYresearch");
 </script>

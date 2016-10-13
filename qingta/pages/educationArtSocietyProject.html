@@ -343,19 +343,28 @@
 		else{
 			schoolOnly=0;
 		}
-		var pageindex;
-		var params={
-			'type':type,
-			'pageindex':1,
-			'entitys':entitys,
-			'type':type,
-			'year1':year1,
-			'year2':year2,
-			'subject':subject,
-			'_class':_class,
-			'schoolOnly':schoolOnly,	
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askHSSsta');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var pageindex;
+			var params={
+				'type':type,
+				'pageindex':1,
+				'entitys':entitys,
+				'type':type,
+				'year1':year1,
+				'year2':year2,
+				'subject':subject,
+				'_class':_class,
+				'schoolOnly':schoolOnly,	
+			}
+			getDataBox(params,'/askHSSsta');
+		}
 	})
 </script>
 <script type="text/javascript">

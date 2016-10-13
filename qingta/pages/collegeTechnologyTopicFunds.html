@@ -296,8 +296,8 @@
 		var entitys=projectUnits;
 		var incoming1=$(".income1").val();
 		var incoming2=$(".income2").val();
-		var expenditure1=$(".outcome1").val();
-		var expenditure2=$(".outcome2").val();
+		var count1=$(".years1").val();
+		var count2=$(".years2").val();
 		var orderby=$("input[name='selBar']:checked").val();
 		var schoolOnly1=$("#schoolOnly").prop("checked");
 		if(schoolOnly1){
@@ -307,19 +307,38 @@
 			schoolOnly=0;
 		}
 		var pageindex;
-		var params={
-			"entitys": entitys, //选择的学校列表
-	        "year1":year1,//年度范围左侧
-	        "year2":year2,//年度范围右侧
-	        "incoming1":incoming1,
-	        "incoming2":incoming2,
-	        "expenditure1":expenditure1,
-	        "expenditure2":expenditure2,
-	        "pageindex":1,//分页数
-	        "schoolOnly":schoolOnly,
-	        "orderby":orderby
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askSTP');
+		else if(count1!=""&&count2!=""&&(count1-0)>(count2-0)){
+			alert("输入的起始课题总数不能大于终止课题总数！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(incoming1!=""&&incoming2!=""&&(incoming1-0)>(incoming2-0)){
+			alert("输入的起始拨入经费不能大于终止拨入经费！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				"entitys": entitys, //选择的学校列表
+		        "year1":year1,//年度范围左侧
+		        "year2":year2,//年度范围右侧
+		        "incoming1":incoming1,
+		        "incoming2":incoming2,
+		        "count1":count1,
+		        "count2":count2,
+		        "pageindex":1,//分页数
+		        "schoolOnly":schoolOnly,
+		        "orderby":orderby
+			}
+			getDataBox(params,'/askSTP');
+		}
 	})
 </script>
 

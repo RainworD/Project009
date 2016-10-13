@@ -1022,10 +1022,10 @@ body {
   line-height: 30px;
 }
 .mainContainer .unitsChoose .unitsContainer .bottomBtn p .forSure {
-  background-color: #00cc99;
+  background-color: #57D9E9;
 }
 .mainContainer .unitsChoose .unitsContainer .bottomBtn p .forConsole {
-  background-color: #33ccff;
+  background-color: #c9c9c9;
 }
 .mainContainer .unitsChoose .unitsContainer .bottomBtn p:after {
   display: block;
@@ -1060,8 +1060,7 @@ body {
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .infoTable .beChoosen {
   cursor: pointer;
-  background-color: #ffdab9;
-  color: #fff;
+  background-color: #ffffdf;
 }
 .mainContainer .unitsChoose .unitsContainer .unitsContent .totalModel {
   width: 100%;

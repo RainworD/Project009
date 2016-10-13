@@ -26,8 +26,8 @@
 						</select>
 					</div> 
 				</td>
-				<th>姓名 :</th>
-				<td>
+				<th style="width:10.6%;">姓名 :</th>
+				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
 						<input class="commonput name">
 					</div>
@@ -83,8 +83,9 @@
 			<tr>			
 				<th style="width:10.6%;">当选批次 :</th>
 				<td style="width:18.3%;">
-					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+					<div class="commonselect" style="width:42.8%;margin-right:1%;">
 						<select class="selBox chooseNum1">
+							<option selected="selected"></option>
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -93,8 +94,9 @@
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
-					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+					<div class="commonselect" style="width:42.8%;margin-left:1%;">
 						<select class="selBox chooseNum2">
+							<option selected="selected"></option>
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -102,7 +104,7 @@
 							<option>5</option>
 						</select>
 					</div>
-					<span class="starAfter">*</span>
+					<!-- <span class="starAfter">*</span> -->
 				</td>
 				<td colspan="2"></td>
 				<td colspan="2"></td>
@@ -205,17 +207,31 @@
 		var name=$(".name").val();
 		var _index1=$(".chooseNum1").val();
 		var _index2=$(".chooseNum2").val();
-		var params={
-	        "entity": entity, //当选单位
-	        "name":name,//姓名
-	        "type":type,//人才类型
-	        "year1":year1,//公布年度左侧
-	        "year2":year2,//公布年度右侧
-	        "_index1":_index1,//当选批次左侧
-	        "_index2":_index2,//当选批次右侧
-	        "pageindex":pageindex,//分页数
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askMP');
+		else if(_index1!=""&&_index2!=""&&(_index1-0)>(_index2-0)){
+			alert("输入的起始批次不能大于终止批次！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");	
+			var params={
+		        "entity": entity, //当选单位
+		        "name":name,//姓名
+		        "type":type,//人才类型
+		        "year1":year1,//公布年度左侧
+		        "year2":year2,//公布年度右侧
+		        "_index1":_index1,//当选批次左侧
+		        "_index2":_index2,//当选批次右侧
+		        "pageindex":pageindex,//分页数
+			}
+			getDataBox(params,'/askMP');
+		}
 	})
 	doForSearch(".choosenUnits","/Landentity0");
 </script>

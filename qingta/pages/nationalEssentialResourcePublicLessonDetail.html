@@ -235,17 +235,31 @@
 		var entity=$(".projectUnits").val();
 		var name=$(".lessonName").val();
 		var manager=$(".lessonManager").val();
-		var params={
-			'pageindex':1,
-			'entity':entity,
-			'year1':year1,
-			'year2':year2,
-			'_index1':_index1,
-			'_index2':_index2,
-			'name':name,
-			'manager':manager,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askVC');
+		else if(_index1!=""&&_index2!=""&&(_index1-0)>(_index2-0)){
+			alert("输入的起始批次不能大于终止批次！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':1,
+				'entity':entity,
+				'year1':year1,
+				'year2':year2,
+				'_index1':_index1,
+				'_index2':_index2,
+				'name':name,
+				'manager':manager,
+			}
+			getDataBox(params,'/askVC');
+		}
 	})
 doForSearch(".projectUnits","/Landentity0");
 doForSearch(".lessonName","/LandVCname");

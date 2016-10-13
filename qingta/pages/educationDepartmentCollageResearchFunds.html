@@ -292,21 +292,40 @@
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
-		else{
+		else{ 
 			schoolOnly=0;
 		}
-		var params={
-			'pageindex':1,
-			'year1':year1,
-			'year2':year2,
-			'totalincoming1':totalincoming1,	
-			'totalincoming2':totalincoming2,
-			'totalexpenditure1'	:totalexpenditure1,
-			'totalexpenditure2':totalexpenditure2,
-			'entitys':entitys,
-			'schoolOnly':schoolOnly,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askCUMOEfund');
+		else if(totalincoming1!=""&&totalincoming2!=""&&(totalincoming1-0)>(totalincoming2-0)){
+			alert("输入的起始拨入总计不能大于终止拨入总计！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(totalexpenditure1!=""&&totalexpenditure2!=""&&(totalexpenditure1-0)>(totalexpenditure2-0)){
+			alert("输入的起始支出总计不能大于终止支出总计！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");		
+			var params={
+				'pageindex':1,
+				'year1':year1,
+				'year2':year2,
+				'totalincoming1':totalincoming1,	
+				'totalincoming2':totalincoming2,
+				'totalexpenditure1'	:totalexpenditure1,
+				'totalexpenditure2':totalexpenditure2,
+				'entitys':entitys,
+				'schoolOnly':schoolOnly,
+			}
+			getDataBox(params,'/askCUMOEfund');
+		}
 	})
 </script>
 <script type="text/javascript">

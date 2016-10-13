@@ -36,7 +36,6 @@
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
-							<select class="selBox yearName1">
 							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
@@ -62,13 +61,11 @@
 							<option>1980</option>
 							<option>1957</option>
 							<option>1955</option>
-						</select>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<select class="selBox yearName2">
 							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
@@ -94,7 +91,6 @@
 							<option>1980</option>
 							<option>1957</option>
 							<option>1955</option>
-						</select>
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -230,19 +226,33 @@
 		var ageofElected1=$(".years1").val();
 		var ageofElected2=$(".years2").val();
 		var name=$(".name").val();
-		var params={
-			'pageindex':pageindex,
-			'name':name,
-			'year1':year1,
-			'year2':year2,
-			'subject':subject,
-			'entity':entity,
-			'department':department,
-			'gender':gender,
-			'ageofElected1':ageofElected1,
-			'ageofElected2':ageofElected2
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askSA');
+		else if(ageofElected1!=""&&ageofElected2!=""&&(ageofElected1-0)>(ageofElected2-0)){
+			alert("输入的起始年龄不能大于终止年龄！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");	
+			var params={
+				'pageindex':pageindex,
+				'name':name,
+				'year1':year1,
+				'year2':year2,
+				'subject':subject,
+				'entity':entity,
+				'department':department,
+				'gender':gender,
+				'ageofElected1':ageofElected1,
+				'ageofElected2':ageofElected2
+			}
+			getDataBox(params,'/askSA');
+		}
 	})
 	doForSearch(".entity","/Landentity0");
 	doForSearch(".profession","/LandSAsubject");

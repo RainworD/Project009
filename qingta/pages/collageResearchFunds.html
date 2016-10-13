@@ -294,7 +294,7 @@
 		var sciencefund2=$(".scienceFee2").val();
 		var expenditure1=$(".outcome1").val();
 		var expenditure2=$(".outcome2").val();
-		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var schoolOnly1=$("#schoolOnly").prop("checked"); 
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
@@ -302,20 +302,44 @@
 			schoolOnly=0;
 		}
 		var pageindex;
-		var params={
-			"entitys": entitys, //选择的学校列表
-	        "year1":year1,//年度范围左侧
-	        "year2":year2,//年度范围右侧
-	        "totalincoming1":totalincoming1,
-	        "totalincoming2":totalincoming2,
-	        "sciencefund1":sciencefund1,
-	        "sciencefund2":sciencefund2,
-	        "expenditure1":expenditure1,
-	        "expenditure2":expenditure2,
-	        "pageindex":1,//分页数
-	        "schoolOnly":schoolOnly,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askSTF');
+		else if(totalincoming1!=""&&totalincoming2!=""&&(totalincoming1-0)>(totalincoming2-0)){
+			alert("输入的起始拨入总计不能大于终止拨入总计！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(sciencefund1!=""&&sciencefund2!=""&&(sciencefund1-0)>(sciencefund2-0)){
+			alert("输入的起始经费合计不能大于终止经费合计！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(expenditure1!=""&&expenditure2!=""&&(expenditure1-0)>(expenditure2-0)){
+			alert("输入的起始内部支出不能大于终止内部支出！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");		
+			var params={
+				"entitys": entitys, //选择的学校列表
+		        "year1":year1,//年度范围左侧
+		        "year2":year2,//年度范围右侧
+		        "totalincoming1":totalincoming1,
+		        "totalincoming2":totalincoming2,
+		        "sciencefund1":sciencefund1,
+		        "sciencefund2":sciencefund2,
+		        "expenditure1":expenditure1,
+		        "expenditure2":expenditure2,
+		        "pageindex":1,//分页数
+		        "schoolOnly":schoolOnly,
+			}
+			getDataBox(params,'/askSTF');
+		}
 	})
 </script>
 <script type="text/javascript">

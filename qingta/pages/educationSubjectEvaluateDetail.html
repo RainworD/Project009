@@ -153,19 +153,30 @@
 		var score1=$(".subjectScore1").val();
 		var score2=$(".subjectScore2").val();
 		if(place1!=""&&place2!=""&&(place1-0)>(place2-0)){
-			alert("排名区间输入不合法！");
+			alert("输入的起始排名不能大于终止排名！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		var params={
-			'pageindex':1,
-			'entity':entity,
-			'turn':turn,
-			'place1':place1,
-			'place2':place2,
-			'score1':score1,
-			'score2':score2,
-			'subject':subject,		
+		else if(score1!=""&&score2!=""&&(score1-0)>(score2-0)){
+			alert("输入的起始得分不能大于终止得分！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askMSD');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo")
+			var params={
+				'pageindex':1,
+				'entity':entity,
+				'turn':turn,
+				'place1':place1,
+				'place2':place2,
+				'score1':score1,
+				'score2':score2,
+				'subject':subject,		
+			}
+			getDataBox(params,'/askMSD');
+		}
 	}) 
 	$.when(LandMOESDsubject()).done(function(data){
 		var state=data.state;

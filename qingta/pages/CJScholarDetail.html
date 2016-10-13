@@ -183,16 +183,25 @@
 		var subject=$(".jobName").val();
 		var type=$(".invitationType").val();
 		var name=$(".professorName").val();
-		var params={
-			'pageindex':1,
-			'year1':year1,
-			'year2':year2,
-			'subject':subject,
-			'entity':entity,
-			'type':type,
-			'name':name,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askCJSch');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':1,
+				'year1':year1,
+				'year2':year2,
+				'subject':subject,
+				'entity':entity,
+				'type':type,
+				'name':name,
+			}
+			getDataBox(params,'/askCJSch');
+		}
 	})
 	doForSearch(".units","/Landentity0");
 	doForSearch(".jobName","/LandCJSsubject");

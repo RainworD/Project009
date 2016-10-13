@@ -1,0 +1,279 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox">
+		<a class="changeLeft changeButton" href="#/excellent.html">国家优博论文统计</a>
+		<a class="changeRight changeButton green" href="#/excellentDetail.html">国家优博论文明细</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">学校名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput units" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%;">学科分类 :</th>
+				<td style="width:18.3%;"> 
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox subjectType">
+							<option selected="selected"></option>
+						</select>
+					</div> 
+				</td>	
+				<th style="width:12%;">论文类型 :</th> 
+				<td style="width:18.3%;"> 
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox articleType">
+							<option selected="selected"></option>
+						</select>
+					</div> 
+				</td>
+				<th style="width:10.6%;">入选年度 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+							<option>1999</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+							<option>1999</option>
+						</select>
+					</div>
+					<span class="starAfter">*</span>
+				</td>
+			</tr>
+			<tr>			
+				<th style="width:10.6%;">论文题目 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput articleName" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:12%;">一级学科 :</th> 
+				<td style="width:18.3%;"> 
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox topSubject">
+							<option selected="selected"></option>
+						</select>
+					</div> 
+				</td>
+				<th style="width:10.6%;">作者姓名 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput professorName">
+					</div>
+				</td>
+				<th style="width:10.6%;">导师姓名 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput leaderName">
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">国家优博论文明细数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>学校名称</th>
+						<th>学科门类</th>
+						<th>一级学科</th>
+						<th>年度</th>
+						<th>论文题目</th>
+						<th>作者姓名</th>
+						<th>导师姓名</th>
+						<th>论文类型</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<script type="text/javascript">
+	var projectUnits=[];
+	topBarControl();
+	$.post('/BlogPaper/disciplines', function(data, textStatus, xhr) {
+		var state=data.state;
+		var result=data.data;
+		if(state==0){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".subjectType").append(newopt);
+				}
+			}
+		}
+	});
+	$.post('/BlogPaper/subject', function(data, textStatus, xhr) {
+		var state=data.state;
+		var result=data.data;
+		if(state==0){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".topSubject").append(newopt);
+				}
+			}
+		}
+	});
+	$(".searchBtn").bind("click",function(){
+		var first_year=$(".yearName1").val();
+		var last_year=$(".yearName2").val();
+		var unit=$(".units").val();
+		var disciplines=$(".subjectType").val();
+		var subject=$(".topSubject").val();
+		var title=$(".articleName").val();
+		var author=$(".professorName").val();
+		$.when(BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title)).done(function(data){
+			var result=data.data;
+			$(".infoTable1").children('tbody').empty();
+			$(".infoTable1 thead").find('th').addClass("nowrap");
+			var count=data.count;
+			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+			addCount.children('span').eq(0).text(count);
+			if(count<20){
+				addCount.children('span').eq(1).text(count);
+			}
+			else{
+				addCount.children('span').eq(1).text("20");
+			}
+			var lee=$(".tableContent .infoTablePara").children('.topRight');
+			if(lee){
+				lee.empty();
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			else{
+				$(".tableContent .infoTablePara").append(addCount);
+			}
+			if(data.state==0&&count!=0){
+				for (var i=0,len=result.length;i<len;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
+					searchInfo.children('td').eq(1).html(madeNowrapText(result[i].unit));
+					searchInfo.children('td').eq(2).html(madeNowrapText(result[i].disciplines));
+					searchInfo.children('td').eq(3).html(madeNowrapText(result[i].subject));
+					searchInfo.children('td').eq(4).html(madeNowrapText(result[i].year));
+					searchInfo.children('td').eq(5).html(madeOneLineText(result[i].title));
+					searchInfo.children('td').eq(6).html(madeNowrapText(result[i].author));
+					searchInfo.children('td').eq(7).html(madeNowrapText(result[i].tutor));
+					$(".infoTable1").children('tbody').append(searchInfo);
+				}
+				getPages(0);
+				$('.M-box').pagination({
+					totalData:count,
+				    showData:20,
+				    current:1,
+				    count:2,
+				    jump:true,
+					coping:true,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				    callback:function(api){
+				    	var index=api.getCurrent();
+				        getPages(index-1);
+				    }
+				});
+			}
+			else{
+				alert("没有符合查询条件的记录！");
+				count=0;
+				addCount.children('span').eq(0).text(count);
+				addCount.children('span').eq(1).text(count);
+				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			    $(".searchUndo").removeClass("searchDo");
+			    $(".tableContent").removeClass('tableShow');
+			}
+		})		
+	})
+	doForSearch(".units","/Landentity0");
+	doForSearch(".articleName","/BlogPaper/title");
+</script>

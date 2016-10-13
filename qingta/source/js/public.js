@@ -163,11 +163,48 @@ function getUnits(){
 }
 var objnew={};
 var finalResults=objnew.finalResults;
+var objCode={};
+var baseTree=objCode.baseTree;
 function judgeUnits(result){
 	var zNodes=result;
 	$.fn.zTree.init($("#tree"), setting, zNodes);
 	rootObj=$.fn.zTree.getZTreeObj("tree");
-	rootObj.expandNode(rootObj.getNodes()[0], true);
+	if(rootObj){
+		rootObj.expandNode(rootObj.getNodes()[0], true);
+	}
+}
+function ajaxTree(){
+	var ajax=$.ajax({
+    	url: '/FundCode/get',
+    	type:'POST',
+    	data:{},
+    })
+    return ajax;
+}
+function getCodes(){
+	$.when(ajaxTree()).done(function(data){
+		baseTree=data.data;
+		judgeCodes(baseTree);
+	})
+}
+function judgeCodes(result){
+	codeObj=$.fn.zTree.init($("#fund-parent-tree"), {
+		check:{
+			chkStyle:"checkbox",
+			enable:true
+		},
+		view: {
+			showIcon: false,
+			showLine: false,
+			addDiyDom: addDiyDom
+		}
+	}, result);
+}
+function addDiyDom(treeId, treeNode){
+	var code_span = $('<span class="node_name node_name-code"></span>')
+	code_span.attr('id', 'treeDemo_'+ treeId + '_code')
+	  .text(treeNode.code)
+	  .insertBefore($('#' + treeNode.tId + "_span"))
 }
 function loadContent() {
 	$(document).unbind("mousedown.drag");
@@ -222,6 +259,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	});
 	$(selector).bind("mouseup",function(){
 		ismousedown=false;
+		console.log(selector);
 		mytop=$(selector).position().top;
 		myleft=$(selector).position().left;
 	})
@@ -287,8 +325,8 @@ function dragBoxCodesChoose(selector,projectCodes){
 			if(checkedLen){
 				for (var i=0;i<checkedLen;i++) {
 					var pushItem=checkedArray[i].name;
-					var pushid=checkedArray[i].id;
-					projectCodes.push(pushid);
+					var pushcode=checkedArray[i].code;
+					projectCodes.push(pushcode);
 					showName.push(pushItem);
 					$(".applyCode").val(showName[0]+'...');
 				}
@@ -374,36 +412,6 @@ function dragBoxSortsChoose(selector){
 	})
 
 }
-function ajaxTree(){
-	var ajax=$.ajax({
-    	url: '/FundCode/get',
-    	type:'POST',
-    	data:{},
-    	success:function(data){
-    	}
-    })
-    return ajax;
-}
-$.when(ajaxTree()).done(function(data){
-	baseTree=data.data;
-	codeObj=$.fn.zTree.init($("#fund-parent-tree"), {
-		check:{
-			chkStyle:"checkbox",
-			enable:true
-		},
-		view: {
-			showIcon: false,
-			showLine: false,
-			addDiyDom: addDiyDom
-		}
-	}, baseTree);
-	})
-function addDiyDom(treeId, treeNode){
-	var code_span = $('<span class="node_name node_name-code"></span>')
-	code_span.attr('id', 'treeDemo_'+ treeId + '_code')
-	  .text(treeNode.code)
-	  .insertBefore($('#' + treeNode.tId + "_span"))
-}
 function resetAlertBox(treeObj){
 	var nodes_=treeObj.getCheckedNodes();
 	for(var i=0;i<nodes_.length;i++){
@@ -415,8 +423,12 @@ function resetAlertBox(treeObj){
 function topBarControl(){
 	$(".resetBtn").bind("click",function(){
 		if(confirm("你确定重置所有查询条件？")){
-			resetAlertBox(rootObj);
-			resetAlertBox(codeObj);
+			if(rootObj){
+				resetAlertBox(rootObj);
+			}
+			if(codeObj){
+				resetAlertBox(codeObj);
+			}
 			$(this).parents(".topTable").find("input").val("");
 			var val_=$(this).parents(".topTable").find("select").children("option").first().val();
 			$(this).parents(".topTable").find("select").val(val_);
@@ -462,6 +474,9 @@ function getTreeNodes(treeObj,checkedArray,_array){
 		else{
 			checkedObj.name=_array[i].name;
 			checkedObj.id=_array[i].id;
+			if(_array[i].code){
+				checkedObj.code=_array[i].code;
+			}
 			checkedArray.push(checkedObj);
 		}
 	}
@@ -709,7 +724,7 @@ var searchAndScrollToNode_ = (function _searchAndScrollToNode_(){
 		pre_search = str
 
 		if (!node) {
-			alert('未找到相关数据')
+			// alert('未找到相关数据')
 			pre_search = ""
 			pre_results = []
 			return false 

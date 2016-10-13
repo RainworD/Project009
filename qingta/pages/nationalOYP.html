@@ -258,6 +258,16 @@
     	$(".beforeShow").removeClass("beforeHideBox");
 		getUnits();
 	}
+	if(baseTree){
+		judgeCodes(baseTree);
+		$(".unitsContent1").addClass("beforeShowBox");
+    	$(".beforeShow").addClass("beforeHideBox");
+	}
+	else{
+		$(".unitsContent1").removeClass("beforeShowBox");
+    	$(".beforeShow").removeClass("beforeHideBox");
+		getCodes();
+	}
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose2");
@@ -320,15 +330,24 @@
 		else{
 			schoolOnly=0;
 		}
-		var params={
-			'pageindex':1,
-			'year1':year1,
-			'year2':year2,
-			'entitys':entitys,
-			'applicationcode':applicationcode,
-			'schoolOnly':schoolOnly,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askOYsta');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':1,
+				'year1':year1,
+				'year2':year2,
+				'entitys':entitys,
+				'applicationcode':applicationcode,
+				'schoolOnly':schoolOnly,
+			}
+			getDataBox(params,'/askOYsta');
+		}
 	})
 </script>
 <script type="text/javascript">

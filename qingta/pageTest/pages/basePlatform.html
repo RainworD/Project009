@@ -1,0 +1,104 @@
+<div class="enterBox">
+	<table class="topTable">
+		<tr>
+			<th style="width:74px;">学校名称:</th>
+			<td>
+				<input class="commonput">
+			</td>
+			<th>平台大类:</th>
+			<td>
+				<div class="commonselect">
+					<select class="selBox">
+						<option>1</option>
+						<option>2</option>
+					</select>
+				</div>
+			</td>
+			<th>平台类型:</th>
+			<td>
+				<div class="commonselect">
+					<select class="selBox">
+						<option>1</option>
+						<option>2</option>
+					</select>
+				</div>
+			</td>
+			<td style="width: 100px;">
+				<a class="searchBtn rightMinBtn">查询</a>
+			</td>
+		</tr>
+		<tr>
+			<th>平台名称:</th>
+			<td>
+				<div class="commonselect">
+					<select class="selBox">
+						<option>1</option>
+						<option>2</option>
+					</select>
+				</div>
+			</td>
+			<th></th>
+			<td></td>
+			<th></th>
+			<td></td>
+			<td>
+				<a class="resetBtn rightMinBtn">重置</a>
+			</td>
+		</tr>
+	</table>
+</div>
+<div class="tableContent">
+	<table class="infoTable">
+		<thead>
+			<tr class="tableTitle">
+				<th>序号</th>
+				<th>学校名称</th>
+				<th>平台大类</th>
+				<th>平台类型</th>
+				<th>平台类型</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>北京大学</td>
+				<td>人文社科</td>
+				<td>国家级人文社科</td>
+				<td>中国古文献研究中心</td>
+			</tr>
+		</tbody>
+		
+	</table>
+</div>
+<div class="M-box"></div>
+<script>
+$('.M-box').pagination({
+	totalData:100,
+    showData:10,
+    current:1,
+    count:2,
+    jump:true,
+	coping:true,
+	prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+	nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+    callback:function(index){
+        location.href="__ROOT__/main.html?page="+index
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -274,18 +274,27 @@
 		var subject=$(".subjectType").val();
 		var manager=$(".applyName").val();
 		var name=$(".projectName").val();
-		var params={
-			'manager':manager,
-			'pageindex':pageindex,
-			'name':name,
-			'year1':year1,
-			'year2':year2,
-			'entity':entity,
-			'type':type,
-			'_class':_class,
-			'subject':subject
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askHSS');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'manager':manager,
+				'pageindex':pageindex,
+				'name':name,
+				'year1':year1,
+				'year2':year2,
+				'entity':entity,
+				'type':type,
+				'_class':_class,
+				'subject':subject
+			}
+			getDataBox(params,'/askHSS');
+		}
 	})
 	doForSearch(".schoolName","/Landentity0");
 	doForSearch(".projectName","/LandHSSname");

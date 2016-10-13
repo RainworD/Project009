@@ -202,13 +202,22 @@
 		else{
 			schoolOnly=0;
 		}
-		var params={
-			'pageindex':1,
-			'_index':_index,
-			'entitys':entitys,
-			'schoolOnly':schoolOnly,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askNSsta');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':1,
+				'_index':_index,
+				'entitys':entitys,
+				'schoolOnly':schoolOnly,
+			}
+			getDataBox(params,'/askNSsta');
+		}
 	})
 </script>
 <script type="text/javascript">

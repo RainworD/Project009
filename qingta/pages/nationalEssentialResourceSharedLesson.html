@@ -71,16 +71,21 @@
 					</div>
 					<span class="starAfter">*</span>
 				</td>				
+				<td colspan="2" style="width:26.3%">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+			<tr>
 				<th>
 					<label for="schoolOnly">
 						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
 					</label>
 				</th>
 				<td></td>
-				<td colspan="2" style="width:26.3%">
-					<a class="searchBtn rightMinBtn">查询</a>
-					<a class="resetBtn rightMinBtn">重置</a>
-				</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
 			</tr>
 		</table>
 	</div>
@@ -243,14 +248,23 @@
 		else{
 			schoolOnly=0;
 		}
-		var params={
-			'pageindex':1,
-			'entitys':entitys,
-			'year1':year1,
-			'year2':year2,
-			'schoolOnly':schoolOnly,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askNSCsta');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':1,
+				'entitys':entitys,
+				'year1':year1,
+				'year2':year2,
+				'schoolOnly':schoolOnly,
+			}
+			getDataBox(params,'/askNSCsta');
+		}
 	})
 
 </script>

@@ -356,121 +356,131 @@
 		var projectNum;
 		$(".infoTable1 thead").empty();
 		$(".infoTable1 tbody").empty();
-		if(len_1<11){
-			var thead_new=$('<tr class="tableTitle tableTitle1">'+
-						'<th>分析项目</th>'+
-					'</tr>');
-			for(var i=0;i<len_1;i++){
-				var th_add=$('<th class="nowrap"></th>');
-				// var text=madeOneLineText(showName[i])
-				th_add.text(showName[i]);
-				thead_new.append(th_add);
-			}
-			for(var j=0;j<len_2;j++){
-				var tr_add=$('<tr>'+
-					'<td class="nowrap"></td>'+
-					'</tr>');
-				for(var i=0;i<len_1;i++){
-					var td_add=$('<td></td>');
-					tr_add.append(td_add);
-				}
-				if(analysisArray_[j]=="1"){
-					getPlanCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="2"){
-					getPlanMoney(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="3"){
-					getNaturalCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="4"){
-					getNaturalMoney(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="5"){
-					getSocietyCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="6"){
-					getEduArt(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="7"){
-					getTechEnginerCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="8"){
-					getCJCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="9"){
-					getOYPCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="10"){
-					getThousandCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="11"){
-					getEYCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="12"){
-					getYouthCount(tr_add,entitys,year1,year2,len_1);
-				}
-				else if(analysisArray_[j]=="13"){
-					getInnovation(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="14"){
-					getFundGroup(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="15"){
-					getImportantSubject(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="16"){
-					getESICount(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="17"){
-					getESILevel(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="18"){
-					getSpecial(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="19"){
-					getShareLesson(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="20"){
-					getPublicLesson(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="21"){
-					getExcellent(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="22"){
-					getThreeAward(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="23"){
-					getEduAward(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="24"){
-					getEduArt(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="25"){
-					getPatent(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="26"){
-					getBudgetIncome(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="27"){
-					getBudgetOutcome(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="28"){
-					getTechFee(tr_add,entitys,year1,year2,len_1)
-				}
-				else if(analysisArray_[j]=="29"){
-					getEduFee(tr_add,entitys,year1,year2,len_1)
-				}
-				tr_add.children("td").eq(0).text(analysisArray[j]);
-				tr_add.children("td").eq(0).attr("data-id",analysisArray_[j])
-				// tr_add.children("td").eq(index).val(projectNum);
-				$(".infoTable1 tbody").append(tr_add);
-			}
-
-			$(".infoTable1 thead").append(thead_new);
+		if(projectUnits==""){
+			alert("请先选择要查询的学校！")
+		}
+		else if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
 		else{
-			alert("选择的学校数量过多，请重新选择！")
+			if(len_1<11){
+				var thead_new=$('<tr class="tableTitle tableTitle1">'+
+							'<th>分析项目</th>'+
+						'</tr>');
+				for(var i=0;i<len_1;i++){
+					var th_add=$('<th class="nowrap"></th>');
+					// var text=madeOneLineText(showName[i])
+					th_add.text(showName[i]);
+					thead_new.append(th_add);
+				}
+				for(var j=0;j<len_2;j++){
+					var tr_add=$('<tr>'+
+						'<td class="nowrap"></td>'+
+						'</tr>');
+					for(var i=0;i<len_1;i++){
+						var td_add=$('<td></td>');
+						tr_add.append(td_add);
+					}
+					if(analysisArray_[j]=="1"){
+						getPlanCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="2"){
+						getPlanMoney(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="3"){
+						getNaturalCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="4"){
+						getNaturalMoney(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="5"){
+						getSocietyCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="6"){
+						getEduArt(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="7"){
+						getTechEnginerCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="8"){
+						getCJCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="9"){
+						getOYPCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="10"){
+						getThousandCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="11"){
+						getEYCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="12"){
+						getYouthCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="13"){
+						getInnovation(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="14"){
+						getFundGroup(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="15"){
+						getImportantSubject(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="16"){
+						getESICount(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="17"){
+						getESILevel(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="18"){
+						getSpecial(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="19"){
+						getShareLesson(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="20"){
+						getPublicLesson(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="21"){
+						getExcellent(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="22"){
+						getThreeAward(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="23"){
+						getEduAward(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="24"){
+						getEduArt(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="25"){
+						getPatent(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="26"){
+						getBudgetIncome(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="27"){
+						getBudgetOutcome(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="28"){
+						getTechFee(tr_add,entitys,year1,year2,len_1)
+					}
+					else if(analysisArray_[j]=="29"){
+						getEduFee(tr_add,entitys,year1,year2,len_1)
+					}
+					tr_add.children("td").eq(0).text(analysisArray[j]);
+					tr_add.children("td").eq(0).attr("data-id",analysisArray_[j])
+					// tr_add.children("td").eq(index).val(projectNum);
+					$(".infoTable1 tbody").append(tr_add);
+				}
+
+				$(".infoTable1 thead").append(thead_new);
+			}
+			else{
+				alert("选择的学校数量过多，请重新选择！")
+			}
 		}
 	})
 	function getPlanCount(argu,entitys,year1,year2,len_1){

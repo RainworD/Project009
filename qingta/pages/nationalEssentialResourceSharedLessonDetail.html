@@ -175,15 +175,24 @@
 		var entity=$(".schoolName").val();
 		var name=$(".lessonName").val();
 		var manager=$(".lessonManager").val();
-		var params={
-			'pageindex':1,
-			'entity':entity,
-			'year1':year1,
-			'year2':year2,
-			'name':name,
-			'manager':manager
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askNSC');
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':1,
+				'entity':entity,
+				'year1':year1,
+				'year2':year2,
+				'name':name,
+				'manager':manager
+			}
+			getDataBox(params,'/askNSC');
+		}
 	})
 
 doForSearch(".schoolName","/Landentity0");

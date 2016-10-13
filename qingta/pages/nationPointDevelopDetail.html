@@ -223,12 +223,16 @@
 							result[i][j]="";
 						}
 					}
-					if(j==0||j==5){
+					if(j==0){
 						text = madeNowrapText(result[i][j]);
 					}
 					else if(j==1||j==4||j==2){
 						text = madeOneLineText(result[i][j]);
-						mytd.css("width","160px");
+						mytd.css("width","350px");
+					}
+					else if(j==5){
+						text = madeOneLineText(result[i][j]);
+						mytd.css("width","150px");
 					}
 					else{}
 					mytd.html(text);
@@ -251,20 +255,39 @@
 		var centermoney1=$(".nationFee1").val();
 		var centermoney2=$(".nationFee2").val();
 		var pageindex;
-		var params={
-			'pageindex':1,
-			'type':type,
-			'name':name,
-			'year1':year1,
-			'year2':year2,
-			'manager':manager,
-			'totalmoney1':totalmoney1,
-			'totalmoney2':totalmoney2,
-			'centermoney1':centermoney1,
-			'centermoney2':centermoney2,
-			'entity':entity,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askNKRP');
+		else if(totalmoney1!=""&&totalmoney2!=""&&(totalmoney1-0)>(totalmoney2-0)){
+			alert("输入的起始总经费不能大于终止总经费！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(centermoney1!=""&&centermoney2!=""&&(centermoney1-0)>(centermoney2-0)){
+			alert("输入的起始中央经费不能大于终止中央经费！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");	
+			var params={
+				'pageindex':1,
+				'type':type,
+				'name':name,
+				'year1':year1,
+				'year2':year2,
+				'manager':manager,
+				'totalmoney1':totalmoney1,
+				'totalmoney2':totalmoney2,
+				'centermoney1':centermoney1,
+				'centermoney2':centermoney2,
+				'entity':entity,
+			}
+			getDataBox(params,'/askNKRP');
+		}
 	})
 	$.when(LandNKRPstatype()).done(function(data){
 		var result=data.result;

@@ -18,8 +18,9 @@
 				</td> 
 				<th style="width:10.6%;">当选批次 :</th>
 				<td style="width:18.3%;">
-					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+					<div class="commonselect" style="width:42.8%;margin-right:1%;">
 						<select class="selBox chooseNum1">
+							<option selected="selected"></option>
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -28,8 +29,9 @@
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
-					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+					<div class="commonselect" style="width:42.8%;margin-left:1%;">
 						<select class="selBox chooseNum2">
+							<option selected="selected"></option>
 							<option>1</option>
 							<option>2</option>
 							<option>3</option>
@@ -37,7 +39,7 @@
 							<option>5</option>
 						</select>
 					</div>
-					<span class="starAfter">*</span>
+					<!-- <span class="starAfter">*</span> -->
 				</td>
 				<th style="width:10.6%;">公布年度 :</th>
 				<td style="width:18.3%;">
@@ -255,7 +257,12 @@
 						result[i][j]=year1+'-'+year2;
 					}
 					else if(j==2){
-						result[i][j]=_index1+'-'+_index2;
+						if(_index1==""&&_index2==""){
+							result[i][j]="全部批次";	
+						}
+						else{
+							result[i][j]=_index1+'-'+_index2;
+						}
 					}
 					mytd.text(result[i][j]);
 					searchInfo.append(mytd);
@@ -280,18 +287,32 @@
 		else{
 			schoolOnly=0;
 		}
-		var params={
-			'pageindex':1,
-			'name':name,
-			'entitys':entitys,
-			'type':type,
-			'year1':year1,
-			'year2':year2,
-			'_index1':_index1,
-			'_index2':_index2,
-			'schoolOnly':schoolOnly,
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		getDataBox(params,'/askMPsta');
+		else if(_index1!=""&&_index2!=""&&(_index1-0)>(_index2-0)){
+			alert("输入的起始批数不能大于终止批数！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");	
+			var params={
+				'pageindex':1,
+				'name':name,
+				'entitys':entitys,
+				'type':type,
+				'year1':year1,
+				'year2':year2,
+				'_index1':_index1,
+				'_index2':_index2,
+				'schoolOnly':schoolOnly,
+			}
+			getDataBox(params,'/askMPsta');
+		}
 	})
 </script>
 <script type="text/javascript">
