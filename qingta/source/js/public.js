@@ -266,7 +266,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 	var downX,downY;
 	myleft=$(selector).position().left;
 	mytop=$(selector).position().top;
-	$(selector).bind("mousedown.drag",function(e){
+	$(document).bind("mousedown.drag",function(e){
 		var targ = $(e.target);
 		var flag=targ.closest('.unitsContent');
 		if(flag.length){
@@ -282,7 +282,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 			downY=e.clientY;
 		}
 	})
-	$(selector).bind("mousemove",function(e){
+	$(document).bind("mousemove.drag",function(e){
 		if(ismousedown){
 			_mytop=e.clientY-downY + mytop;
 			_myleft=e.clientX-downX + myleft;
@@ -295,23 +295,30 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 		console.log(selector);
 		mytop=$(selector).position().top;
 		myleft=$(selector).position().left;
-	})
-	$(selector).on("click",".forConsole",function(){
-		$(".mask").hide();
-		$(selector).hide();
-	})
+	});
+	
 }
+$(document).on("click",".unitsChoose .cancelBtn,.unitsChoose .forConsole,.unitsChoose .forSure",function(){
+	$(this).closest('.unitsChoose').hide();
+	var hasUnitsChooseVisible = false;
+	$.each($(".unitsChoose"),function(){
+		if($(this).is(':visible')){
+			hasUnitsChooseVisible = true;
+		}
+	});
+	if(!hasUnitsChooseVisible){
+		$(".mask").hide();
+	}
+	$(document).unbind(".drag");
+})
 function dragBoxUnitsChoose(selector,projectUnits){
 	var checkedArray=[];
-	var _array=[];
-	$(selector).on("click",".cancelBtn",function(){
-		$(".mask").hide();
-		$(selector).hide();
-	})
+	var _array=[];	
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
 		$(this).addClass("getUnitsInfo");
+		$(document).unbind(".drag");
 		getTreeNodes(rootObj,checkedArray,_array);
 		var checkedLen=checkedArray.length;
 		showName=[];
@@ -327,10 +334,7 @@ function dragBoxUnitsChoose(selector,projectUnits){
 			}
 		},10);
 	})
-	$(selector).on("click",".forConsole",function(){
-		$(".mask").hide();
-		$(selector).hide();
-	})
+	
 	$(selector).on("click",".search-box",function(){
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
 		var find = searchAndScrollToNode_(rootObj, search_str,"name");
@@ -343,10 +347,6 @@ function dragBoxCodesChoose(selector,projectCodes){
 	console.log(codeObj);
 	var checkedArray=[];
 	var _array=[];
-	$(selector).on("click",".cancelBtn",function(){
-		$(".mask").hide();
-		$(selector).hide();
-	})
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
@@ -366,10 +366,6 @@ function dragBoxCodesChoose(selector,projectCodes){
 			}
 		},10);
 	})
-	$(selector).on("click",".forConsole",function(){
-		$(".mask").hide();
-		$(selector).hide();
-	})
 	$(selector).on("click",".search-box",function(){
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
 		var find = searchAndScrollToNode_(codeObj, search_str,"name");
@@ -379,10 +375,6 @@ function dragBoxCodesChoose(selector,projectCodes){
 	})
 }
 function dragBoxSortsChoose(selector){
-	$(selector).on("click",".cancelBtn",function(){
-		$(".mask").hide();
-		$(selector).hide();
-	})
 	$(".unitsChoose .infoTable2 tbody").on("click","tr",function(){
 		$(this).addClass("beChoosen").siblings("tr").removeClass("beChoosen");
 	})
