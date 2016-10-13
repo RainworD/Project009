@@ -214,6 +214,39 @@ function loadContent() {
         hash = "#/"+ADMIN_CONFIG.homePage;
     }
     $(ADMIN_CONFIG.contentSelector).load(hash.split("/")[1], function(){
+    	
+    	$(".leftInfo").text(localStorage.school);
+		// $(".userName").text(localStorage.userName);
+		$(".logOutBtn").bind("click",function(){
+			$.ajax({
+		        url: "/Logout",
+		        type: "POST",
+		        data:{
+		        },
+		        success:function(data){
+		        	if(data.state==1){
+		        		alert("退出登录成功！");
+		        		// window.location.href="login.html";
+		        	}
+		        	else{
+		        		alert("网络异常！");
+		        	}
+		        }
+		    });
+	})
+	var userlevel=localStorage.userlevel;
+	if(userlevel==0){
+		$(".mainUserSection").removeClass("showMenu");
+		$(".userSection").removeClass("showMenu");
+	}
+	else if(userlevel==1){
+		$(".mainUserSection").addClass("showMenu");
+		$(".userSection").removeClass("showMenu");
+	}
+	else if(userlevel==2){
+		$(".mainUserSection").addClass("showMenu");
+		$(".userSection").addClass("showMenu");
+	}
     });
 }
 function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗上绑定的一些事件
@@ -227,7 +260,7 @@ function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗
 
 }
 function dragBox(selector){//弹窗窗口的拖拽方法
-	$(document).unbind("mousemove,mouseup");
+	$(document).unbind(".drag");
 	var myleft,mytop;
 	var ismousedown=false;
 	var downX,downY;
@@ -257,7 +290,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 			$(selector).css("top",_mytop);
 		}
 	});
-	$(selector).bind("mouseup",function(){
+	$(document).bind("mouseup.drag",function(){
 		ismousedown=false;
 		console.log(selector);
 		mytop=$(selector).position().top;
