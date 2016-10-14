@@ -126,14 +126,13 @@
 				return node[attr].indexOf(str) !== -1
 			})
 		}, true)
-		console.log(node);
+
 		if (!node) {
 			alert('未找到相关数据')
 			return false 
 		}
 		
 		var stack = [node], parentNode = node.getParentNode()
-		console.log(parentNode);
 		while(parentNode) { 
 			stack.push(parentNode)
 			parentNode = parentNode.getParentNode()
@@ -261,6 +260,7 @@
 					this.mounting = true
 					this.tabs[tab].getOptions(name).then(function(res){
 						self.mounting = false
+						res.animation = false
 						self.chart.setOption(res)
 					})
 				}
