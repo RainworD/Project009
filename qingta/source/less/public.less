@@ -1037,6 +1037,9 @@ body{
 					}
 				}
 			}
+			&>.tableContent{
+				display: none;
+			}
 			.searchUndo,.beforeSearch{
 				background-color: #f8f9fd;
 				display: block;
@@ -1498,12 +1501,6 @@ body{
 					margin: auto;
 				}
 			}
-			.beforeHideBox{
-				display: none;
-			}
-			.beforeShowBox{
-				display: block;
-			}
 	    }
 
 	}
@@ -1512,6 +1509,12 @@ body{
 			white-space: normal;
 		}
 	}
+}
+.beforeHideBox{
+	display: none!important;
+}
+.beforeShowBox{
+	display: block!important;
 }
 .showElse,.showElse2{
 	display: none;
@@ -1776,6 +1779,6 @@ body{
     text-align: center;
     cursor: pointer;
 }
-.rightContent>.tableContent{
-	display: none;
-}
+// .rightContent>.tableContent{
+// 	display: none;
+// }

@@ -123,22 +123,13 @@ topBarControl();
 		var entity=$(".schoolName").val();
 		var _index=$(".indexNum").val();
 		var name=$(".professionName").val();
-		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
-			alert("输入的起始年度不能大于终止年度！");
-			$(".tableContent").removeClass("tableShow");
-			$(".searchUndo").removeClass("searchDo")
+		var params={
+			'pageindex':1,
+			'name':name,
+			'entity':entity,
+			'_index':_index,		
 		}
-		else{
-			$(".tableContent").addClass("tableShow");
-			$(".searchUndo").addClass("searchDo");
-			var params={
-				'pageindex':1,
-				'name':name,
-				'entity':entity,
-				'_index':_index,		
-			}
-			getDataBox(params,'/askNS');
-		}
+		getDataBox(params,'/askNS');
 	})
 	doForSearch(".schoolName","/Landentity0");
 	doForSearch(".professionName","/LandNSname");

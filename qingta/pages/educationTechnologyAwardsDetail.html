@@ -117,11 +117,11 @@
 					</label>
 				</td>
 				<td colspan="2" style="padding-left:90px;">
-					<label for="box1">
+					<label for="box3">
 						<input type="checkbox" id="box3" checked="checked">
 						第一完成单位
 					</label>
-					<label for="box2">
+					<label for="box4">
 						<input type="checkbox" id="box4" checked="checked">
 						参与单位
 					</label>
@@ -212,7 +212,7 @@
 			}
 		}
 	});
-	function getEduAwardDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){
+	function getEduAwardDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){
 	    var ajax = $.ajax({
 	        url: "/EducationScience/getDetail",
 	        type: "POST",
@@ -223,6 +223,7 @@
 	            "type":type,
 	            "user":user,
 	            "first_user":first_user,
+	            "first_unit":first_unit,
 	            "participate_user":participate_user,
 	            "participate_unit":participate_unit,
 	            "first_year":first_year,
@@ -281,7 +282,7 @@
 					'<td></td>'+
 					// '<td></td>'+
 				'</tr>');
-				searchInfo.children('td').eq(0).text(start+i+1);
+				searchInfo.children('td').eq(0).text(madeNowrapText(start+i+1));
 				searchInfo.children('td').eq(1).html(madeNowrapText(result[i].code));
 				searchInfo.children('td').eq(2).html(madeNowrapText(result[i].type));
 				searchInfo.children('td').eq(3).html(madeOneLineText(result[i].name));
@@ -303,6 +304,7 @@
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 			searchInfo.children('td').eq(3).css("width","180px");
+			searchInfo.children('td').eq(8).css("width","150px");
 		}
 		else{
 			alert("没有符合查询条件的记录！");
@@ -318,7 +320,7 @@
 		var type=$(".awardsType").val();
 		var user=$(".completePeople").val();
 		var first_user=$("#box1").prop("checked");
-		var participate_user=$("#box2").val();
+		var participate_user=$("#box2").prop("checked");
 		var first_unit=$("#box3").prop("checked");
 		var participate_unit=$("#box4").prop("checked");
 		var first_year=$(".yearName1").val();
@@ -336,7 +338,7 @@
 		else{
 			$(".tableContent").addClass("tableShow");
 			$(".searchUndo").addClass("searchDo");
-			$.when(getEduAwardDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)).done(function(data){
+			$.when(getEduAwardDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)).done(function(data){
 				$('.M-box').pagination({
 		            totalData:count,
 		            showData:20,
@@ -349,7 +351,7 @@
 		            callback:function(api){
 		                var index=api.getCurrent();
 		                start=(index-1)*20;
-		                getEduAwardDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start);           
+		                getEduAwardDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start);           
 		            }
 		        });
 			})	

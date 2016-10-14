@@ -226,27 +226,46 @@ function loadContent() {
 		        success:function(data){
 		        	if(data.state==1){
 		        		alert("退出登录成功！");
-		        		// window.location.href="login.html";
+		        		window.location.href="login.html";
 		        	}
 		        	else{
 		        		alert("网络异常！");
 		        	}
 		        }
 		    });
-	})
-	var userlevel=localStorage.userlevel;
-	if(userlevel==0){
-		$(".mainUserSection").removeClass("showMenu");
-		$(".userSection").removeClass("showMenu");
-	}
-	else if(userlevel==1){
-		$(".mainUserSection").addClass("showMenu");
-		$(".userSection").removeClass("showMenu");
-	}
-	else if(userlevel==2){
-		$(".mainUserSection").addClass("showMenu");
-		$(".userSection").addClass("showMenu");
-	}
+		})
+		$.ajax({
+			url:"/GetPowerlevel",
+			type:"POST",
+			data:{
+
+			},
+			success:function(){
+				if(data.state==1){
+					// localStorage.userid=data.id;//用户id
+					// localStorage.userlevel=data.Powerlevel;//用户等级权限
+					// localStorage.usertype=data.Type;//用户类型
+					// localStorage.userName=data.Name;//用户名
+					// localStorage.school=data.Entity;//用户学校
+				}
+				else{
+					alert(data.error);
+				}
+			}
+		})
+		var userlevel=localStorage.userlevel;
+		if(userlevel==0){
+			$(".mainUserSection").removeClass("showMenu");
+			$(".userSection").removeClass("showMenu");
+		}
+		else if(userlevel==1){
+			$(".mainUserSection").addClass("showMenu");
+			$(".userSection").removeClass("showMenu");
+		}
+		else if(userlevel==2){
+			$(".mainUserSection").addClass("showMenu");
+			$(".userSection").addClass("showMenu");
+		}
     });
 }
 function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗上绑定的一些事件

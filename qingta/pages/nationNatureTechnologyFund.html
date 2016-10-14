@@ -243,7 +243,7 @@
 		<div class="unitsHeader unitsHeader1">
 			<p class="unitsTitle">单位编码选择</p>
 		</div>
-		<div class="unitsContent unitsContent1" style="cursor:default;padding:0;">
+		<div class="unitsContent unitsContent3" style="cursor:default;padding:0;">
 			<!-- <div class="topSearch">
 				<p class="topSearchContent"><input placeholder="快速查找单位"><i class="fa fa-search fa-lg"></i></p> 
 			</div> -->
@@ -302,23 +302,27 @@
 		dragBox(".unitsChoose3");
 	})
 	if(finalResults){
+		console.log("unit");
 		judgeUnits(finalResults);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
+		$(".unitsChoose1 .unitsContent1").addClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
+		console.log("unit1");
+		$(".unitsChoose1 .unitsContent1").removeClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 		getUnits();
 	}
 	if(baseTree){
+		console.log("code");
 		judgeCodes(baseTree);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
+		$(".unitsChoose3 .unitsContent").addClass("beforeShowBox");
+    	$(".unitsChoose3 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
+		console.log("code1");
+		$(".unitsChoose3 .unitsContent").removeClass("beforeShowBox");
+    	$(".unitsChoose3 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
@@ -434,7 +438,7 @@
 				'year1':year1,
 				'year2':year2,
 				'money1':money1,
-				'money2':money2,
+				'money2':money2, 
 				'applicationcode':applicationcode,
 				'entitys':entitys,
 				'type':type,

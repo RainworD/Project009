@@ -420,37 +420,37 @@
 <script type="text/javascript">
 	var myheight1=$(window).height();
 	$(".leftBox").css("min-height",myheight1);
-	$(".leftInfo").text(localStorage.school);
-	// $(".userName").text(localStorage.userName);
-	$(".logOutBtn").bind("click",function(){
-		$.ajax({
-	        url: "/Logout",
-	        type: "POST",
-	        data:{
-	        },
-	        success:function(data){
-	        	if(data.state==1){
-	        		alert("退出登录成功！");
-	        		window.location.href="login.html";
-	        	}
-	        	else{
-	        		alert("网络异常！");
-	        	}
-	        }
-	    });
-	})
-	var userlevel=localStorage.userlevel;
-	if(userlevel==0){
-		$(".mainUserSection").removeClass("showMenu");
-		$(".userSection").removeClass("showMenu");
-	}
-	else if(userlevel==1){
-		$(".mainUserSection").addClass("showMenu");
-		$(".userSection").removeClass("showMenu");
-	}
-	else if(userlevel==2){
-		$(".mainUserSection").addClass("showMenu");
-		$(".userSection").addClass("showMenu");
-	}
+	// $(".leftInfo").text(localStorage.school);
+	// // $(".userName").text(localStorage.userName);
+	// $(".logOutBtn").bind("click",function(){
+	// 	$.ajax({
+	//         url: "/Logout",
+	//         type: "POST",
+	//         data:{
+	//         },
+	//         success:function(data){
+	//         	if(data.state==1){
+	//         		alert("退出登录成功！");
+	//         		window.location.href="login.html";
+	//         	}
+	//         	else{
+	//         		alert("网络异常！");
+	//         	}
+	//         }
+	//     });
+	// })
+	// var userlevel=localStorage.userlevel;
+	// if(userlevel==0){
+	// 	$(".mainUserSection").removeClass("showMenu");
+	// 	$(".userSection").removeClass("showMenu");
+	// }
+	// else if(userlevel==1){
+	// 	$(".mainUserSection").addClass("showMenu");
+	// 	$(".userSection").removeClass("showMenu");
+	// }
+	// else if(userlevel==2){
+	// 	$(".mainUserSection").addClass("showMenu");
+	// 	$(".userSection").addClass("showMenu");
+	// }
 </script>
 </html>

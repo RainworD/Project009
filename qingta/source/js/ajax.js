@@ -784,7 +784,7 @@ function getStatistics(entitys,year1,year2,first_unit,participate_unit,level){//
     });
     return ajax;
 }
-function getDetail(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//国家科技奖统计
+function getDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//国家科技奖统计
     var ajax = $.ajax({
         url: "/NationalScience/getDetail",
         type: "POST",
@@ -795,6 +795,7 @@ function getDetail(type,user,first_user,participate_user,participate_unit,first_
             "type":type,
             "user":user,
             "first_user":first_user,
+            "first_unit":first_unit,
             "participate_user":participate_user,
             "participate_unit":participate_unit,
             "first_year":first_year,
@@ -887,7 +888,7 @@ function educationScienceSta(entitys,year1,year2,first_unit,participate_unit,lev
     });
     return ajax;
 }
-function educationScience(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教育科技奖明细
+function educationScience(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教育科技奖明细
     var ajax = $.ajax({
         url: "/EducationScience/getDetail",
         type: "POST",
@@ -898,6 +899,7 @@ function educationScience(type,user,first_user,participate_user,participate_unit
             "type":type,
             "user":user,
             "first_user":first_user,
+            "first_unit":first_unit,
             "participate_user":participate_user,
             "participate_unit":participate_unit,
             "first_year":first_year,
@@ -929,7 +931,7 @@ function LearnScienceSta(entitys,year1,year2,first_unit,participate_unit){//教�
     });
     return ajax;
 }
-function LearnScience(type,user,first_user,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教学成果奖明细
+function LearnScience(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教学成果奖明细
     var ajax = $.ajax({
         url: "/LearnScience/getDetail",
         type: "POST",
@@ -940,6 +942,7 @@ function LearnScience(type,user,first_user,participate_user,participate_unit,fir
             "type":type,
             "user":user,
             "first_user":first_user,
+            "first_unit":first_unit,
             "participate_user":participate_user,
             "participate_unit":participate_unit,
             "first_year":first_year,

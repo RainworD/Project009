@@ -876,6 +876,9 @@ body {
   border: 1px solid #eff0f4;
   border-top: none;
 }
+.mainContainer .rightBox .rightContent > .tableContent {
+  display: none;
+}
 .mainContainer .rightBox .rightContent .searchUndo,
 .mainContainer .rightBox .rightContent .beforeSearch {
   background-color: #f8f9fd;
@@ -1336,14 +1339,14 @@ body {
   display: block;
   margin: auto;
 }
-.mainContainer .unitsChoose .unitsContainer .beforeHideBox {
-  display: none;
-}
-.mainContainer .unitsChoose .unitsContainer .beforeShowBox {
-  display: block;
-}
 .mainContainer .nowrapTable th {
   white-space: normal;
+}
+.beforeHideBox {
+  display: none!important;
+}
+.beforeShowBox {
+  display: block!important;
 }
 .showElse,
 .showElse2 {
@@ -1619,7 +1622,4 @@ body {
   color: #aaa;
   text-align: center;
   cursor: pointer;
-}
-.rightContent > .tableContent {
-  display: none;
 }
