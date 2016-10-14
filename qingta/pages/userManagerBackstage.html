@@ -408,15 +408,38 @@
 					searchInfo.children('td').eq(0).text(i+1);
 					for (var j=0;j<result[i].length;j++) {
 						var mytd=$('<td></td>');
-						if(j==0){
-							searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
-						}
-						else{
 							if(result[i][j]==null){
 								result[i][j]="";
 							}
+						// if(j==0){
+						// 	searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
+						// }
+						// else{
+							if(j==6){
+								if(result[i][6]==0){
+									result[i][j]="系统管理员";
+								}
+								else if(result[i][6]==1){
+									result[i][j]="学校管理员";
+								} 
+								else if(result[i][6]==2){
+									result[i][j]="数据管理员";
+								}
+								else if(result[i][6]==3){
+									result[i][j]="普通用户";
+								}
+							}
+							else if(j==7){
+								if(result[i][7]==0){
+									result[i][j]="正常";
+								}
+								else if(result[i][7]==1){
+									result[i][j]="已注销";
+								}
+							}						
 							mytd.text(result[i][j]);
 							searchInfo.append(mytd);
+							searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
 						}
 					}
 					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')

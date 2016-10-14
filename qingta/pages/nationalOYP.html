@@ -260,12 +260,12 @@
 	}
 	if(baseTree){
 		judgeCodes(baseTree);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
+		$(".unitsChoose2 .unitsContent").addClass("beforeShowBox");
+    	$(".unitsChoose2 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
+		$(".unitsChoose2 .unitsContent").removeClass("beforeShowBox");
+    	$(".unitsChoose2 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
 	$(".showDetailBox2").bind("click",function(){
@@ -323,7 +323,7 @@
 		var year2=$(".yearName2").val();
 		var entitys=projectUnits;
 		var applicationcode	= projectCodes;
-		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var schoolOnly1=$("#schoolOnly").prop("checked");		
 		if(schoolOnly1){
 			schoolOnly=1;
 		}

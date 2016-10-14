@@ -213,13 +213,15 @@
 		dragBox(".unitsChoose1");
 	})
 	if(baseTree){
+		console.log("code");
 		judgeCodes(baseTree);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
+		$(".unitsChoose1 .unitsContent").addClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
+		console.log("code1");
+		$(".unitsChoose1 .unitsContent").removeClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
 	dragBoxCodesChoose(".unitsChoose1",projectCodes);

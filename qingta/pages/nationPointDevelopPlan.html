@@ -241,13 +241,13 @@
     	$(".beforeShow").removeClass("beforeHideBox");
 		getUnits();
 	}
-	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose2");
 		dragBox(".unitsChoose2");
 	})
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	dragBoxSortsChoose(".unitsChoose2");
 	topBarControl(); 
 </script>

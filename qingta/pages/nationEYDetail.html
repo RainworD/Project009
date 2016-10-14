@@ -214,12 +214,12 @@
 	})
 	if(baseTree){
 		judgeCodes(baseTree);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
+		$(".unitsChoose1 .unitsContent").addClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
+		$(".unitsChoose1 .unitsContent").removeClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
 	dragBoxCodesChoose(".unitsChoose1",projectCodes);
@@ -266,7 +266,7 @@
 		var applicationcode	= projectCodes;
 		var entity=$(".projectUnits").val();
 		var manager=$(".applyer").val();
-		var research=$(".studyArea").val();
+		var research=$(".studyArea").val();	
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
 			alert("输入的起始年度不能大于终止年度！");
 			$(".tableContent").removeClass("tableShow");

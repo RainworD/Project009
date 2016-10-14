@@ -214,9 +214,6 @@ function loadContent() {
         hash = "#/"+ADMIN_CONFIG.homePage;
     }
     $(ADMIN_CONFIG.contentSelector).load(hash.split("/")[1], function(){
-
-    	$(".leftInfo").text(localStorage.school);
-		// $(".userName").text(localStorage.userName);
 		$(".logOutBtn").bind("click",function(){
 			$.ajax({
 		        url: "/Logout",
@@ -240,32 +237,38 @@ function loadContent() {
 			data:{
 
 			},
-			success:function(){
+			success:function(data){
 				if(data.state==1){
-					// localStorage.userid=data.id;//用户id
-					// localStorage.userlevel=data.Powerlevel;//用户等级权限
-					// localStorage.usertype=data.Type;//用户类型
-					// localStorage.userName=data.Name;//用户名
-					// localStorage.school=data.Entity;//用户学校
+					console.log(data);
+					var result=data.all;
+					if(result){
+						localStorage.userid=result.id;//用户id
+						localStorage.userlevel=result.powerlevel;//用户等级权限
+						localStorage.usertype=result.type;//用户类型
+						localStorage.userName=result.name;//用户名
+						localStorage.schoolCode=result.entity;//用户学校
+						localStorage.schoolName=data.Entity;
+						$(".leftInfo").text("您好,"+result.name);
+					}
+					if(data.powerlevel==0){
+						$(".mainUserSection").removeClass("showMenu");
+						$(".userSection").removeClass("showMenu");
+					}
+					else if(data.powerlevel==1){
+						$(".mainUserSection").addClass("showMenu");
+						$(".userSection").removeClass("showMenu");
+					}
+					else if(data.powerlevel==2){
+						$(".mainUserSection").addClass("showMenu");
+						$(".userSection").addClass("showMenu");
+					}
 				}
 				else{
 					alert(data.error);
+					window.location.href="login.html";
 				}
 			}
 		})
-		var userlevel=localStorage.userlevel;
-		if(userlevel==0){
-			$(".mainUserSection").removeClass("showMenu");
-			$(".userSection").removeClass("showMenu");
-		}
-		else if(userlevel==1){
-			$(".mainUserSection").addClass("showMenu");
-			$(".userSection").removeClass("showMenu");
-		}
-		else if(userlevel==2){
-			$(".mainUserSection").addClass("showMenu");
-			$(".userSection").addClass("showMenu");
-		}
     });
 }
 function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗上绑定的一些事件
@@ -328,7 +331,7 @@ $(document).on("click",".unitsChoose .cancelBtn,.unitsChoose .forConsole,.unitsC
 	}
 	$(document).unbind(".drag");
 })
-function dragBoxUnitsChoose(selector,projectUnits){
+function dragBoxUnitsChoose(selector){
 	var checkedArray=[];
 	var _array=[];
 	$(selector).on("click",".forSure",function(){
@@ -339,17 +342,16 @@ function dragBoxUnitsChoose(selector,projectUnits){
 		getTreeNodes(rootObj,checkedArray,_array);
 		var checkedLen=checkedArray.length;
 		showName=[];
-		var timeOutId=setTimeout(function(){
-			if(checkedLen){
-				for (var i=0;i<checkedLen;i++) {
-					var pushItem=checkedArray[i].name;
-					var pushid=checkedArray[i].id;
-					projectUnits.push(pushid);
-					showName.push(pushItem);
-					$(".unitsEnter").val(showName[0]+'...');
-				}
+		projectUnits=[];
+		if(checkedLen){
+			for (var i=0;i<checkedLen;i++) {
+				var pushItem=checkedArray[i].name;
+				var pushid=checkedArray[i].id;
+				projectUnits.push(pushid);
+				showName.push(pushItem);
+				$(".unitsEnter").val(showName[0]+'...');
 			}
-		},10);
+		}
 	})
 	
 	$(selector).on("click",".search-box",function(){
@@ -360,7 +362,7 @@ function dragBoxUnitsChoose(selector,projectUnits){
 		}
 	})
 }
-function dragBoxCodesChoose(selector,projectCodes){
+function dragBoxCodesChoose(selector){
 	var checkedArray=[];
 	var _array=[];
 	$(selector).on("click",".forSure",function(){
@@ -370,17 +372,16 @@ function dragBoxCodesChoose(selector,projectCodes){
 		getTreeNodes(codeObj,checkedArray,_array);
 		var checkedLen=checkedArray.length;
 		showName=[];
-		var timeOutId=setTimeout(function(){
-			if(checkedLen){
-				for (var i=0;i<checkedLen;i++) {
-					var pushItem=checkedArray[i].name;
-					var pushcode=checkedArray[i].code;
-					projectCodes.push(pushcode);
-					showName.push(pushItem);
-					$(".applyCode").val(showName[0]+'...');
-				}
+		projectCodes=[];
+		if(checkedLen){
+			for (var i=0;i<checkedLen;i++) {
+				var pushItem=checkedArray[i].name;
+				var pushcode=checkedArray[i].code;
+				projectCodes.push(pushcode);
+				showName.push(pushItem);
+				$(".applyCode").val(showName[0]+'...');
 			}
-		},10);
+		}
 	})
 	$(selector).on("click",".search-box",function(){
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
@@ -528,7 +529,7 @@ function cancelCheckedState(){
 	rootObj.refresh();
 }
 function madeNowrapText(text){
-	return "<span class='nowrap'>"+text+"<span>";
+	return "<span class='nowrap'>"+text+"</span>";
 }
 function madeOneLineText(text){
 	return '<div class="showMoreContent">'+

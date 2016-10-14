@@ -259,13 +259,15 @@
 		getUnits();
 	}
 	if(baseTree){
+		console.log("code");
 		judgeCodes(baseTree);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
+		$(".unitsChoose2 .unitsContent").addClass("beforeShowBox");
+    	$(".unitsChoose2 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
+		console.log("code1");
+		$(".unitsChoose2 .unitsContent").removeClass("beforeShowBox");
+    	$(".unitsChoose2 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
@@ -327,7 +329,7 @@
 		var year2=$(".yearName2").val();
 		var entitys=projectUnits;
 		var applicationcode	= projectCodes;
-		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var schoolOnly1=$("#schoolOnly").prop("checked");	
 		if(schoolOnly1){
 			schoolOnly=1;
 		}

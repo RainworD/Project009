@@ -226,12 +226,12 @@
 	})
 	if(finalResults){
 		judgeUnits(finalResults);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
+		$(".unitsChoose1 .unitsContent1").addClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
+		$(".unitsChoose1 .unitsContent1").removeClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 		getUnits();
 	}
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
@@ -242,8 +242,6 @@
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
 		// $(".infoTable1 thead").find('th').addClass("nowrap");
-		var year1=$(".yearName1").val();
-		var year2=$(".yearName2").val();
 		var val=$(".projectType").val();
 		var eq=newindex%50;
 		if(eq==0){
@@ -298,7 +296,7 @@
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		var year1=$(".yearName1").val();
-		var year2=$(".yearName2").val();
+		var year2=$(".yearName1").val();
 		var entitys=projectUnits;
 		var nowtotalincome1=$(".income1").val();
 		var nowtotalincome2=$(".income2").val();

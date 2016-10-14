@@ -302,19 +302,16 @@
 		dragBox(".unitsChoose3");
 	})
 	if(finalResults){
-		console.log("unit");
 		judgeUnits(finalResults);
 		$(".unitsChoose1 .unitsContent1").addClass("beforeShowBox");
     	$(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		console.log("unit1");
 		$(".unitsChoose1 .unitsContent1").removeClass("beforeShowBox");
     	$(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 		getUnits();
 	}
 	if(baseTree){
-		console.log("code");
 		judgeCodes(baseTree);
 		$(".unitsChoose3 .unitsContent").addClass("beforeShowBox");
     	$(".unitsChoose3 .beforeShow").addClass("beforeHideBox");
@@ -409,10 +406,10 @@
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
 		var entitys=projectUnits;
+		var applicationcode	=projectCodes;		
 		var money1=$(".nationFee1").val();
 		var money2=$(".nationFee2").val();
 		var orderby=$("input[name='selBar']:checked").val();
-		var applicationcode	=projectCodes;
 		var schoolOnly1=$("#schoolOnly").prop("checked");
 		if(schoolOnly1){
 			schoolOnly=1;

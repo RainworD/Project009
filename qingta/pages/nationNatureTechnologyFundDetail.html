@@ -230,13 +230,15 @@
 		dragBox(".unitsChoose1");
 	})
 	if(baseTree){
+		console.log("code");
 		judgeCodes(baseTree);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
+		$(".unitsChoose1 .unitsContent").addClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
+		console.log("code1");
+		$(".unitsChoose1 .unitsContent").removeClass("beforeShowBox");
+    	$(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
 	dragBoxCodesChoose(".unitsChoose1",projectCodes);
@@ -303,7 +305,7 @@
 		var money2=$(".nationFee2").val();
 		var applicationcode	= projectCodes;
 		var entity=$(".unitsEnter").val();
-		var type=$(".projectType").val();
+		var type=$(".projectType").val();	
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
 			alert("输入的起始年度不能大于终止年度！");
 			$(".tableContent").removeClass("tableShow");

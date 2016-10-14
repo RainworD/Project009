@@ -282,7 +282,7 @@
 					'<td></td>'+
 					// '<td></td>'+
 				'</tr>');
-				searchInfo.children('td').eq(0).text(madeNowrapText(start+i+1));
+				searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
 				searchInfo.children('td').eq(1).html(madeNowrapText(result[i].code));
 				searchInfo.children('td').eq(2).html(madeNowrapText(result[i].type));
 				searchInfo.children('td').eq(3).html(madeOneLineText(result[i].name));
