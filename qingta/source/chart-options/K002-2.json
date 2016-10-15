@@ -10,7 +10,7 @@
                     "title": " "
                }
           },
-          "left": "40px"
+          "right": "40px"
       },
       "grid": {
           "left": "40px",
@@ -108,7 +108,7 @@
           {
                 "yAxisIndex": 1,
                 "name": "批准金额",
-                "type": "line",
+                "type":"line","connectNulls":true,
                 "symbolSize":1,
                 "itemStyle": {
                     "normal": {

@@ -13,7 +13,7 @@
         "title": " "
       }
     },
-    "left": "40px"
+    "right": "40px"
   },
   "grid": {
     "left": "40px",
@@ -63,7 +63,7 @@
   "series": [
     {
       "name": "中国科学院院士",
-      "type": "line",
+      "type":"line","connectNulls":true,
       "symbolSize": 1,
       "itemStyle": {
         "normal": {
@@ -90,7 +90,7 @@
     },
     {
       "name": "中国工程院院士",
-      "type": "line",
+      "type":"line","connectNulls":true,
       "symbolSize": 1,
       "itemStyle": {
         "normal": {

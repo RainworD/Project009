@@ -6,7 +6,6 @@ Number.isNaN = Number.isNaN || function(value) {
     return typeof value === "number" && isNaN(value);
 }
 
-
 if (!Array.prototype.find) {
   Array.prototype.find = function(predicate) {
     'use strict';
@@ -36,16 +35,13 @@ var curYear = (new Date()).getFullYear()
 var toInt = Number.parseInt
 
 function makeTenItems(){
-	return [undefined,undefined,undefined,
-		undefined,undefined,undefined,
-		undefined,undefined,undefined,
-		undefined]
+	return makeItems(10)
 }
 
 function makeItems(length){
 	var ret = new Array(length)
 	for (var i = 0; i < length ; i++) {
-		ret[i] = undefined
+		ret[i] = 0
 	}
 	return ret
 }
@@ -92,6 +88,44 @@ function getJSON(json_name, notDefault){
 		})
 	}
 }
+
+var json_array = [
+	'K001', 'K002-1', 'K002-2', 'K003', 'K004-1', 'K004-2', 
+	'R001-1', 'R001-2', 'R001-3',
+	'J001-1', 'J001-2', 'J002',
+	'X001',
+	'Z001-1', 'Z001-2', 'Z002', 'Z003',
+	'F001', 'F002', 'F003' ]
+
+json_array.forEach(function(json_name){
+	getJSON(json_name)
+})
+
+var _landEntityCache = null
+function getLandEntity(latest) {
+	if (latest === true || _landEntityCache === null) {
+		return Promise.resolve($.ajax({
+			url: '/LandEntity',
+			error: function(){}
+		})).then(function(res){
+			_landEntityCache = res 
+			return Promise.resolve(res)
+		})
+	} else {
+		return Promise.resolve(_landEntityCache)
+	}
+}
+
+getLandEntity().then(function(){})
+
+_prevHash = null
+$(window).on('hashchange.landEntityChange', function(){
+	if (!_prevHash && _prevHash == '#/unitsBaseDataRepair.html') {
+		getLandEntity(true).then(function(){})
+	}
+	_prevHash = window.location.hash
+})
+
 
 function loadPoints(university, result, points){
 	var promises = []
@@ -553,7 +587,7 @@ var POINT_MARK = {
 						options: [],
 						options_placeholder: "",
 						getOptions: function(option, chart){
-							var options_promise = getJSON('R001-2')
+							var options_promise = getJSON('R001-3')
 							return options_promise.then(function(res){
 								res.xAxis.data = years
 								res.series[0].data = eY

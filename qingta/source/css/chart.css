@@ -40,6 +40,7 @@ th.yellow {
 	border-right: 1px solid #fff;
 }
 .changeBarBox.changeBarBox6 > a:last-child {
+	width: 17% !important;
 	border-right: none;
 }
 
@@ -75,4 +76,7 @@ th.yellow {
 }
 .button-green {
 	background-color: #00cc99;
+}
+.button-gray {
+	background-color: #c9c9c9;
 }

@@ -13,7 +13,7 @@
         "title": " "
       }
     },
-    "left": "40px"
+    "right": "40px"
   },
   "grid": {
     "left": "40px",
@@ -62,7 +62,7 @@
   "series": [
     {
       "name": "国家杰青",
-      "type": "line",
+      "type":"line","connectNulls":true,
       "symbolSize": 1,
       "itemStyle": {
         "normal": {
@@ -89,7 +89,7 @@
     },
     {
       "name": "长江学者",
-      "type": "line",
+      "type":"line","connectNulls":true,
       "symbolSize": 1,
       "itemStyle": {
         "normal": {

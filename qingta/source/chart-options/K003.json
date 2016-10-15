@@ -10,7 +10,7 @@
                     "title": " "
                }
           },
-          "left": "40px"
+          "right": "40px"
       },
       "grid": {
           "left": "40px",
@@ -58,7 +58,7 @@
      },
      "series": [
           {
-               "type":"line",
+               "type":"line","connectNulls":true,
                "name": "立项数",
                "data":null,
                "symbolSize": 16,

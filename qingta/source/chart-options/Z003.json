@@ -12,7 +12,7 @@
         "title": " "
       }
     },
-    "left": "40px"
+    "right": "40px"
   },
   "grid": {
     "left": "40px",
@@ -83,7 +83,7 @@
       "data": null,
       "itemStyle": {
         "normal": {
-          "color": "rgb(9,190,255)"
+          "color": "rgb(86, 217, 233)"
         }
       },
       "label": {
@@ -121,7 +121,7 @@
     {
       "yAxisIndex": 0,
       "name": "总论文数",
-      "type": "line",
+      "type":"line","connectNulls":true,
       "symbolSize": 1,
       "itemStyle": {
         "normal": {

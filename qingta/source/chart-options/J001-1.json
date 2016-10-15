@@ -10,7 +10,7 @@
                     "title": " "
                }
           },
-          "left": "40px"
+          "right": "40px"
       },
       "grid": {
           "left": "40px",
@@ -121,7 +121,7 @@
           },
           {
                 "name": "获奖总数",
-                "type": "line",
+                "type":"line","connectNulls":true,
                 "symbolSize":1,
                 "itemStyle": {
                     "normal": {

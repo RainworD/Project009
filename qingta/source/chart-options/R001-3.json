@@ -13,7 +13,7 @@
         "title": " "
       }
     },
-    "left": "40px"
+    "right": "40px"
   },
   "grid": {
     "left": "40px",
@@ -42,7 +42,6 @@
   "yAxis": {
     "position": "left",
     "type": "value",
-    "interval": 1, 
     "axisTick": {
       "show": false
     },
@@ -63,7 +62,7 @@
   "series": [
     {
       "name": "国家优青",
-      "type": "line",
+      "type":"line","connectNulls":true,
       "symbolSize": 1,
       "itemStyle": {
         "normal": {
@@ -90,7 +89,7 @@
     },
     {
       "name": "青年千人",
-      "type": "line",
+      "type":"line","connectNulls":true,
       "symbolSize": 1,
       "itemStyle": {
         "normal": {

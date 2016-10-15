@@ -10,7 +10,7 @@
                     "title": " "
                }
           },
-          "left": "40px"
+          "right": "40px"
       },
       "grid": {
           "left": "40px",
@@ -77,7 +77,7 @@
      ],
      "series": [
           {
-               "type":"line",
+               "type":"line","connectNulls":true,
                "yAxisIndex": 0,
                "name": "专利数",
                "data":null,

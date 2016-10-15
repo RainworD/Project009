@@ -1,14 +1,54 @@
 <link rel="stylesheet" href="../source/css/chart.css">
+<style>
+	.search-button-point {
+		border: 1px solid #ebebeb;
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		border-radius: 3px;
+		text-align: center;
+	}
+	.search-button-point:hover {
+		color: #3cc;
+		border: 1px solid #3cc;
+	}
+	.search-button-point:hover > i {
+		color: #3cc
+	}
+	.search-button-point > i {
+		cursor: pointer;
+	    color: #ebebeb;
+	    font-size: 16px;
+	}   
+</style>
 <div id="common_data_container">
 	<common-data :admin="true"></common-data>	
 </div>
 <script type="text/x-vue-template" id="common_data_template">
-	<div class="changeBarContainer">
-		<div class="changeBarBox" style="background-color:#fff;" @click="openSearchNameModal">
-			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">{{university.name}}</a>
-		</div>
-		<div class="changeBarBox convert-button" style="background-color:#fff;float:right;" @click="convertToPDF">
-			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">下载为PDF文件</a>
+	<div class="enterBox">
+		<div class="topTableBox">
+			<table class="topTable">
+				<tbody>
+					<tr>
+						<th style="width:80px;">学校名称:</th>
+						<td style="width:18.3%;">
+							<div class="commonInputBox" style="width:100%">
+								<input class="commonput unitsEnter" @focus="openSearchNameModal" v-model="university.name" style="padding-right:30px;">
+								<div class="showDetailBox showDetailBox1" @click="openSearchNameModal"><i class="fa fa-ellipsis-h showDetail"></i></div>
+							</div>
+						</td>
+						<th></th>
+						<td></td>
+						<td colspan="2"></td>
+						<td>
+							<a class="searchBtn rightMinBtn" style="width:200px;" @click="convertToPDF">下载为PDF文件</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<div class="enterBox" v-if="university.id!==''">
@@ -74,6 +114,7 @@
 							<span style="color:#777;font-size:14px;">{{tabs[tab_index].options_placeholder + " :"}}</span>
 							<div class="commonInputBox" style="display:inline-block;">
 								<input class="commonput" @focus="openSelectOptionModal" v-model="selected_name">
+								<div class="search-button-point" @click="openSelectOptionModal"><i class="fa fa-ellipsis-h showDetail"></i></div>
 							</div>
 						</div>
 					</div>
@@ -96,21 +137,39 @@
 				</div>
 				<div class="custom-modal-body">
 					<div class="custom-search-bar">
-						<div style="display:table-cell;width:100%;">
+						<div class="custom-input-box">
 							<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchOption">
 						</div>
-						<div style="display:table-cell;width:130px;">
-							<a class="qingta-button button-green" style="margin-right:0px;margin-left:20px;" @click="searchOption">查询</a>
+						<div class="search-box" @click="searchOption">
+							<i class="fa fa-search fa-lg"></i>
 						</div>
 					</div>
-					<ul style="height:400px;overflow-y:auto;" v-el:list>
+					<div style="height:400px;overflow-y:auto;margin:0 20px;">
+						<table class="infoTable" style="margin:10px 0px;">
+							<thead>
+								<tr class="tableTitle">
+									<th style="width:40px;"></th>
+									<th style="width:60px;">序号</th>
+									<th>选项名称</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="option in display_options" @click="selectOption(option)" v-show="option.show">
+									<td style="cursor:pointer"><input type="radio" :checked="option.select"></td>
+									<td>{{$index+1}}</td>
+									<td>{{option.name}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- <ul style="height:400px;overflow-y:auto;" v-el:list>
 						<li v-for="option in display_options" :class="['round-border-item', option.select?'selected':'']" v-show="option.show" @click="selectOption(option)">{{option.name}}</li>
-					</ul>
+					</ul> -->
 				</div>
 				<div class="custom-modal-foot">
 					<div data-drag-enter></div>
-					<a class="qingta-button button-blue" @click="closeSelectOptionModal(false)">取消</a>
 					<a class="qingta-button button-green" @click="closeSelectOptionModal(true)">确定</a>
+					<a class="qingta-button button-gray" @click="closeSelectOptionModal(false)">取消</a>
 				</div>
 			</div>
 		</div>
@@ -261,13 +320,26 @@
 					this.tabs[tab].getOptions(name).then(function(res){
 						self.mounting = false
 						res.animation = false
+						res.textStyle = {fontSize:15}
 						self.chart.setOption(res)
 					})
 				}
 			})
 			this.tab_index = 0
+
 			this.chart = echarts.init(this.$els.chart) 
+
+			var self = this
+			$('.leftImg').on('click.resize', function(){
+				setTimeout(function(){
+					self.chart.resize()
+				}, 10)
+			})
 			//console.dir(this.chart)
+		},
+		destroyed: function(){
+			var self = this
+			$('.leftImg').unbind('click.resize')
 		}
 	})
 
@@ -320,7 +392,8 @@
 				if (save) {
 					var zTree = $.fn.zTree.getZTreeObj('tree')
 					//console.dir(zTree)
-					var selectedNode = zTree.getSelectedNodes()
+					var selectedNode = zTree.getCheckedNodes()
+					console.dir(selectedNode)
 					if (selectedNode[0]) {
 						this.university.name = selectedNode[0].name
 						this.university.id = selectedNode[0].id
@@ -344,7 +417,6 @@
 					callback: {
 						onDblClick: function(e, treeNode, node){
 							if (!node.nocheck) {
-								console.dir(node)
 								zTreeObj.checkNode(node, true, true)
 								self.closeSearchNameModal(true)
 							}
@@ -358,10 +430,7 @@
 			},
 			getUniversityData: function(){
 				var self = this
-				Promise.resolve($.ajax({
-					url: '/LandEntity',
-					error: function(){}
-				})).then(function(res){
+				getLandEntity().then(function(res){
 					var _data = res.result || []
 					baseTree = [_data.find(function(item){
 						return item.name == "高等院校"
