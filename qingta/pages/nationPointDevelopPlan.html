@@ -316,7 +316,9 @@
 						}
 						text = madeOneLineText(result[i][j]);
 					}
-					else{}
+					else{
+						text=madeNowrapText(result[i][j]);
+					}
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}

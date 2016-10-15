@@ -271,13 +271,13 @@
 						'<td></td>'+
 						'<td></td>'+
 					'</tr>');
-					searchInfo.children('td').eq(0).text(start+i+1);
-					searchInfo.children('td').eq(1).text(result[i].unit);
-					searchInfo.children('td').eq(2).text(year1+'-'+year2);
-					searchInfo.children('td').eq(3).text(result[i]["特等奖"]);
-					searchInfo.children('td').eq(4).text(result[i]["一等奖"]);
-					searchInfo.children('td').eq(5).text(result[i]["二等奖"]);
-					searchInfo.children('td').eq(6).text(result[i]["特等奖"]+result[i]["一等奖"]+result[i]["二等奖"]);
+					searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
+					searchInfo.children('td').eq(1).html(madeNowrapText(result[i].unit));
+					searchInfo.children('td').eq(2).html(madeNowrapText(year1+'-'+year2));
+					searchInfo.children('td').eq(3).html(madeNowrapText(result[i]["特等奖"]));
+					searchInfo.children('td').eq(4).html(madeNowrapText(result[i]["一等奖"]));
+					searchInfo.children('td').eq(5).html(madeNowrapText(result[i]["二等奖"]));
+					searchInfo.children('td').eq(6).html(madeNowrapText(result[i]["特等奖"]+result[i]["一等奖"]+result[i]["二等奖"]));
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 			}

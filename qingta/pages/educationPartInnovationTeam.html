@@ -12,7 +12,7 @@
 				<th style="width:80px;">所在单位 :</th> 
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
 						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>
@@ -216,7 +216,8 @@ topBarControl();
 						if(j==1){
 							result[i][j]=year1+'-'+year2;
 						}
-						mytd.text(result[i][j])
+						var text=result[i][j];
+						mytd.html(text);
 						searchInfo.append(mytd);
 					}
 				$(".infoTable1").children('tbody').append(searchInfo);

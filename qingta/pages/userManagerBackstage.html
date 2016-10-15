@@ -150,6 +150,7 @@
 										<option>数据管理员</option>
 										<option>普通用户</option>
 										<option>学校管理员</option>
+										<option>系统管理员</option>
 									</select>
 								</div>
 							</td>
@@ -166,6 +167,30 @@
 								<div class="commonInputBox" style="width:100%;">
 									<input class="commonput newpw" type="password">
 								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>并发数 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput currency">
+								</div>
+							</td>
+							<th>截止日期 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;"></div>
+								<div class="commoninput" style="width:25%; display:inline-block;">
+									<input class="commonput year">
+								</div>
+								<span style="text-align: center;width:7%;">年</span>
+								<div class="commoninput" style="width:25%; display:inline-block;">
+									<input class="commonput month">
+								</div>
+								<span style="text-align: center;width:7%;">月</span>
+								<div class="commoninput" style="width:25%; display:inline-block;">
+									<input class="commonput day">
+								</div>
+								<span style="text-align: center;width:3%;">日</span>
 							</td>
 						</tr>
 					</table>
@@ -188,10 +213,22 @@
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
+		$(".schoolName").val("");
+		$(".userName").val("");
+		$(".accountName").val("");
+		$(".accountName").removeAttr("disabled");
+		$(".department").val("");
+		$(".mailBox").val("");
+		$(".phoneNum").val("");
+		$(".userType").val("");
+		$(".userType").removeAttr("disabled");
+		$(".userType").children("option").last().hide();
 		$(".forLogOut1").hide();
 		$(".deleteUser").hide();
 	})
 	$(".infoTable1").delegate(".manageBtn","click",function(){
+		// $(".userType").removeAttr("disabled");
+		$(".userType").children("option").last().show()
 		var schoolName=$(this).parents("tr").children('td').eq(1).text();
 		var accountName=$(this).parents("tr").children('td').eq(2).text();
 		var userName=$(this).parents("tr").children('td').eq(3).text();
@@ -209,8 +246,9 @@
 		$(".department").val(department);
 		$(".mailBox").val(email);
 		$(".phoneNum").val(phoneNum);
+		console.log(type);
 		$(".userType").val(type);
-		$(".userType").attr("disabled","disabled");;
+		$(".userType").attr("disabled","disabled");
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
@@ -282,6 +320,10 @@
 		var pw2=$(".newpw").val();
 		var department=$(".department").val();
 		var entity=$(".schoolName").val();
+		var year=$(".year").val();
+		var month=$(".month").val();
+		var day=$(".day").val();
+		var concurrency=$(".currency").val();
 		if(pw1!=pw2){
 			alert("两次输入的密码不相同！")
 		}
@@ -292,7 +334,8 @@
 		if(val=="学校管理员"){
 			type=2;
 			if(id){
-				$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone)).done(function(data){
+				$(this).parents(".bottomBtn").removeAttr("data-id");
+				$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone,year,month,day,concurrency)).done(function(data){
 					console.log(data);
 					if(data.state==1){
 						alert("修改用户成功！");
@@ -303,7 +346,7 @@
 				})
 			}
 			else{
-				$.when(CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone)).done(function(data){
+				$.when(CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone,year,month,day,concurrency)).done(function(data){
 					if(data.state==1){
 						alert("新增学校管理员成功！");
 					}
@@ -321,7 +364,8 @@
 				type=1;
 			}
 			if(id){
-				$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone)).done(function(data){
+				$(this).parents(".bottomBtn").removeAttr("data-id");
+				$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone,year,month,day,concurrency)).done(function(data){
 					console.log(data);
 					if(data.state==1){
 						alert("修改用户成功！");
@@ -332,7 +376,7 @@
 				})
 			}
 			else{
-				$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity)).done(function(data){
+				$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity,year,month,day,concurrency)).done(function(data){
 					if(data.state==1){
 						alert("新增用户成功！");
 					}
@@ -407,39 +451,39 @@
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
 					for (var j=0;j<result[i].length;j++) {
-						var mytd=$('<td></td>');
+						if(j==0){
+							searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
+						}
+						else{
+							var mytd=$('<td></td>');
 							if(result[i][j]==null){
 								result[i][j]="";
 							}
-						// if(j==0){
-						// 	searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
-						// }
-						// else{
-							if(j==6){
-								if(result[i][6]==0){
+							if(j==7){
+								if(result[i][7]==0){
 									result[i][j]="系统管理员";
 								}
-								else if(result[i][6]==1){
+								else if(result[i][7]==1){
 									result[i][j]="学校管理员";
 								} 
-								else if(result[i][6]==2){
+								else if(result[i][7]==2){
 									result[i][j]="数据管理员";
 								}
-								else if(result[i][6]==3){
+								else if(result[i][7]==3){
 									result[i][j]="普通用户";
 								}
 							}
-							else if(j==7){
-								if(result[i][7]==0){
+							else if(j==8){
+								if(result[i][8]==0){
 									result[i][j]="正常";
 								}
-								else if(result[i][7]==1){
+								else if(result[i][8]==1){
 									result[i][j]="已注销";
 								}
-							}						
-							mytd.text(result[i][j]);
+							}	
+							var text=madeNowrapText(result[i][j]);
+							mytd.html(text);					
 							searchInfo.append(mytd);
-							searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
 						}
 					}
 					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')

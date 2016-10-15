@@ -195,17 +195,13 @@
 	var projectUnits=[];
 $(".showDetailBox1").bind("click",function(){
 	$(".mask").show();
-	popAlertBox(".unitsChoose1");
-	dragBox(".unitsChoose1");
+	popAlertBox(".unitsChoose2");
+	dragBox(".unitsChoose2");
 })
 if(finalResults){
 	judgeUnits(finalResults);
-	$(".unitsContent1").addClass("beforeShowBox");
-	$(".beforeShow").addClass("beforeHideBox");
 }
 else{
-	$(".unitsContent1").removeClass("beforeShowBox");
-	$(".beforeShow").removeClass("beforeHideBox");
 	getUnits();
 }
 dragBoxUnitsChoose(".unitsChoose1",projectUnits);
@@ -254,7 +250,8 @@ topBarControl();
 								result[i][j]="汇总统计";
 							}		
 						}
-						mytd.text(result[i][j])
+						var text=madeNowrapText(result[i][j]);
+						mytd.html(text);
 						searchInfo.append(mytd);
 					}
 				$(".infoTable1").children('tbody').append(searchInfo);

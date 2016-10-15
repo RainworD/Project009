@@ -309,17 +309,17 @@
 							'<td></td>'+
 							'<td></td>'+
 						'</tr>');
-						searchInfo.children('td').eq(0).text(i+1);
-						searchInfo.children('td').eq(1).text(result[i][0]);
+						searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
+						searchInfo.children('td').eq(1).html(madeNowrapText(result[i][0]));
 						if(category==""){
-							searchInfo.children('td').eq(2).text("全部奖励类别");
+							searchInfo.children('td').eq(2).html(madeNowrapText("全部奖励类别"));
 						}
 						else{
-							searchInfo.children('td').eq(2).text(category);
+							searchInfo.children('td').eq(2).html(madeNowrapText(category));
 						}
-						searchInfo.children('td').eq(3).text(result[i][2]);
-						searchInfo.children('td').eq(4).text(first_year+'-'+last_year);
-						searchInfo.children('td').eq(5).text(result[i][1]);
+						searchInfo.children('td').eq(3).html(madeNowrapText(result[i][2]));
+						searchInfo.children('td').eq(4).html(madeNowrapText(first_year+'-'+last_year));
+						searchInfo.children('td').eq(5).html(madeNowrapText(result[i][1]));
 						$(".infoTable1").children('tbody').append(searchInfo);
 					}
 					getPages(0);

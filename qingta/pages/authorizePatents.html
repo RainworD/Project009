@@ -216,13 +216,16 @@
 			if(result[i]){
 				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
+					var text=result[i][j]
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
 					else if(j==1){
 						result[i][j]=year1+'-'+year2;
 					}
-					mytd.text(result[i][j]);
+					text=madeNowrapText(result[i][j]);
+					// mytd.text(result[i][j]);
+					 mytd.html(text);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);

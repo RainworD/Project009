@@ -383,6 +383,9 @@
 					else if(j==1||j==5||j==8){
 						text = madeOneLineText(result[i][j])
 					}
+					else{
+						text=madeNowrapText(result[i][j]);
+					}
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}

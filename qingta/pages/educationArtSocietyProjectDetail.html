@@ -252,7 +252,9 @@
 						text=madeOneLineText(result[i][6]);
 						mytd.css("width","120px");
 					}
-					else{}
+					else{
+						text=madeNowrapText(result[i][j]);
+					}
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}

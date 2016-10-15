@@ -299,9 +299,9 @@
 							'<td></td>'+
 							'<td></td>'+
 						'</tr>');
-						searchInfo.children('td').eq(0).text(i+1);
-						searchInfo.children('td').eq(1).text(result[i][0]);
-						searchInfo.children('td').eq(2).text(year1+'-'+year2);
+						searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
+						searchInfo.children('td').eq(1).html(madeNowrapText(result[i][0]));
+						searchInfo.children('td').eq(2).html(madeNowrapText(year1+'-'+year2));
 						if(disciplines==""){
 							disciplines="全部学科分类";
 						}
@@ -311,9 +311,9 @@
 						// if(articleType==""){
 						// 	articleType="全部论文类型";
 						// }
-						searchInfo.children('td').eq(3).text(disciplines);
-						searchInfo.children('td').eq(4).text(subject);
-						searchInfo.children('td').eq(5).text(result[i][1]);
+						searchInfo.children('td').eq(3).html(madeNowrapText(disciplines));
+						searchInfo.children('td').eq(4).html(madeNowrapText(subject));
+						searchInfo.children('td').eq(5).html(madeNowrapText(result[i][1]));
 						$(".infoTable1").children('tbody').append(searchInfo);
 					}
 					getPages(0);

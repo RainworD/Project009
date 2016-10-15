@@ -218,7 +218,8 @@
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
-					mytd.text(result[i][j]);
+					var text=madeNowrapText(result[i][j]);
+					mytd.html(text);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);

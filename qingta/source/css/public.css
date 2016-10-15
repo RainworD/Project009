@@ -885,7 +885,7 @@ body {
   display: block;
   width: 100%;
   min-height: 400px;
-  margin: 100px 0;
+  margin: 50px 0;
 }
 .mainContainer .rightBox .rightContent .searchUndo .enterSearchInfo,
 .mainContainer .rightBox .rightContent .beforeSearch .enterSearchInfo {
@@ -897,6 +897,7 @@ body {
 .mainContainer .rightBox .rightContent .beforeSearch .getInfoImg {
   display: block;
   margin: auto;
+  width: 100px;
 }
 .mainContainer .rightBox .rightContent .beforeSearch {
   display: none;

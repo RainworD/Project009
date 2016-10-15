@@ -153,7 +153,7 @@
 		<span class="sr-only">Loading...</span>
 	</p>
 </div>
-<div class="unitsChoose unitsChoose1" style="width:720px;">
+<div class="unitsChoose unitsChoose2" style="width:720px;">
 	<div class="unitsContainer">
 		<div class="cancelBtn"> 
 			<i class="fa fa-close showCollege"></i>
@@ -209,22 +209,16 @@
 	var projectCodes=[];
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
-		popAlertBox(".unitsChoose1");
-		dragBox(".unitsChoose1");
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
 	})
 	if(baseTree){
-		console.log("code");
 		judgeCodes(baseTree);
-		$(".unitsChoose1 .unitsContent").addClass("beforeShowBox");
-    	$(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		console.log("code1");
-		$(".unitsChoose1 .unitsContent").removeClass("beforeShowBox");
-    	$(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
-	dragBoxCodesChoose(".unitsChoose1",projectCodes);
+	dragBoxCodesChoose(".unitsChoose2",projectCodes);
 	var projectUnits=[];
 	topBarControl();
 	function selfResult(pageindex,result,newindex){
@@ -255,7 +249,9 @@
 								text = madeOneLineText(result[i][j]);
 								mytd.css("width","150px")
 							}
-							else{}
+							else{
+								text=madeNowrapText(result[i][j]);
+							}
 							mytd.html(text);
 							searchInfo.append(mytd);
 						}

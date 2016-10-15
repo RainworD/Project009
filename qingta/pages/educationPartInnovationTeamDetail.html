@@ -158,6 +158,9 @@
 					if(j==4){
 						text=madeOneLineText(result[i][4])
 					}
+					else{
+						text=madeNowrapText(result[i][j]);
+					}
 					mytd.html(text)
 					searchInfo.append(mytd);
 				}

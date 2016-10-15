@@ -271,6 +271,9 @@
 					if(j==0||j==1||j==6||j==7){
 						text=madeOneLineText(result[i][j])
 					}
+					else{
+						text=madeNowrapText(result[i][j]);
+					}
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}

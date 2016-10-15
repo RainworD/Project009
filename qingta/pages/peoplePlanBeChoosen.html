@@ -264,7 +264,8 @@
 							result[i][j]=_index1+'-'+_index2;
 						}
 					}
-					mytd.text(result[i][j]);
+					var text=madeNowrapText(result[i][j]);
+					mytd.html(text);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);

@@ -207,9 +207,10 @@
 						if(j==2||j==5){
 							text = madeOneLineText(result[i][j]);
 						}
-						else{}
+						else{
+							text=madeNowrapText(result[i][j]);
+						}
 					mytd.html(text);
-					// mytd.text(result[i][j]);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);

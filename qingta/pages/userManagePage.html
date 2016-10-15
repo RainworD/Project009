@@ -173,6 +173,17 @@
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
+		$(".schoolName").val("");
+		$(".userName").val("");
+		$(".accountName").val("");
+		$(".accountName").removeAttr("disabled");
+		$(".department").val("");
+		$(".mailBox").val("");
+		$(".phoneNum").val("");
+		$(".userType").val("");
+		$(".userType").removeAttr("disabled");
+		$(".forLogOut1").hide();
+		$(".deleteUser").hide();
 		$(".forLogOut1").hide();
 		$(".deleteUser").hide();
 	})
@@ -256,6 +267,10 @@
 		var pw1=$(".oldpw").val();
 		var pw2=$(".newpw").val();
 		var department=$(".department").val();
+		var year;
+		var month;
+		var day;
+		var concurrency;
 		if(pw1!=pw2){
 			alert("两次输入的密码不相同！")
 		}
@@ -270,7 +285,8 @@
 			type=1;
 		}
 		if(id){
-			$.when(UpdateAccount(id,password,type,nickname,department,mail,phone,entity)).done(function(data){
+			$(this).parents(".bottomBtn").removeAttr("data-id");
+			$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone,year,month,day,concurrency)).done(function(data){
 				console.log(data);
 				if(data.state==1){
 					alert("修改用户成功！");
@@ -281,7 +297,7 @@
 			})
 		}
 		else{
-			$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
+			$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity,year,month,day,concurrency)).done(function(data){
 				console.log(data);
 				if(data.state==1){
 					alert("新增用户成功！");
@@ -315,18 +331,76 @@
 					'</tr>');
 					searchInfo.children('td').eq(0).text(i+1);
 					for (var j=0;j<result[i].length;j++) {
-							var mytd=$('<td></td>');
-							if(j==0||j==1){
-								searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
-							}
-							else{
-								if(result[i][j]==null){
-									result[i][j]="";
-								}
-								mytd.text(result[i][j]);
-								searchInfo.append(mytd);
-							}
+							// var mytd=$('<td></td>');
+							// if(j==0||j==1){
+							// 	searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
+							// }
+							// else{
+							// 	if(result[i][j]==null){
+							// 		result[i][j]="";
+							// 	}
+							// 	else if(j==6){
+							// 	// if(result[i][6]==0){
+							// 	// 	result[i][j]="系统管理员";
+							// 	// }
+							// 	// else if(result[i][6]==1){
+							// 	// 	result[i][j]="学校管理员";
+							// 	// } 
+							// 		if(result[i][6]==2){
+							// 			result[i][j]="数据管理员";
+							// 		}
+							// 		else if(result[i][6]==3){
+							// 			result[i][j]="普通用户";
+							// 		}
+							// 	}
+							// 	else if(j==7){
+							// 		if(result[i][7]==0){
+							// 			result[i][j]="正常";
+							// 		}
+							// 		else if(result[i][7]==1){
+							// 			result[i][j]="已注销";
+							// 		}
+							// 	}	
+							// 	mytd.text(result[i][j]);
+							// 	searchInfo.append(mytd);
+						if(j==0||j==1){
+							searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
 						}
+						else{
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
+							}
+							if(j==7){
+								if(result[i][7]==0){
+									result[i][j]="系统管理员";
+								}
+								else if(result[i][7]==1){
+									result[i][j]="学校管理员";
+								} 
+								else if(result[i][7]==2){
+									result[i][j]="数据管理员";
+								}
+								else if(result[i][7]==3){
+									result[i][j]="普通用户";
+								}
+							}
+							else if(j==8){
+								if(result[i][8]==0){
+									result[i][j]="正常";
+								}
+								else if(result[i][8]==1){
+									result[i][j]="已注销";
+								}
+							}	
+							// else if(j==1){
+
+							// }
+							var text=madeNowrapText(result[i][j]);
+							mytd.html(text);
+							searchInfo.append(mytd);
+						}
+					}
 					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')
 					searchInfo.append(newtd);
 					$(".infoTable1").children('tbody').append(searchInfo);
@@ -336,7 +410,8 @@
 	}
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
-		var entity=localStorage.school;
+		// var entity=localStorage.schoolName;
+		var entity=schoolName;
 		var name=$(".accountNameEnter").val();
 		var nickname=$(".userNameEnter").val();
 		var pageindex;
@@ -348,7 +423,8 @@
 		}
 		getDataBox(params,'/GiveEntityAccount');
 	})
-	var entity=localStorage.school;
+	// var entity=localStorage.school;
+	var entity=schoolName;
 	var params_={
 		'pageindex':1,
 		'entity':entity,

@@ -251,7 +251,7 @@
 					'<td></td>'+
 					'<td></td>'+
 				'</tr>');
-				searchInfo.children('td').eq(0).text(start+i+1);
+				searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
 				searchInfo.children('td').eq(1).html(madeOneLineText(result[i].name));
 				searchInfo.children('td').eq(2).html(madeNowrapText(result[i].year));
 				searchInfo.children('td').eq(3).html(madeNowrapText(result[i].level));

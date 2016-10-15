@@ -250,22 +250,14 @@
 	})
 	if(finalResults){
 		judgeUnits(finalResults);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
 		getUnits();
 	}
 	if(baseTree){
 		judgeCodes(baseTree);
-		$(".unitsChoose2 .unitsContent").addClass("beforeShowBox");
-    	$(".unitsChoose2 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsChoose2 .unitsContent").removeClass("beforeShowBox");
-    	$(".unitsChoose2 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
 	$(".showDetailBox2").bind("click",function(){
@@ -309,7 +301,8 @@
 						else if(j==2){
 							result[i][j]=year1+'-'+year2;
 						}
-						mytd.text(result[i][j]);
+						var text=madeNowrapText(result[i][j]);
+						mytd.html(text);
 						searchInfo.append(mytd);
 					}
 				$(".infoTable1").children('tbody').append(searchInfo);

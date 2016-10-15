@@ -1,4 +1,10 @@
 var origin_fn_init = $.fn.zTree.init
+var userid;
+var userName;
+var usertype;
+var userlevel;
+var schoolCode;
+var schoolName;
 $.fn.zTree.init = function($el, options, data){
 	var level = 1
 	var children = data[0].children
@@ -155,7 +161,7 @@ var setting = {
 	    }
 	};
 function getUnits(){
-	$.when(LandEntity()).done(function(data){
+	$.when(ajaxUnit()).done(function(data){
 		var result=data.result;
 		finalResults=result;
 		judgeUnits(result);
@@ -173,14 +179,7 @@ function judgeUnits(result){
 		rootObj.expandNode(rootObj.getNodes()[0], true);
 	}
 }
-function ajaxTree(){
-	var ajax=$.ajax({
-    	url: '/FundCode/get',
-    	type:'POST',
-    	data:{},
-    })
-    return ajax;
-}
+
 function getCodes(){
 	$.when(ajaxTree()).done(function(data){
 		baseTree=data.data;
@@ -231,44 +230,44 @@ function loadContent() {
 		        }
 		    });
 		})
-		$.ajax({
-			url:"/GetPowerlevel",
-			type:"POST",
-			data:{
+		// $.ajax({
+		// 	url:"/GetPowerlevel",
+		// 	type:"POST",
+		// 	data:{
 
-			},
-			success:function(data){
-				if(data.state==1){
-					console.log(data);
-					var result=data.all;
-					if(result){
-						localStorage.userid=result.id;//用户id
-						localStorage.userlevel=result.powerlevel;//用户等级权限
-						localStorage.usertype=result.type;//用户类型
-						localStorage.userName=result.name;//用户名
-						localStorage.schoolCode=result.entity;//用户学校
-						localStorage.schoolName=data.Entity;
-						$(".leftInfo").text("您好,"+result.name);
-					}
-					if(data.powerlevel==0){
-						$(".mainUserSection").removeClass("showMenu");
-						$(".userSection").removeClass("showMenu");
-					}
-					else if(data.powerlevel==1){
-						$(".mainUserSection").addClass("showMenu");
-						$(".userSection").removeClass("showMenu");
-					}
-					else if(data.powerlevel==2){
-						$(".mainUserSection").addClass("showMenu");
-						$(".userSection").addClass("showMenu");
-					}
-				}
-				else{
-					alert(data.error);
-					window.location.href="login.html";
-				}
-			}
-		})
+		// 	},
+		// 	success:function(data){
+		// 		if(data.state==1){
+		// 			console.log(data);
+		// 			var result=data.all;
+		// 			if(result){
+		// 				userid=result.id;//用户id
+		// 				userlevel=result.powerlevel;//用户等级权限
+		// 				usertype=result.type;//用户类型
+		// 				userName=result.name;//用户名
+		// 				schoolCode=result.entity;//用户学校
+		// 				schoolName=data.Entity;
+		// 				$(".leftInfo").text("您好,"+result.name);
+		// 			}
+		// 			if(data.powerlevel==0){
+		// 				$(".mainUserSection").removeClass("showMenu");
+		// 				$(".userSection").removeClass("showMenu");
+		// 			}
+		// 			else if(data.powerlevel==1){
+		// 				$(".mainUserSection").addClass("showMenu");
+		// 				$(".userSection").removeClass("showMenu");
+		// 			}
+		// 			else if(data.powerlevel==2){
+		// 				$(".mainUserSection").addClass("showMenu");
+		// 				$(".userSection").addClass("showMenu");
+		// 			}
+		// 		}
+		// 		else{
+		// 			alert(data.error);
+		// 			window.location.href="login.html";
+		// 		}
+		// 	}
+		// })
     });
 }
 function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗上绑定的一些事件

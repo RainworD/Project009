@@ -354,8 +354,6 @@
 		var len_2=analysisArray.length;
 		var unitsName;
 		var projectNum;
-		$(".infoTable1 thead").empty();
-		$(".infoTable1 tbody").empty();
 		if(projectUnits==""){
 			alert("请先选择要查询的学校！")
 		}
@@ -366,6 +364,10 @@
 		}
 		else{
 			if(len_1<11){
+				$(".infoTable1 thead").empty();
+				$(".infoTable1 tbody").empty();
+				// $(".tableContent").addClass("tableShow");
+				// $(".searchUndo").addClass("searchDo")
 				var thead_new=$('<tr class="tableTitle tableTitle1">'+
 							'<th>分析项目</th>'+
 						'</tr>');
@@ -384,16 +386,16 @@
 						tr_add.append(td_add);
 					}
 					if(analysisArray_[j]=="1"){
-						getPlanCount(tr_add,entitys,year1,year2,len_1);
+						getPlanCount(tr_add,entitys,year1,year2,len_1,"0");
 					}
 					else if(analysisArray_[j]=="2"){
-						getPlanMoney(tr_add,entitys,year1,year2,len_1);
+						getPlanCount(tr_add,entitys,year1,year2,len_1,"1");
 					}
 					else if(analysisArray_[j]=="3"){
-						getNaturalCount(tr_add,entitys,year1,year2,len_1);
+						getNaturalCount(tr_add,entitys,year1,year2,len_1,"0");
 					}
 					else if(analysisArray_[j]=="4"){
-						getNaturalMoney(tr_add,entitys,year1,year2,len_1);
+						getNaturalCount(tr_add,entitys,year1,year2,len_1,"1");
 					}
 					else if(analysisArray_[j]=="5"){
 						getSocietyCount(tr_add,entitys,year1,year2,len_1);
@@ -453,16 +455,16 @@
 						getEduAward(tr_add,entitys,year1,year2,len_1)
 					}
 					else if(analysisArray_[j]=="24"){
-						getEduArt(tr_add,entitys,year1,year2,len_1)
+						getEduArtResults(tr_add,entitys,year1,year2,len_1)
 					}
 					else if(analysisArray_[j]=="25"){
 						getPatent(tr_add,entitys,year1,year2,len_1)
 					}
 					else if(analysisArray_[j]=="26"){
-						getBudgetIncome(tr_add,entitys,year1,year2,len_1)
+						getBudgetIncome(tr_add,entitys,year1,year2,len_1,"0")
 					}
 					else if(analysisArray_[j]=="27"){
-						getBudgetOutcome(tr_add,entitys,year1,year2,len_1)
+						getBudgetIncome(tr_add,entitys,year1,year2,len_1,"1")
 					}
 					else if(analysisArray_[j]=="28"){
 						getTechFee(tr_add,entitys,year1,year2,len_1)
@@ -483,74 +485,98 @@
 			}
 		}
 	})
-	function getPlanCount(argu,entitys,year1,year2,len_1){
+	function getPlanCount(argu,entitys,year1,year2,len_1,flag){
 		$.when(askNKRPsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][3];
+					projectNum1=result[k][3];
+					projectNum2=result[k][5];
+					if(projectNum1==""){
+						projectNum1=0;
+					}
+					if(projectNum2==""){
+						projectNum2=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							if(flag=='0'){
+								argu.children("td").eq(i+1).text(projectNum1);
+							}
+							else{
+								argu.children("td").eq(i+1).text(projectNum2);
+							}
 						}
 					}
 				}
 			}
 		})
 	}
-	function getPlanMoney(argu,entitys,year1,year2,len_1){
-		$.when(askNKRPsta(entitys,year1,year2)).done(function(data){
-			var result=data.result;
-			if(data.state==1){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k][1];
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][5];
-					for(var i=0;i<len_1;i++){
-						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
-						}
-					}
-				}
-			}
-		})
-	}
-	function getNaturalCount(argu,entitys,year1,year2,len_1){
+	// function getPlanMoney(argu,entitys,year1,year2,len_1){
+	// 	$.when(askNKRPsta(entitys,year1,year2)).done(function(data){
+	// 		var result=data.result;
+	// 		if(data.state==1){
+	// 			for(var k=0;k<result.length;k++){
+	// 				unitsName=result[k][1];
+	// 				// for (var j=0;j<result[k].length-1;j++) {
+	// 				projectNum=result[k][5];
+	// 				for(var i=0;i<len_1;i++){
+	// 					if(unitsName==showName[i]){
+	// 						argu.children("td").eq(i+1).text(projectNum);
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	})
+	// }
+	function getNaturalCount(argu,entitys,year1,year2,len_1,flag){
 		$.when(askNNSFsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][1];
 					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][4];
+					projectNum1=result[k][4];
+					projectNum2=Number(result[k][5]).toFixed(2);
+					if(projectNum1==""){
+						projectNum1=0;
+					}
+					if(projectNum2==""){
+						projectNum2=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							if(flag=='0'){
+								argu.children("td").eq(i+1).text(projectNum1);
+							}
+							else{
+								argu.children("td").eq(i+1).text(projectNum2);
+							}
 						}
 					}
 				}
 			}
 		})
 	}
-	function getNaturalMoney(argu,entitys,year1,year2,len_1){
-		$.when(askNNSFsta(entitys,year1,year2)).done(function(data){
-			var result=data.result;
-			if(data.state==1){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k][0];
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=Number(result[k][5]).toFixed(2);
-					for(var i=0;i<len_1;i++){
-						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
-						}
-					}
-				}
-			}
-		})
-	}
+	// function getNaturalMoney(argu,entitys,year1,year2,len_1){
+	// 	$.when(askNNSFsta(entitys,year1,year2)).done(function(data){
+	// 		var result=data.result;
+	// 		if(data.state==1){
+	// 			for(var k=0;k<result.length;k++){
+	// 				unitsName=result[k][0];
+	// 				// for (var j=0;j<result[k].length-1;j++) {
+	// 				projectNum=Number(result[k][5]).toFixed(2);
+	// 				for(var i=0;i<len_1;i++){
+	// 					if(unitsName==showName[i]){
+	// 						argu.children("td").eq(i+1).text(projectNum);
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	})
+	// }
 	function getSocietyCount(argu,entitys,year1,year2,len_1){
 		$.when(askNSSFsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
@@ -558,7 +584,10 @@
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][2];
 					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][5];
+					projectNum=result[k][4];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -576,6 +605,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][5];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -592,31 +624,41 @@
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
+					// projectNum=result[k][4]+projectNum;
 					projectNum=result[k][4];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							var num=argu.children("td").eq(i+1).text();
-							var newnum=Number(projectNum+num);
-							argu.children("td").eq(i+1).text(newnum);
+							getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
 						}
 					}
+					// getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
 				}
 			}
-			$.when(askEAsta(entitys,year1,year2)).done(function(data){
-				var result=data.result;
-				if(data.state==1){
-					for(var k=0;k<result.length;k++){
-						unitsName=result[k][0];
-						// for (var j=0;j<result[k].length-1;j++) {
-						projectNum=result[k][4];
+		})
+	}
+	function getTechCount(num,argu,entitys,year1,year2,len_1,unitsName){
+		$.when(askEAsta(entitys,year1,year2)).done(function(data){
+			var result=data.result;
+			if(data.state==1){
+				for(var k=0;k<result.length;k++){
+					unitsName1=result[k][0];
+					if(unitsName1==unitsName){
+						projectNum1=(num-0)+(result[k][4]-0);
+						if(projectNum1==""){
+							projectNum1=0;
+						}
+						// projectNum=result[k][4];
 						for(var i=0;i<len_1;i++){
 							if(unitsName==showName[i]){
-								argu.children("td").eq(i+1).text(projectNum);
+								argu.children("td").eq(i+1).text(projectNum1);
 							}
 						}
 					}
 				}
-			})
+			}
 		})
 	}
 	function getCJCount(argu,entitys,year1,year2,len_1){
@@ -627,6 +669,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][6];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -644,6 +689,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][3];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -661,6 +709,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][10];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -678,6 +729,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][3];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -695,6 +749,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][3];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -712,6 +769,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][2];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -729,6 +789,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][3];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -747,6 +810,12 @@
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum_1=result[k][1];
 					projectNum_2=result[k][2];
+					if(projectNum_1==""){
+						projectNum_1=0;
+					}
+					if(projectNum_2==""){
+						projectNum_2=0;
+					}
 					projectNum=projectNum_1+'/'+projectNum_2;
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
@@ -765,6 +834,9 @@
 					unitsName=result[k].unit;
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k].one_percent;
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -782,6 +854,9 @@
 					unitsName=result[k].unit;
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k].international_rank;
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -799,6 +874,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][2];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -816,6 +894,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][2];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -833,6 +914,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][3];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -850,6 +934,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][1];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -867,6 +954,9 @@
 					unitsName=result[k].unit;
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=Number(result[k].highest+result[k].tech+result[k].science+result[k].natural);
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -884,6 +974,9 @@
 					unitsName=result[k].unit;
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k]["自然科学奖教材类"]+result[k]["专利奖"]+result[k]["青年科学奖"]+result[k]["自然科学奖教材类"]+result[k]["自然科学奖"]+result[k]["科技进步奖科普类"]+result[k]["科技进步奖推广类"]+result[k]["科技进步奖"]+result[k]["技术发明奖专利类"]+result[k]["技术发明奖"];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -893,7 +986,7 @@
 			}
 		})
 	}
-	function getEduArt(argu,entitys,year1,year2,len_1){
+	function getEduArtResults(argu,entitys,year1,year2,len_1){
 		$.when(LandHSSAsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
 			if(data.state==1){
@@ -901,6 +994,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][5];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -918,6 +1014,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][5];
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -927,40 +1026,52 @@
 			}
 		})
 	}
-	function getBudgetIncome(argu,entitys,year1,year2,len_1){
+	function getBudgetIncome(argu,entitys,year1,year2,len_1,flag){
 		$.when(askBDsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][1];
 					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=Number(result[k][5]).toFixed(2);
+					projectNum1=Number(result[k][5]).toFixed(2);
+					projectNum2=Number(result[k][8]).toFixed(2);
+					if(projectNum1==""){
+						projectNum1=0;
+					}
+					if(projectNum2==""){
+						projectNum2=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							if(flag=='0'){
+								argu.children("td").eq(i+1).text(projectNum1);
+							}
+							else{
+								argu.children("td").eq(i+1).text(projectNum2);
+							}
 						}
 					}
 				}
 			}
 		})
 	}
-	function getBudgetOutcome(argu,entitys,year1,year2,len_1){
-		$.when(askBDsta(entitys,year1,year2)).done(function(data){
-			var result=data.result;
-			if(data.state==1){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k][1];
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=Number(result[k][8]).toFixed(2);
-					for(var i=0;i<len_1;i++){
-						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
-						}
-					}
-				}
-			}
-		})
-	}
+	// function getBudgetOutcome(argu,entitys,year1,year2,len_1){
+	// 	$.when(askBDsta(entitys,year1,year2)).done(function(data){
+	// 		var result=data.result;
+	// 		if(data.state==1){
+	// 			for(var k=0;k<result.length;k++){
+	// 				unitsName=result[k][1];
+	// 				// for (var j=0;j<result[k].length-1;j++) {
+	// 				projectNum=Number(result[k][8]).toFixed(2);
+	// 				for(var i=0;i<len_1;i++){
+	// 					if(unitsName==showName[i]){
+	// 						argu.children("td").eq(i+1).text(projectNum);
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	})
+	// }
 	function getTechFee(argu,entitys,year1,year2,len_1){
 		$.when(askSTFsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
@@ -969,6 +1080,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=Number(result[k][2]).toFixed(2);
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -986,6 +1100,9 @@
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=Number(result[k][2]).toFixed(2);
+					if(projectNum==""){
+						projectNum=0;
+					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
@@ -1006,6 +1123,8 @@
 	$(".unitsChoose2 .forSure").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose2").hide();
+		analysisArray=[];
+		analysisArray_=[];
 		var len=$(".infoTable2 tbody").children("tr").length;
 		for(var i=0;i<len;i++){
 			var flag=$(".infoTable2 tbody").children("tr").eq(i).children("td").eq(1).children("input").prop("checked");

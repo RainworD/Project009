@@ -215,7 +215,7 @@
 		</div>
 	</div>
 </div>
-<div class="unitsChoose unitsChoose2">
+<!-- <div class="unitsChoose unitsChoose3">
 	<div class="unitsContainer">
 		<div class="cancelBtn">
 			<i class="fa fa-close showCollege"></i>
@@ -234,8 +234,8 @@
 			</p>
 		</div>
 	</div>
-</div>
-<div class="unitsChoose unitsChoose3" style="width:720px;">
+</div> -->
+<div class="unitsChoose unitsChoose2" style="width:720px;">
 	<div class="unitsContainer">
 		<div class="cancelBtn"> 
 			<i class="fa fa-close showCollege"></i>
@@ -298,32 +298,23 @@
 	})
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
-		popAlertBox(".unitsChoose3");
-		dragBox(".unitsChoose3");
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
 	})
 	if(finalResults){
 		judgeUnits(finalResults);
-		$(".unitsChoose1 .unitsContent1").addClass("beforeShowBox");
-    	$(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		$(".unitsChoose1 .unitsContent1").removeClass("beforeShowBox");
-    	$(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 		getUnits();
 	}
 	if(baseTree){
 		judgeCodes(baseTree);
-		$(".unitsChoose3 .unitsContent").addClass("beforeShowBox");
-    	$(".unitsChoose3 .beforeShow").addClass("beforeHideBox");
 	}
 	else{
-		console.log("code1");
-		$(".unitsChoose3 .unitsContent").removeClass("beforeShowBox");
-    	$(".unitsChoose3 .beforeShow").removeClass("beforeHideBox");
 		getCodes();
 	}
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
-	dragBoxCodesChoose(".unitsChoose3",projectCodes);
+	dragBoxCodesChoose(".unitsChoose2",projectCodes);
 	topBarControl();
 	$.when(LandNNSFtype()).done(function(data){
 		var state=data.state;
@@ -381,15 +372,17 @@
 						}
 						else if(j==3){
 							text=year1+'-'+year2;
+							text=madeNowrapText(text);
 						}
 						else if(j==5){
 							var ex = /^\d+$/;
 							if(ex.test(result[i][j])){
-								mytd.text(result[i][j]);
+								mytd.html(madeNowrapText(result[i][j]));
 							}
 							else{
 								var newNum=Number(result[i][j]).toFixed(2);
-								text=newNum;
+								text=madeNowrapText(newNum);
+
 							}
 						}
 						mytd.html(text);

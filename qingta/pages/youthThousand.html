@@ -231,7 +231,8 @@
 					if(subject==""){
 						result[i][2]="全部专业领域";
 					}
-					mytd.text(result[i][j]);
+					var text=madeNowrapText(result[i][j]);
+					mytd.html(text);
 					searchInfo.append(mytd);
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);

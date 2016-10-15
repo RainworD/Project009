@@ -9,9 +9,21 @@ function beforeHandle(){
     $(".beforeSearch").addClass("tableShow").removeClass("searchDo");
     $(".searchUndo").addClass("searchDo");
 }
+function beforeHandlesub(){
+    $(".unitsChoose1 .unitsContent1").removeClass("beforeShowBox");
+    $(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
+}
 function successHandlesub(){
-    $(".unitsContent1").addClass("beforeShowBox");
-    $(".beforeShow").addClass("beforeHideBox");
+    $(".unitsChoose1 .unitsContent").addClass("beforeShowBox");
+    $(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
+}
+function beforeHandlesub1(){
+    $(".unitsChoose2 .unitsContent").removeClass("beforeShowBox");
+    $(".unitsChoose2 .beforeShow").removeClass("beforeHideBox");
+}
+function successHandlesub1(){
+    $(".unitsChoose2 .unitsContent").addClass("beforeShowBox");
+    $(".unitsChoose2 .beforeShow").addClass("beforeHideBox");
 }
 function successHandle(data){
    if(data.state==1){
@@ -46,8 +58,6 @@ function askNKRPsta(entitys,year1,year2,pageindex,type,centermoney1,centermoney2
         url: "/askNKRPsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
         data:{
         "entitys": entitys, //选择的学校列表
         "type": type,//项目类型
@@ -69,8 +79,6 @@ function askNNSFsta(entitys,year1,year2,type,money1,money2,pageindex,orderby,app
         url: "/askNNSFsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
         data:{
         "applicationcode": applicationcode,//申请代码
         "entitys": entitys, //选择的学校列表
@@ -89,8 +97,6 @@ function askHSS(subject,name,type,manager,entity,year1,year2,money1,money2,pagei
     var ajax = $.ajax({
         url: "/askHSS",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
         data:{
         "subject": subject, //项目科目？
         "_class": _class, //项目类别
@@ -111,8 +117,6 @@ function askNKRP(entity,type,name,year1,year2,centermoney1,centermoney2,totalmon
         url: "/askNKRP",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
         data:{
             "name":name,
             "type":type,
@@ -183,8 +187,6 @@ function askNSSFsta(entitys,year1,year2,subject,system,type,pageindex,orderby){/
         url: "/askNSSFsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
         data:{
         "subject": subject,//申请科目（还是领域之类的）
         "system": system,//项目系统
@@ -203,8 +205,6 @@ function askNSSF(subject,name,type,manager,entity,year1,year2,pageindex){//社�
         url: "/askNSSF",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
         data:{
         "subject": subject, //项目科目？
         "name":name,//项目名称
@@ -244,8 +244,7 @@ function askHSSsta(entitys,year1,year2,type,_class,subject,pageindex){//教育�
         url: "/askHSSsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//学科分类
         "_class": _class,//项目类别
@@ -264,8 +263,7 @@ function askHSS(subject,name,type,manager,entity,year1,year2,_class,pageindex){/
         url: "/askHSS",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject, //项目科目？
         "_class": _class,//项目类别
@@ -286,8 +284,7 @@ function askMPsta( entitys,year1,year2,pageindex,_index1,_index2){
         url: "/askMPsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//公布年度左侧
@@ -305,8 +302,7 @@ function askMP(entity,name,type,year1,year2,pageindex,_index1,_index2){
         url: "/askMP",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entity": entity, //当选单位
         "name":name,//姓名
@@ -336,8 +332,7 @@ function askSAsta(entitys,year1,year2,subject,pageindex,gender,department,ageofE
         url: "/askSAsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//学科
         "department": department,//学部
@@ -368,8 +363,7 @@ function askSA(entity,year1,year2,subject,pageindex,gender,department,ageofElect
         url: "/askSA",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//学科
         "department": department,//学部
@@ -391,8 +385,7 @@ function askCJSchsta(entitys,year1,year2,subject,pageindex){
         url: "/askCJSchsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//学科分类
         "entitys": entitys, //选择的学校列表
@@ -409,8 +402,7 @@ function askCJSch(entity,year1,year2,subject,pageindex,name,type){
         url: "/askCJSch",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//岗位名称
         "entity": entity, //推荐单位
@@ -439,8 +431,7 @@ function askTYsta(entitys,year1,year2,subject,pageindex){
         url: "/askTYsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//专业领域
         "entitys": entitys, //选择的学校列表
@@ -457,8 +448,7 @@ function askTY(entity,year1,year2,subject,pageindex,name){
         url: "/askTY",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//专业领域
         "name":name,//姓名
@@ -487,7 +477,7 @@ function LandEntity(){//依托单位显示
         url: "/LandEntity",
         type: "POST",
         // beforeSend:beforeHandlesub,
-        success:successHandlesub,
+        // success:successHandlesub,
         data:{
         }
     });
@@ -528,8 +518,7 @@ function askNNSF(entity,type,year1,year2,money1,money2,name,manager,pageindex,ap
         url: '/askNNSF',
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
 
         "applicationcode": applicationcode, //选择的学校列表
@@ -586,8 +575,7 @@ function askEAsta(entitys,year1,year2,subject,pageindex,gender,department,ageofE
         url: "/askEAsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//学科
         "department": department,//学部
@@ -608,8 +596,7 @@ function askEA(entity,year1,year2,subject,pageindex,gender,department,ageofElect
         url: "/askEA",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "subject": subject,//学科
         "department": department,//学部
@@ -667,8 +654,7 @@ function askNKSsta(entitys,pageindex){//重点学科统计
         url: "/askNKSsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "pageindex":pageindex//分页数
@@ -682,8 +668,7 @@ function askNKS(entity,type,name,pageindex){//重点学科明细
         url: "/askNKS",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entity": entity, //选择的学校列表
         "type": type, //类型
@@ -699,8 +684,7 @@ function askNSsta(entitys,_index,pageindex){//特色专业统计
         url: "/askNSsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "_index":_index,//当选批次
@@ -714,8 +698,7 @@ function askNS(entity,_index,name,pageindex){//特色专业明细
         url: "/askNS",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entity": entity, //选择的学校列表
         "_index":_index,//当选批次
@@ -731,8 +714,7 @@ function askMSDsta(entitys,subject,turn,place1,place2,pageindex){//教育第三�
         url: "/askMSDsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "subject":subject,//一级学科
@@ -750,8 +732,7 @@ function askMSD(entity,subject,turn,place1,place2,score1,score2,pageindex){//教
         url: "/askMSD",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entity": entity, //选择的学校列表
         "subject":subject,//一级学科
@@ -770,9 +751,9 @@ function getStatistics(entitys,year1,year2,first_unit,participate_unit,level){//
     var ajax = $.ajax({
         url: "/NationalScience/getStatistics",
         type: "POST",
-        traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        traditional:true, 
+        // beforeSend:beforeHandle,
+        // success:successHandle, 
         data:{
             "first_unit":first_unit,
             "participate_unit":participate_unit,
@@ -789,8 +770,8 @@ function getDetail(type,user,first_user,first_unit,participate_user,participate_
         url: "/NationalScience/getDetail",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
             "type":type,
             "user":user,
@@ -875,8 +856,8 @@ function educationScienceSta(entitys,year1,year2,first_unit,participate_unit,lev
         url: "/EducationScience/getStatistics",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
             "first_unit":first_unit,
             "participate_unit":participate_unit,
@@ -893,8 +874,8 @@ function educationScience(type,user,first_user,first_unit,participate_user,parti
         url: "/EducationScience/getDetail",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
             "type":type,
             "user":user,
@@ -919,8 +900,8 @@ function LearnScienceSta(entitys,year1,year2,first_unit,participate_unit){//教�
         url: "/LearnScience/getStatistics",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
             "first_unit":first_unit,
             "participate_unit":participate_unit,
@@ -936,8 +917,8 @@ function LearnScience(type,user,first_user,first_unit,participate_user,participa
         url: "/LearnScience/getDetail",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
             "type":type,
             "user":user,
@@ -978,8 +959,7 @@ function askOYsta(entitys,year1,year2,applicationcode,schoolOnly,pageindex){//�
         url: "/askOYsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         'year1':year1,
         'year2':year2,
@@ -1012,8 +992,7 @@ function askEYsta(entitys,year1,year2,applicationcode,schoolOnly,pageindex){//�
         url: "/askEYsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         'year1':year1,
         'year2':year2,
@@ -1048,8 +1027,7 @@ function askNSFCIGsta(entitys,year1,year2,money1,money2,pageindex){//国家基�
         url: "/askNSFCIGsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //当选单位
         "year1":year1,//公布年度左侧
@@ -1082,8 +1060,7 @@ function askITsta(entitys,year1,year2,pageindex){
         url: "/askITsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//公布年度左侧
@@ -1115,8 +1092,7 @@ function askVCsta(entitys,year1,year2,_index1,_index2,pageindex){//公开课明�
         url: "/askVCsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//公布年度左侧
@@ -1148,8 +1124,7 @@ function askNSCsta(entitys,year1,year2,pageindex){//共享课明细
         url: "/askNSCsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//当选批次
@@ -1224,8 +1199,7 @@ function askCUMOEfund(entitys,year1,year2,totalincoming1,totalincoming2,totalexp
         url: "/askCUMOEfund",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
@@ -1245,8 +1219,7 @@ function askCUMOEfundsta(entitys,year1,year2,totalincoming1,totalincoming2,total
         url: "/askCUMOEfundsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
@@ -1267,8 +1240,7 @@ function askPatent(entitys,year1,year2,pageindex,type){//专利数据查询
         url: "/askPatent",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
@@ -1279,7 +1251,7 @@ function askPatent(entitys,year1,year2,pageindex,type){//专利数据查询
     });
     return ajax;
 }
-function CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity){//新增用户数据
+function CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity,year,month,day,concurrency){//新增用户数据
     var ajax=$.ajax({
             url: "/CreateOrdinaryAccount",
             type: "POST",
@@ -1291,12 +1263,16 @@ function CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone
                 'department':department,
                 'mail':mail,
                 'phone':phone,
-                'entity':entity
+                'entity':entity,
+                'year':year,
+                'month':month,
+                'day':day,
+                'concurrency':concurrency
             }
         });
     return ajax;
 }
-function UpdateAccount(entity,id,password,type,nickname,department,mail,phone){
+function UpdateAccount(entity,id,password,type,nickname,department,mail,phone,year,month,day,concurrency){
     var ajax=$.ajax({
             url: "/UpdateAccount",
             type: "POST",
@@ -1308,12 +1284,16 @@ function UpdateAccount(entity,id,password,type,nickname,department,mail,phone){
                 'nickname':nickname,
                 'department':department,
                 'mail':mail,
-                'phone':phone
+                'phone':phone,
+                'year':year,
+                'month':month,
+                'day':day,
+                'concurrency':concurrency
             }
         });
     return ajax;
 }
-function CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone){
+function CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone,year,month,day,concurrency){
     var ajax=$.ajax({
             url: "/CreateEntityAccount",
             type: "POST",
@@ -1325,7 +1305,11 @@ function CreateEntityAccount(entity,name,password,type,nickname,department,mail,
                 'nickname':nickname,
                 'department':department,
                 'mail':mail,
-                'phone':phone
+                'phone':phone,
+                'year':year,
+                'month':month,
+                'day':day,
+                'concurrency':concurrency
             }
         });
     return ajax;
@@ -1411,8 +1395,8 @@ function askBD(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpen
         url: "/askBD",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
@@ -1436,8 +1420,8 @@ function askBDsta(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalex
         url: "/askBDsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
@@ -1461,8 +1445,8 @@ function askSTF(entitys,year1,year2,totalincoming1,totalincoming2,sciencefund1,s
         url: "/askSTF",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
@@ -1484,8 +1468,8 @@ function askSTFsta(entitys,year1,year2,totalincoming1,totalincoming2,sciencefund
         url: "/askSTFsta",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
         "entitys": entitys, //选择的学校列表
         "year1":year1,//年度范围左侧
@@ -1623,8 +1607,8 @@ function LandHSSAsta(entitys,year1,year2,pageindex,subject,level,_index1,_index2
         url: "/askHSSAsta",
         type: "POST",// or GET
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
             'pageindex':pageindex,
             'subject':subject,
@@ -1714,10 +1698,31 @@ function getESIData(entitys){//获得ESI数据
         url: "/esi/get",
         type: "POST",
         traditional:true,
-        beforeSend:beforeHandle,
-        success:successHandle,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
         data:{
             'unit':entitys
+        }
+    });
+    return ajax;
+}
+function ajaxTree(){
+    var ajax=$.ajax({
+        url: '/FundCode/get',
+        type:'POST',
+        beforeSend:beforeHandlesub1,
+        success:successHandlesub1,
+        data:{},
+    })
+    return ajax;
+}
+function ajaxUnit(){
+     var ajax = $.ajax({
+        url: "/LandEntity",
+        type: "POST",
+        beforeSend:beforeHandlesub,
+        success:successHandlesub,
+        data:{
         }
     });
     return ajax;
