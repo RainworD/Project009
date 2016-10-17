@@ -65,8 +65,8 @@
 						</tr>
 					</thead>
 					<tbody id="esi_items_container">
-						<tr v-for="esi in esiArr" track-by="id">
-							<td>{{esi.id}}</td>
+						<tr v-for="esi in esiTable" track-by="id">
+							<td>{{page*20+$index+1}}</td>
 							<td>{{esi.unit}}</td>
 							<td>{{esi.in_time | toYMD}}</td>
 							<td>{{esi.china_rank}}</td>
@@ -76,13 +76,14 @@
 							<td>{{esi.total_reference}}</td>
 							<td>{{esi.average_paper}}</td>
 							<td>{{esi.high_powered}}</td>
-							<td><a class="clickForMore commonFor" v-on:click="editEsi($index)">点击查阅</a></td>
+							<td><a class="clickForMore commonFor" v-on:click="editEsi(esi)">点击查阅</a></td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
+	<div class="M-box"></div>
 	<div class="mask"></div>
 	<div class="unitsChoose">
 		<div class="unitsContainer">
@@ -120,13 +121,13 @@
 								<th>国内排名 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input type="number" min="0" class="commonput" v-model="selectedEsi.china_rank">
+										<input type="text" class="commonput" v-model="selectedEsi.china_rank | intFilter">
 									</div>
 								</td>
 								<th>全球排名 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input type="number" min="0" class="commonput" v-model="selectedEsi.international_rank">
+										<input type="text" class="commonput" v-model="selectedEsi.international_rank | intFilter">
 									</div>
 								</td>
 							</tr>
@@ -134,13 +135,13 @@
 								<th>1%学科数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input type="number" min="0" class="commonput" v-model="selectedEsi.one_percent">
+										<input type="text" class="commonput" v-model="selectedEsi.one_percent | intFilter">
 									</div>
 								</td>
 								<th>1‰学科数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input type="number" min="0" v-model="selectedEsi.thousandth" class="commonput">
+										<input type="text" v-model="selectedEsi.thousandth | intFilter" class="commonput">
 									</div>
 								</td>
 							</tr>
@@ -148,13 +149,13 @@
 								<th>总引用数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input type="number" min="0" v-model="selectedEsi.total_reference" class="commonput">
+										<input type="text" v-model="selectedEsi.total_reference | intFilter" class="commonput">
 									</div>
 								</td>
 								<th>总论文数 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input type="number" min="0" v-model="selectedEsi.total_paper" class="commonput">
+										<input type="text" v-model="selectedEsi.total_paper | intFilter" class="commonput">
 									</div>
 								</td>
 							</tr>
@@ -162,13 +163,13 @@
 								<th>高被引论文 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input type="number" min="0" v-model="selectedEsi.high_powered" class="commonput">
+										<input type="text" v-model="selectedEsi.high_powered | intFilter" class="commonput">
 									</div>
 								</td>
 								<th>篇均引用 :</th>
 								<td>
 									<div class="commonInputBox" style="width:100%;">
-										<input type="number" min="0" v-model="selectedEsi.average_paper" class="commonput">
+										<input type="text" v-model="selectedEsi.average_paper | floatFilter" class="commonput">
 									</div>
 								</td>
 							</tr>
@@ -195,9 +196,9 @@
 									<tr v-for="item in selectedEsi.esiSelect">
 										<td>{{$index+1}}</td>
 										<td><input type="text" class="esi-table-input" v-model="item.name"></td>
-										<td><input type="number" min="0" class="esi-table-input" v-model="item.international_rank"></td>		
-										<td><input type="number" min="0" class="esi-table-input" v-model="item.unit_number"></td>
-										<td><input type="number" min="0" class="esi-table-input" v-model="item.percent"></td>
+										<td><input type="text" class="esi-table-input" v-model="item.international_rank | intFilter"></td>		
+										<td><input type="text" class="esi-table-input" v-model="item.unit_number | intFilter"></td>
+										<td><input type="text" class="esi-table-input" v-model="item.percent | floatFilter"></td>
 										<td>
 											<div class="removeData" v-on:click="removeChosenData($index)">
 												<i class="fa fa-times fa-lg removeBtn"></i>
@@ -232,9 +233,9 @@
 									<tr v-for="item in selectedEsi.esiNotSelect">
 										<td>{{$index+1}}</td>
 										<td><input type="text" class="esi-table-input" v-model="item.name"></td>
-										<td><input type="number" min="0" class="esi-table-input" v-model="item.reference"></td>				
-										<td><input type="number" min="0" class="esi-table-input" v-model="item.last_reference"></td>
-										<td><input type="number" min="0" class="esi-table-input" v-model="item.percent"></td>
+										<td><input type="text" class="esi-table-input" v-model="item.reference | intFilter"></td>				
+										<td><input type="text" class="esi-table-input" v-model="item.last_reference | intFilter"></td>
+										<td><input type="text" class="esi-table-input" v-model="item.percent | floatFilter"></td>
 										<td>
 											<div class="removeData" v-on:click="removeUnChosenData($index)">
 												<i class="fa fa-times fa-lg removeBtn "></i>
@@ -252,6 +253,7 @@
 			</div>
 			<div class="bottomBtn">
 				<p>
+					<a class="forConsole" style="float:left;margin-left:20px;" v-if="currentEdit!==null" v-on:click="removeEsi()">删除</a>
 					<a class="forSure" v-on:click="comfirmEdit">确定</a>
 					<a class="forConsole" v-on:click="closeModal(false)">取消</a>
 				</p>
@@ -267,10 +269,23 @@ var vm = new Vue({
 	el: '#esi-vue-container',
 	data: function(){
 		return {
+			page: 0,
 			esiArr: [],
 			selectedEsi: getDumbData(),
 			currentEdit: null,
 			posting: false
+		}
+	},
+	computed: {
+		esiTable: function(){
+			//console.log('table pagination')
+			var length = this.esiArr.length
+			var offset = this.page * 20
+			var end = length - offset
+			var start = length - offset - 20
+			start = start < 0 ? 0 : start
+			var ret = []
+			return this.esiArr.slice(start, end).reverse()
 		}
 	},
 	ready: function(){
@@ -282,10 +297,33 @@ var vm = new Vue({
 			console.dir(res)
 			if (res.state == '0') {
 				self.esiArr = res.esi
+
+				self.$watch('esiArr.length', function(length, oldLength){
+					self.initPagination(length)
+				})
+
+				self.initPagination(self.esiArr.length)
+				self.page = 0
 			}
 		})
 	},
 	methods: {
+		initPagination: function(length){
+			var self = this
+			$('.M-box').pagination({
+				totalData: length,
+				showData: 20,
+				prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+				nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				coping: true,
+				jump:true,
+				callback: function(api){
+					var page = api.getCurrent() - 1
+					self.page = page
+				}
+			})
+			self.page = 0
+		},
 		openModal: function(){
 			$(".mask").show()
 			popAlertBox(".unitsChoose");
@@ -310,8 +348,8 @@ var vm = new Vue({
 			$(".mask").hide()
 			$(".unitsChoose").hide()
 		},
-		editEsi: function(index){
-			var dumb = copyDumbData(this.esiArr[index])
+		editEsi: function(esi){
+			var dumb = copyDumbData(esi)
 
 			dumb.esiSelect.map(function(item){
 				item.touched = false
@@ -329,7 +367,7 @@ var vm = new Vue({
 			self.selectedEsi.esiNotSelect.forEach(function(item){
 				self.watchUnSelectedData(item)
 			})
-			this.currentEdit = index
+			this.currentEdit = esi.id
 			this.openModal()
 		},
 		addNewEsi: function(){
@@ -350,6 +388,39 @@ var vm = new Vue({
 			} else {
 				// edit data
 				self.postEditEsi()
+			}
+		},
+		removeEsi: function(){
+			var self = this
+			if (confirm('确定删除该esi数据项吗?')){
+				self.posting = true
+				Promise.resolve($.ajax({
+					url: '/esi/delete',
+					data: {
+						id: self.currentEdit
+					},
+					error: function(){}
+				})).then(function(res){
+					self.posting = false
+					if (res.state == 0) {
+						var index
+						self.esiArr.find(function(item, _index){
+							if (item.id == self.currentEdit) {
+								index = _index
+								return true
+							} else {
+								return false
+							}
+						})
+						self.esiArr.splice(index, 1)
+					} else {
+						return Promise.reject(new Error(res.state))
+					}
+				}).catch(function(e){
+					console.log(e)
+					self.posting = false
+					alert('删除esi失败')
+				})
 			}
 		},
 		postNewEsi: function(){
@@ -373,8 +444,7 @@ var vm = new Vue({
 					self.selectedEsi.id = res.id
 					self.closeModal(true)
 				} else {
-					alert('输入数据不正确.')
-					console.dir(res)
+					return Promise.reject(new Error(res.state))
 				}
 			}).catch(function(e){
 				self.posting = false
@@ -415,8 +485,7 @@ var vm = new Vue({
 					if (res.state == 0) {
 						self.closeModal(true)
 					} else {
-						alert('输入数据不正确.')
-						console.dir(res)
+						return Promise.reject(new Error(res.state))
 					}
 				}).catch(function(e){
 					self.posting = false
@@ -470,7 +539,7 @@ var vm = new Vue({
 					if (res.state == 0) {
 						self.selectedEsi.esiSelect.splice(index, 1)
 					} else {
-						alert('删除失败')
+						return Promise.reject(new Error(res.state))
 					}
 				}).catch(function(){
 					alert('删除失败')
@@ -499,7 +568,7 @@ var vm = new Vue({
 						if (res.state == 0) {
 							self.selectedEsi.esiSelect[index].touched = false
 						} else {
-							alert('保存失败')
+							return Promise.reject(new Error(res.state))
 						}
 					}).catch(function(){
 						alert('保存失败')
@@ -517,7 +586,7 @@ var vm = new Vue({
 							self.selectedEsi.esiSelect[index].id = res.id
 							self.selectedEsi.esiSelect[index].touched = false
 						} else {
-							alert('保存失败')
+							return Promise.reject(new Error(res.state))
 						}
 					}).catch(function(){
 						alert('保存失败')
@@ -634,6 +703,36 @@ var vm = new Vue({
 
 				return date.getTime()
 			}
+		},
+		intFilter: {
+			read: function(text){
+				return text
+			},
+			write: function(val, oldVal){
+				//console.log(`val: ${val}, oldVal: ${oldVal}`)
+				if (val === "") { return ""}
+				var number = parseInt(val)
+				if (isNaN(number) || number < 0) {
+					return oldVal
+				} else {
+					return number.toFixed()
+				}
+			}
+		},
+		floatFilter: {
+			read: function(text){
+				return text
+			},
+			write: function(val, oldVal){
+				//console.log(`val: ${val}, oldVal: ${oldVal}`)
+				if (val === "") { return ""}
+				var number = parseFloat(val)
+				if (isNaN(number) || number < 0) {
+					return oldVal
+				} else {
+					return number.toFixed(3)
+				}
+			}
 		}
 	} 
 })
@@ -688,15 +787,4 @@ function getDumbData(){
 function copyDumbData(data){
 	return JSON.parse(JSON.stringify(data))
 }
-
-function dataToURL(data) {
-	var ret = []
-	for (var prop in data) {
-		if (data[prop]) {
-			ret.push(prop + '=' + data[prop])
-		}
-	}
-	return ret.join('&')
-}
-
 </script>

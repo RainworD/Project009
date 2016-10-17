@@ -64,8 +64,8 @@
 						</tr>
 					</thead>
 					<tbody id="esi_items_container">
-						<tr v-for="esi in esiArr" track-by="id">
-							<td>{{esi.id}}</td>
+						<tr v-for="esi in esiTable" track-by="id">
+							<td>{{page*20+$index+1}}</td>
 							<td>{{esi.unit}}</td>
 							<td>{{esi.in_time | toYMD}}</td>
 							<td>{{esi.china_rank}}</td>
@@ -82,6 +82,7 @@
 			</div>
 		</div>
 	</div>
+	<div class="M-box"></div>
 	<div class="mask"></div>
 	<div class="unitsChoose">
 		<div class="unitsContainer">
@@ -245,6 +246,7 @@ var vm = new Vue({
 	el: '#esi-vue-container',
 	data: function(){
 		return {
+			page: 0,
 			esiArr: [],
 			selectedEsi: getDumbData(),
 			currentEdit: null,
@@ -260,10 +262,45 @@ var vm = new Vue({
 			console.dir(res)
 			if (res.state == '0') {
 				self.esiArr = res.esi
+
+				self.$watch('esiArr.length', function(length, oldLength){
+					self.initPagination(length)
+				})
+
+				self.initPagination(self.esiArr.length)
+				self.page = 0
 			}
 		})
 	},
+	computed: {
+		esiTable: function(){
+			//console.log('table pagination')
+			var length = this.esiArr.length
+			var offset = this.page * 20
+			var end = length - offset
+			var start = length - offset - 20
+			start = start < 0 ? 0 : start
+			var ret = []
+			return this.esiArr.slice(start, end).reverse()
+		}
+	},
 	methods: {
+		initPagination: function(length){
+			var self = this
+			$('.M-box').pagination({
+				totalData: length,
+				showData: 20,
+				prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+				nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+				coping: true,
+				jump:true,
+				callback: function(api){
+					var page = api.getCurrent() - 1
+					self.page = page
+				}
+			})
+			self.page = 0
+		},
 		openModal: function(){
 			$(".mask").show()
 			popAlertBox(".unitsChoose");
