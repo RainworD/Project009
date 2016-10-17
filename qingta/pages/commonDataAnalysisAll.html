@@ -28,8 +28,8 @@
 	<common-data :admin="true"></common-data>	
 </div>
 <script type="text/x-vue-template" id="common_data_template">
-	<div class="enterBox">
-		<div class="topTableBox">
+	<div class="enterBox" style="border-bottom:none;">
+		<div class="topTableBox" style="border-top:none;">
 			<table class="topTable">
 				<tbody>
 					<tr>
@@ -64,12 +64,12 @@
 	<mark-chart v-for="mark in mark_data" :tabs.sync="mark.tabs" :title="mark.title"></mark-chart>
 	
 	<div class="custom-modal" data-drag-modal="false" v-el:modal>
-		<div class="custom-modal-content" style="width:500px;" drag-modal-content>
+		<div class="custom-modal-content" style="width:720px;" drag-modal-content>
 			<div class="custom-modal-close" @click="closeSearchNameModal(false)">
 				<i class="fa fa-close"></i>
 			</div>
 			<div class="custom-modal-head" data-drag-enter>
-				<span>选择选择类别</span>
+				<span>选择单位</span>
 			</div>
 			<div class="custom-modal-body">
 				<div class="custom-search-bar">
@@ -88,16 +88,16 @@
 							<span class="qingta-ztree-cell">单位名称</span>
 						</div>
 					</div>
-					<div class="qingta-ztree-table">
-						<ul id="tree" class="ztree ztree-at-top">
+					<div class="qingta-ztree-table" style="width:696px;">
+						<ul id="tree" class="ztree ztree-at-top" style="width:678px;">
 						</ul>
 					</div>
 				</div>
 			</div>
 			<div class="custom-modal-foot">
 				<div data-drag-enter></div>
-				<a class="qingta-button button-green" @click="closeSearchNameModal(true)">确定</a>
-				<a class="qingta-button button-blue" @click="closeSearchNameModal(false)">取消</a>
+				<a class="qingta-button button-green" @click="closeSearchNameModal(true)" style="background-color: #57D9E9">确定</a>
+				<a class="qingta-button button-blue" @click="closeSearchNameModal(false)" style="background-color: #c9c9c9">取消</a>
 			</div>
 		</div>
 	</div>
@@ -113,7 +113,7 @@
 						<div style="float:right;padding-top:5px;" v-if="tabs[tab_index] && tabs[tab_index].options.length > 0">
 							<span style="color:#777;font-size:14px;">{{tabs[tab_index].options_placeholder + " :"}}</span>
 							<div class="commonInputBox" style="display:inline-block;">
-								<input class="commonput" @focus="openSelectOptionModal" v-model="selected_name">
+								<input class="commonput" @focus="openSelectOptionModal(tabs[tab_index].options_placeholder)" v-model="selected_name">
 								<div class="search-button-point" @click="openSelectOptionModal"><i class="fa fa-ellipsis-h showDetail"></i></div>
 							</div>
 						</div>
@@ -128,12 +128,12 @@
 			</div>
 		</div>
 		<div class="custom-modal" data-drag-modal="false" v-el:modal v-if="tabs[tab_index]">
-			<div class="custom-modal-content" style="width:500px;" drag-modal-content>
+			<div class="custom-modal-content" style="width:720px;" drag-modal-content>
 				<div class="custom-modal-close" @click="closeSelectOptionModal(false)">
 					<i class="fa fa-close"></i>
 				</div>
 				<div class="custom-modal-head" data-drag-enter>
-					<span>选择类别</span>
+					<span>{{select_placeholder}}</span>
 				</div>
 				<div class="custom-modal-body">
 					<div class="custom-search-bar">
@@ -148,16 +148,16 @@
 						<table class="infoTable" style="margin:10px 0px;">
 							<thead>
 								<tr class="tableTitle">
-									<th style="width:40px;"></th>
-									<th style="width:60px;">序号</th>
+									<th style="width:100px;">序号</th>
 									<th>选项名称</th>
+									<th style="width:100px;">选择</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr v-for="option in display_options" @click="selectOption(option)" v-show="option.show">
-									<td style="cursor:pointer"><input type="radio" :checked="option.select"></td>
 									<td>{{$index+1}}</td>
 									<td>{{option.name}}</td>
+									<td style="cursor:pointer"><input type="radio" :checked="option.select"></td>
 								</tr>
 							</tbody>
 						</table>
@@ -168,8 +168,8 @@
 				</div>
 				<div class="custom-modal-foot">
 					<div data-drag-enter></div>
-					<a class="qingta-button button-green" @click="closeSelectOptionModal(true)">确定</a>
-					<a class="qingta-button button-gray" @click="closeSelectOptionModal(false)">取消</a>
+					<a class="qingta-button button-green" style="background-color: #57D9E9;" @click="closeSelectOptionModal(true)">确定</a>
+					<a class="qingta-button button-gray" style="background-color: #c9c9c9;" @click="closeSelectOptionModal(false)">取消</a>
 				</div>
 			</div>
 		</div>
@@ -221,6 +221,7 @@
 		props: ['title', 'tabs'],
 		data: function(){
 			return {
+				select_placeholder: "",
 				tab_index: -1,
 				search_str: '',
 				selected_order: -1,
@@ -300,7 +301,8 @@
 				}
 				hideModal($(this.$els.modal))
 			},
-			openSelectOptionModal: function(){
+			openSelectOptionModal: function(placeholder){
+				this.select_placeholder = placeholder
 				if (!this.mounting) {
 					openModal($(this.$els.modal))
 				}

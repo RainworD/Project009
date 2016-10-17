@@ -93,7 +93,7 @@ var json_array = [
 	'K001', 'K002-1', 'K002-2', 'K003', 'K004-1', 'K004-2', 
 	'R001-1', 'R001-2', 'R001-3',
 	'J001-1', 'J001-2', 'J002',
-	'X001',
+	'X001', 'X002-1', 'X003', 'X004', 
 	'Z001-1', 'Z001-2', 'Z002', 'Z003',
 	'F001', 'F002', 'F003' ]
 
@@ -421,6 +421,16 @@ var POINT_MARK = {
 						var chartOption = resArr[0]
 						var _res = resArr[1].result || []
 
+						var otherValue = 0 
+						_res = _res.filter(function(item){
+							if (item[0] == "") {
+								otherValue = item[1]
+								return false
+							} else {
+								return true
+							}
+						})
+
 						var otherIndex = -1
 						var res = _res.map(function(item, index){
 							var subject = item[0]
@@ -439,7 +449,7 @@ var POINT_MARK = {
 						} else {
 							otherSubject = {
 								name: "其他学科",
-								value: 0
+								value: otherValue
 							}
 						}
 
@@ -468,6 +478,8 @@ var POINT_MARK = {
 								}
 							}
 							return item
+						}).sort(function(itemA, itemB){
+							return itemA.value - itemB.value
 						})
 
 						return Promise.resolve(chartOption)
@@ -797,6 +809,115 @@ var POINT_MARK = {
 					]
 				}
 			})
+	},
+	"X002": function(university) {
+		return Promise.resolve($.ajax({
+				url: "/esi/get",
+				data: {
+					id: university.id
+				}
+			})).then(function(res){
+				var result = res.esi || []
+
+				var _date = new Date()
+				var esiData = result.map(function(item){
+					var time = item.in_time
+					_date.setTime(time)
+					var year = _date.getFullYear() + '年' + _date.getMonth() + '月'
+					return {
+						year: year,
+						international_rank: item.international_rank,
+						total_reference: item.total_reference,
+						total_paper: item.total_paper,
+						average_paper: item.average_paper
+					}
+				})
+
+				return {
+					title: 'ESI学科数据总体分析',
+					tabs: [
+						{
+							name: '国际排名趋势',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart) {
+								var options_promise = getJSON('X002-1')
+								return options_promise.then(function(chartOption){
+									chartOption.legend.data = ['国际排名趋势']
+									chartOption.series.name = '国际排名趋势'
+									chartOption.xAxis.data = esiData.map(function(item){
+										return item.year
+									})
+									chartOption.series.data = esiData.map(function(item){
+										return item.international_rank
+									})
+									return Promise.resolve(chartOption)
+								})
+							}
+						},
+						{
+							name: '总论文数',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart) {
+								var options_promise = getJSON('X002-1')
+								return options_promise.then(function(chartOption){
+									chartOption.legend.data = ['总论文数']
+									chartOption.series.name = '总论文数'
+									chartOption.xAxis.data = esiData.map(function(item){
+										return item.year
+									})
+									chartOption.series.data = esiData.map(function(item){
+										return item.total_paper
+									})
+									return Promise.resolve(chartOption)
+								})
+							}
+						},
+						{
+							name: '总被引用数',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart) {
+								var options_promise = getJSON('X002-1')
+								return options_promise.then(function(chartOption){
+									chartOption.legend.data = ['总被引用数']
+									chartOption.series.name = '总被引用数'
+									chartOption.xAxis.data = esiData.map(function(item){
+										return item.year
+									})
+									chartOption.series.data = esiData.map(function(item){
+										return item.total_reference
+									})
+									return Promise.resolve(chartOption)
+								})
+							}
+						},
+						{
+							name: '篇均被引用数',
+							options: [],
+							options_placeholder: "",
+							getOptions: function(option, chart) {
+								var options_promise = getJSON('X002-1')
+								return options_promise.then(function(chartOption){
+									chartOption.legend.data = ['篇均被引用数']
+									chartOption.series.name = '篇均被引用数'
+									chartOption.xAxis.data = esiData.map(function(item){
+										return item.year
+									})
+									chartOption.series.data = esiData.map(function(item){
+										return item.average_paper
+									})
+									return Promise.resolve(chartOption)
+								})
+							}
+						}
+					]
+				}
+			})
+	},
+	"X003": function(){
+
 	},
 	"F001": function(university) {
 		return {
