@@ -169,6 +169,7 @@
 <script type="text/javascript">
 	var projectUnits=[];
 	topBarControl();
+	var entity;
 	$(".addUserBtn").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
@@ -408,26 +409,42 @@
 			}
 		}
 	}
+	$.when(getUserInfo()).done(function(data){
+		if(data.state==1){
+			var result=data.all;
+			if(result){
+				entity=result.entity;//用户学校
+				var params_={
+					'pageindex':1,
+					'entity':entity,
+				}
+				getDataBox(params_,'/GiveEntityAccount');
+			}
+		}
+		else{
+			alert(data.error);
+			window.location.href="login.html";
+		}
+	})
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		// var entity=localStorage.schoolName;
-		var entity=schoolName;
+		// var entity=schoolCode;
 		var name=$(".accountNameEnter").val();
 		var nickname=$(".userNameEnter").val();
 		var pageindex;
-		var params={
+		console.log(entity);
+		if(entity){
+			var params={
 			'pageindex':1,
 			'entity':entity,
 			'name':name,
 			'nickname':nickname,
+			}
+			getDataBox(params,'/GiveEntityAccount');
 		}
-		getDataBox(params,'/GiveEntityAccount');
+		function getUserMessege(params){
+
+		}
 	})
-	// var entity=localStorage.school;
-	var entity=schoolName;
-	var params_={
-		'pageindex':1,
-		'entity':entity,
-	}
-	getDataBox(params_,'/GiveEntityAccount');
 </script>

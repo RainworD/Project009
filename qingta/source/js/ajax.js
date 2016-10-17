@@ -10,10 +10,12 @@ function beforeHandle(){
     $(".searchUndo").addClass("searchDo");
 }
 function beforeHandlesub(){
-    $(".unitsChoose1 .unitsContent1").removeClass("beforeShowBox");
+    console.log("before")
+    $(".unitsChoose1 .unitsContent1").removeClass("beforeShowBox")
     $(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 }
 function successHandlesub(){
+    console.log("success");
     $(".unitsChoose1 .unitsContent").addClass("beforeShowBox");
     $(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 }
@@ -1717,7 +1719,7 @@ function ajaxTree(){
     return ajax;
 }
 function ajaxUnit(){
-     var ajax = $.ajax({
+    var ajax = $.ajax({
         url: "/LandEntity",
         type: "POST",
         beforeSend:beforeHandlesub,
@@ -1727,5 +1729,24 @@ function ajaxUnit(){
     });
     return ajax;
 }
+function getSchoolId(name){
+    var ajax = $.ajax({
+        url: "/getEntityID",
+        type: "POST",
+        data:{
+            'name':name
+        }
+    });
+    return ajax;
+}
+function getUserInfo(){
+    var ajax=$.ajax({
+        url:"/GetPowerlevel",
+        type:"POST",
+        data:{
 
+        },
+    })
+    return ajax;
+}
 

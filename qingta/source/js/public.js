@@ -1,10 +1,10 @@
 var origin_fn_init = $.fn.zTree.init
-var userid;
-var userName;
-var usertype;
-var userlevel;
-var schoolCode;
-var schoolName;
+// var userid;
+// var userName;
+// var usertype;
+// var userlevel;
+// var schoolCode;
+// var schoolName;
 $.fn.zTree.init = function($el, options, data){
 	var level = 1
 	var children = data[0].children
@@ -42,6 +42,7 @@ function init(){
 	window.onload=function(){  
 	  	window.onresize = changeHeight;  
 	  	changeHeight();  
+
 	}
 	function matchLeft(){
 		var search=window.location.href;
@@ -160,7 +161,7 @@ var setting = {
 	      showLine: false
 	    }
 	};
-function getUnits(){
+function getUnits(finalResults){
 	$.when(ajaxUnit()).done(function(data){
 		var result=data.result;
 		finalResults=result;
@@ -213,7 +214,7 @@ function loadContent() {
         hash = "#/"+ADMIN_CONFIG.homePage;
     }
     $(ADMIN_CONFIG.contentSelector).load(hash.split("/")[1], function(){
-		$(".logOutBtn").bind("click",function(){
+		$(".logOutBtn").one("click",function(){
 			$.ajax({
 		        url: "/Logout",
 		        type: "POST",
@@ -230,44 +231,37 @@ function loadContent() {
 		        }
 		    });
 		})
-		// $.ajax({
-		// 	url:"/GetPowerlevel",
-		// 	type:"POST",
-		// 	data:{
-
-		// 	},
-		// 	success:function(data){
-		// 		if(data.state==1){
-		// 			console.log(data);
-		// 			var result=data.all;
-		// 			if(result){
-		// 				userid=result.id;//用户id
-		// 				userlevel=result.powerlevel;//用户等级权限
-		// 				usertype=result.type;//用户类型
-		// 				userName=result.name;//用户名
-		// 				schoolCode=result.entity;//用户学校
-		// 				schoolName=data.Entity;
-		// 				$(".leftInfo").text("您好,"+result.name);
-		// 			}
-		// 			if(data.powerlevel==0){
-		// 				$(".mainUserSection").removeClass("showMenu");
-		// 				$(".userSection").removeClass("showMenu");
-		// 			}
-		// 			else if(data.powerlevel==1){
-		// 				$(".mainUserSection").addClass("showMenu");
-		// 				$(".userSection").removeClass("showMenu");
-		// 			}
-		// 			else if(data.powerlevel==2){
-		// 				$(".mainUserSection").addClass("showMenu");
-		// 				$(".userSection").addClass("showMenu");
-		// 			}
-		// 		}
-		// 		else{
-		// 			alert(data.error);
-		// 			window.location.href="login.html";
-		// 		}
-		// 	}
-		// })
+		$.when(getUserInfo()).done(function(data){
+			if(data.state==1){
+				var result=data.all;
+				if(result){
+					// userid=result.id;//用户id
+					// userlevel=result.powerlevel;//用户等级权限
+					// usertype=result.type;//用户类型
+					// userName=result.name;//用户名
+					// schoolCode=result.entity;//用户学校
+					// schoolName=data.Entity;
+					// console.log(schoolCode);
+					$(".leftInfo").text("您好,"+result.name);
+					if(result.powerlevel==0){
+						$(".mainUserSection").removeClass("showMenu");
+						$(".userSection").removeClass("showMenu");
+					}
+					else if(result.powerlevel==1){
+						$(".mainUserSection").addClass("showMenu");
+						$(".userSection").removeClass("showMenu");
+					}
+					else if(result.powerlevel==2){
+						$(".mainUserSection").addClass("showMenu");
+						$(".userSection").addClass("showMenu");
+					}
+				}
+			}
+			else{
+				alert(data.error);
+				window.location.href="login.html";
+			}
+		})
     });
 }
 function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗上绑定的一些事件
@@ -455,6 +449,7 @@ function dragBoxSortsChoose(selector){
 }
 function resetAlertBox(treeObj){
 	var nodes_=treeObj.getCheckedNodes();
+	console.log(nodes);
 	for(var i=0;i<nodes_.length;i++){
 		treeObj.checkNode(nodes_[i],false);
 		treeObj.expandNode(nodes_[i],false);
@@ -557,6 +552,7 @@ function getPages(index){
 	}
 }
 $("body").on("click",".showMoreContent",function(event){
+	$(document).unbind(".drag");
 	event.stopPropagation();
 	$(this).find('.lookMore').children("span").text("");
 	var className=$(this).find('.lookMore').attr("class");

@@ -226,20 +226,22 @@
 </div>
 <script type="text/javascript">
 	var projectUnits=[];
+	// objnew={};
+	// var finalResults=objnew.finalResults;
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
 	})
+	console.log(objnew);
 	if(finalResults){
+		console.log("yes");
 		judgeUnits(finalResults);
-		$(".unitsContent1").addClass("beforeShowBox");
-    	$(".beforeShow").addClass("beforeHideBox");
-	}
+	}  
 	else{
-		$(".unitsContent1").removeClass("beforeShowBox");
-    	$(".beforeShow").removeClass("beforeHideBox");
-		getUnits();
+		console.log("no");
+		getUnits(finalResults);
+		console.log(finalResults);
 	}
 	doForSearch(".searchBox","/Landentity0");
 	$(".showDetailBox2").bind("click",function(){
