@@ -22,7 +22,14 @@
 		cursor: pointer;
 	    color: #ebebeb;
 	    font-size: 16px;
-	}   
+	}
+	.chart-spinner {
+		text-align: center;
+		height: 200px;
+	}
+	.chart-spinner i {
+		line-height: 200px;
+	}
 </style>
 <div id="common_data_container">
 	<common-data :admin="false"></common-data>	
@@ -60,8 +67,12 @@
 			</div>
 		</div>
 	</div>
-	
-	<mark-chart v-for="mark in mark_data" :tabs.sync="mark.tabs" :title="mark.title"></mark-chart>
+	<div class="chart-spinner" v-if="requesting">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+	</div>
+	<div v-if="!requesting"> 
+		<mark-chart v-for="mark in mark_data" :tabs.sync="mark.tabs" :title="mark.title"></mark-chart>
+	</div>
 	
 	<div class="custom-modal" data-drag-modal="false" v-el:modal>
 		<div class="custom-modal-content" style="width:720px;" drag-modal-content>
@@ -357,7 +368,8 @@
 				mark_data: [],
 				tab_index: 0,
 				search_str: "",
-				points_data: []
+				points_data: [],
+				requesting: true
 			}
 		},
 		methods: {
@@ -522,9 +534,10 @@
 				var university = JSON.parse(JSON.stringify(this.university))
 
 				this.mark_data = []
-
+				this.requesting = true
 				var self = this
 
+				//self.requesting = true
 				if (self.admin) {
 					Promise.resolve($.ajax({
 						url: "/dataAnalyze/type"
@@ -539,7 +552,9 @@
 							points.push(item.code)
 						})
 
-						loadPoints(university, self.mark_data, points)
+						loadPoints(university, self.mark_data, points).then(function(){
+							self.requesting = false
+						})
 					})
 				} else {
 					Promise.resolve($.ajax({
@@ -564,7 +579,9 @@
 							points.push(item.chart.code)
 						})
 
-						loadPoints(university, self.mark_data, points)
+						loadPoints(university, self.mark_data, points).then(function(){
+							self.requesting = false
+						})
 					}).catch(function(e){
 						alert(e.message || '获取指标数据失败')
 					})

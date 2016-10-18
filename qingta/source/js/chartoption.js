@@ -139,11 +139,12 @@ function loadPoints(university, result, points){
 		promises.push(_promise)
 	})
 
-	Promise.all(promises)
+	return Promise.all(promises)
 	.then(function(formattedData){
 		formattedData.forEach(function(item){
 			result.push(item)
 		})
+		return Promise.resolve()
 	})
 }
 
@@ -1345,12 +1346,12 @@ var POINT_MARK = {
 									all[index] = item[1] + item[2]
 								})
 
-								chartOption.xAxis.data = years.reverse()
+								chartOption.xAxis.data = years
 
 
-								chartOption.series[0].data = other.reverse()
-								chartOption.series[1].data = global_.reverse()
-								chartOption.series[2].data = all.reverse()
+								chartOption.series[0].data = other
+								chartOption.series[1].data = global_
+								chartOption.series[2].data = all
 
 								return Promise.resolve(chartOption)
 							})
