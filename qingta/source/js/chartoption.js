@@ -421,65 +421,55 @@ var POINT_MARK = {
 						var chartOption = resArr[0]
 						var _res = resArr[1].result || []
 
-						var otherValue = 0 
 						_res = _res.filter(function(item){
-							if (item[0] == "") {
-								otherValue = item[1]
-								return false
-							} else {
-								return true
-							}
+							return item[0] !== '' || item[0]
 						})
 
-						var otherIndex = -1
-						var res = _res.map(function(item, index){
-							var subject = item[0]
-							if (subject === null) {
-								otherIndex = index
-								subject = "其他学科"
-							}
-							return {
-								name: subject,
-								value: toInt(item[1])
-							}
-						})
-						var otherSubject = null
-						if (otherIndex !== -1) {
-							otherSubject = res.splice(otherIndex, 1)[0]
-						} else {
-							otherSubject = {
-								name: "其他学科",
-								value: otherValue
-							}
-						}
-
-						res.sort(function(itemA, itemB) {
-							return itemB.value - itemA.value
+						_res.sort(function(a,b){
+							return b[1] - a[1]
 						})
 
-						var otherSubject = res.slice(7).reduce(function(prev, item){
-							prev.value += item.value
-							return prev
-						}, otherSubject)
-						
-						var ret = res.slice(0, 7).concat(otherSubject)
+						var ret = _res.slice(0,7)
+							.map(function(item){
+								return {
+									subject: item[0],
+									value: item[1]
+								}
+							})
+							.concat([
+								_res.slice(7).reduce(function(prev, cur){
+									prev.value += cur[1]
+									return prev
+								}, {
+									subject: '其他学科',
+									value: 0
+								})
+							])
+							.sort(function(a, b){
+								return a.value - b.value
+							})
 
 						chartOption.legend.data = ret.map(function(item){
-							return item.name
+							return item.subject
 						})
-
 						chartOption.yAxis[0].data = chartOption.legend.data 
-						chartOption.series[0].data = ret
+						chartOption.series[0].data = ret.map(function(item){
+							return {
+								name: item.subject,
+								value: item.value
+							}
+						})
 						//console.dir(ret)
-						chartOption.series[1].data = chartOption.series[0].data.map(function(item, index){
-							item.itemStyle = {
-								normal: {
-								    color: chartOption.color[index]
+						chartOption.series[1].data = ret.map(function(item, index){
+							return {
+								name: item.subject,
+								value: item.value,
+								itemStyle: {
+									normal: {
+										color: chartOption.color[index]
+									}
 								}
 							}
-							return item
-						}).sort(function(itemA, itemB){
-							return itemA.value - itemB.value
 						})
 
 						return Promise.resolve(chartOption)
