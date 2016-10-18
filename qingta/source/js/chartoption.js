@@ -814,7 +814,7 @@ var POINT_MARK = {
 		return Promise.resolve($.ajax({
 				url: "/esi/get",
 				data: {
-					id: university.id
+					unit: university.id
 				}
 			})).then(function(res){
 				var result = res.esi || []
@@ -916,8 +916,123 @@ var POINT_MARK = {
 				}
 			})
 	},
-	"X003": function(){
+	"X003": function(university){
+		return Promise.resolve($.ajax({
+				url: "/esi/get",
+				data: {
+					unit: university.id
+				}
+			})).then(function(res){
+				var result = res.esi || []
 
+				var _date = new Date()
+				var esiData = {}
+				var years = []
+
+				result.forEach(function(item){
+					var time = item.in_time
+					_date.setTime(time)
+					var year = _date.getFullYear() + '年' + _date.getMonth() + '月'
+
+					years.push(year)
+					esiData[year] = item.esiNotSelect.map(function(item){
+						return {
+							name: item.name,
+							value: parseFloat(item.percent)*100
+						}
+					}).sort(function(a, b) {
+						return b.value - a.value
+					})
+				})
+
+				return {
+					title: '未入选全球1%学科数据差距分析',
+					tabs: [
+						{
+							name: '',
+							options: years,
+							options_placeholder: "",
+							getOptions: function(option, chart) {
+								var options_promise = getJSON('X003')
+								return options_promise.then(function(chartOption){
+									var esiNotSelect = esiData[option] || []
+									chartOption.xAxis.data = esiNotSelect.map(function(item){
+										return item.name
+									})
+									chartOption.series.data = esiNotSelect.map(function(item){
+										return item.value
+									})
+									return Promise.resolve(chartOption)
+								})
+							}
+						}
+					]
+				}
+			})
+	},
+	"X004": function(university){
+		return Promise.resolve($.ajax({
+				url: "/esi/get",
+				data: {
+					unit: university.id
+				}
+			})).then(function(res){
+				var result = res.esi || []
+
+				var _date = new Date()
+				var esiData = {}
+				var years = []
+
+				result.forEach(function(item){
+					var time = item.in_time
+					_date.setTime(time)
+					var year = _date.getFullYear() + '年' + _date.getMonth() + '月'
+
+					years.push(year)
+					esiData[year] = item.esiSelect.map(function(item){
+						return {
+							name: item.name,
+							value: parseFloat(item.percent)*100
+						}
+					}).sort(function(a, b) {
+						return a.value - b.value
+					})
+				})
+
+				return {
+					title: '已入选全球1%学科数据分析',
+					tabs: [
+						{
+							name: '',
+							options: years,
+							options_placeholder: "",
+							getOptions: function(option, chart) {
+								var options_promise = getJSON('X004')
+								return options_promise.then(function(chartOption){
+									var esiSelect = esiData[option] || []
+									chartOption.xAxis.data = esiSelect.map(function(item){
+										return item.name
+									})
+									chartOption.series.data = esiSelect.map(function(item){
+										if (item.value < 10) {
+											return {
+												itemStyle: {
+													normal: {
+														color: 'rgb(255, 193, 0)'
+													}
+												},
+												value: item.value
+											}
+										}
+										return item.value
+									})
+									return Promise.resolve(chartOption)
+								})
+							}
+						}
+					]
+				}
+			})
 	},
 	"F001": function(university) {
 		return {

@@ -395,7 +395,7 @@
 					var zTree = $.fn.zTree.getZTreeObj('tree')
 					//console.dir(zTree)
 					var selectedNode = zTree.getCheckedNodes()
-					console.dir(selectedNode)
+					//console.dir(selectedNode)
 					if (selectedNode[0]) {
 						this.university.name = selectedNode[0].name
 						this.university.id = selectedNode[0].id
@@ -409,7 +409,8 @@
 					check: {
 						enable: true,
 						chkStyle: "radio",
-						level: 3
+						level: 3,
+						radioType: 'all'
 					},
 					view: {
 						showIcon: false,
@@ -425,10 +426,13 @@
 						}
 					}
 				}, baseTree)
-				var node = zTreeObj.getNodesByFilter(function(node){
-					return node.level == 1
-				}, true)
-				zTreeObj.expandNode(node, true, false)
+
+				if (self.admin) {
+					var node = zTreeObj.getNodesByFilter(function(node){
+						return node.level == 1
+					}, true)
+					zTreeObj.expandNode(node, true, false)
+				}
 			},
 			getUniversityData: function(){
 				var self = this
@@ -443,10 +447,44 @@
 							level2.nocheck = true
 						})
 					})
+
 					self.initZtree()
-					var firstUniversity = baseTree[0].children[0].children[0]
-					self.university.name = firstUniversity.name
-					self.university.id = firstUniversity.id
+					
+					if (self.admin) {
+						var firstUniversity = baseTree[0].children[0].children[0]
+						self.university.name = firstUniversity.name
+						self.university.id = firstUniversity.id
+					} else {
+						Promise.resolve($.ajax({
+							url: '/GetPowerlevel'
+						})).then(function(res){
+							if (res.Entity !== null && res.Entity) {
+								self.university.id = res.Entity
+								var zTreeObj = $.fn.zTree.getZTreeObj('tree')
+								var node = zTreeObj.getNodesByParam('id', res.Entity)[0]
+								if (!node) {
+									return Promise.reject(new Error('用户不属于任一大学单位'))
+								} else {
+									self.university.name = node.name
+
+									// 展开父节点
+									var parentNode = node.getParentNode()
+									var stack = []
+									while(!parentNode) {
+										stack.push(parentNode)
+										parentNode = parentNode.getParentNode()
+									}
+									for (var i = stack.length - 1; i >= 0; i--) {
+										zTreeObj.expandNode(stack[i], true, false)
+									}
+								}
+							} else {
+								return Promise.reject(new Error('用户不属于任一大学单位'))
+							}
+						}).catch(function(e){
+							alert(e.message || '用户不属于任一大学单位')
+						})
+					}
 
 					Promise.resolve($.ajax({
 						url: "/dataAnalyze/type"
@@ -505,18 +543,30 @@
 					})
 				} else {
 					Promise.resolve($.ajax({
-						url: "/dataAnalyze/school",
-						data: {
-							university: university.id,
-							type: tab_index
-						}
+						url: '/GetPowerlevel'
 					})).then(function(res){
+						console.log(`powerlevel: ${JSON.stringify(res)}`)
+						if (res.Entity !== null && res.Entity) {
+							return Promise.resolve($.ajax({
+								url: "/dataAnalyze/school",
+								data: {
+									university: res.Entity,
+									type: tab_index
+								}
+							}))
+						} else {
+							return Promise.reject(new Error('权限限制'))
+						}
+					}).then(function(res){
+						console.log(`res: ${JSON.stringify(res)}`)
 						var points = []
 						res.data.forEach(function(item){
 							points.push(item.chart.code)
 						})
 
 						loadPoints(university, self.mark_data, points)
+					}).catch(function(e){
+						alert(e.message || '获取指标数据失败')
 					})
 				}
 
