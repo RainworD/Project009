@@ -121,9 +121,11 @@ function eventBind(){
 		if(array.length>1){
 			$(".leftBox").removeClass("small");
 			$(".rightBox").removeClass("rightnew");
+			$(".leftBox").find(".rightBelong").show();
 		}
 		else{
 			$(".leftBox").addClass("small");
+			$(".leftBox").find(".rightBelong").hide();
 			$(".rightBox").addClass("rightnew");
 		}		
 	})

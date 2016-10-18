@@ -229,7 +229,7 @@
 	});
 	var count;
 	var start;
-	function getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows){//国家科技奖统计
+	function getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school){//国家科技奖统计
 	    var ajax = $.ajax({
 	        url: "/NationalScience/getStatistics",
 	        type: "POST",
@@ -242,6 +242,7 @@
 	            "last_year":year2,
 	            "unit":entitys,
 	            "level":level,
+	            "only_school":only_school,
 	            "start":start,
 	            "rows":rows
 	        },
@@ -329,10 +330,10 @@
 		var level=$(".awardsLevel").val();
 		var schoolOnly1=$("#schoolOnly").prop("checked");
 		if(schoolOnly1){
-			schoolOnly=1;
+			only_school=1;
 		}
 		else{
-			schoolOnly=0;
+			only_school=0;
 		}
 		start=0;
 		var rows=20;
@@ -344,7 +345,7 @@
 		else{
 			$(".tableContent").addClass("tableShow");
 			$(".searchUndo").addClass("searchDo");
-			$.when(getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows)).done(function(data){
+			$.when(getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school)).done(function(data){
 				$('.M-box').pagination({
 		            totalData:count,
 		            showData:20,
@@ -362,12 +363,12 @@
 				    		}
 				    		else{
 				    			start=(index-1)*20;
-			                	getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows);
+			                	getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school);
 				    		}
 				    	}
 				    	else{
 							start=(index-1)*20;
-			                getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows);
+			                getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school);
 				    	}               
 		            }
 		        });	

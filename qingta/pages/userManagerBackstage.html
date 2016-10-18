@@ -221,12 +221,12 @@
 		$(".schoolName").val("");
 		$(".userName").val("");
 		$(".accountName").val("");
-		$(".accountName").removeAttr("disabled");
+		// $(".accountName").removeAttr("disabled");
 		$(".department").val("");
 		$(".mailBox").val("");
 		$(".phoneNum").val("");
 		$(".userType").val("");
-		$(".userType").removeAttr("disabled");
+		// $(".userType").removeAttr("disabled");
 		$(".userType").children("option").last().hide();
 		$(".forLogOut1").hide();
 		$(".deleteUser").hide();
@@ -255,11 +255,10 @@
 		var day=deadLine_[2];
 		var id=$(this).parents("tr").children('td').eq(0).attr("data-id");
 		$(".bottomBtn").attr("data-id",id);
-		// var td1=$(this).parent("tr").children('td').eq(7).text();
 		$(".schoolName").val(schoolName);
 		$(".userName").val(userName);
 		$(".accountName").val(accountName);
-		$(".accountName").attr("disabled","disabled");
+		// $(".accountName").attr("disabled","disabled");
 		$(".department").val(department);
 		$(".mailBox").val(email);
 		$(".phoneNum").val(phoneNum);
@@ -268,7 +267,7 @@
 		$(".year").val(year);
 		$(".month").val(month);
 		$(".day").val(day);
-		$(".userType").attr("disabled","disabled");
+		// $(".userType").attr("disabled","disabled");
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
@@ -279,55 +278,6 @@
 		$(".mask").hide();
 		$(".unitsChoose").hide();
 	})
-	// $(".forSure").bind("click",function(){
-	// 	$(".mask").hide();
-	// 	$(".unitsChoose").hide();
-	// 	var name=$(".userName1").val();
-	// 	var password;
-	// 	var type;
-	// 	var nickname=$(".accountName").val();
-	// 	var mail=$(".mailBox").val();
-	// 	var phone=$(".phoneNum").val();
-	// 	var pw1=$(".oldpw").val();
-	// 	var pw2=$(".newpw").val();
-	// 	var entity=$(".schoolName").val();
-	// 	var department=$(".department").val();
-	// 	if(pw1!=pw2){
-	// 		alert("两次输入的密码不相同！")
-	// 	}
-	// 	else{
-	// 		password=pw2;
-	// 	}
-	// 	var val=$(".userType").val();
-	// 	if(val=="学校管理员"){
-	// 		type=2;
-	// 		$.when(CreateEntityAccount(entity,name,password,type,nickname,department,mail,phone)).done(function(data){
-	// 			console.log(data);
-	// 			if(data.state==1){
-	// 				alert("新增学校管理员成功！");
-	// 			}
-	// 			else{
-	// 				alert(data.error);
-	// 			}
-	// 		})
-	// 	}
-	// 	else{
-	// 		if(val=="普通用户"){
-	// 			type=0;
-	// 		}
-	// 		else{
-	// 			type=1;
-	// 		}
-	// 		$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone)).done(function(data){
-	// 			if(data.state==1){
-	// 				alert("新增用户成功！");
-	// 			}
-	// 			else{
-	// 				alert(data.error);
-	// 			}
-	// 		})
-	// 	}
-	// })
 	$(".forSure").bind("click",function(){
 		var id=$(this).parents(".bottomBtn").attr("data-id");
 		var name=$(".accountName").val();
@@ -475,55 +425,49 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var i=0,len=result.length;i<len;i++) {
-					var searchInfo=$('<tr>'+
-						'<td></td>'+
-					'</tr>');
-					searchInfo.children('td').eq(0).text(i+1);
-					for (var j=0;j<result[i].length;j++) {
-						if(j==0){
-							searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
-						}
-						else{
-							var mytd=$('<td></td>');
-							if(result[i][j]==null){
-								result[i][j]="";
-							}
-							if(j==7){
-								if(result[i][7]==0){
-									result[i][j]="系统管理员";
-								}
-								else if(result[i][7]==1){
-									result[i][j]="学校管理员";
-								} 
-								else if(result[i][7]==2){
-									result[i][j]="数据管理员";
-								}
-								else if(result[i][7]==3){
-									result[i][j]="普通用户";
-								}
-								else if(result[i][7]==4){
-									result[i][j]="临时用户";
-								}
-							}
-							else if(j==8){
-								if(result[i][8]==0){
-									result[i][j]="正常";
-								}
-								else if(result[i][8]==1){
-									result[i][j]="已注销";
-								}
-							}	
-							// var text=madeNowrapText(result[i][j]);
-							mytd.text(result[i][j])					
-							searchInfo.append(mytd);
-						}
+				for (var j=0;j<result[i].length;j++) {
+					if(j==0){
+						searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
 					}
-					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')
-					searchInfo.append(newtd);
-					searchInfo.children("td").last().addClass("nowrap");
-					$(".infoTable1").children('tbody').append(searchInfo);
+					else{
+						var mytd=$('<td></td>');
+						if(result[i][j]==null){
+							result[i][j]="";
+						}
+						if(j==7){
+							if(result[i][7]==0){
+								result[i][j]="系统管理员";
+							}
+							else if(result[i][7]==1){
+								result[i][j]="学校管理员";
+							} 
+							else if(result[i][7]==2){
+								result[i][j]="数据管理员";
+							}
+							else if(result[i][7]==3){
+								result[i][j]="普通用户";
+							}
+							else if(result[i][7]==4){
+								result[i][j]="临时用户";
+							}
+						}
+						else if(j==8){
+							if(result[i][8]==0){
+								result[i][j]="正常";
+							}
+							else if(result[i][8]==1){
+								result[i][j]="已注销";
+							}
+						}	
+						// var text=madeNowrapText(result[i][j]);
+						mytd.text(result[i][j])					
+						searchInfo.append(mytd);
+					}
 				}
+				var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')
+				searchInfo.append(newtd);
+				searchInfo.children("td").last().addClass("nowrap");
+				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 		}
 	}

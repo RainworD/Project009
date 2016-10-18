@@ -184,7 +184,7 @@
 	});
 	var count;
 	var start;
-	function getLearnScience(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教学成果奖明细
+	function getLearnScienceDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//教学成果奖明细
 	    var ajax = $.ajax({
 	        url: "/LearnScience/getDetail",
 	        type: "POST",
@@ -303,7 +303,7 @@
 		else{
 			$(".tableContent").addClass("tableShow");
 			$(".searchUndo").addClass("searchDo");
-			$.when(getLearnScience(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)).done(function(data){
+			$.when(getLearnScienceDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)).done(function(data){
 				$('.M-box').pagination({
 		            totalData:count,
 		            showData:20,
@@ -315,13 +315,24 @@
 		            nextContent:'<i class="fa fa-angle-right"></i>',        //下一页内容
 		            callback:function(api){
 		                var index=api.getCurrent();
-		                start=(index-1)*20;
-		                getLearnScience(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)           
+		                if(userlevel=="4"){
+				    		if(index>1){
+				    			clearPages(index);
+				    		}
+				    		else{
+				    			start=(index-1)*20;
+			                	getLearnScienceDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)
+				    		}
+				    	}
+				    	else{
+							start=(index-1)*20;
+			                getLearnScienceDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start)
+				    	}         
 		            }
 		        });
 			})	
 		}	
 	})
-	doForSearch(".projectName","/LearnScience/getNameLike");
+	doForSearch(".projectName","/Landentity0");
 	doForSearch(".completeUnits","/LearnScience/getUnitLike");
 </script>

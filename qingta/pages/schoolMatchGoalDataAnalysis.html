@@ -249,11 +249,11 @@
 						<td data-type="15">国家重点学科入选数量(一级/二级)</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
-					<tr>
+					<tr class="esihide">
 						<td data-type="16">ESI全球%1学科数量</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
-					<tr>
+					<tr class="esihide">
 						<td data-type="17">ESI全球排名</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
@@ -362,8 +362,8 @@
 			if(len_1<11){
 				$(".infoTable1 thead").empty();
 				$(".infoTable1 tbody").empty();
-				// $(".tableContent").addClass("tableShow");
-				// $(".searchUndo").addClass("searchDo")
+				$(".tableContent").addClass("tableShow");
+				$(".searchUndo").addClass("searchDo")
 				var thead_new=$('<tr class="tableTitle tableTitle1">'+
 							'<th>分析项目</th>'+
 						'</tr>');
@@ -889,7 +889,7 @@
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][2];
+					projectNum=result[k][3];
 					if(projectNum==""){
 						projectNum=0;
 					}
@@ -1158,4 +1158,10 @@
             $('.search-box').click();
         }
     })
+    if(userlevel=="4"){
+		$(".esihide").addClass("showMenu");
+	}
+	else{
+		$(".esihide").removeClass("showMenu");
+	}
 </script>

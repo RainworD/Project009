@@ -283,7 +283,7 @@
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}
-				var newtd=$('<td><a href="">查看附件</a></td>')
+				var newtd=$('<td><a class="attachment">查看附件</a></td>')
 				searchInfo.append(newtd);
 				$(".infoTable1").children('tbody').append(searchInfo);
 
@@ -356,6 +356,11 @@
 		        "schoolOnly":schoolOnly,
 			}
 			getDataBox(params,'/askBD');
+		}
+	})
+	$(".infoTable1").delegate(".attachment","click",function(){
+		if(userlevel=="4"){
+			alert("试用账户不支持附件查看！");
 		}
 	})
 </script>

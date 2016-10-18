@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8"> 
-	<title>首页</title>
+	<title>高等教育发展指标数据平台</title>
 	<link rel="stylesheet" type="text/css" href="../source/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="../source/css/font-awesome-4.6.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="../source/css/public.css">
@@ -164,9 +164,9 @@
 								<a href="#/educationTechnologyAwards.html" class="linka comparea">
 									<li class="downItem">教育部科技奖</li>
 								</a>
-								<a href="#/peopleArtExcellentResults.html" class="linka comparea">
+								<!-- <a href="#/peopleArtExcellentResults.html" class="linka comparea">
 									<li class="downItem">教育部人文社科奖</li>
-								</a> 
+								</a> --> 
 								<a href="#/nationalTeachingResults.html" class="linka comparea">
 									<li class="downItem">国家级教学成果奖</li>
 								</a>
@@ -280,11 +280,12 @@
 				<div class="leftImg">
 					<i class="fa fa-bars fa-lg showBtn_"></i>
 				</div>
-				青塔数据分析平台
+				高等教育发展指标数据平台
 				<div class="userInfo">
 					<p class="leftInfo"></p>
 					<div class="rightInfoMenu">
-						<i class="fa fa-user logOut"></i>
+						<!-- <i class="fa fa-user logOut"></i> -->
+						<img class="logOut" src="../source/img/user.png">
 						<ul class="logOutList">
 							<!-- <li><span>用户名 :</span><span class="userName"></span></li> -->
 							<li><a class="changepw" href="#/changePassword.html" style="display:block;">修改密码</a></li>
@@ -295,11 +296,25 @@
 			</div>
 			<div class="rightContent" id="rightContent"></div>
 		</div>
+		<!-- <p class="rightBelong">Copyright&nbsp;©&nbsp;2016&nbsp;青塔</p> -->
 	</div>
 </body>
 <script type="text/javascript" src="../source/js/public.js"></script>
 <script type="text/javascript">
 	var myheight1=$(window).height();
 	$(".leftBox").css("min-height",myheight1);
+	var myDate = new Date();
+	var nowdate=myDate.getFullYear();         //获取当前年份(2位)
+	window.onload=function(){
+		var bottom=$('<p class="rightBelong">Copyright&nbsp;©&nbsp;<span></span>&nbsp;青塔</p>');
+		bottom.children("span").text(nowdate);
+		$(".leftBox").append(bottom);
+	}
+	console.log(nowdate);
+	// $(".rightBelong").children("span").text(nowdate);
+</script>
+<script type="text/javascript">
+	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cspan id='cnzz_stat_icon_1254581267'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254581267%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
 </script>
 </html>
