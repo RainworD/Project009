@@ -2,9 +2,9 @@ var origin_fn_init = $.fn.zTree.init
 // var userid;
 // var userName;
 // var usertype;
-// var userlevel;
+var userlevel;
 // var schoolCode;
-// var schoolName;
+var entity;
 $.fn.zTree.init = function($el, options, data){
 	var level = 1
 	var children = data[0].children
@@ -181,7 +181,7 @@ function judgeUnits(result){
 	}
 }
 
-function getCodes(){
+function getCodes(baseTree){
 	$.when(ajaxTree()).done(function(data){
 		baseTree=data.data;
 		judgeCodes(baseTree);
@@ -214,54 +214,24 @@ function loadContent() {
         hash = "#/"+ADMIN_CONFIG.homePage;
     }
     $(ADMIN_CONFIG.contentSelector).load(hash.split("/")[1], function(){
-		$(".logOutBtn").one("click",function(){
-			$.ajax({
-		        url: "/Logout",
-		        type: "POST",
-		        data:{
-		        },
-		        success:function(data){
-		        	if(data.state==1){
-		        		alert("退出登录成功！");
-		        		window.location.href="login.html";
-		        	}
-		        	else{
-		        		alert("网络异常！");
-		        	}
-		        }
-		    });
-		})
-		$.when(getUserInfo()).done(function(data){
-			if(data.state==1){
-				var result=data.all;
-				if(result){
-					// userid=result.id;//用户id
-					// userlevel=result.powerlevel;//用户等级权限
-					// usertype=result.type;//用户类型
-					// userName=result.name;//用户名
-					// schoolCode=result.entity;//用户学校
-					// schoolName=data.Entity;
-					// console.log(schoolCode);
-					$(".leftInfo").text("您好,"+result.name);
-					if(result.powerlevel==0){
-						$(".mainUserSection").removeClass("showMenu");
-						$(".userSection").removeClass("showMenu");
-					}
-					else if(result.powerlevel==1){
-						$(".mainUserSection").addClass("showMenu");
-						$(".userSection").removeClass("showMenu");
-					}
-					else if(result.powerlevel==2){
-						$(".mainUserSection").addClass("showMenu");
-						$(".userSection").addClass("showMenu");
-					}
-				}
-			}
-			else{
-				alert(data.error);
-				window.location.href="login.html";
-			}
-		})
+		// $(".logOutBtn").one("click",function(){
+		// 	$.ajax({
+		//         url: "/Logout",
+		//         type: "POST",
+		//         data:{
+		//         },
+		//         success:function(data){
+		//         	if(data.state==1){
+		//         		alert("退出登录成功！");
+		//         		window.location.href="login.html";
+		//         	}
+		//         	else{
+		//         		alert("网络异常！");
+		//         	}
+		//         }
+		//     });
+		// })
+		
     });
 }
 function popAlertBox(selector){//弹出窗口，居中function。以前在弹窗上绑定的一些事件
@@ -356,20 +326,20 @@ function dragBoxUnitsChoose(selector){
 	})
 }
 function dragBoxCodesChoose(selector){
-	var checkedArray=[];
-	var _array=[];
+	var checkedArray_=[];
+	var _array_=[];
 	$(selector).on("click",".forSure",function(){
 		$(".mask").hide();
 		$(selector).hide();
 		$(this).addClass("getUnitsInfo");
-		getTreeNodes(codeObj,checkedArray,_array);
-		var checkedLen=checkedArray.length;
+		getTreeNodes(codeObj,checkedArray_,_array_);
+		var checkedLen_=checkedArray_.length;
 		showName=[];
 		projectCodes=[];
-		if(checkedLen){
-			for (var i=0;i<checkedLen;i++) {
-				var pushItem=checkedArray[i].name;
-				var pushcode=checkedArray[i].code;
+		if(checkedLen_){
+			for (var i=0;i<checkedLen_;i++) {
+				var pushItem=checkedArray_[i].name;
+				var pushcode=checkedArray_[i].code;
 				projectCodes.push(pushcode);
 				showName.push(pushItem);
 				$(".applyCode").val(showName[0]+'...');
@@ -449,12 +419,14 @@ function dragBoxSortsChoose(selector){
 }
 function resetAlertBox(treeObj){
 	var nodes_=treeObj.getCheckedNodes();
-	console.log(nodes);
-	for(var i=0;i<nodes_.length;i++){
-		treeObj.checkNode(nodes_[i],false);
-		treeObj.expandNode(nodes_[i],false);
+	if(nodes_){
+		for(var i=0;i<nodes_.length;i++){
+			treeObj.checkNode(nodes_[i],false);
+			treeObj.expandNode(nodes_[i],false);
+		}
+		treeObj.expandNode(treeObj.getNodes()[0], true)
 	}
-	treeObj.expandNode(treeObj.getNodes()[0], true)
+	treeObj.refresh();
 }
 function topBarControl(){
 	$(".resetBtn").bind("click",function(){
@@ -662,11 +634,25 @@ function getDataBox(params,url){
 				nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
 			    callback:function(api){
 			    	var index=api.getCurrent();
-					paginationCallback(index,params,url);  
+			    	if(userlevel=="4"){
+			    		if(index>1){
+			    			clearPages(index);
+			    		}
+			    		else{
+			    			paginationCallback(index,params,url);  
+			    		}
+			    	}
+			    	else{
+						paginationCallback(index,params,url);  
+			    	}
 			    }
 			});
 		}
 	})
+}
+function clearPages(index){
+	alert("试用用户无法查询更多数据！");
+	$(".infoTable1").children('tbody').empty();
 }
 function ajaxMorePages(pageindex,newindex,params,url){
 	params.pageindex=pageindex;
@@ -704,7 +690,7 @@ function ajaxMorePages(pageindex,newindex,params,url){
 				$(".tableContent").addClass('tableShow');
 				$(".searchUndo").addClass("searchDo");
 			}
-			else{
+			else if(data.state==0){
 				alert("没有符合查询条件的记录！");
 				count=0;
 				$(".M-box").empty();
@@ -713,6 +699,10 @@ function ajaxMorePages(pageindex,newindex,params,url){
 				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
 	    		$(".searchUndo").removeClass("searchDo");
 	    		$(".tableContent").removeClass('tableShow');
+			}
+			else{
+				alert(data.error);
+				window.location.href="login.html";
 			}
 		}
 	})
@@ -838,3 +828,60 @@ function hideModal($modal){
 	})*/
 	$modal.hide()
 }
+$(".logOutBtn").one("click",function(){
+	$.ajax({
+        url: "/Logout",
+        type: "POST",
+        data:{
+        },
+        success:function(data){
+        	if(data.state==1){
+        		alert("退出登录成功！");
+        		window.location.href="login.html";
+        	}
+        	else{
+        		alert("网络异常！");
+        	}
+        }
+    });
+})
+$.when(getUserInfo()).done(function(data){
+	if(data.state==1){
+		var result=data.all;
+		if(result){
+			// userid=result.id;//用户id
+			userlevel=result.powerlevel;//用户等级权限
+			// usertype=result.type;//用户类型
+			// userName=result.name;//用户名
+			entity=result.entity;//用户学校
+			// entity=data.Entity;
+			$(".leftInfo").text("您好,"+result.name);
+			if(result.powerlevel==0){
+				$(".mainUserSection").removeClass("showMenu");
+				$(".userSection").removeClass("showMenu");
+				$("#esi").removeClass("showMenu");
+				$("#schoolManager").addClass("showMenu");
+			}
+			else if(result.powerlevel==1){
+				$(".mainUserSection").addClass("showMenu");
+				$(".userSection").removeClass("showMenu");
+				$("#esi").removeClass("showMenu");
+				$("#schoolManager").removeClass("showMenu");
+			}
+			else if(result.powerlevel==2||result.powerlevel==3){
+				$(".mainUserSection").addClass("showMenu");
+				$("#schoolManager").addClass("showMenu");
+				$("#esi").removeClass("showMenu");
+			}
+			else{
+				$(".mainUserSection").addClass("showMenu");
+				$(".userSection").addClass("showMenu");
+				$("#esi").addClass("showMenu");
+			}
+		}
+	}
+	else{
+		alert(data.error);
+		window.location.href="login.html";
+	}
+})

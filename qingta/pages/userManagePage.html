@@ -48,6 +48,8 @@
 						<th>联系电话</th>
 						<th>用户属性</th>
 						<th>状态</th>
+						<th>到期时间</th>
+						<th>并发数</th>
 						<th>管理</th>
 					</tr>
 				</thead>
@@ -169,7 +171,7 @@
 <script type="text/javascript">
 	var projectUnits=[];
 	topBarControl();
-	var entity;
+	// var entity;
 	$(".addUserBtn").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
@@ -196,7 +198,6 @@
 		var phoneNum=$(this).parents("tr").children('td').eq(5).text();
 		var type=$(this).parents("tr").children('td').eq(6).text();
 		var id=$(this).parents("tr").children('td').eq(0).attr("data-id");
-		console.log(id);
 		$(".bottomBtn").attr("data-id",id);
 		// var td1=$(this).parent("tr").children('td').eq(7).text();
 		$(".userName").val(userName);
@@ -258,7 +259,6 @@
 	})
 	$(".forSure").bind("click",function(){
 		var id=$(this).parents(".bottomBtn").attr("data-id");
-		console.log(id);
 		var name=$(".accountName").val();
 		var password;
 		var type;
@@ -288,7 +288,6 @@
 		if(id){
 			$(this).parents(".bottomBtn").removeAttr("data-id");
 			$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone,year,month,day,concurrency)).done(function(data){
-				console.log(data);
 				if(data.state==1){
 					alert("修改用户成功！");
 				}
@@ -299,7 +298,6 @@
 		}
 		else{
 			$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity,year,month,day,concurrency)).done(function(data){
-				console.log(data);
 				if(data.state==1){
 					alert("新增用户成功！");
 				}
@@ -310,7 +308,7 @@
 		}
 		$(".mask").hide();
 		$(".unitsChoose").hide();
-		window.location.reload();
+		// window.location.reload();
 	})
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
@@ -409,23 +407,29 @@
 			}
 		}
 	}
-	$.when(getUserInfo()).done(function(data){
-		if(data.state==1){
-			var result=data.all;
-			if(result){
-				entity=result.entity;//用户学校
-				var params_={
-					'pageindex':1,
-					'entity':entity,
-				}
-				getDataBox(params_,'/GiveEntityAccount');
-			}
-		}
-		else{
-			alert(data.error);
-			window.location.href="login.html";
-		}
-	})
+	// $.when(getUserInfo()).done(function(data){
+	// 	if(data.state==1){
+	// 		var result=data.all;
+	// 		if(result){
+	// 			entity=result.entity;//用户学校
+	// 			var params_={
+	// 				'pageindex':1,
+	// 				'entity':entity,
+	// 			}
+	// 			getDataBox(params_,'/GiveEntityAccount');
+	// 		}
+	// 	}
+	// 	else{
+	// 		alert(data.error);
+	// 		window.location.href="login.html";
+	// 	}
+	// })
+	console.log(entity);
+	var params_={
+		'pageindex':1,
+		'entity':entity,
+	}
+	getDataBox(params_,'/GiveEntityAccount');		
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		// var entity=localStorage.schoolName;
@@ -433,7 +437,6 @@
 		var name=$(".accountNameEnter").val();
 		var nickname=$(".userNameEnter").val();
 		var pageindex;
-		console.log(entity);
 		if(entity){
 			var params={
 			'pageindex':1,

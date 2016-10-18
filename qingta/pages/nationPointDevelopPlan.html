@@ -226,22 +226,16 @@
 </div>
 <script type="text/javascript">
 	var projectUnits=[];
-	// objnew={};
-	// var finalResults=objnew.finalResults;
 	$(".showDetailBox1").bind("click",function(){
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
 	})
-	console.log(objnew);
 	if(finalResults){
-		console.log("yes");
 		judgeUnits(finalResults);
 	}  
 	else{
-		console.log("no");
 		getUnits(finalResults);
-		console.log(finalResults);
 	}
 	doForSearch(".searchBox","/Landentity0");
 	$(".showDetailBox2").bind("click",function(){
@@ -284,7 +278,6 @@
 			'</tr>');
 			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
 			searchInfo.children('td').eq(0).addClass('nowrap');
-			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
 				for (var j=0;j<result[i].length-1;j++) {
 					var mytd=$('<td></td>');
@@ -307,6 +300,9 @@
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
+						else{
+							text=madeNowrapText(result[i][j]);
+						}
 					}
 					if(j==2){
 						result[i][j]=year1+'-'+year2;
@@ -318,9 +314,9 @@
 						}
 						text = madeOneLineText(result[i][j]);
 					}
-					else{
-						text=madeNowrapText(result[i][j]);
-					}
+					// else{
+					// 	text=madeNowrapText(result[i][j]);
+					// }
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}

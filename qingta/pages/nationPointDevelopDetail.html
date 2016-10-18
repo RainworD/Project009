@@ -222,6 +222,9 @@
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
+						else{
+							text=madeNowrapText(result[i][j]);
+						}
 					}
 					if(j==0){
 						text = madeNowrapText(result[i][j]);
@@ -233,9 +236,6 @@
 					else if(j==5){
 						text = madeOneLineText(result[i][j]);
 						mytd.css("width","150px");
-					}
-					else{
-						text=madeNowrapText(result[i][j]);
 					}
 					mytd.html(text);
 					searchInfo.append(mytd);

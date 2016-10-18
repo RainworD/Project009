@@ -10,12 +10,10 @@ function beforeHandle(){
     $(".searchUndo").addClass("searchDo");
 }
 function beforeHandlesub(){
-    console.log("before")
     $(".unitsChoose1 .unitsContent1").removeClass("beforeShowBox")
     $(".unitsChoose1 .beforeShow").removeClass("beforeHideBox");
 }
 function successHandlesub(){
-    console.log("success");
     $(".unitsChoose1 .unitsContent").addClass("beforeShowBox");
     $(".unitsChoose1 .beforeShow").addClass("beforeHideBox");
 }
@@ -33,7 +31,6 @@ function successHandle(data){
     $(".tableContent").addClass('tableShow');
     $(".searchUndo").addClass("searchDo");
     return data.result;
-    console.log(data.result);
    }
    else{
     $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
@@ -47,7 +44,6 @@ function successHandleSec(data){
     $(".tableContent").addClass('tableShow');
     $(".searchUndo").addClass("searchDo");
     return data.result;
-    console.log(data.result);
    }
 }
 function errorHandle(data){
@@ -1504,7 +1500,7 @@ function STtransfer(unit,order,first_year,last_year){//教育部科技奖统计
     });
     return ajax;
 }
-function BlogPaperSta(entitys,year1,year2,disciplines,subject){//优博统计
+function BlogPaperSta(entitys,year1,year2,disciplines,subject,type){//优博统计
     var ajax = $.ajax({
         url: "/BlogPaper/statistic",
         type: "POST",
@@ -1516,7 +1512,8 @@ function BlogPaperSta(entitys,year1,year2,disciplines,subject){//优博统计
             'disciplines':disciplines,
             'subject':subject,
             'first_year':year1,
-            'last_year':year2
+            'last_year':year2,
+            'type':type
         }
     });
     return ajax;
@@ -1531,7 +1528,7 @@ function BlogPaperSta(entitys,year1,year2,disciplines,subject){//优博统计
     });
     return ajax;
 }
-function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title){//优博明细
+function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title,type){//优博明细
     var ajax = $.ajax({
         url: "/BlogPaper/detail",
         type: "POST",
@@ -1545,7 +1542,8 @@ function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,ti
             'first_year':first_year,
             'last_year':last_year,
             'author':author,
-            'title':title
+            'title':title,
+            'type':type
         }
     });
     return ajax;

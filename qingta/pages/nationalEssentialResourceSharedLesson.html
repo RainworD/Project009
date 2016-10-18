@@ -21,6 +21,9 @@
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox lessonType">
 							<option selected="selected"></option>
+							<option>本科</option>
+							<option>网络教育</option>
+							<option>高职高专</option>
 						</select>
 					</div> 
 				</td>
@@ -221,7 +224,7 @@
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
-					if(j==1){
+					if(j==2){
 						result[i][j]=year1+'-'+year2;
 					}
 					var text=madeNowrapText(result[i][j]);
@@ -239,6 +242,7 @@
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
 		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var type=$(".lessonType").val();
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
@@ -259,6 +263,7 @@
 				'year1':year1,
 				'year2':year2,
 				'schoolOnly':schoolOnly,
+				'type':type
 			}
 			getDataBox(params,'/askNSCsta');
 		}

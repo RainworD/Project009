@@ -30,6 +30,8 @@
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox articleType">
 							<option selected="selected"></option>
+							<option>获奖</option>
+							<option>提名</option>
 						</select>
 					</div> 
 				</td>
@@ -253,7 +255,7 @@
 		var entitys=projectUnits;
 		var disciplines=$(".subjectType").val();
 		var subject=$(".topSubject").val();
-		var articleType=$(".articleType").val();
+		var type=$(".articleType").val();
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
 			alert("输入的起始年度不能大于终止年度！");
 			$(".tableContent").removeClass("tableShow");
@@ -262,12 +264,13 @@
 		else{
 			$(".tableContent").addClass("tableShow");
 			$(".searchUndo").addClass("searchDo");
-			$.when(BlogPaperSta(entitys,year1,year2,disciplines,subject)).done(function(data){
+			$.when(BlogPaperSta(entitys,year1,year2,disciplines,subject,type)).done(function(data){
 				var result=data.data;
 				$(".infoTable1").children('tbody').empty();
 				$(".infoTable1 thead").find('th').addClass("nowrap");
 				// var count=data.count;
 				var count=result.length;
+				var type=$(".articleType").val();
 				var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
 				addCount.children('span').eq(0).text(count);
 				if(count<20){
@@ -310,6 +313,12 @@
 						searchInfo.children('td').eq(3).html(madeNowrapText(disciplines));
 						searchInfo.children('td').eq(4).html(madeNowrapText(subject));
 						searchInfo.children('td').eq(5).html(madeNowrapText(result[i][1]));
+						if(type==""){
+							searchInfo.children('td').eq(6).html("全部论文类型");
+						}
+						else{
+							searchInfo.children('td').eq(6).html(type);
+						}
 						$(".infoTable1").children('tbody').append(searchInfo);
 					}
 					getPages(0);

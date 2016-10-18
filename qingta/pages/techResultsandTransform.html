@@ -365,17 +365,19 @@ function getDetailData(data){
 				'<td></td>'+
 				'<td></td>'+
 				'<td></td>'+
+				'<td></td>'+
 			'</tr>');
 			searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
 			searchInfo.children('td').eq(1).html(madeOneLineText(result[i].unit));
 			searchInfo.children('td').eq(2).html(madeNowrapText(first_year+'-'+last_year));
-			searchInfo.children('td').eq(3).html(madeNowrapText(result[i].patent_number));
-			searchInfo.children('td').eq(4).html(madeNowrapText(result[i].patent_count));
-			searchInfo.children('td').eq(5).html(madeNowrapText(result[i].paper_number));
-			searchInfo.children('td').eq(6).html(madeNowrapText(result[i].paper_among));
-			searchInfo.children('td').eq(7).html(madeNowrapText(result[i].identification));
-			searchInfo.children('td').eq(8).html(madeNowrapText(result[i].contract));
-			searchInfo.children('td').eq(9).html(madeNowrapText(result[i].income));
+			searchInfo.children('td').eq(3).html("没有数据");
+			searchInfo.children('td').eq(4).html(madeNowrapText(result[i].patent_number));
+			searchInfo.children('td').eq(5).html(madeNowrapText(result[i].patent_count));
+			searchInfo.children('td').eq(6).html(madeNowrapText(result[i].paper_number));
+			searchInfo.children('td').eq(7).html(madeNowrapText(result[i].paper_among));
+			searchInfo.children('td').eq(8).html(madeNowrapText(result[i].identification));
+			searchInfo.children('td').eq(9).html(madeNowrapText(result[i].contract));
+			searchInfo.children('td').eq(10).html(madeNowrapText(result[i].income));
 			$(".infoTable1").children('tbody').append(searchInfo);
 		}
 	}

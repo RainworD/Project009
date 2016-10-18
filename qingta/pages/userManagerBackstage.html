@@ -86,6 +86,7 @@
 			</table>
 		</div>
 	</div>
+	<div class="M-box"></div>
 </div>
 <div class="mask"></div>
 <div class="unitsChoose">
@@ -152,6 +153,7 @@
 										<option>数据管理员</option>
 										<option>普通用户</option>
 										<option>学校管理员</option>
+										<option>试用用户</option>
 										<option>系统管理员</option>
 									</select>
 								</div>
@@ -228,6 +230,12 @@
 		$(".userType").children("option").last().hide();
 		$(".forLogOut1").hide();
 		$(".deleteUser").hide();
+		$(".currency").val("");
+		$(".year").val("");
+		$(".month").val("");
+		$(".day").val("");
+		$(".oldpw").val("");
+		$(".newpw").val("");
 	})
 	$(".infoTable1").delegate(".manageBtn","click",function(){
 		// $(".userType").removeAttr("disabled");
@@ -377,8 +385,11 @@
 					if(val=="普通用户"){
 						type=0;
 					}
-					else{
+					else if(val=="数据管理员"){
 						type=1;
+					}
+					else{
+						type=2
 					}
 					if(id){
 						$(this).parents(".bottomBtn").removeAttr("data-id");
@@ -491,6 +502,9 @@
 								else if(result[i][7]==3){
 									result[i][j]="普通用户";
 								}
+								else if(result[i][7]==4){
+									result[i][j]="临时用户";
+								}
 							}
 							else if(j==8){
 								if(result[i][8]==0){
@@ -500,13 +514,14 @@
 									result[i][j]="已注销";
 								}
 							}	
-							var text=madeNowrapText(result[i][j]);
-							mytd.html(text);					
+							// var text=madeNowrapText(result[i][j]);
+							mytd.text(result[i][j])					
 							searchInfo.append(mytd);
 						}
 					}
 					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')
 					searchInfo.append(newtd);
+					searchInfo.children("td").last().addClass("nowrap");
 					$(".infoTable1").children('tbody').append(searchInfo);
 				}
 			}

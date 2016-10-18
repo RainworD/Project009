@@ -675,7 +675,6 @@ body {
 .mainContainer .rightBox .searchBar {
   margin: 5px 0;
   margin-bottom: 20px;
-  padding: 0 20px;
 }
 .mainContainer .rightBox .searchBar .commonInputBox {
   float: left;
@@ -740,8 +739,8 @@ body {
 .mainContainer .rightBox .topBar .userInfo .rightInfoMenu {
   cursor: pointer;
   float: left;
-  width: 40px;
-  height: 35px;
+  width: 50px;
+  height: 45px;
   text-align: center;
   border-radius: 5px;
   position: relative;
@@ -752,9 +751,9 @@ body {
 }
 .mainContainer .rightBox .topBar .userInfo .rightInfoMenu .logOutList {
   position: absolute;
-  top: 35px;
-  right: 0px;
-  background-color: #f8f9fd;
+  top: 45px;
+  right: -10px;
+  background-color: #eee;
   display: none;
   width: 150px;
   z-index: 5;
@@ -762,14 +761,20 @@ body {
 .mainContainer .rightBox .topBar .userInfo .rightInfoMenu .logOutList li:hover {
   background-color: #c7c7c7;
 }
+.mainContainer .rightBox .topBar .userInfo .rightInfoMenu .logOutList:before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  border-bottom: 8px solid #eee;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  color: #ebebeb;
+}
 .mainContainer .rightBox .topBar .userInfo .rightInfoMenu .logOutShow {
   display: block;
 }
-.mainContainer .rightBox .topBar .userInfo .rightInfoMenu:hover {
-  background-color: #fff;
-}
 .mainContainer .rightBox .topBar .userInfo .rightInfoMenu:hover .logOut {
-  color: #c7c7c7;
+  color: #777;
 }
 .mainContainer .rightBox .topBar .userInfo .rightInfoMenu:hover .logOutList {
   display: block;
@@ -1395,7 +1400,7 @@ body {
   -webkit-box-orient: vertical;
 }
 .showMenu {
-  display: none;
+  display: none!important;
 }
 .showMoreContent {
   position: relative;
@@ -1501,7 +1506,7 @@ body {
   border: 1px solid #eff0f4;
 }
 .homeBox .iconBox {
-  padding: 20px 0;
+  padding: 30px 0;
   width: 25%;
   float: left;
 }

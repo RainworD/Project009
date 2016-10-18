@@ -355,9 +355,20 @@
 		            prevContent:'<i class="fa fa-angle-left"></i>',     //上一页内容
 		            nextContent:'<i class="fa fa-angle-right"></i>',        //下一页内容
 		            callback:function(api){
-		                var index=api.getCurrent();
-		                start=(index-1)*20;
-		                getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows);               
+		            	var index=api.getCurrent();
+			            if(userlevel=="4"){
+				    		if(index>1){
+				    			clearPages(index);
+				    		}
+				    		else{
+				    			start=(index-1)*20;
+			                	getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows);
+				    		}
+				    	}
+				    	else{
+							start=(index-1)*20;
+			                getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows);
+				    	}               
 		            }
 		        });	
 			})	
