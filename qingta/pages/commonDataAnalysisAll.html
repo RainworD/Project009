@@ -368,7 +368,8 @@ Vue.component('common-data', {
 			tab_index: 0,
 			search_str: "",
 			points_data: [],
-			requesting: true
+			requesting: true,
+			pdfing: false
 		}
 	},
 	methods: {
@@ -382,6 +383,11 @@ Vue.component('common-data', {
 		convertToPDF: function(){
 			if (this.requesting) {
 				alert('请读取完数据后进行渲染')
+				return
+			}
+
+			if (this.pdfing) {
+				alert('请等待上一次pdf渲染请求完成')
 				return
 			}
 			
@@ -428,10 +434,13 @@ Vue.component('common-data', {
 			
 			var html_string = $pageDom.html()
 
+			self.pdfing = true
 			renderToPdf(Promise.resolve($.get("/qingta/source/template/image.html")).then(function(raw){
 				var i = raw.indexOf('<body>')
 				return Promise.resolve(raw.slice(0, i) + html_string + raw.slice(i))
-			}))
+			})).then(function(){
+				self.pdfing = false
+			})
 		},
 		switchTab: function(point){
 			this.tab_index = point.id

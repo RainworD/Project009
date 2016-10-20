@@ -7,7 +7,7 @@ Number.isNaN = Number.isNaN || function(value) {
 }
 
 function renderToPdf(p) {
-	p.then(function(html_){
+	return p.then(function(html_){
 		/*var formData = new FormData()
 		formData.append('file', new File([new Blob([html_])], 'print.html'))
 */
@@ -22,6 +22,7 @@ function renderToPdf(p) {
 	}).then(function(res){
 		if (res.path) {
 			var win = window.open(res.path, '_blank')
+			return Promise.resolve()
 			//win.focus()
 		} else {
 			return Promise.reject(new Error(res.error))
