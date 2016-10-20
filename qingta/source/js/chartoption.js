@@ -6,6 +6,30 @@ Number.isNaN = Number.isNaN || function(value) {
     return typeof value === "number" && isNaN(value);
 }
 
+function renderToPdf(p) {
+	p.then(function(html_){
+		/*var formData = new FormData()
+		formData.append('file', new File([new Blob([html_])], 'print.html'))
+*/
+		return Promise.resolve($.ajax({
+			url: '/getpdf',
+			data: {
+				text: html_
+			},
+			type: 'POST'
+		}))
+
+	}).then(function(res){
+		if (res.path) {
+			var win = window.open(res.path, '_blank')
+			//win.focus()
+		} else {
+			return Promise.reject(new Error(res.error))
+		}
+	}).catch(function(e){
+		alert('渲染失败:' + e.message)
+	})
+}
 if (!Array.prototype.find) {
   Array.prototype.find = function(predicate) {
     'use strict';
@@ -74,7 +98,7 @@ function yearOddToIndex(yearStr){
 var _chartOption = {}
 function getJSON(json_name, notDefault){
 	if (notDefault === undefined) {
-		json_name = '/qingta/source/chart-options/' + json_name + '.json'
+		json_name = '../source/chart-options/' + json_name + '.json'
 	}
 
 	if (_chartOption[json_name]) {

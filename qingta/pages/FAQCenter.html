@@ -216,8 +216,8 @@
 			},
 			judgeReveal: function(faq){
 				var search_str = this.search_str.trim()
-				if (faq.title.indexOf(search_str) != -1
-					|| faq.text.indexOf(search_str) != -1) {
+				if ((faq.title && faq.title.indexOf(search_str) != -1)
+					|| (faq.text && faq.text.indexOf(search_str) != -1)) {
 					faq.show = true
 				} else {
 					faq.show = false

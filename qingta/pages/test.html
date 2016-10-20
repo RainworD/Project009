@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<button id="test">上传文件</button>
+	<textarea rows="30" id="htmlinput">
+	</textarea>
+	<script src="/qingta/source/js/jquery-1.7.2.js"></script>
+	<script>
+		$(htmlinput).val('<!DOCTYPE html>'+
+				'<html>'+
+				'<head>'+
+					'<title>标题</title>'+
+					'<meta charset="UTF-8">'+
+				'</head>'+
+				'<body>'+
+					'<div>'+
+						'内容'+
+					'</div>'+
+				'</body>'+
+				'</html>')
+
+		$(test).click(function(){
+			var text = $(htmlinput).val()
+
+			var formData = new FormData()
+			formData.append('file', new File([new Blob([text])], 'test.html'))
+
+			Promise.resolve($.ajax({
+				url: '/getpdf',
+				data: formData,
+				processData: false,
+				contentType: false,
+				type: 'POST'
+			})).then(function(res){
+				alert(res)
+				console.dir(res)
+			}).catch(function(e){
+				alert(e.message)
+			})
+		})
+	</script>
+</body>
+</html>

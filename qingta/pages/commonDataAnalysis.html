@@ -125,7 +125,7 @@
 							<span style="color:#777;font-size:14px;">{{tabs[tab_index].options_placeholder + " :"}}</span>
 							<div class="commonInputBox" style="display:inline-block;">
 								<input class="commonput" @focus="openSelectOptionModal(tabs[tab_index].options_placeholder)" v-model="selected_name">
-								<div class="search-button-point" @click="openSelectOptionModal"><i class="fa fa-ellipsis-h showDetail"></i></div>
+								<div class="search-button-point" @click="openSelectOptionModal(tabs[tab_index].options_placeholder)"><i class="fa fa-ellipsis-h showDetail"></i></div>
 							</div>
 						</div>
 					</div>
@@ -135,7 +135,7 @@
 						<a :class="['changeButton changeButtonTab', tab_index==$index?'yellow':'']" v-for="tab in tabs" @click="switchTab($index)">{{tab.name}}</a>
 					</div>
 				</div>
-				<div :style="{width:'100%',height:getHeight(),background:'#eef'}" v-el:chart></div>
+				<div v-el:chart :style="{width:'100%',height:getHeight(),background:'#eef'}" v-el:chart></div>
 			</div>
 		</div>
 		<div class="custom-modal" data-drag-modal="false" v-el:modal v-if="tabs[tab_index]">
@@ -187,411 +187,446 @@
 	</div>
 </script>
 <script type="text/javascript">
+function searchAndScrollToNode(zTreeObj, str) {
+	var attrs = Array.prototype.slice.call(arguments, 2)
 
-	function searchAndScrollToNode(zTreeObj, str) {
-		var attrs = Array.prototype.slice.call(arguments, 2)
-
-		var node = zTreeObj.getNodesByFilter(function(node){
-			return attrs.some(function(attr){
-				return node[attr].indexOf(str) !== -1
-			})
-		}, true)
-
-		if (!node) {
-			alert('未找到相关数据')
-			return false 
-		}
-		
-		var stack = [node], parentNode = node.getParentNode()
-		while(parentNode) { 
-			stack.push(parentNode)
-			parentNode = parentNode.getParentNode()
-		}
-
-		stack.reverse().forEach(function(item){
-			zTreeObj.expandNode(item, true, false, false)
+	var node = zTreeObj.getNodesByFilter(function(node){
+		return attrs.some(function(attr){
+			return node[attr].indexOf(str) !== -1
 		})
+	}, true)
 
-		var $node = $('#'+ node.tId)
-		var $container = $node.parents('.ztree').parent()
-		
-		var offset = $('#tree_1').offset()
-
-		$container.animate({
-			scrollTop: $node.offset().top - (offset && offset.top)
-		}, 1000)
-		return true
+	if (!node) {
+		alert('未找到相关数据')
+		return false 
+	}
+	
+	var stack = [node], parentNode = node.getParentNode()
+	while(parentNode) { 
+		stack.push(parentNode)
+		parentNode = parentNode.getParentNode()
 	}
 
-	var baseTree
-
-	var chartId = 0
-
-	Vue.component('mark-chart', {
-		template: $(mark_chart_template).html(),
-		props: ['title', 'tabs'],
-		data: function(){
-			return {
-				select_placeholder: "",
-				tab_index: -1,
-				search_str: '',
-				selected_order: -1,
-				selected_name: "",
-				selected_order_pre: {
-					order: -1,
-					name: '',
-					show: true,
-					select: true
-				},
-				display_options: [],
-				mounting: false
-			}
-		},
-		watch: {
-			'tab_index': function(val){
-				if (val !== -1) {
-					this.display_options = this.tabs[val].options.map(function(item, order){
-						return {
-							order: order,
-							name: item,
-							show: true,
-							select: false
-						}
-					})
-					if (this.display_options.length > 0) {
-						var firstItem = this.display_options[0]
-						this.selected_order = firstItem.order
-						this.selected_name = firstItem.name
-						this.selected_order_pre.name = firstItem.name
-						this.selected_order_pre.order = firstItem.order
-						firstItem.select = true
-					}
-				}
-			}
-		},
-		methods: {
-			getHeight: function(){
-				return ((window.innerWidth - 240) * 0.3 | 0) + 'px'
-			},
-			switchTab: function(index){
-				if (!this.mounting) {
-					this.tab_index = index
-				}
-			},
-			searchOption: function(){
-				var str = this.search_str
-				this.display_options.forEach(function(item){
-					if (item.name.indexOf(str) !== -1) {
-						item.show = true
-					} else {
-						item.show = false
-					}
-				})
-			},
-			respondToSelect: function(order){
-				var oldOrder = this.selected_order_pre.order
-				if (oldOrder !== -1) {
-					this.display_options[oldOrder].select = false
-				}
-				this.selected_order_pre.order = order
-				this.display_options[order].select = true
-			},
-			selectOption: function(option){
-				this.respondToSelect(option.order)
-
-				this.selected_order_pre.name = option.name
-			},
-			closeSelectOptionModal: function(save){
-				if (save) {
-					this.selected_order = this.selected_order_pre.order
-					this.selected_name = this.selected_order_pre.name
-				} else {
-					this.respondToSelect(this.selected_order)
-					this.selected_order_pre.order = this.selected_order
-					this.selected_order_pre.name = this.selected_name
-				}
-				hideModal($(this.$els.modal))
-			},
-			openSelectOptionModal: function(placeholder){
-				this.select_placeholder = placeholder
-				if (!this.mounting) {
-					openModal($(this.$els.modal))
-				}
-			}
-		},
-		ready: function(){
-			this.$watch(function(){
-				return [this.selected_name, this.tab_index]
-			}, function(val, oldVal){
-				var tab = val[1]
-				var name = val[0]
-				var self = this
-				//console.log(`in ${this.title}, val: ${JSON.stringify(val)}, oldVal: ${JSON.stringify(oldVal)}`)
-				if (tab !== -1) {
-					this.chart.clear()
-					this.mounting = true
-					this.tabs[tab].getOptions(name).then(function(res){
-						self.mounting = false
-						res.animation = false
-						res.textStyle = {fontSize:15}
-						self.chart.setOption(res)
-					})
-				}
-			})
-			this.tab_index = 0
-
-			this.chart = echarts.init(this.$els.chart) 
-
-			var self = this
-			$('.leftImg').on('click.resize', function(){
-				setTimeout(function(){
-					self.chart.resize()
-				}, 10)
-			})
-			//console.dir(this.chart)
-		},
-		destroyed: function(){
-			var self = this
-			$('.leftImg').unbind('click.resize')
-		}
+	stack.reverse().forEach(function(item){
+		zTreeObj.expandNode(item, true, false, false)
 	})
 
-	Vue.component('common-data', {
-		template: $(common_data_template).html(),
-		props: ['admin'],
-		data: function(){
-			return {
-				university: {
-					name: "",
-					id: "",
-				},
-				mark_data: [],
-				tab_index: 0,
-				search_str: "",
-				points_data: [],
-				requesting: true
+	var $node = $('#'+ node.tId)
+	var $container = $node.parents('.ztree').parent()
+	
+	var offset = $('#tree_1').offset()
+
+	$container.animate({
+		scrollTop: $node.offset().top - (offset && offset.top)
+	}, 1000)
+	return true
+}
+
+var baseTree
+
+var chartId = 0
+
+Vue.component('mark-chart', {
+	template: $(mark_chart_template).html(),
+	props: ['title', 'tabs'],
+	data: function(){
+		return {
+			select_placeholder: "",
+			tab_index: -1,
+			search_str: '',
+			selected_order: -1,
+			selected_name: "",
+			selected_order_pre: {
+				order: -1,
+				name: '',
+				show: true,
+				select: true
+			},
+			display_options: [],
+			mounting: false
+		}
+	},
+	watch: {
+		'tab_index': function(val){
+			if (val !== -1) {
+				this.display_options = this.tabs[val].options.map(function(item, order){
+					return {
+						order: order,
+						name: item,
+						show: true,
+						select: false
+					}
+				})
+				if (this.display_options.length > 0) {
+					var firstItem = this.display_options[0]
+					this.selected_order = firstItem.order
+					this.selected_name = firstItem.name
+					this.selected_order_pre.name = firstItem.name
+					this.selected_order_pre.order = firstItem.order
+					firstItem.select = true
+				}
+			}
+		}
+	},
+	methods: {
+		getHeight: function(){
+			return ((window.innerWidth - 240) * 0.3 | 0) + 'px'
+		},
+		switchTab: function(index){
+			if (!this.mounting) {
+				this.tab_index = index
 			}
 		},
-		methods: {
-			searchNode: function(){
-				var zTreeObj = $.fn.zTree.getZTreeObj('tree')
-				var find = searchAndScrollToNode_(zTreeObj, this.search_str, 'name')
-				if (!find) {
-					this.search_str = ""
+		searchOption: function(){
+			var str = this.search_str
+			this.display_options.forEach(function(item){
+				if (item.name.indexOf(str) !== -1) {
+					item.show = true
+				} else {
+					item.show = false
 				}
-			},
-			convertToPDF: function(){
-				/*var $pageDom = $('.rightBox').clone()
-				var originEchart = $('.rightBox').find('[_echarts_instance_]')
-				var cloneEcharts = $pageDom.find('[_echarts_instance_]')
-				originEchart.each(function(index, dom){
-					var echart_instance = echarts.getInstanceByDom(dom)
-					var cloneEchart = cloneEcharts.eq(index)
-					cloneEchart.children().remove()
-					var img = new Image()
-					img.style = "width:100%;height:100%;background:#ccc;"
-					cloneEchart.append(img)
-				})
-				$pageDom.find('link, style, script, .mask, .unitsChoose, .custom-modal, .topBar, .convert-button').remove()
-				
-				console.dir($pageDom.html())*/
-			},
-			switchTab: function(point){
-				this.tab_index = point.id
-			},
-			openSearchNameModal: function(){
+			})
+		},
+		respondToSelect: function(order){
+			var oldOrder = this.selected_order_pre.order
+			if (oldOrder !== -1) {
+				this.display_options[oldOrder].select = false
+			}
+			this.selected_order_pre.order = order
+			this.display_options[order].select = true
+		},
+		selectOption: function(option){
+			this.respondToSelect(option.order)
+
+			this.selected_order_pre.name = option.name
+		},
+		closeSelectOptionModal: function(save){
+			if (save) {
+				this.selected_order = this.selected_order_pre.order
+				this.selected_name = this.selected_order_pre.name
+			} else {
+				this.respondToSelect(this.selected_order)
+				this.selected_order_pre.order = this.selected_order
+				this.selected_order_pre.name = this.selected_name
+			}
+			hideModal($(this.$els.modal))
+		},
+		openSelectOptionModal: function(placeholder){
+			this.select_placeholder = placeholder
+			if (!this.mounting) {
 				openModal($(this.$els.modal))
-			},
-			closeSearchNameModal: function(save){
-				if (save) {
-					var zTree = $.fn.zTree.getZTreeObj('tree')
-					//console.dir(zTree)
-					var selectedNode = zTree.getCheckedNodes()
-					//console.dir(selectedNode)
-					if (selectedNode[0]) {
-						this.university.name = selectedNode[0].name
-						this.university.id = selectedNode[0].id
-					}
-				}
-				hideModal($(this.$els.modal))
-			},
-			initZtree: function(){
-				var self = this
-				var zTreeObj = $.fn.zTree.init($("#tree"), {
-					check: {
-						enable: true,
-						chkStyle: "radio",
-						level: 3,
-						radioType: 'all'
-					},
-					view: {
-						showIcon: false,
-						showLine: false,
-						selectedMulti:false
-					},
-					callback: {
-						onDblClick: function(e, treeNode, node){
-							if (!node.nocheck) {
-								zTreeObj.checkNode(node, true, true)
-								self.closeSearchNameModal(true)
-							}
-						}
-					}
-				}, baseTree)
-
-				if (self.admin) {
-					var node = zTreeObj.getNodesByFilter(function(node){
-						return node.level == 1
-					}, true)
-					zTreeObj.expandNode(node, true, false)
-				}
-			},
-			getUniversityData: function(){
-				var self = this
-				getLandEntity().then(function(res){
-					var _data = res.result || []
-					baseTree = [_data.find(function(item){
-						return item.name == "高等院校"
-					})]
-					baseTree.forEach(function(level1){
-						level1.nocheck = true
-						level1.children.forEach(function(level2){
-							level2.nocheck = true
-						})
-					})
-
-					self.initZtree()
-					
-					if (self.admin) {
-						var firstUniversity = baseTree[0].children[0].children[0]
-						self.university.name = firstUniversity.name
-						self.university.id = firstUniversity.id
-					} else {
-						Promise.resolve($.ajax({
-							url: '/GetPowerlevel'
-						})).then(function(res){
-							if (res.Entity !== null && res.Entity) {
-								self.university.id = res.Entity
-								var zTreeObj = $.fn.zTree.getZTreeObj('tree')
-								var node = zTreeObj.getNodesByParam('id', res.Entity)[0]
-								if (!node) {
-									return Promise.reject(new Error('用户不属于任一大学单位'))
-								} else {
-									self.university.name = node.name
-
-									// 展开父节点
-									var parentNode = node.getParentNode()
-									var stack = []
-									while(parentNode) {
-										stack.push(parentNode)
-										parentNode = parentNode.getParentNode()
-									}
-									for (var i = stack.length - 1; i >= 0; i--) {
-										zTreeObj.expandNode(stack[i], true, false)
-									}
-								}
-							} else {
-								return Promise.reject(new Error('用户不属于任一大学单位'))
-							}
-						}).catch(function(e){
-							alert(e.message || '用户不属于任一大学单位')
-						})
-					}
-
-					Promise.resolve($.ajax({
-						url: "/dataAnalyze/type"
-					})).then(function(res){
-						if (res.state == 0) {
-							res.data.forEach(function(item){
-								self.points_data.push({
-									id: item.id,
-									name: item.name
-								})
-							})
-							self.tab_index = res.data[0].id
-						} else {
-							return Promise.reject(new Error(res.state))
-						}
-					}).catch(function(e){
-						alert('获取指标数据失败')
-					})
-				}).catch(function(e){
-					console.dir(e)
-					alert('获取数据失败')
+			}
+		}
+	},
+	ready: function(){
+		this.$watch(function(){
+			return [this.selected_name, this.tab_index]
+		}, function(val, oldVal){
+			var tab = val[1]
+			var name = val[0]
+			var self = this
+			//console.log(`in ${this.title}, val: ${JSON.stringify(val)}, oldVal: ${JSON.stringify(oldVal)}`)
+			if (tab !== -1) {
+				this.chart.clear()
+				this.mounting = true
+				this.tabs[tab].getOptions(name).then(function(res){
+					self.mounting = false
+					res.animation = false
+					res.textStyle = {fontSize:15}
+					self.chart.setOption(res)
 				})
 			}
+		})
+		this.tab_index = 0
+
+		this.chart = echarts.init(this.$els.chart) 
+
+		var self = this
+		$('.leftImg').on('click.resize', function(){
+			setTimeout(function(){
+				self.chart.resize()
+			}, 10)
+		})
+		//console.dir(this.chart)
+	},
+	destroyed: function(){
+		var self = this
+		$('.leftImg').unbind('click.resize')
+	}
+})
+
+Vue.component('common-data', {
+	template: $(common_data_template).html(),
+	props: ['admin'],
+	data: function(){
+		return {
+			university: {
+				name: "",
+				id: "",
+			},
+			mark_data: [],
+			tab_index: 0,
+			search_str: "",
+			points_data: [],
+			requesting: true
+		}
+	},
+	methods: {
+		searchNode: function(){
+			var zTreeObj = $.fn.zTree.getZTreeObj('tree')
+			var find = searchAndScrollToNode_(zTreeObj, this.search_str, 'name')
+			if (!find) {
+				this.search_str = ""
+			}
 		},
-		ready: function(){
-			this.getUniversityData()
+		convertToPDF: function(){
+			if (this.requesting) {
+				alert('请读取完数据后进行渲染')
+				return
+			}
+			
+			var self = this
+			var $pageDom = $('<div><h1>' + 
+				this.university.name + 
+				'-' +
+				this.points_data.find(function(point){
+					return point.id == self.tab_index
+				}).name + 
+				'</h1></div>')
 
-			this.$watch(function(){
-				return [this.university.id, this.tab_index]
-			}, function(val){
-				var tab_index = val[1]
-				if (tab_index === "" || tab_index === 0) {
-					return 
-				}
-				var university = JSON.parse(JSON.stringify(this.university))
+			this.$children.forEach(function(child){
+				if (child.chart) {
+					var echart_instance = child.chart
 
-				this.mark_data = []
-				this.requesting = true
-				var self = this
-
-				//self.requesting = true
-				if (self.admin) {
-					Promise.resolve($.ajax({
-						url: "/dataAnalyze/type"
-					})).then(function(_res){
-						var points = []
-
-						var res = _res.data.find(function(item){
-							return item.id == self.tab_index
-						})
-
-						res.chart.forEach(function(item){
-							points.push(item.code)
-						})
-
-						loadPoints(university, self.mark_data, points).then(function(){
-							self.requesting = false
-						})
+					var img = new Image()
+					echart_instance.setOption({
+						toolbox: {
+							show: false
+						}	
 					})
+					img.onload = function(){
+						echart_instance.setOption({
+							toolbox: {
+								show: true
+							}	
+						})
+					}
+					img.src = echart_instance.getDataURL({
+						pixelRatio: 2
+					})
+
+					var selectOption = child.selected_name == "" ? "" : '(' + child.selected_name + ')' 
+					var $chart = $('<div><h2>' + 
+						child.title +
+						selectOption + 
+						'</h2></div>')
+					$chart.append(img)
+
+					$pageDom.append($chart)
+				}
+			})
+			
+			var html_string = $pageDom.html()
+
+			renderToPdf(Promise.resolve($.get("/qingta/source/template/image.html")).then(function(raw){
+				var i = raw.indexOf('<body>')
+				return Promise.resolve(raw.slice(0, i) + html_string + raw.slice(i))
+			}))
+		},
+		switchTab: function(point){
+			this.tab_index = point.id
+		},
+		openSearchNameModal: function(){
+			openModal($(this.$els.modal))
+		},
+		closeSearchNameModal: function(save){
+			if (save) {
+				var zTree = $.fn.zTree.getZTreeObj('tree')
+				//console.dir(zTree)
+				var selectedNode = zTree.getCheckedNodes()
+				//console.dir(selectedNode)
+				if (selectedNode[0]) {
+					this.university.name = selectedNode[0].name
+					this.university.id = selectedNode[0].id
+				}
+			}
+			hideModal($(this.$els.modal))
+		},
+		initZtree: function(){
+			var self = this
+			var zTreeObj = $.fn.zTree.init($("#tree"), {
+				check: {
+					enable: true,
+					chkStyle: "radio",
+					level: 3,
+					radioType: 'all'
+				},
+				view: {
+					showIcon: false,
+					showLine: false,
+					selectedMulti:false
+				},
+				callback: {
+					onDblClick: function(e, treeNode, node){
+						if (!node.nocheck) {
+							zTreeObj.checkNode(node, true, true)
+							self.closeSearchNameModal(true)
+						}
+					}
+				}
+			}, baseTree)
+
+			if (self.admin) {
+				var node = zTreeObj.getNodesByFilter(function(node){
+					return node.level == 1
+				}, true)
+				zTreeObj.expandNode(node, true, false)
+			}
+		},
+		getUniversityData: function(){
+			var self = this
+			getLandEntity().then(function(res){
+				var _data = res.result || []
+				baseTree = [_data.find(function(item){
+					return item.name == "高等院校"
+				})]
+				baseTree.forEach(function(level1){
+					level1.nocheck = true
+					level1.children.forEach(function(level2){
+						level2.nocheck = true
+					})
+				})
+
+				self.initZtree()
+				
+				if (self.admin) {
+					var firstUniversity = baseTree[0].children[0].children[0]
+					self.university.name = firstUniversity.name
+					self.university.id = firstUniversity.id
 				} else {
 					Promise.resolve($.ajax({
 						url: '/GetPowerlevel'
 					})).then(function(res){
-						console.log(`powerlevel: ${JSON.stringify(res)}`)
 						if (res.Entity !== null && res.Entity) {
-							return Promise.resolve($.ajax({
-								url: "/dataAnalyze/school",
-								data: {
-									university: res.Entity,
-									type: tab_index
-								}
-							}))
-						} else {
-							return Promise.reject(new Error('权限限制'))
-						}
-					}).then(function(res){
-						console.log(`res: ${JSON.stringify(res)}`)
-						var points = []
-						res.data.forEach(function(item){
-							points.push(item.chart.code)
-						})
+							self.university.id = res.Entity
+							var zTreeObj = $.fn.zTree.getZTreeObj('tree')
+							var node = zTreeObj.getNodesByParam('id', res.Entity)[0]
+							if (!node) {
+								return Promise.reject(new Error('用户不属于任一大学单位'))
+							} else {
+								self.university.name = node.name
 
-						loadPoints(university, self.mark_data, points).then(function(){
-							self.requesting = false
-						})
+								// 展开父节点
+								var parentNode = node.getParentNode()
+								var stack = []
+								while(parentNode) {
+									stack.push(parentNode)
+									parentNode = parentNode.getParentNode()
+								}
+								for (var i = stack.length - 1; i >= 0; i--) {
+									zTreeObj.expandNode(stack[i], true, false)
+								}
+							}
+						} else {
+							return Promise.reject(new Error('用户不属于任一大学单位'))
+						}
 					}).catch(function(e){
-						alert(e.message || '获取指标数据失败')
+						alert(e.message || '用户不属于任一大学单位')
 					})
 				}
 
+				Promise.resolve($.ajax({
+					url: "/dataAnalyze/type"
+				})).then(function(res){
+					if (res.state == 0) {
+						res.data.forEach(function(item){
+							self.points_data.push({
+								id: item.id,
+								name: item.name
+							})
+						})
+						self.tab_index = res.data[0].id
+					} else {
+						return Promise.reject(new Error(res.state))
+					}
+				}).catch(function(e){
+					alert('获取指标数据失败')
+				})
+			}).catch(function(e){
+				console.dir(e)
+				alert('获取数据失败')
 			})
 		}
-	})
+	},
+	ready: function(){
+		this.getUniversityData()
 
-	new Vue({
-		el: '#common_data_container'
-	})
+		this.$watch(function(){
+			return [this.university.id, this.tab_index]
+		}, function(val){
+			var tab_index = val[1]
+			if (tab_index === "" || tab_index === 0) {
+				return 
+			}
+			var university = JSON.parse(JSON.stringify(this.university))
+
+			this.mark_data = []
+			this.requesting = true
+			var self = this
+
+			//self.requesting = true
+			if (self.admin) {
+				Promise.resolve($.ajax({
+					url: "/dataAnalyze/type"
+				})).then(function(_res){
+					var points = []
+
+					var res = _res.data.find(function(item){
+						return item.id == self.tab_index
+					})
+
+					res.chart.forEach(function(item){
+						points.push(item.code)
+					})
+
+					loadPoints(university, self.mark_data, points).then(function(){
+						self.requesting = false
+					})
+				})
+			} else {
+				Promise.resolve($.ajax({
+					url: '/GetPowerlevel'
+				})).then(function(res){
+					if (res.Entity !== null && res.Entity) {
+						return Promise.resolve($.ajax({
+							url: "/dataAnalyze/school",
+							data: {
+								university: res.Entity,
+								type: tab_index
+							}
+						}))
+					} else {
+						return Promise.reject(new Error('权限限制'))
+					}
+				}).then(function(res){
+					var points = []
+					res.data.forEach(function(item){
+						points.push(item.chart.code)
+					})
+
+					loadPoints(university, self.mark_data, points).then(function(){
+						self.requesting = false
+					})
+				}).catch(function(e){
+					alert(e.message || '获取指标数据失败')
+				})
+			}
+
+		})
+	}
+})
+
+new Vue({
+	el: '#common_data_container'
+})
 </script>
