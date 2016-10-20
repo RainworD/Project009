@@ -304,7 +304,7 @@ function dragBoxUnitsChoose(selector){
 		$(selector).hide();
 		$(this).addClass("getUnitsInfo");
 		$(document).unbind(".drag");
-		getTreeNodes(rootObj,checkedArray,_array);
+		getTreeNodes_(rootObj,checkedArray,_array);
 		var checkedLen=checkedArray.length;
 		showName=[];
 		projectUnits=[];
@@ -473,6 +473,34 @@ function topBarControl(){
 	$(".tableContent").css("min-height",decHeight);
 }
 function getTreeNodes(treeObj,checkedArray,_array){
+	var hasSame=false;
+	checkedArray.length=0;
+	if(_array.length){
+		var _array1=treeObj.getCheckedNodes();
+		var _len1=_array1.length;
+		for (var k=1;k<_len1;k++) {
+			_array.push(_array1[k]);
+		}
+	}
+	else{
+		_array=treeObj.getCheckedNodes();
+	}
+	for (var i=0;i<_array.length;i++) {
+		var checkedObj={};
+		// if(_array[i].isParent){
+		// }
+		// else{
+			checkedObj.name=_array[i].name;
+			checkedObj.id=_array[i].id;
+			if(_array[i].code){
+				checkedObj.code=_array[i].code;
+			}
+			checkedArray.push(checkedObj);
+		// }
+	}
+	treeObj.refresh();
+}
+function getTreeNodes_(treeObj,checkedArray,_array){
 	var hasSame=false;
 	checkedArray.length=0;
 	if(_array.length){
@@ -878,10 +906,14 @@ $.when(getUserInfo()).done(function(data){
 				$("#esi").removeClass("showMenu");
 				$("#schoolManager").removeClass("showMenu");
 			}
-			else if(result.powerlevel==2||result.powerlevel==3){
+			else if(result.powerlevel==2){
 				$(".mainUserSection").addClass("showMenu");
 				$("#schoolManager").addClass("showMenu");
 				$("#esi").removeClass("showMenu");
+			}
+			else if(result.powerlevel==3){
+				$(".mainUserSection").addClass("showMenu");
+				$(".userSection").addClass("showMenu");
 			}
 			else{
 				$(".mainUserSection").addClass("showMenu");

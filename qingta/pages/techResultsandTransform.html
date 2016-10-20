@@ -180,7 +180,7 @@
 <script type="text/javascript">
 	var projectUnits=[];
 	$(".showDetailBox1").bind("click",function(){
-		$(".mask").show();
+		$(".mask").show(); 
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
 	})
@@ -198,7 +198,7 @@
 var count;
 var start;
 function getTechResults(unit,order,first_year,last_year,start,rows){//教育部科技奖统计
-    var ajax = $.ajax({
+    var ajax = $.ajax({ 
         url: "/STtransfer",
         type: "POST",
         traditional:true,

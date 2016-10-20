@@ -147,6 +147,7 @@
 		var entity=$(".schoolName").val();
 		var name=$(".lessonName").val();
 		var manager=$(".lessonManager").val();
+		var type=$(".lessonType").val();
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
 			alert("输入的起始年度不能大于终止年度！");
 			$(".tableContent").removeClass("tableShow");
@@ -161,7 +162,8 @@
 				'year1':year1,
 				'year2':year2,
 				'name':name,
-				'manager':manager
+				'manager':manager,
+				'type':type
 			}
 			getDataBox(params,'/askNSC');
 		}

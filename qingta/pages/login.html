@@ -24,10 +24,12 @@
 					<div class="leftPic"></div>
 					<div class="leftPara">
 						<ul class="leftBottomList">
-							<li>全新可视化呈现</li>
-							<li>全面数据收录</li>
-							<li>多维数据分析</li>
-							<li>支持个性定制</li>
+							<li>核心数据全收录</li>
+							<li>全新可视化效果</li>
+							<li>精准多维数据分析</li>
+							<li>个性数据扩展定制</li>
+							<li>畅快应用体验</li>
+							<li>极速迭代更新</li>
 						</ul>
 					</div>
 				</div>
@@ -119,7 +121,7 @@
 					localStorage.usertype=data.Type;//用户类型
 					localStorage.userName=data.Name;//用户名
 					localStorage.school=data.Entity;//用户学校
-					window.location.href="index.html/#home.html";
+					window.location.href="index.html";
 				}
 				else{
 					alert(data.error);
@@ -130,6 +132,8 @@
 	function changeH(){
 		var height_h=$(window).height();
 		$(".leftPic").css("min-height",height_h*0.68);
+		width_w=$(".leftPic").width();
+		$(".leftPara").css("width",width_w);
 	}
 	window.onload=function(){  
 	  	window.onresize = changeH;  

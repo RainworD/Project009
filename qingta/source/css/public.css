@@ -1650,7 +1650,7 @@ body {
 .rightBelong {
   position: absolute;
   color: #a7b1c2;
-  bottom: 0px;
+  bottom: 10px;
   left: 10px;
   z-index: 2;
   font-size: 12px;

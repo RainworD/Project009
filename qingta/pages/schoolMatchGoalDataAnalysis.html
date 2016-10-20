@@ -249,14 +249,14 @@
 						<td data-type="15">国家重点学科入选数量(一级/二级)</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
-					<tr class="esihide">
+					<!-- <tr class="esihide">
 						<td data-type="16">ESI全球1%学科数量</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr class="esihide">
 						<td data-type="17">ESI全球排名</td>
 						<td><input type="checkbox" checked="checked"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td data-type="18">国家级特色专业数量</td>
 						<td><input type="checkbox" checked="checked"></td>
@@ -293,10 +293,10 @@
 						<td data-type="25">授权专利数</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
-					<tr>
-						<td data-type="31">科技成果与技术转让</td>
+					<!-- <tr>
+						<td data-type="31">科技成果与技术转让收入</td>
 						<td><input type="checkbox" checked="checked"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td data-type="26">年度预算收入</td>
 						<td><input type="checkbox" checked="checked"></td>
@@ -314,7 +314,11 @@
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr>
-						<td data-type="34">高校课题数据</td>
+						<td data-type="34">高校课题数据课题总数</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="35">高校课题数据拨入经费</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr>
@@ -380,10 +384,10 @@
 		}
 		else{
 			if(len_1<11){
-				$(".infoTable1 thead").empty();
-				$(".infoTable1 tbody").empty();
 				$(".tableContent").addClass("tableShow");
 				$(".searchUndo").addClass("searchDo")
+				$(".infoTable1 thead").empty();
+				$(".infoTable1 tbody").empty();
 				var thead_new=$('<tr class="tableTitle tableTitle1">'+
 							'<th>分析项目</th>'+
 						'</tr>');
@@ -489,12 +493,23 @@
 						getEduFee(tr_add,entitys,year1,year2,len_1)
 					}
 					else if(analysisArray_[j]=="30"){
-						getEduFee(tr_add,entitys,year1,year2,len_1)
+						getEduResult(tr_add,entitys,year1,year2,len_1)
 					}
-					else if(analysisArray_[j]=="29"){
-						getEduFee(tr_add,entitys,year1,year2,len_1)
+					// else if(analysisArray_[j]=="31"){
+					// 	getTechTransform(tr_add,entitys,year1,year2,len_1)
+					// }
+					else if(analysisArray_[j]=="32"){
+						getannualBugetIncome(tr_add,entitys,year1,year2,len_1,"0")
 					}
-
+					else if(analysisArray_[j]=="33"){
+						getannualBugetIncome(tr_add,entitys,year1,year2,len_1,"0")
+					}
+					else if(analysisArray_[j]=="34"){
+						getLessonFee(tr_add,entitys,year1,year2,len_1,"0")
+					}
+					else if(analysisArray_[j]=="35"){
+						getLessonFee(tr_add,entitys,year1,year2,len_1,"1")
+					}
 					tr_add.children("td").eq(0).text(analysisArray[j]);
 					tr_add.children("td").eq(0).attr("data-id",analysisArray_[j])
 					// tr_add.children("td").eq(index).val(projectNum);
@@ -504,7 +519,8 @@
 				$(".infoTable1 thead").append(thead_new);
 			}
 			else{
-				alert("选择的学校数量过多，请重新选择！")
+				alert("选择的学校数量过多，请重新选择！");
+
 			}
 		}
 	})
@@ -1130,6 +1146,104 @@
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
+						}
+					}
+				}
+			}
+		})
+	}
+	function getEduResult(argu,entitys,year1,year2,len_1){
+		$.when(LearnScienceSta(entitys,year1,year2)).done(function(data){
+			var result=data.data;
+			if(data.state==0){
+				for(var k=0;k<result.length;k++){
+					unitsName=result[k].unit;
+					// for (var j=0;j<result[k].length-1;j++) {
+					projectNum=result[k]["特等奖"]+result[k]["一等奖"]+result[k]["二等奖"];
+					if(projectNum==""){
+						projectNum=0;
+					}
+					for(var i=0;i<len_1;i++){
+						if(unitsName==showName[i]){
+							argu.children("td").eq(i+1).text(projectNum);
+						}
+					}
+				}
+			}
+		})
+	}
+	function getTechTransform(argu,entitys,year1,year2,len_1){
+		$.when(STtransfer(entitys,year1,year2)).done(function(data){
+			var result=data.data;
+			if(data.state==0){
+				for(var k=0;k<result.length;k++){
+					unitsName=result[k].unit;
+					// for (var j=0;j<result[k].length-1;j++) {
+					projectNum=result[k].income;
+					if(projectNum==""){
+						projectNum=0;
+					}
+					for(var i=0;i<len_1;i++){
+						if(unitsName==showName[i]){
+							argu.children("td").eq(i+1).text(projectNum);
+						}
+					}
+				}
+			}
+		})
+	}
+	function getannualBugetIncome(argu,entitys,year1,year2,len_1,flag){
+		$.when(askADsta(entitys,year1,year2)).done(function(data){
+			var result=data.result;
+			if(data.state==1){
+				for(var k=0;k<result.length;k++){
+					unitsName=result[k][1];
+					// for (var j=0;j<result[k].length-1;j++) {
+					projectNum1=Number(result[k][5]).toFixed(2);
+					projectNum2=Number(result[k][9]).toFixed(2);
+					if(projectNum1==""){
+						projectNum1=0;
+					}
+					if(projectNum2==""){
+						projectNum2=0;
+					}
+					for(var i=0;i<len_1;i++){
+						if(unitsName==showName[i]){
+							if(flag=='0'){
+								argu.children("td").eq(i+1).text(projectNum1);
+							}
+							else{
+								argu.children("td").eq(i+1).text(projectNum2);
+							}
+						}
+					}
+				}
+			}
+		})
+	}
+	function getLessonFee(argu,entitys,year1,year2,len_1,flag){
+		$.when(askSTPsta(entitys,year1,year2)).done(function(data){
+			var result=data.result;
+			if(data.state==1){
+				for(var k=0;k<result.length;k++){
+					unitsName=result[k][0];
+					// for (var j=0;j<result[k].length-1;j++) {
+					projectNum1=Number(result[k][2]);
+					projectNum2=Number(result[k][4]).toFixed(2);
+					if(projectNum1==""){
+						projectNum1=0;
+					}
+					if(projectNum2==""){
+						projectNum2=0;
+					}
+					for(var i=0;i<len_1;i++){
+						if(unitsName==showName[i]){
+							if(flag=='0'){
+								argu.children("td").eq(i+1).text(projectNum1);
+							}
+							else{
+								argu.children("td").eq(i+1).text(projectNum2);
+							}
 						}
 					}
 				}

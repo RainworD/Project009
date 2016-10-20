@@ -45,6 +45,11 @@ function successHandleSec(data){
     $(".searchUndo").addClass("searchDo");
     return data.result;
    }
+   else{
+    $(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+    $(".searchUndo").removeClass("searchDo");
+    $(".tableContent").removeClass('tableShow');
+    }
 }
 function errorHandle(data){
     // alert("网络异常！");
@@ -902,7 +907,7 @@ function LearnScienceSta(entitys,year1,year2,first_unit,participate_unit){//教�
         // success:successHandle,
         data:{
             "first_unit":first_unit,
-            "participate_unit":participate_unit,
+            "participate_unit":participate_unit, 
             "first_year":year1,
             "last_year":year2,
             "unit":entitys
@@ -1413,6 +1418,32 @@ function askBD(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpen
     });
     return ajax;
 }
+function askADsta(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpenditure1,nowtotalexpenditure2,totalincome1,totalincome2,totalexpenditure1,totalexpenditure2,pageindex){
+    var ajax = $.ajax({
+        url: "/askADsta",
+        type: "POST",
+        traditional:true,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
+        data:{
+            "entitys": entitys, //选择的学校列表
+            "year1":year1,//年度范围左侧
+            "year2":year2,//年度范围右侧
+            "nowtotalincome1":nowtotalincome1,
+            "nowtotalincome2":nowtotalincome2,
+            "nowtotalexpenditure1":nowtotalexpenditure1,
+            "nowtotalexpenditure2":nowtotalexpenditure2,
+            "totalincome1":totalincome1,
+            "totalincome2":totalincome2,
+            "totalexpenditure1":totalexpenditure1,
+            "totalexpenditure2":totalexpenditure2,
+            // "schoolOnly":schoolOnly,
+            "pageindex":pageindex//分页数
+
+        }
+    });
+    return ajax;
+}
 function askBDsta(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalexpenditure1,nowtotalexpenditure2,totalincome1,totalincome2,totalexpenditure1,totalexpenditure2,pageindex){
     var ajax = $.ajax({
         url: "/askBDsta",
@@ -1434,6 +1465,50 @@ function askBDsta(entitys,year1,year2,nowtotalincome1,nowtotalincome2,nowtotalex
         "totalexpenditure2":totalexpenditure2,//总拨入右侧
         "pageindex":pageindex//分页数
 
+        }
+    });
+    return ajax;
+}
+function askSTP(entitys,year1,year2,incoming1,incoming2,count1,count2,pageindex,schoolOnly,orderby){
+    var ajax = $.ajax({
+        url: "/askSTP",
+        type: "POST",
+        traditional:true,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
+        data:{
+            "entitys": entitys, //选择的学校列表
+            "year1":year1,//年度范围左侧
+            "year2":year2,//年度范围右侧
+            "incoming1":incoming1,
+            "incoming2":incoming2,
+            "count1":count1,
+            "count2":count2,
+            "pageindex":1,//分页数
+            "schoolOnly":schoolOnly, 
+            "orderby":orderby
+        }
+    });
+    return ajax;
+}
+function askSTPsta(entitys,year1,year2,incoming1,incoming2,count1,count2,pageindex,schoolOnly,orderby){
+    var ajax = $.ajax({
+        url: "/askSTPsta",
+        type: "POST",
+        traditional:true,
+        // beforeSend:beforeHandle,
+        // success:successHandle,
+        data:{
+            "entitys": entitys, //选择的学校列表
+            "year1":year1,//年度范围左侧
+            "year2":year2,//年度范围右侧
+            "incoming1":incoming1,
+            "incoming2":incoming2,
+            "count1":count1,
+            "count2":count2,
+            "pageindex":1,//分页数
+            "schoolOnly":schoolOnly, 
+            "orderby":orderby
         }
     });
     return ajax;
@@ -1484,7 +1559,7 @@ function askSTFsta(entitys,year1,year2,totalincoming1,totalincoming2,sciencefund
     });
     return ajax;
 }
-function STtransfer(unit,order,first_year,last_year){//教育部科技奖统计
+function STtransfer(entitys,year1,year2,order,rows,start){//教育部科技奖统计
     var ajax = $.ajax({
         url: "/STtransfer",
         type: "POST",
@@ -1492,10 +1567,12 @@ function STtransfer(unit,order,first_year,last_year){//教育部科技奖统计
         beforeSend:beforeHandle,
         success:successHandleSec,
         data:{
-            'unit':unit,
+            'unit':entitys,
             'order':order,
-            'first_year':first_year,
-            'last_year':last_year
+            'first_year':year1,
+            'last_year':year2,
+            'rows':20,
+            'start':0
         }
     });
     return ajax;

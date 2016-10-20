@@ -40,16 +40,17 @@ body {
   /* left: 0;*/
 }
 .leftPara {
-  width: 100%;
-  padding: 0 50px;
+  margin: auto;
 }
 .leftBottomList {
   margin: auto;
-  width: 80%;
+  width: 100%;
+  padding-left: 8%;
 }
 .leftBottomList li {
   display: inline-block;
-  padding: 0px 25px;
+  width: 15%;
+  text-align: center;
 }
 .leftBottomList li:nth-child(1) {
   color: #4abff2;
@@ -62,6 +63,12 @@ body {
 }
 .leftBottomList li:nth-child(4) {
   color: #fdc735;
+}
+.leftBottomList li:nth-child(5) {
+  color: #4abff2;
+}
+.leftBottomList li:nth-child(6) {
+  color: #ef9761;
 }
 .rightBox {
   position: absolute;
