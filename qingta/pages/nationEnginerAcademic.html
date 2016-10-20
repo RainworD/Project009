@@ -38,25 +38,15 @@
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
-							<option>2016</option>
 							<option>2015</option>
-							<option>2014</option>
 							<option>2013</option>
-							<option>2012</option>
 							<option>2011</option>
-							<option>2010</option>
 							<option>2009</option>
-							<option>2008</option>
 							<option>2007</option>
-							<option>2006</option>
 							<option>2005</option>
-							<option>2004</option>
 							<option>2003</option>
-							<option>2002</option>
 							<option>2001</option>
-							<option>2000</option>
 							<option>1999</option>
-							<option>1998</option>
 							<option>1997</option>
 							<option>1996</option>
 							<option>1995</option>
@@ -66,25 +56,15 @@
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
 							<option>2015</option>
-							<option>2014</option>
 							<option>2013</option>
-							<option>2012</option>
 							<option>2011</option>
-							<option>2010</option>
 							<option>2009</option>
-							<option>2008</option>
 							<option>2007</option>
-							<option>2006</option>
 							<option>2005</option>
-							<option>2004</option>
 							<option>2003</option>
-							<option>2002</option>
 							<option>2001</option>
-							<option>2000</option>
 							<option>1999</option>
-							<option>1998</option>
 							<option>1997</option>
 							<option>1996</option>
 							<option>1995</option>
@@ -263,15 +243,19 @@
 							result[i][2]="全部学部";
 						}
 						else{}
+						if(gender==""){
+							result[i][3]="全部性别";
+						}
+						else{}
 						if(result[i][j]==null){
 							result[i][j]="";
 						}
 						else if(j==1){
 							result[i][j]=year1+'-'+year2;
 						}
-						else if(j==3){
-							result[i][j]="全部性别";
-						}
+						// else if(j==3){
+						// 	result[i][j]="全部性别";
+						// }
 						var text=madeNowrapText(result[i][j]);
 						mytd.html(text);
 						searchInfo.append(mytd);

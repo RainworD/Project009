@@ -21,6 +21,11 @@
 					<div class="commonselect"  style="width:100%;">
 						<select class="selBox awardsLevel">
 							<option selected="selected"></option>
+							<option>最高奖</option>
+							<option>特等奖</option>
+							<option>一等奖</option>
+							<option>二等奖</option>
+							<option>创新团队</option>
 						</select>
 					</div>
 				</td>
@@ -28,7 +33,6 @@
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -37,20 +41,11 @@
 							<option>2010</option>
 							<option>2009</option>
 							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -59,14 +54,6 @@
 							<option>2010</option>
 							<option>2009</option>
 							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -77,14 +64,8 @@
 				</td>
 			</tr>
 			<tr>
-				<th>
-					<label for="schoolOnly">
-						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
-					</label>
-				</th>
-				<td></td>
-				<th></th>
-				<td style="padding-top:0;">
+				<!-- <th></th> -->
+				<td colspan="2" style="padding-top:0;">
 					<label for="box1">
 						<input type="checkbox" id="box1" checked="checked">
 						第一完成单位
@@ -94,6 +75,12 @@
 						参与单位
 					</label>
 				</td>
+				<th>
+					<label for="schoolOnly">
+						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
+					</label>
+				</th>
+				<td></td>
 				<td colspan="2"></td>
 				<td colspan="2"></td>
 			</tr>
@@ -214,19 +201,19 @@
 	topBarControl();
 </script>
 <script type="text/javascript">
-	$.post('/NationalScience/getLevel', function(data, textStatus, xhr) {
-		var state=data.state;
-		var result=data.level;
-		if(state==0){
-			for (var i=0;i<result.length;i++) {
-				var newopt=$('<option></option>');
-				if (result[i]) {
-					newopt.text(result[i]);
-					$(".awardsLevel").append(newopt);
-				}
-			}
-		}
-	});
+	// $.post('/NationalScience/getLevel', function(data, textStatus, xhr) {
+	// 	var state=data.state;
+	// 	var result=data.level;
+	// 	if(state==0){
+	// 		for (var i=0;i<result.length;i++) {
+	// 			var newopt=$('<option></option>');
+	// 			if (result[i]) {
+	// 				newopt.text(result[i]);
+	// 				$(".awardsLevel").append(newopt);
+	// 			}
+	// 		}
+	// 	}
+	// });
 	var count;
 	var start;
 	function getThreeAwardStatistics(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school){//国家科技奖统计

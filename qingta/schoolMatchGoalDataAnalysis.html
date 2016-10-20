@@ -250,7 +250,7 @@
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr class="esihide">
-						<td data-type="16">ESI全球1%学科数量</td>
+						<td data-type="16">ESI全球%1学科数量</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr class="esihide">
@@ -286,15 +286,7 @@
 						<td><input type="checkbox" checked="checked"></td>
 					</tr> -->
 					<tr>
-						<td data-type="30">国家级教学成果奖</td>
-						<td><input type="checkbox" checked="checked"></td>
-					</tr>
-					<tr>
 						<td data-type="25">授权专利数</td>
-						<td><input type="checkbox" checked="checked"></td>
-					</tr>
-					<tr>
-						<td data-type="31">科技成果与技术转让</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr>
@@ -303,18 +295,6 @@
 					</tr>
 					<tr>
 						<td data-type="27">年度预算支出</td>
-						<td><input type="checkbox" checked="checked"></td>
-					</tr>
-					<tr>
-						<td data-type="32">年度决算收入</td>
-						<td><input type="checkbox" checked="checked"></td>
-					</tr>
-					<tr>
-						<td data-type="33">年度决算支出</td>
-						<td><input type="checkbox" checked="checked"></td>
-					</tr>
-					<tr>
-						<td data-type="34">高校课题数据</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr>
@@ -488,13 +468,6 @@
 					else if(analysisArray_[j]=="29"){
 						getEduFee(tr_add,entitys,year1,year2,len_1)
 					}
-					else if(analysisArray_[j]=="30"){
-						getEduFee(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="29"){
-						getEduFee(tr_add,entitys,year1,year2,len_1)
-					}
-
 					tr_add.children("td").eq(0).text(analysisArray[j]);
 					tr_add.children("td").eq(0).attr("data-id",analysisArray_[j])
 					// tr_add.children("td").eq(index).val(projectNum);
@@ -950,14 +923,13 @@
 		})
 	}
 	function getExcellent(argu,entitys,year1,year2,len_1){
-		$.when(BlogPaperSta(entitys,year1,year2,0,20)).done(function(data){
+		$.when(BlogPaperSta(entitys,year1,year2)).done(function(data){
 			var result=data.data;
 			if(data.state==0){
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][1]; 
-					console.log(projectNum);
+					projectNum=result[k][1];
 					if(projectNum==""){
 						projectNum=0;
 					}

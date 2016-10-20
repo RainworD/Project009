@@ -39,7 +39,6 @@
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -67,7 +66,6 @@
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -364,8 +362,8 @@
 					'<td></td>'+
 					'<td></td>'+
 				'</tr>');
-				searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
-				// searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
+				// searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
+				searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
 				searchInfo.children('td').eq(1).html(madeOneLineText(result[i].unit));
 				searchInfo.children('td').eq(2).html(madeOneLineText(result[i].reward_name));
 				searchInfo.children('td').eq(3).html(madeNowrapText(result[i].category));
@@ -403,7 +401,7 @@
 		else{
 			$(".tableContent").addClass("tableShow");
 			$(".searchUndo").addClass("searchDo");
-			$.when(getImportantRewardsSta(unit,category,first_year,last_year,rows,start)).done(function(data){
+			$.when(getImportantRewardsDetail(unit,category,first_year,last_year,reward_name,user,rows,start)).done(function(data){
 				$('.M-box').pagination({
 		            totalData:count,
 		            showData:20,
@@ -421,12 +419,12 @@
 				    		}
 				    		else{
 				    			start=(index-1)*20;
-			                	getImportantRewardsSta(unit,category,first_year,last_year,rows,start); 
+			                	getImportantRewardsDetail(unit,category,first_year,last_year,reward_name,user,rows,start); 
 				    		}
 				    	}
 				    	else{
 							start=(index-1)*20;
-			                getImportantRewardsSta(unit,category,first_year,last_year,rows,start); 
+			                getImportantRewardsDetail(unit,category,first_year,last_year,reward_name,user,rows,start); 
 				    	}              
 		            }
 		        });

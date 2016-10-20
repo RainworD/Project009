@@ -317,6 +317,9 @@ function dragBoxUnitsChoose(selector){
 				$(".unitsEnter").val(showName[0]+'...');
 			}
 		}
+		else{
+			$(".unitsEnter").val("")
+		}
 	})
 	
 	$(selector).on("click",".search-box",function(){
@@ -347,6 +350,9 @@ function dragBoxCodesChoose(selector){
 				$(".applyCode").val(showName[0]+'...');
 			}
 		}
+		else{
+			$(".applyCode").val("");
+		}
 	})
 	$(selector).on("click",".search-box",function(){
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
@@ -372,6 +378,8 @@ function dragBoxSortsChoose(selector){
 				var state=data.state;
 				var result=data.result;
 				if(state==1){
+					var nullopt=$('<option selected="selected"></option>');
+					$(".projectClass").append(nullopt);
 					for (var i=0;i<result.length;i++) {
 						var newopt=$('<option></option>');
 						if (result[i]) {
@@ -379,7 +387,7 @@ function dragBoxSortsChoose(selector){
 							$(".projectClass").append(newopt);
 						}
 					}
-				} 
+				}  
 			});
 		}
 	})

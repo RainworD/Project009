@@ -29,7 +29,6 @@
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -57,7 +56,6 @@
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -117,7 +115,7 @@
 						<th>序号</th>
 						<th>学校名称</th>
 						<th>奖励类别</th>
-						<th>获奖级别</th>
+						<!-- <th>获奖级别</th> -->
 						<th>年度</th>
 						<th>奖励数</th>
 					</tr>
@@ -319,7 +317,7 @@
 					'<td></td>'+
 					'<td></td>'+
 					'<td></td>'+
-					'<td></td>'+
+					// '<td></td>'+
 				'</tr>');
 				searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
 				searchInfo.children('td').eq(1).html(madeNowrapText(result[i][0]));
@@ -329,9 +327,9 @@
 				else{
 					searchInfo.children('td').eq(2).html(madeNowrapText(category));
 				}
-				searchInfo.children('td').eq(3).html(madeNowrapText(result[i][2]));
-				searchInfo.children('td').eq(4).html(madeNowrapText(first_year+'-'+last_year));
-				searchInfo.children('td').eq(5).html(madeNowrapText(result[i][1]));
+				// searchInfo.children('td').eq(3).html(madeNowrapText(result[i][2]));
+				searchInfo.children('td').eq(3).html(madeNowrapText(first_year+'-'+last_year));
+				searchInfo.children('td').eq(4).html(madeNowrapText(result[i][1]));
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 		}

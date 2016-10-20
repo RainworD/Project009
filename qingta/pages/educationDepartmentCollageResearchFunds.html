@@ -39,8 +39,6 @@
 				<td style="width:19.3%">
 					<div class="commonselect">
 						<select class="selBox yearName1">
-							<option>2016</option>
-							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
 							<option>2012</option>
@@ -49,20 +47,11 @@
 							<option>2009</option>
 							<option>2008</option>
 							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
 						</select>
 					</div>
 					<!-- <span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
-							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
 							<option>2012</option>
@@ -71,25 +60,19 @@
 							<option>2009</option>
 							<option>2008</option>
 							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
 						</select>
 					</div> -->
 					<span class="starAfter">*</span>
 				</td>
 			</tr>
 			<tr>
-				<th>
+				<!-- <th>
 					<label for="schoolOnly">
 						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
 					</label>
 				</th>
-				<td></td>
+				<td></td> -->
+				<td colspan="2"></td>
 				<td colspan="2"></td>
 				<td colspan="2"></td>
 				<td colspan="2">
@@ -228,8 +211,6 @@
 		if(eq==0){
 			eq=50;
 		}
-		var year1=$(".yearName1").val();
-		var year2=$(".yearName1").val();
 		for (var i=(eq-1)*20;i<eq*20;i++) {
 			var searchInfo=$('<tr>'+
 				'<td></td>'+
@@ -248,10 +229,9 @@
 						text=madeOneLineText(result[i][0]);
 						mytd.css("width","150px")
 					}
-					else if(j==1){
-						text=year1+'-'+year2;
-						text = madeNowrapText(text);
-					}
+					// else if(j==1){
+					// 	text = madeNowrapText(text);
+					// }
 					else{
 						// if(result[i][j]==null||result[i][j]=="*"){
 						// 	text="*";

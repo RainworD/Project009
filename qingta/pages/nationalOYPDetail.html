@@ -44,7 +44,6 @@
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -69,7 +68,6 @@
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -245,7 +243,7 @@
 							if(result[i][j]==null){
 								result[i][j]="";
 							}
-							if(j==0||j==2||j==5){
+							else if(j==0||j==2||j==5){
 								text = madeOneLineText(result[i][j]);
 								mytd.css("width","150px")
 							}

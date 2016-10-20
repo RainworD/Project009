@@ -29,7 +29,6 @@
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -51,7 +50,6 @@
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
 							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
@@ -78,14 +76,8 @@
 				</td>
 			</tr>
 			<tr>
-				<th>
-					<label for="schoolOnly">
-						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
-					</label>
-				</th>
-				<td></td>
-				<th></th>
-				<td style="padding-top:0;">
+				<!-- <th></th> -->
+				<td colspan="2" style="padding-top:0;">
 					<label for="box1">
 						<input type="checkbox" id="box1" checked="checked">
 						第一完成单位
@@ -95,6 +87,12 @@
 						参与单位
 					</label>
 				</td>
+				<th>
+					<label for="schoolOnly">
+						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
+					</label>
+				</th>
+				<td></td>
 				<td colspan="2"></td>
 			</tr>
 		</table>
@@ -307,7 +305,12 @@
 				searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
 				searchInfo.children('td').eq(1).html(madeNowrapText(result[i].unit));
 				searchInfo.children('td').eq(2).html(madeNowrapText(year1+'-'+year2));
-				searchInfo.children('td').eq(3).html(madeNowrapText(level));
+				if(level==""){
+					searchInfo.children('td').eq(3).html(madeNowrapText("全部获奖级别"));
+				}
+				else{
+					searchInfo.children('td').eq(3).html(madeNowrapText(level));
+				}
 				searchInfo.children('td').eq(4).html(madeNowrapText(result[i]["技术发明奖"]));
 				searchInfo.children('td').eq(5).html(madeNowrapText(result[i]["技术发明奖专利类"]));
 				searchInfo.children('td').eq(6).html(madeNowrapText(result[i]["科技进步奖"]));

@@ -1500,7 +1500,7 @@ function STtransfer(unit,order,first_year,last_year){//教育部科技奖统计
     });
     return ajax;
 }
-function BlogPaperSta(entitys,year1,year2,disciplines,subject,type){//优博统计
+function BlogPaperSta(entitys,year1,year2,start,rows,disciplines,subject,type){//优博统计
     var ajax = $.ajax({
         url: "/BlogPaper/statistic",
         type: "POST",
@@ -1513,7 +1513,9 @@ function BlogPaperSta(entitys,year1,year2,disciplines,subject,type){//优博统�
             'subject':subject,
             'first_year':year1,
             'last_year':year2,
-            'type':type
+            'type':type,
+            'start':start,
+            'rows':rows
         }
     });
     return ajax;

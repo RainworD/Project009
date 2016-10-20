@@ -17,10 +17,8 @@
 				</td> 
 				<th style="width:10.6%;">公布年度 :</th>
 				<td style="width:19.3%">
-					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+					<div class="commonselect" style="width:100%">
 						<select class="selBox yearName1">
-							<option>2016</option>
-							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
 							<option>2012</option>
@@ -29,20 +27,11 @@
 							<option>2009</option>
 							<option>2008</option>
 							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
 						</select>
 					</div>
-					<span style="text-align: center;width:7%;">至</span>
+					<!-- <span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
-							<option>2016</option>
-							<option>2015</option>
 							<option>2014</option>
 							<option>2013</option>
 							<option>2012</option>
@@ -51,15 +40,8 @@
 							<option>2009</option>
 							<option>2008</option>
 							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
 						</select>
-					</div>
+					</div> -->
 					<span class="starAfter">*</span>
 				</td>
 				<td colspan="2"  style="width:26%"></td>
@@ -97,7 +79,7 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">科技成果与技术转让数据&nbsp;（金额单位：千元）</span>
+				<span class="topLeft">科技成果与技术转让数据&nbsp;（金额单位：万元）</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -331,7 +313,7 @@ function getTechResults(unit,order,first_year,last_year,start,rows){//教育部�
 function getDetailData(data){
 	var result=data.data;
 	var first_year=$(".yearName1").val();
-	var last_year=$(".yearName2").val();
+	var last_year=$(".yearName1").val();
 	$(".infoTable1").children('tbody').empty();
 	$(".infoTable1 thead").find('th').addClass("nowrap");
 	count=data.count;
@@ -369,7 +351,7 @@ function getDetailData(data){
 			'</tr>');
 			searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
 			searchInfo.children('td').eq(1).html(madeOneLineText(result[i].unit));
-			searchInfo.children('td').eq(2).html(madeNowrapText(first_year+'-'+last_year));
+			searchInfo.children('td').eq(2).html(madeNowrapText(result[i].year));
 			searchInfo.children('td').eq(3).html(madeNowrapText(result[i].number));
 			searchInfo.children('td').eq(4).html(madeNowrapText(result[i].patent_number));
 			searchInfo.children('td').eq(5).html(madeNowrapText(result[i].patent_count));
@@ -393,7 +375,7 @@ function getDetailData(data){
 }
 $(".searchBtn").bind("click",function(){
 	var first_year=$(".yearName1").val();
-	var last_year=$(".yearName2").val();
+	var last_year=$(".yearName1").val();
 	var unit=projectUnits;
 	var order=$("input[name='selBar']:checked").val();
 	start=0;
