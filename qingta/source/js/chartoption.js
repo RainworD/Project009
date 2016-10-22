@@ -410,7 +410,9 @@ var POINT_MARK = {
 				options.unshift('全部')
 				return Promise.resolve({
 					name: '分学科立项数分析',
-					options: options,
+					options: options.filter(function(item){
+						return item
+					}),
 					options_placeholder: "选择学科",
 					getOptions: function(option, chart){
 						return Promise.all([
