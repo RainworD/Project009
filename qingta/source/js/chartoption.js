@@ -21,7 +21,22 @@ function renderToPdf(p) {
 
 	}).then(function(res){
 		if (res.path) {
-			var win = window.open(res.path, '_blank')
+			var ua = window.navigator.userAgent;
+			var msie = ua.indexOf("MSIE ");
+			var new_ie = ua.indexOf("Trident/")
+
+			if (msie > -1 || new_ie > -1) {
+
+				//alert('ie')
+				var win = window.open(res.path, '_blank')
+			} else {
+				//alert('chrome')
+				var a = document.createElement('a')
+				a.target = "_blank"
+				a.href = res.path
+				a.click()
+			}
+
 			return Promise.resolve()
 			//win.focus()
 		} else {
