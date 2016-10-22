@@ -435,7 +435,7 @@ Vue.component('common-data', {
 			var html_string = $pageDom.html()
 
 			self.pdfing = true
-			renderToPdf(Promise.resolve($.get("/qingta/source/template/image.html")).then(function(raw){
+			renderToPdf(Promise.resolve($.get("../source/template/image.html")).then(function(raw){
 				var i = raw.indexOf('<body>')
 				return Promise.resolve(raw.slice(0, i) + html_string + raw.slice(i))
 			})).then(function(){
