@@ -1,0 +1,201 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox">
+		<a class="changeLeft changeButton" href="#/CJScholar.html">长江学者统计</a>
+		<a class="changeRight changeButton green" href="#/CJScholarDetail.html">长江学者明细</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">推荐单位 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput units" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%;">教授姓名 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput professorName">
+					</div>
+				</td>
+				<th style="width:10.6%;">岗位名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput jobName" type="text">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%;">公布年度 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2015</option>
+							<option>2014</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+							<option>1999</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2015</option>
+							<option>2014</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+							<option>1999</option>
+						</select>
+					</div>
+					<span class="starAfter">*</span>
+				</td>
+			</tr>
+			<tr>			
+				<th>聘任类型 :</th>
+				<td>
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox invitationType">
+							<option selected="selected"></option>
+							<option>特聘教授</option>
+							<option>讲座教授</option>
+							<option>青年学者</option>
+						</select>
+					</div>
+				</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">长江学者明细数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>年度</th>
+						<th>推荐单位</th>
+						<th>教授姓名</th>
+						<th>岗位名称</th>
+						<th>聘任类型</th>
+						<th>现任单位</th>
+						<!-- <th>备注</th> -->
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<script type="text/javascript">
+	var projectUnits=[];
+	topBarControl();
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
+							}
+							var text=madeNowrapText(result[i][j]);
+							mytd.html(text);
+							searchInfo.append(mytd);
+						}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+			searchInfo.children('td').last().addClass('nowrap');
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entity=$(".units").val();
+		var subject=$(".jobName").val();
+		var type=$(".invitationType").val();
+		var name=$(".professorName").val();
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				'pageindex':1,
+				'year1':year1,
+				'year2':year2,
+				'subject':subject,
+				'entity':entity,
+				'type':type,
+				'name':name,
+			}
+			getDataBox(params,'/askCJSch');
+		}
+	})
+	doForSearch(".units","/Landentity0");
+	doForSearch(".jobName","/LandCJSsubject");
+</script>

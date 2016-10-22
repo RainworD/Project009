@@ -1,0 +1,119 @@
+{
+  "legend": {
+    "data": [
+      "中国科学院院士",
+      "中国工程院院士"
+    ],
+    "bottom": "bottom"
+  },
+  "toolbox": {
+    "show": true,
+    "feature": {
+      "saveAsImage": {
+        "title": " "
+      }
+    },
+    "right": "40px"
+  },
+  "grid": {
+    "left": "40px",
+    "right": "40px",
+    "bottom": "40px",
+    "top": "40px",
+    "containLabel": true
+  },
+  "xAxis": {
+    "type": "category",
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#ccc"
+      }
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    },
+    "data": null
+  },
+  "yAxis": {
+    "position": "left",
+    "type": "value",
+    "interval": 1, 
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#eee"
+      }
+    }
+  },
+  "series": [
+    {
+      "name": "中国科学院院士",
+      "type":"line","connectNulls":true,
+      "symbolSize": 1,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(255,211,124)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#333"
+          }
+        }
+      },
+      "lineStyle": {
+        "normal": {
+          "color": "rgb(255,211,124)",
+          "width": 3
+        }
+      },
+      "data": null,
+      "z": 3
+    },
+    {
+      "name": "中国工程院院士",
+      "type":"line","connectNulls":true,
+      "symbolSize": 1,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(51,204,204)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#333"
+          }
+        }
+      },
+      "lineStyle": {
+        "normal": {
+          "color": "rgb(51,204,204)",
+          "width": 3
+        }
+      },
+      "data": null,
+      "z": 3
+    }
+  ]
+}

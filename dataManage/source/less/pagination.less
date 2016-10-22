@@ -1,0 +1,86 @@
+@import url('./init.less');
+@qinglan: #57D9E9;
+.M-box{
+    padding: 10px 0;
+	position: relative;
+    text-align: center;
+    text-align: right;
+    margin-right: 20px;
+  	zoom: 1;
+    background-color: #f8f9fd;
+    padding-bottom: 30px;
+    &:before,&:after{
+        content:"";
+        display:table;
+    }
+    &:after{
+        clear:both;
+        overflow:hidden;
+    }
+    span{
+        text-align: center;
+        color: #bdbdbd;
+        font-size: 14px;
+    }
+    .active{
+        background: @qinglan;
+        color: #fff;
+        font-size: 14px;
+        border: 1px solid @qinglan;
+    }
+    a{
+        text-align: center;
+        background-color: #fff;
+        border: 1px solid #ebebeb;
+        color: #bdbdbd;
+        // font-size: 14px;    
+        font-size: 16px;    
+        i{
+            font-size: 18px;
+            position: relative;
+            bottom: 1px;
+        }
+    }
+    a:hover{
+        background-color: lighten(@qinglan,10%);
+        color:#fff;
+    }
+    .next,.prev{
+        font-family: "Simsun";
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .now,.count{
+        // padding:0 5px;
+        color:#f00;
+    }
+
+    input{
+        text-align: center;
+        background: #fff;
+        border: 1px solid #ebebeb;
+        outline: none;
+        color: #bdbdbd;
+        font-size: 14px;
+    }
+    &>*{
+        margin: 0 3px;
+        width: 50px;
+        height: 42px;
+        line-height: 42px;
+        display: inline-block;
+        vertical-align: middle;
+        border-radius: 5px;
+    }
+}
+.loadMoreButton{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid @qinglan;
+    color: @qinglan;
+    line-height: 38px;
+    text-align: center;
+    cursor: pointer;
+    margin: 10px auto;
+}

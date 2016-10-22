@@ -1,0 +1,453 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox" style="background-color:#fff;">
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">用户管理</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox"> 
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">账户名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput accountNameEnter">
+					</div>
+				</td>
+				<th style="width:10.6%;">用户姓名 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput userNameEnter">
+					</div>
+				</td> 
+				<td colspan="2" style="width:18.3%;"></td>
+				<td colspan="2" style="width:26.3%">
+					<a class="searchBtn rightMinBtn">用户查询</a>
+					<a class="rightMinBtn addUserBtn" style="background-color: #00bfff;">新增用户</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent" style="display: block;">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">用户管理页面</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>账户名称</th>
+						<th>用户姓名</th>
+						<th>所属部门</th>
+						<th>邮箱</th>
+						<th>联系电话</th>
+						<th>用户属性</th>
+						<th>状态</th>
+						<th>到期时间</th>
+						<th>并发数</th>
+						<th>管理</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- <tr>
+						<td>1</td>
+						<td>zjupj</td>
+						<td>张三</td>
+						<td>校长办公室</td>
+						<td>zjupj@.edu.cn</td>
+						<td>18022343334</td>
+						<td>管理员</td>
+						<td>正常</td>
+						<td><a class="manageBtn commonFor">管理</a></td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>zjupj</td>
+						<td>李四</td>
+						<td>校长办公室</td>
+						<td>zjupj@.edu.cn</td>
+						<td>18022343334</td>
+						<td>管理员</td>
+						<td>注销</td>
+						<td><a class="manageBtn commonFor">管理</a></td>
+					</tr> -->
+				</tbody>				
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="mask"></div>
+<div class="unitsChoose">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader">
+			<p class="unitsTitle">系统用户管理</p>
+		</div>
+		<div class="unitsContent unitsContent2">
+			<div class="showTotalData">
+				<div class="ESIContent" style="padding-top: 30px;">
+					<table class="ESITable topTable">
+						<tr>
+							<th>账户名称 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput accountName">
+								</div>
+							</td>
+							<th>用户姓名 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput userName">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>所属部门 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput department">
+								</div>
+							</td>
+							<th>联系邮箱 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput mailBox">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>联系电话 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput phoneNum">
+								</div>
+							</td>
+							<th>用户属性 :</th>
+							<td>
+								<div class="commonselect"  style="width:100%;">
+									<select class="selBox userType">
+										<option>数据管理员</option>
+										<option>普通用户</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>新密码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput oldpw" type="password">
+								</div>
+							</td>
+							<th>确认密码 :</th>
+							<td>
+								<div class="commonInputBox" style="width:100%;">
+									<input class="commonput newpw" type="password">
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="bottomBtn">
+			<a class="forLogOut forLogOut1">注销用户</a>
+			<a class="forLogOut deleteUser" style="left:120px;">删除用户</a>
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var projectUnits=[];
+	topBarControl();
+	// var entity;
+	$(".addUserBtn").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose");
+		dragBox(".unitsChoose");
+		$(".schoolName").val("");
+		$(".userName").val("");
+		$(".accountName").val("");
+		// $(".accountName").removeAttr("disabled");
+		$(".department").val("");
+		$(".mailBox").val("");
+		$(".phoneNum").val("");
+		$(".userType").val("");
+		// $(".userType").removeAttr("disabled");
+		$(".forLogOut1").hide();
+		$(".deleteUser").hide();
+		$(".forLogOut1").hide();
+		$(".deleteUser").hide();
+	})
+	$(".infoTable1").delegate(".manageBtn","click",function(){
+		var accountName=$(this).parents("tr").children('td').eq(1).text();
+		var userName=$(this).parents("tr").children('td').eq(2).text();
+		var department=$(this).parents("tr").children('td').eq(3).text();
+		var email=$(this).parents("tr").children('td').eq(4).text();
+		var phoneNum=$(this).parents("tr").children('td').eq(5).text();
+		var type=$(this).parents("tr").children('td').eq(6).text();
+		var id=$(this).parents("tr").children('td').eq(0).attr("data-id");
+		$(".bottomBtn").attr("data-id",id);
+		// var td1=$(this).parent("tr").children('td').eq(7).text();
+		$(".userName").val(userName);
+		$(".accountName").val(accountName);
+		// $(".accountName").attr("disabled","disabled");
+		$(".department").val(department);
+		$(".mailBox").val(email);
+		$(".phoneNum").val(phoneNum);
+		$(".userType").val(type);
+		// $(".userType").attr("disabled","disabled");
+		$(".mask").show();
+		popAlertBox(".unitsChoose");
+		dragBox(".unitsChoose");
+		$(".forLogOut1").show();
+		$(".deleteUser").show();
+	})
+	$(".cancelBtn").bind("click",function(){
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+	})
+	$(".forLogOut1").bind("click",function(){
+		var name=$(".accountName").val();
+		$.ajax({
+			url:'/BannedAccount',
+			type:'post',
+			data:{
+				"name":name,
+			},
+			success:function(data){
+				if(data.state==1){
+					alert("注销用户成功");
+				}
+				else{
+					alert(data.error);
+				}
+			}
+		})
+	})
+	$(".deleteUser").bind("click",function(){
+		var id=$(this).parents(".bottomBtn").attr("data-id");
+		$.ajax({
+			url:'/DeleteAccount',
+			type:'post',
+			data:{
+				"id":id
+			},
+			success:function(data){
+				if(data.state==1){
+					alert("删除用户成功");
+				}
+				else{
+					alert("网络异常！");
+				}
+				window.location.reload();
+			}
+		})
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+	})
+	$(".forSure").bind("click",function(){
+		var id=$(this).parents(".bottomBtn").attr("data-id");
+		var name=$(".accountName").val();
+		var password;
+		var type;
+		var nickname=$(".userName").val();
+		var mail=$(".mailBox").val();
+		var phone=$(".phoneNum").val();
+		var pw1=$(".oldpw").val();
+		var pw2=$(".newpw").val();
+		var department=$(".department").val();
+		var year;
+		var month;
+		var day;
+		var concurrency;
+		if(pw1!=pw2){
+			alert("两次输入的密码不相同！")
+		}
+		else{
+			password=pw2;
+		}
+		var val=$(".userType").val();
+		if(val=="普通用户"){
+			type=0;
+		}
+		else{
+			type=1;
+		}
+		if(id){
+			$(this).parents(".bottomBtn").removeAttr("data-id");
+			$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone,year,month,day,concurrency)).done(function(data){
+				if(data.state==1){
+					alert("修改用户成功！");
+				}
+				else{
+					alert(data.error);
+				}
+			})
+		}
+		else{
+			$.when(CreateOrdinaryAccount(name,password,type,nickname,department,mail,phone,entity,year,month,day,concurrency)).done(function(data){
+				if(data.state==1){
+					alert("新增用户成功！");
+				}
+				else{
+					alert(data.error);
+				}
+			})
+		}
+		$(".mask").hide();
+		$(".unitsChoose").hide();
+		// window.location.reload();
+	})
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			if(result[i]){
+				for (var i=0,len=result.length;i<len;i++) {
+					var searchInfo=$('<tr>'+
+						'<td></td>'+
+					'</tr>');
+					searchInfo.children('td').eq(0).text(i+1);
+					for (var j=0;j<result[i].length;j++) {
+							// var mytd=$('<td></td>');
+							// if(j==0||j==1){
+							// 	searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
+							// }
+							// else{
+							// 	if(result[i][j]==null){
+							// 		result[i][j]="";
+							// 	}
+							// 	else if(j==6){
+							// 	// if(result[i][6]==0){
+							// 	// 	result[i][j]="系统管理员";
+							// 	// }
+							// 	// else if(result[i][6]==1){
+							// 	// 	result[i][j]="学校管理员";
+							// 	// } 
+							// 		if(result[i][6]==2){
+							// 			result[i][j]="数据管理员";
+							// 		}
+							// 		else if(result[i][6]==3){
+							// 			result[i][j]="普通用户";
+							// 		}
+							// 	}
+							// 	else if(j==7){
+							// 		if(result[i][7]==0){
+							// 			result[i][j]="正常";
+							// 		}
+							// 		else if(result[i][7]==1){
+							// 			result[i][j]="已注销";
+							// 		}
+							// 	}	
+							// 	mytd.text(result[i][j]);
+							// 	searchInfo.append(mytd);
+						if(j==0||j==1){
+							searchInfo.children('td').eq(0).attr("data-id",result[i][0]);
+						}
+						else{
+							var mytd=$('<td></td>');
+							if(result[i][j]==null){
+								result[i][j]="";
+							}
+							if(j==7){
+								if(result[i][7]==0){
+									result[i][j]="系统管理员";
+								}
+								else if(result[i][7]==1){
+									result[i][j]="学校管理员";
+								} 
+								else if(result[i][7]==2){
+									result[i][j]="数据管理员";
+								}
+								else if(result[i][7]==3){
+									result[i][j]="普通用户";
+								}
+							}
+							else if(j==8){
+								if(result[i][8]==0){
+									result[i][j]="正常";
+								}
+								else if(result[i][8]==1){
+									result[i][j]="已注销";
+								}
+							}	
+							// else if(j==1){
+
+							// }
+							var text=madeNowrapText(result[i][j]);
+							mytd.html(text);
+							searchInfo.append(mytd);
+						}
+					}
+					var newtd=$('<td><a class="manageBtn commonFor">管理</a></td>')
+					searchInfo.append(newtd);
+					$(".infoTable1").children('tbody').append(searchInfo);
+				}
+			}
+		}
+	}
+	// $.when(getUserInfo()).done(function(data){
+	// 	if(data.state==1){
+	// 		var result=data.all;
+	// 		if(result){
+	// 			entity=result.entity;//用户学校
+	// 			var params_={
+	// 				'pageindex':1,
+	// 				'entity':entity,
+	// 			}
+	// 			getDataBox(params_,'/GiveEntityAccount');
+	// 		}
+	// 	}
+	// 	else{
+	// 		alert(data.error);
+	// 		window.location.href="login.html";
+	// 	}
+	// })
+	console.log(entity);
+	var params_={
+		'pageindex':1,
+		'entity':entity,
+	}
+	getDataBox(params_,'/GiveEntityAccount');		
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		// var entity=localStorage.schoolName;
+		// var entity=schoolCode;
+		var name=$(".accountNameEnter").val();
+		var nickname=$(".userNameEnter").val();
+		var pageindex;
+		if(entity){
+			var params={
+			'pageindex':1,
+			'entity':entity,
+			'name':name,
+			'nickname':nickname,
+			}
+			getDataBox(params,'/GiveEntityAccount');
+		}
+		function getUserMessege(params){
+
+		}
+	})
+</script>

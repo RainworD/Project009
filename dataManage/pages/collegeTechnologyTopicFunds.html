@@ -1,0 +1,328 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox" style="background-color:#fff;">
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">高校科技课题数据</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox">  
+		<table class="topTable">
+			<tr>
+				<th style="width:105px;">学校名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
+						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td>  
+				<th style="width:10.6%;">课题总数 :</th>
+				<td style="width:18.3%;">
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
+						<input class="commonput years1" style="width:100%;ime-mode:disabled;" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%">
+						<input class="commonput years2" style="width:100%;" style="width:100%;ime-mode:disabled;" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+					</div>
+				</td>	
+				<th style="width:11.6%;">当年拨入经费 :</th>
+				<td style="width:18.3%;">
+					<div class="commonputBox" style="width:42.1%;margin-right:1%;">
+						<input class="commonput income1" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')" >
+					</div>
+					<span style="text-align: center;width:8%;">至</span>
+					<div class="commonputBox" style="width:42.1%;margin-left:1%;">
+						<input class="commonput income2" style="width:100%;ime-mode:disabled;" placeholder="万元" onkeyup="this.value=this.value.replace(/[^\- \d.]/g,'')"  onafterpaste="this.value=this.value.replace(/[^\- \d.]/g,'')">
+					</div>
+				</td>
+				<th style="width:10.6%;">课题年度 :</th>
+				<td style="width:19.3%">
+					<div class="commonselect">
+						<select class="selBox yearName1">
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+						</select>
+					</div>
+					<!-- <span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+						</select>
+					</div> -->
+					<span class="starAfter">*</span>
+				</td>
+			</tr>
+			<tr>
+				<th>
+					<!-- <label for="schoolOnly">
+						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
+					</label> -->
+				</th>
+				<td>
+					<label for="countFirst" class="label1">
+						<input type="radio" id="countFirst" name="selBar" class="radioInput" checked="checked" value="2">
+						按课题数量排序
+					</label>
+					<label for="feeFirst" class="label2">
+						<input type="radio" id="feeFirst" name="selBar" class="radioInput" value="1">
+						按拨入经费排序
+					</label>
+				</td>
+				<td colspan="2"></td>
+				<td colspan="2"></td>
+				<td colspan="2">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">高校科技课题经费数据&nbsp;（金额单位：万元）</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>学校名称</th>
+						<th>年度</th>
+						<th>课题总数（项）</th>
+						<th>当年投入人数</th>
+						<th>当年拨入经费</th>
+						<th>课题平均经费</th>
+						<th>人均经费</th>
+						<th>当年支出经费</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>				
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="mask mask1"></div>
+<div class="unitsChoose unitsChoose1" style="width:560px;">
+	<div class="unitsContainer">
+		<div class="cancelBtn"> 
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目牵头单位选择</p>
+		</div>
+		<div class="unitsContent unitsContent1" style="cursor:default;padding:0;">
+			<!-- <div class="topSearch">
+				<p class="topSearchContent"><input placeholder="快速查找单位"><i class="fa fa-search fa-lg"></i></p> 
+			</div> -->
+			<div class="custom-search-bar">
+				<div class="custom-input-box">
+					<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
+					<ul class="showElse" style="top: 28px;border-top: none;border: 1px solid #ebebeb;">
+							
+					</ul>
+				</div>
+				<div class="search-box">
+					<i class="fa fa-search fa-lg"></i>
+				</div>
+			</div>
+			<div class="totalModel" style="height:400px;margin-top:0">
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">单位名称</span>
+						</div>
+					</div>
+					<div class="qingta-ztree-table" style="width:535px">
+						<ul id="tree" class="ztree ztree-at-top" style="width:518px">
+						</ul>
+					</div>
+				</div>
+				<!-- <ul id="tree" class="ztree">
+				</ul> -->
+			</div>
+		</div>
+		<div class="beforeShow">
+			<p class="enterSearchInfo">
+				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+				<span class="sr-only">Loading...</span>
+			</p>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<script type="text/javascript">
+	var projectUnits=[];
+	$(".showDetailBox1").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
+	})
+	if(finalResults){
+		judgeUnits(finalResults);
+	}
+	else{
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
+	doForSearch(".searchBox","/Landentity0");
+	topBarControl(); 
+</script>
+<script type="text/javascript">
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		// $(".infoTable1 thead").find('th').addClass("nowrap");
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName1").val();
+		var val=$(".projectType").val();
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					var text=result[i][j];
+					if(result[i][j]==null){
+						text="";
+					}
+					else if(j==0){
+						text=madeOneLineText(result[i][j]);
+						mytd.css("width","150px");
+					}
+					// else if(j==1){
+					// 	text=year1+'-'+year2;
+					// 	text = madeNowrapText(text);
+					// }
+					else{
+						// if(result[i][j]==null||result[i][j]=="*"){
+						// 	text="*";
+						// }
+						// else{
+							var ex = /^\d+$/;
+							if(ex.test(result[i][j])){
+								text=result[i][j];
+							}
+							else{
+								text=Number(result[i][j]).toFixed(2);
+							}
+							text = madeNowrapText(text);
+						}
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+
+			}
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName1").val();
+		var entitys=projectUnits;
+		var incoming1=$(".income1").val();
+		var incoming2=$(".income2").val();
+		var count1=$(".years1").val();
+		var count2=$(".years2").val();
+		var orderby=$("input[name='selBar']:checked").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var pageindex;
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(count1!=""&&count2!=""&&(count1-0)>(count2-0)){
+			alert("输入的起始课题总数不能大于终止课题总数！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(incoming1!=""&&incoming2!=""&&(incoming1-0)>(incoming2-0)){
+			alert("输入的起始拨入经费不能大于终止拨入经费！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			var params={
+				"entitys": entitys, //选择的学校列表
+		        "year1":year1,//年度范围左侧
+		        "year2":year2,//年度范围右侧
+		        "incoming1":incoming1,
+		        "incoming2":incoming2,
+		        "count1":count1,
+		        "count2":count2,
+		        "pageindex":1,//分页数
+		        "schoolOnly":schoolOnly,
+		        "orderby":orderby
+			}
+			getDataBox(params,'/askSTP');
+		}
+	})
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

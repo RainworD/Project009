@@ -1,0 +1,143 @@
+{
+     "legend": {
+          "data" : ["立项数", "批准金额"],
+          "bottom": "bottom"
+      },
+      "toolbox": {
+          "show": true,
+          "feature": {
+               "saveAsImage": {
+                    "title": " "
+               }
+          },
+          "right": "40px"
+      },
+      "grid": {
+          "left": "40px",
+          "right": "40px",
+          "bottom": "40px",
+          "top": "40px",
+          "containLabel": true
+      },
+      "xAxis": {
+          "type": "category",
+          "axisTick": {
+               "show": false    
+          },
+          "axisLine": {
+               "lineStyle": {
+                    "color": "#ccc"
+               }
+          },
+          "axisLabel": {
+               "textStyle": {
+                    "color": "#999"
+               }    
+          },
+          "data": null
+      },
+      "yAxis": [
+          {     
+               "position": "left",
+               "type": "value",
+               "axisTick": {
+                    "show": false    
+               },
+               "axisLine": {
+                    "show": false
+               },
+               "axisLabel": {
+                    "textStyle": {
+                         "color": "#999"
+                    }    
+               },
+               "splitLine": {
+                    "lineStyle": {
+                         "color": "#eee"
+                    }
+               }
+          },
+          {    
+               "position": "right",
+               "type": "value",
+               "splitLine": {
+                    "show": false
+               },
+               "min": null,
+               "axisLine": {
+                    "show": true,
+                    "lineStyle": {
+                         "color": "#ccc"
+                    }    
+               },
+               "axisLabel": {
+                    "textStyle": {
+                         "color": "#999"
+                    }   
+               },
+               "axisTick": {
+                    "show": true    
+               }
+          }
+     ],
+     "series": [
+          {
+               "type":"line","connectNulls":true,
+               "yAxisIndex": 0,
+               "name": "立项数",
+               "data":null,
+               "symbolSize": 16,
+               "label": {
+                    "normal": {
+                         "show": true,
+                         "position": "top",
+                         "textStyle": {
+                              "color": "#999"
+                         }
+                    }
+               },
+               "itemStyle": {
+                    "normal": {
+                         "color":"rgb(86,217,233)",
+                         "borderColor": "rgb(86,217,233)",
+                         "borderWidth": 3
+                    }
+               },
+               "lineStyle": {
+                    "normal": {
+                         "color": "rgb(86,217,233)",
+                         "width": 3
+                    }
+               }
+          },
+          {
+               "type":"line","connectNulls":true,
+               "yAxisIndex": 1,
+               "name": "批准金额",
+               "data":null,
+               "symbolSize": 16,
+               "label": {
+                    "normal": {
+                         "show": true,
+                         "position": "top",
+                         "textStyle": {
+                              "color": "#999"
+                         }
+                    }
+               },
+               "itemStyle": {
+                    "normal": {
+                         "color": "rgb(255,211,124)",
+                         "borderColor": "rgb(255,211,124)",
+                         "borderWidth": 3
+                    }
+               },
+               "lineStyle": {
+                    "normal": {
+                         "color": "rgb(255,211,124)",
+                         "width": 3
+                    }
+               }
+          }
+     ]
+}

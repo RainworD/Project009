@@ -1,0 +1,121 @@
+{
+     "legend": {
+          "data" : ["第一轮","第二轮","第三轮"],
+          "bottom": "bottom"
+      },
+      "toolbox": {
+          "show": true,
+          "feature": {
+               "saveAsImage": {
+                    "title": " "
+               }
+          },
+          "right": "40px"
+      },
+      "grid": {
+          "left": "40px",
+          "right": "40px",
+          "bottom": "40px",
+          "top": "40px",
+          "containLabel": true
+      },
+      "xAxis": {
+          "type": "category",
+          "axisTick": {
+               "show": false    
+          },
+          "axisLine": {
+               "lineStyle": {
+                    "color": "#ccc"
+               }
+          },
+          "axisLabel": {
+               "textStyle": {
+                    "color": "#999"
+               }    
+          },
+          "data": null
+      },
+      "yAxis": {
+        "type": "value",
+        "axisTick": {
+             "show": false    
+        },
+        "axisLine": {
+             "show": false
+        },
+        "axisLabel": {
+             "textStyle": {
+                  "color": "#999"
+             }    
+        },
+        "splitLine": {
+             "lineStyle": {
+                  "color": "#eee"
+             }
+        }
+      },
+     "series": [
+          {
+               "type":"bar",
+               "name": "第一轮",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(44, 220, 153)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "barGap": 0,
+               "data": null
+          },
+          {
+               "type":"bar",
+               "name": "第二轮",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(255, 204, 102)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "data": null
+          },
+          {
+               "type":"bar",
+               "name": "第三轮",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(86, 217, 233)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "data": null
+          }
+     ]
+}

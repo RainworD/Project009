@@ -1,0 +1,132 @@
+.like {
+  float: left;
+  padding-right: 10px;
+}
+.like .likefont {
+  font-size: 16px;
+  color: red;
+}
+.reply {
+  float: left;
+}
+.reply .editfont {
+  font-size: 16px;
+}
+.after:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.item-title {
+  font-size: 14px;
+  color: #757575;
+  font-weight: 600px;
+}
+.veryCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+.verticalCenter {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+}
+.horizontalCenter {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+}
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.M-box {
+  padding: 10px 0;
+  position: relative;
+  text-align: center;
+  text-align: right;
+  margin-right: 20px;
+  zoom: 1;
+  background-color: #f8f9fd;
+  padding-bottom: 30px;
+}
+.M-box:before,
+.M-box:after {
+  content: "";
+  display: table;
+}
+.M-box:after {
+  clear: both;
+  overflow: hidden;
+}
+.M-box span {
+  text-align: center;
+  color: #bdbdbd;
+  font-size: 14px;
+}
+.M-box .active {
+  background: #57d9e9;
+  color: #fff;
+  font-size: 14px;
+  border: 1px solid #57d9e9;
+}
+.M-box a {
+  text-align: center;
+  background-color: #fff;
+  border: 1px solid #ebebeb;
+  color: #bdbdbd;
+  font-size: 16px;
+}
+.M-box a i {
+  font-size: 18px;
+  position: relative;
+  bottom: 1px;
+}
+.M-box a:hover {
+  background-color: #84e3ef;
+  color: #fff;
+}
+.M-box .next,
+.M-box .prev {
+  font-family: "Simsun";
+  font-size: 16px;
+  font-weight: bold;
+}
+.M-box .now,
+.M-box .count {
+  color: #f00;
+}
+.M-box input {
+  text-align: center;
+  background: #fff;
+  border: 1px solid #ebebeb;
+  outline: none;
+  color: #bdbdbd;
+  font-size: 14px;
+}
+.M-box > * {
+  margin: 0 3px;
+  width: 50px;
+  height: 42px;
+  line-height: 42px;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 5px;
+}
+.loadMoreButton {
+  width: 100px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #57d9e9;
+  color: #57d9e9;
+  line-height: 38px;
+  text-align: center;
+  cursor: pointer;
+  margin: 10px auto;
+}

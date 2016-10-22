@@ -1,0 +1,212 @@
+.qingta-ztree-table {
+  width: 476px;
+  height: 380px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+.ztree-at-top {
+  width: 458px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+.qingta-ztree-header {
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  position: relative;
+}
+.qingta-ztree-header .qingta-ztree-cell {
+  line-height: 40px;
+  font-size: 16px;
+  text-align: center;
+}
+.qingta-ztree-header .qingta-ztree-switch,
+.qingta-ztree-header .qingta-ztree-check {
+  position: absolute;
+}
+.qingta-ztree-header .qingta-ztree-switch {
+  left: 0px;
+  width: 50px;
+}
+.qingta-ztree-header .qingta-ztree-check {
+  right: 0px;
+  width: 70px;
+}
+.qingta-ztree-header .qingta-ztree-name {
+  padding-left: 50px;
+  padding-right: 70px;
+  box-sizing: border-box;
+  table-layout: fixed;
+  display: table;
+  width: 100%;
+}
+.qingta-ztree-header .qingta-ztree-name .qingta-ztree-cell {
+  display: table-cell;
+  width: 150px;
+  border-right: 1px solid #cccccc;
+}
+.qingta-ztree-header .qingta-ztree-name .qingta-ztree-cell:first-child {
+  border-left: 1px solid #cccccc;
+}
+.qingta-ztree-header .qingta-ztree-name .qingta-ztree-cell:last-child {
+  width: auto;
+}
+.ztree.ztree3 a.level0 {
+  background-color: #ffffdf;
+}
+.ztree.ztree3 a.level1 {
+  background-color: #fffff2;
+}
+.ztree.ztree3 a.level2 {
+  background-color: #ffffff;
+}
+.ztree {
+  margin: 0;
+  padding: 0px;
+  border: 1px solid #cccccc;
+}
+.ztree * {
+  padding: 0;
+  margin: 0;
+}
+.ztree ul {
+  list-style: none;
+  border-top: 1px solid #cccccc;
+}
+.ztree li {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  white-space: nowrap;
+  outline: 0;
+  border-bottom: 1px solid #cccccc;
+}
+.ztree li:last-child {
+  border-bottom: none;
+}
+.ztree a {
+  display: table;
+  width: 100%;
+  box-sizing: border-box;
+  table-layout: fixed;
+  background-color: transparent;
+  text-decoration: none;
+  padding: 0px 70px 0px 50px;
+  /*  &.curSelectedNode {
+           background: lighten(#33ccff,5%) !important;
+       } */
+}
+.ztree a > .node_name {
+  display: table-cell;
+  box-sizing: border-box;
+  width: 150px;
+  line-height: 40px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-right: 1px solid #cccccc;
+  padding-left: 10px;
+}
+.ztree a > .node_name:nth-child(2) {
+  border-left: 1px solid #cccccc;
+}
+.ztree a > .node_name:last-child {
+  width: auto;
+}
+.ztree a.level0 {
+  background: #ffffdf;
+}
+.ztree a.level0 .node_name {
+  font-size: 16px;
+  color: #111111;
+}
+.ztree a.level0 .node_name-code {
+  padding-left: 10px;
+}
+.ztree a.level1 {
+  background: #fffff2;
+}
+.ztree a.level1 .node_name {
+  font-size: 14px;
+  color: #333333;
+}
+.ztree a.level1 .node_name-code {
+  padding-left: 20px;
+}
+.ztree a.level2 {
+  background: #f7f8f7;
+}
+.ztree a.level2 .node_name {
+  font-size: 14px;
+  color: #666666;
+}
+.ztree a.level2 .node_name-code {
+  padding-left: 30px;
+}
+.ztree a.level3 {
+  background: #ffffff;
+}
+.ztree a.level3 .node_name {
+  font-size: 12px;
+  color: #999999;
+}
+.ztree a.level3 .node_name-code {
+  padding-left: 40px;
+}
+[treenode_ico] {
+  display: none;
+}
+[treenode_switch],
+[treenode_check] {
+  position: absolute;
+}
+[treenode_switch] {
+  width: 50px;
+  left: 0;
+  text-align: center;
+  line-height: 40px;
+}
+[treenode_switch].noline_open:before {
+  content: "-";
+}
+[treenode_switch].noline_close:before {
+  content: "+";
+}
+[treenode_check] {
+  width: 70px;
+  right: 0;
+  text-align: center;
+  line-height: 40px;
+  font-family: FontAwesome;
+  /* radio 单选*/
+}
+[treenode_check].checkbox_true_part:before,
+[treenode_check].checkbox_true_part_focus:before {
+  content: "\f14a";
+}
+[treenode_check].checkbox_false_full_focus:before,
+[treenode_check][treenode_check].checkbox_false_full:before {
+  content: "\f096";
+}
+[treenode_check].checkbox_true_full_focus:before,
+[treenode_check][treenode_check].checkbox_true_full:before {
+  content: "\f046";
+}
+[treenode_check].radio_true_full_focus:before,
+[treenode_check][treenode_check].radio_true_full:before {
+  content: "\f192";
+}
+[treenode_check].radio_true_part_focus:before,
+[treenode_check][treenode_check].radio_true_part:before {
+  content: "\f192";
+}
+[treenode_check].radio_false_full_focus:before,
+[treenode_check][treenode_check].radio_false_full:before {
+  content: "\f10c";
+}
+[treenode_check].radio_false_part_focus:before,
+[treenode_check][treenode_check].radio_false_part:before {
+  content: "\f10c";
+}

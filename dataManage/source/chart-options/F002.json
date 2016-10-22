@@ -1,0 +1,80 @@
+{
+  "toolbox": {
+    "show": true,
+    "feature": {
+      "saveAsImage": {
+        "title": " "
+      }
+    },
+    "right": "40px"
+  },
+  "legend": {
+    "x": "center",
+    "y": "bottom",
+    "data": [
+      "政府资金",
+      "企事业单位委托",
+      "其他"
+    ]
+  },
+  "xAxis": {
+    "type": "value",
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": false
+    }
+  },
+  "yAxis": {
+    "type": "category",
+    "data": null,
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    }
+  },
+  "series": [
+    {
+      "name": "政府资金",
+      "stack": "money",
+      "type": "bar",
+      "data": null,
+      "itemStyle": {
+           "normal": {
+               "color": "rgb(86, 217, 233)"
+           }
+      },
+      "barWidth": "70%"
+    },
+    {
+      "name": "企事业单位委托",
+      "stack": "money",
+      "type": "bar",
+      "data": null,
+      "itemStyle": {
+           "normal": {
+               "color": "rgb(255, 211, 124)"
+           }
+      }
+    },
+    {
+      "name": "其他",
+      "stack": "money",
+      "type": "bar",
+      "data": null,
+      "itemStyle": {
+           "normal": {
+               "color": "rgb(77, 224, 169)"
+           }
+      }
+    }
+  ]
+}

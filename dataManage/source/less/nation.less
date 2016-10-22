@@ -1,0 +1,298 @@
+@import url("init.less");
+.mainContainer{
+	position: relative;
+	// .mask{
+	// 	display: none;
+	// 	position: absolute;
+	// 	top: 0;
+	// 	left: 0;
+	// 	z-index: 2;
+	// }
+	// .unitsChoose{
+	// 	display: none;
+	// 	background-color: #fff;
+	//     width: 720px;
+	//     margin: -270px 0 0 -360px;
+	//     position: fixed;
+	//     left: 50%;
+	//     top: 50%;
+	//     border: 1px solid #ccc;
+	//     .unitsContainer{
+	//     	position: relative;
+	//     	padding: 20px;
+	//     	.cancelBtn{
+	//     		width: 30px;
+	// 			position: absolute;
+	// 			top:10px;
+	// 			right:0;
+	// 			color:#bdbdbd;
+	// 			cursor: pointer;
+	//     	}
+	//     	.unitsHeader{
+	//     		width: 100%;
+	//     		border-bottom: 2px dashed #bdbdbd;
+	//     		.unitsTitle{
+	// 				padding-bottom: 10px;
+	//     		}
+	//     	}
+	//     	.unitsContent{
+	//     		width: 100%;
+	//     		padding-top: 30px;
+	//     		padding-bottom: 20px;
+	//     		.totalModel{
+	//     			width: 100%;
+	//     			height: 380px;
+	//     			position: relative;
+	//     			margin-bottom: 30px;
+	//     			.leftColumn{
+	//     				width: 45%;
+	//     				float: left;
+	//     				min-height: 380px;
+	//     				border: 1px solid #cfcfcf;
+	//     				.leftColumnBox{
+	//     					padding: 10px;
+	//     					.leftColumnBar{
+	//     						width: 100%;
+	//     						padding-bottom: 10px;
+	//     						border-bottom: 1px dashed #cfcfcf;
+	//     						.searchBox{
+	//     							border:none;
+	//     							border:1px solid #cfcfcf;
+	//     							width: 210px;
+	//     							display: block;
+	//     							float: left;
+	//     							margin-right: 10px;
+	//     							height: 30px;
+	//     							line-height: 30px;
+	//     							padding-left: 10px;
+	//     						}
+	//     						.leftSearchBtn{
+	//     							display: block;
+	//     							float: left;
+	//     							width: 60px;
+	//     							height: 30px;
+	//     							line-height: 30px;
+	//     							background-color: #fff;
+	//     							border:1px solid #cfcfcf;
+	//     							border-radius:6px;
+	//     							text-align: center;
+
+	//     						}
+	//     						.after;
+	//     					}
+	//     					.leftColumnContent{
+	//     						padding: 20px;
+	//     						.leftColumnBtn{
+	//     							float: left;
+	//     							width: 40px;
+	//     							padding-right: 10px;
+	//     							text-align: center;
+	//     							font-size: 18px;
+	//     							color:#ccc;
+	//     							.unShowCollege,.showCollege{
+	// 									display: none;
+	//     							}
+
+	//     							.addShow{
+	//     								display: inline-block;
+	//     							}
+	//     						}
+	//     						.leftColumnProvinces{
+	//     							padding-left: 10px;
+	//     							float: left;
+	//     							.provinceItems{
+	// 									display: inline-block;
+	// 									vertical-align: middle;
+	// 									cursor: pointer;
+	// 									label{
+	// 										display: inline-block;
+	// 										vertical-align: middle;
+	// 									}
+	//     							}
+	//     							.showMoreCollege{
+	// 									display: none;
+	// 									.collegeItems{
+	// 										padding-left: 20px;
+	// 										cursor: pointer;
+	// 									}
+	//     							}
+	//     							.showMoreCollegeActive{
+	//     								display: block;
+	//     							}
+
+	//     						}
+	//     					}
+	//     				}
+	//     			}
+	//     			.middleColumn{
+	//     				width: 10%;
+	//     				line-height: 380px;
+	//     				float: left;
+	//     				.btnBox{
+	//     					height: 50px;
+	//     					margin-top: 165px;
+	//     					text-align: center;
+	//     					.moveRight{
+	//     						display: block;
+	//     						font-size: 23px;
+	//     						color: #bdbdbd;
+	//     						padding-bottom: 20px;
+	//     						cursor: pointer;
+	//     					}
+	//     					.moveLeft{
+	//     						display: block;
+	//     						font-size: 23px;
+	//     						color: #bdbdbd;
+	//     						cursor: pointer;
+	//     					}
+	//     					.lightGreen{
+	//     						background-color: #3cc;
+	//     						color:#fff;
+	//     					}
+	//     					.moveLeft:hover{
+	// 							color:#666;
+	// 						}
+	// 						.moveRight:hover{
+	// 							color:#666;
+	// 						}
+	//     				}
+	//     			}
+	// 				.rightColumn{
+	// 					width: 45%;
+	// 					float: left;
+	// 					border: 1px solid #cfcfcf;
+	// 					min-height: 380px;
+	// 					.rightColumnContent{
+	// 						padding: 10px;
+	// 						.rightColumnBar{
+	// 							padding: 10px;
+	// 							border-bottom: 1px dashed #cfcfcf;
+	// 						}
+	// 						.chooseAlready{
+	// 							padding: 10px;
+	// 						}
+	// 					}
+	// 				}
+	// 				.after;
+	//     		}
+	//     		.showTotalData{
+	//     			.commonInputBox{
+	// 					position: relative;	
+	// 					width: 150px;					
+	// 					.commonput{
+	// 						padding-right:30px;
+	// 						border:none;
+	// 						width: 100%;
+	// 						height: 30px;
+	// 						line-height: 30px;
+	// 						border:1px solid #bdbdbd;
+	// 						padding-left: 5px;
+	// 						border-radius: 5px;
+	// 					}
+	// 					.commonput:focus{
+	// 						border:1px solid #3cc;
+	// 						-moz-box-shadow: 0 0 8px #3cc;
+	// 						-webkit-box-shadow:  0 0 8px #3cc;
+	// 						box-shadow: 0 0 8px #3cc; 
+	// 					}
+	// 				}
+	// 				.commonselect{
+	// 					display: inline-block;
+	// 					width: 150px;
+	// 					max-width: 100%;
+	// 					//overflow: hidden;
+	// 					height: 30px;
+	// 					position: relative;
+	// 					// border:1px solid #bdbdbd;
+	// 					vertical-align: middle;
+	// 					// border-radius:5px;
+	// 					.selBox{
+	// 						border:1px solid #bdbdbd;
+	// 						border-radius:5px;
+	// 						padding-left: 10px;
+	// 						position: absolute;
+	// 						left: 0px;
+	// 						width:100%;
+	// 						height: 30px;
+	// 						// border:none;
+	// 						line-height: 28px;
+	// 						background: transparent;
+	// 						cursor: pointer;
+	// 					}
+	// 					.selBox:focus{
+	// 						border-bottom-right-radius:0;
+	// 						border-bottom-left-radius:0;
+	// 						border:1px solid #3cc;
+	// 						-moz-box-shadow:  0 0 8px #3cc;
+	// 						-webkit-box-shadow:  0 0 8px #3cc;
+	// 						box-shadow: 0 0 8px #3cc; 
+	// 					}
+	// 					&:before {
+	// 					    position: absolute;
+	// 					    right: 8px;
+	// 					    top: 7px;
+	// 					    display: inline-block;
+	// 					    font: normal normal normal 14px/1 FontAwesome;
+	// 					    font-size: inherit;
+	// 					    text-rendering: auto;
+	// 					    -webkit-font-smoothing: antialiased;
+	// 					    -moz-osx-font-smoothing: grayscale;
+	// 					    content:"\f107";
+	// 					    color: #aaa;
+	// 					    cursor: pointer;
+	// 					}
+	// 				}
+	//     			.ESIContent{
+	//     				width: 100%;
+	// 	    			.ESITop{
+	// 	    				padding: 15px 0;
+	// 	    				.ESITitle{
+	// 	    					float: left;
+	// 	    					height: 30px;
+	// 	    					line-height: 30px;
+	// 	    					background-color: #3cc;
+	// 	    					color: #fff;
+	// 	    				}
+	// 	    				.editData{
+	// 	    					display: block;
+	// 	    					float: right;
+	// 	    					height: 30px;
+	// 	    					line-height: 30px;
+	// 	    					border:1px solid #ccc;
+	// 	    					color: #3cc;
+	// 	    				}
+	// 	    				.after;
+	// 	    			}	    			
+	//     				.ESITable{
+							
+	//     				}
+	//     			} 
+	//     		}
+	//     		.bottomBtn{
+	// 				position: absolute;
+	// 				right: 0px;
+	// 				bottom:20px;
+	// 				.forSure,.forConsole{
+	// 					display: block;
+	// 					float:right;
+	// 					width: 80px;
+	// 					text-align: center;
+	// 					margin-right: 20px;
+	// 					border-radius: 3px;
+	// 					color: #fff;
+	// 					height: 30px;
+	// 					line-height: 30px;	
+	// 				}
+	// 				.forSure{
+	// 					background-color: #00cc99;
+	// 				}
+	// 				.forConsole{
+	// 					background-color: #33ccff;
+	// 				}
+	// 				.after;
+	// 			}
+	//     	}
+	//     }
+
+	// }
+}

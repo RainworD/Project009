@@ -1,0 +1,313 @@
+<link rel="stylesheet" href="../source/css/chart.css">
+<style>
+	.chooseItems:hover {
+		background-color: #ffefd5;
+	}
+	.delete-point-analysis-box {
+		border: 1px solid #ebebeb;
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		width: 20px;
+		height: 20px;
+		line-height: 20px;
+		border-radius: 3px;
+		text-align: center;
+	}
+	.delete-point-analysis-box:hover {
+		color: #f33;
+		border: 1px solid #f33;
+	}
+	.delete-point-analysis-box:hover .point-analysis-icon {
+		color: #f33;
+	}
+	.delete-point-analysis-box .point-analysis-icon {
+		cursor: pointer;
+		color: #ebebeb;
+		font-size: 16px;
+	}
+</style>
+<div id="point_analysis_container">
+	<point-analysis></point-analysis>
+</div>
+<script type="text/x-vue-template" id="point_analysis_template">
+	<div class="changeBarContainer">
+		<div class="changeBarBox" style="background-color:#fff;">
+			<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;min-width: 100px;">数据分析管理后台</a>
+		</div>
+		<p class="hideBtn" @click="showSearchBar=false" v-show="showSearchBar">隐藏查询条件</p>
+		<p class="hideBtn" @click="showSearchBar=true" v-show="!showSearchBar">显示查询条件</p>
+	</div>
+	<div class="enterBox" v-show="showSearchBar">
+		<div class="topTableBox">
+			<table class="topTable">
+				<tr>
+					<th style="width:80px;">学校名称 :</th>
+					<td style="width:19.5%;">
+						<div class="commonInputBox"  style="width:100%">
+							<input class="commonput unitsEnter" style="padding-right:30px;" v-model="search_name_string" @keydown.13="initPagination">
+						</div>
+					</td> 
+					<td colspan="2"></td>
+					<td colspan="2"></td>
+					<th style="width:3%"></th>
+					<td style="width:9.3%">
+						<a class="searchBtn rightMinBtn" v-on:click="initPagination">查询</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="tableContent" style="display: block;">
+		<div class="infoTableBox">
+			<div class="infoTableTop">
+				<p class="infoTablePara">
+					<span class="topLeft">数据分析管理后台</span>
+				</p>
+			</div>
+			<div class="infoTableContent">
+				<table class="infoTable infoTable1">
+					<thead>
+						<tr class="tableTitle">
+							<th>序号</th>
+							<th>大学名称</th>
+							<th v-for="point in points">{{point.name}}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item in table_data">
+							<td>{{getOrder($index)}}</td>
+							<td>{{item.name}}</td>
+							<td v-for="point in points">
+								<a class="pointManager" v-on:click="openMainModal(point, item)">管理</a>
+							</td>
+						</tr>
+					</tbody>		
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="M-box"></div>
+	<div class="custom-modal" data-drag-modal="false" v-el:mainmodal>
+		<div class="custom-modal-content" style="width:600px;" drag-modal-content>
+			<div class="custom-modal-close" @click="closeMainModal(false)">
+				<i class="fa fa-close"></i>
+			</div>
+			<div class="custom-modal-head" data-drag-enter>
+				<span>指标选择-科研数据分析</span>
+			</div>
+			<div class="custom-modal-body" style="padding:0px 20px;">
+				<table class="infoTable" style="margin:10px 0px;">
+					<thead>
+						<tr class="tableTitle">
+							<th style="width:40px;"></th>
+							<th style="width:60px;">序号</th>
+							<th style="width:80px;">指标代码</th>
+							<th>指标名称</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="item in user_points">
+							<td style="cursor:pointer" @click="checkPoint(item)"><input type="checkbox" v-model="item.check"></td>
+							<td>{{$index+1}}</td>
+							<td>{{item.code}}</td>
+							<td>{{item.name}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="custom-modal-foot">
+				<div data-drag-enter></div>
+				<a class="qingta-button button-blue" @click="closeMainModal(false)">取消</a>
+				<a class="qingta-button button-green" @click="closeMainModal(true)">确定</a>
+			</div>
+		</div>
+	</div>
+</script>
+<script type="text/javascript">
+
+var baseTree = null
+var baseArray = null
+var pageNumber = 20
+
+	Vue.component('point-analysis', {
+		template: $('#point_analysis_template').html(),
+		data: function(){
+			return {
+				page: -1,
+				table_data: [],
+				search_name_string: "",
+				points: [],
+				user_points: [],
+				selected_point: null,
+				seleceted_uniId: "",
+				already_arr: [],
+				showSearchBar: true
+			}
+		},
+		methods: {
+			checkPoint: function(item){
+				item.check = !item.check
+			},
+			openMainModal: function(point_detail, uni_detail){
+				openModal($(this.$els.mainmodal))
+
+				this.selected_point = point_detail
+				this.selected_uni = uni_detail
+				this.user_points = []
+
+				var self = this
+				Promise.resolve($.ajax({
+					url: '/dataAnalyze/school',
+					error: function(){},
+					data: {
+						university: self.selected_uni.id,
+						type: self.selected_point.id
+					}
+				})).then(function(res){
+					if (res.state == "0") {
+						var data = res.data || []
+						var dict = Object.create(null)
+						data.forEach(function(item){
+							var chart = item.chart
+							if (!chart) {
+								return
+							}
+							dict[chart.id] = {
+								code: chart.code,
+								name: chart.name
+							}
+						})
+
+						point_detail.chart.forEach(function(item){
+							console.log(item.id)
+							var user_item = {
+								check: false,
+								id: item.id,
+								code: item.code,
+								name: item.name
+							}
+							if (dict[item.id]) {
+								user_item.check = true
+							}
+							self.user_points.push(user_item)
+						})
+					}
+				})
+			},
+			closeMainModal: function(save){
+				var self = this
+
+				if (save) {
+					var url = "/dataAnalyze/set?university=" + self.selected_uni.id
+					url += "&type=" + self.selected_point.id
+					self.user_points.filter(function(item){
+						return item.check
+					}).map(function(item){
+						return item.id
+					}).forEach(function(id, index){	
+						url += "&id[" + index + "]=" + id 
+					})
+					Promise.resolve($.ajax({
+						url: url
+					})).then(function(res){
+						if (res.state == 0) {
+							hideModal($(self.$els.mainmodal))
+						} else {
+							return Promise.reject(new Error())
+						}
+					}).catch(function(e){
+						console.dir(e)
+						alert('修改失败')
+					})
+					return 
+				}
+
+				hideModal($(this.$els.mainmodal))
+			},
+			getOrder: function(index){
+				return index + this.page * 20 + 1
+			},
+			initPagination: function(){
+				var self = this
+
+				if (self.search_name_string.length > 0) {
+					filtered_data = baseArray.filter(function(item){
+						return ~item.name.indexOf(self.search_name_string)
+					})
+				} else {
+					filtered_data = baseArray.slice(0)
+				}
+
+				var length = filtered_data.length
+				$('.M-box').pagination({
+					totalData: length,
+					showData: pageNumber,
+					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+					coping: true,
+					jump:true,
+					callback: function(api){
+						var page = api.getCurrent()
+						self.page = page - 1
+						self.table_data = filtered_data.slice(self.page * pageNumber, (self.page + 1) * pageNumber)
+					}
+				})
+				self.page = 0
+				self.table_data = filtered_data.slice(0, 20)
+			},
+			initData: function(){
+				var self = this
+				Promise.resolve($.ajax({
+					url: '/LandEntity',
+					error: function(){}
+				})).then(function(res){
+					baseTree = res.result
+					baseArray = transferToArray(baseTree)
+					self.initPagination()
+					//baseTree = transferToArray(res.result)
+				}).catch(function(e){
+					console.dir(e)
+					alert('获取数据失败')
+				})
+			}
+		},
+		ready: function(){
+			this.initData()
+			var self = this
+			Promise.resolve($.ajax({
+				url: '/dataAnalyze/type',
+				error: function(){}
+			})).then(function(res){
+				if (res.state == '0') {
+					self.points = res.data
+				} else {
+					alert('获取指标数据失败')
+				}
+			}).catch(function(e){
+				console.dir(e)
+				alert('获取指标数据失败')
+			})
+		}
+	})
+
+	new Vue({
+		el: '#point_analysis_container'
+	})
+
+	function transferToArray(tree) {
+		var ret = []
+
+		tree.forEach(function(classi){
+			classi.children.forEach(function(location){
+				location.children.forEach(function(uni){
+					ret.push({
+						name: uni.name,
+						id: uni.id
+					})
+				})
+			})
+		})
+		return ret
+	}
+</script>

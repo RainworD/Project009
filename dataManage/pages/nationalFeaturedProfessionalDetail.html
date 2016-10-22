@@ -1,0 +1,174 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox">
+		<a href="#/nationalFeaturedProfessional.html" class="changeLeft changeButton">国家级特色专业统计</a>
+		<a href="#/nationalFeaturedProfessionalDetail.html" class="changeRight green changeButton">国家级特色专业明细</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p> 
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">学校名称:</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput schoolName">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%;">专业名称:</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput professionName">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%;">批准批次 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:95%;">
+						<select class="selBox indexNum">
+							<option selected="selected"></option>
+							<option>第一批</option>
+							<option>第二批</option>
+							<option>第三批</option>
+							<option>第四批</option>
+							<option>第五批</option>
+							<option>第六批</option>
+							<option>第七批</option>
+						</select>
+					</div>
+					<span class="starAfter">*</span>
+				</td>
+				<td colspan="2" style="width:26.3%;">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">国家级特色专业明细数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>学校名称</th>
+						<th>批准批次</th>
+						<th>专业名称</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<script>
+var projectUnits=[];
+topBarControl();
+// doForSearch(".schoolName","/Landentity0");
+</script>
+<script type="text/javascript">
+
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					var text=madeNowrapText(result[i][j]);
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var entity=$(".schoolName").val();
+		var _index=$(".indexNum").val();
+		var name=$(".professionName").val();
+		var params={
+			'pageindex':1,
+			'name':name,
+			'entity':entity,
+			'_index':_index,		
+		}
+		getDataBox(params,'/askNS');
+	})
+	doForSearch(".schoolName","/Landentity0");
+	doForSearch(".professionName","/LandNSname");
+	// $(".professionName").bind('input propertychange', function(event) {
+	// 	if($(this).val()){
+	// 		$(".schoolName").attr("disabled","disabled");
+	// 	}
+	// 	else{
+	// 		$(".schoolName").removeAttr("disabled");
+	// 	}
+	// 	event.stopPropagation();
+	// })
+	// $(".schoolName").bind('input propertychange', function(event) {
+	// 	if($(this).val()){
+	// 		$(".professionName").attr("disabled","disabled");
+	// 	}
+	// 	else{
+	// 		$(".professionName").removeAttr("disabled");
+	// 	}
+	// 	event.stopPropagation();
+	// })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

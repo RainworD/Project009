@@ -1,0 +1,97 @@
+{
+    "legend": {
+        "x": "center",
+        "y": "bottom",
+        "data": null
+    },
+    "toolbox": {
+        "show": true,
+        "feature": {
+             "saveAsImage": {
+                  "title": " "
+             }
+        },
+        "right": "40px"
+    },
+    "title": [
+        {
+            "text": "数量",
+            "left": "25%",
+            "textAlign": "center",
+            "top": "center",
+            "textStyle": {
+                "color": "#999"
+            }
+        },
+        {
+            "text": "金额",
+            "left": "75%",
+            "textAlign": "center",
+            "top": "center",
+            "textStyle": {
+                "color": "#999"
+            }
+        }
+    ],
+    "color": [
+        "rgb(255,192,0)",
+        "rgb(86,217,233)",
+        "rgb(0,175,239)",
+        "rgb(77,224,169)",
+        "rgb(226,158,207)",
+        "rgb(75,145,208)",
+        "rgb(0, 197, 192)"
+    ],
+    "series": [
+        {
+            "type":"pie",
+            "radius": ["40%", "70%"],
+            "center" : ["25%", "50%"],
+            "avoidLabelOverlap": false,
+            "label": {
+            	"normal": {
+                    "show": true,
+                    "position": "inside",
+                    "formatter": "{d}%"
+                }
+            },
+            "labelLine": {
+                "normal": {
+                    "show": false
+                }
+            },
+            "itemStyle": {
+            	"normal": {
+            	    "shadowColor": "rgba(0, 0, 0, 0.3)",
+            	    "shadowBlur": 10
+            	}
+            },
+            "data": []
+        },
+        {
+            "type":"pie",
+            "radius": ["40%", "70%"],
+            "center" : ["75%", "50%"],
+            "avoidLabelOverlap": false,
+            "label": {
+            	"normal": {
+                    "show": true,
+                    "position": "inside",
+                    "formatter": "{d}%"
+                }
+            },
+            "labelLine": {
+                "normal": {
+                    "show": false
+                }
+            },
+            "itemStyle": {
+            	"normal": {
+            	    "shadowColor": "rgba(0, 0, 0, 0.3)",
+            	    "shadowBlur": 10
+            	}
+            },
+            "data": []
+        }
+    ]
+}

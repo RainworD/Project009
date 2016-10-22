@@ -1,0 +1,414 @@
+
+<div class="changeBarContainer">
+	<div class="changeBarBox">
+		<a class="changeLeft green changeButton" href="#/educationTechnologyAwards.html">教育部科技奖统计</a>
+		<a class="changeRight changeButton" href="#/educationTechnologyAwardsDetail.html">教育部科技奖明细</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p> 
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">完成单位 :</th> 
+				<td style="width:18.3%;">
+					<div class="commonInputBox"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
+						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td> 
+				<th style="width:10.6%;">获奖级别 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox awardsLevel">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>
+				<th style="width:10.6%;">获奖年度 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1">
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span style="text-align: center;width:7%;">至</span>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2">
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+							<option>2012</option>
+							<option>2011</option>
+							<option>2010</option>
+							<option>2009</option>
+							<option>2008</option>
+							<option>2007</option>
+							<option>2006</option>
+							<option>2005</option>
+							<option>2004</option>
+							<option>2003</option>
+							<option>2002</option>
+							<option>2001</option>
+							<option>2000</option>
+						</select>
+					</div>
+					<span class="starAfter">*</span>
+				</td>
+				<td colspan="2" style="width:26.3%;">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+			<tr>
+				<!-- <th></th> -->
+				<td colspan="2" style="padding-top:0;">
+					<label for="box1">
+						<input type="checkbox" id="box1" checked="checked">
+						第一完成单位
+					</label>
+					<label for="box2">
+						<input type="checkbox" id="box2" checked="checked">
+						参与单位
+					</label>
+				</td>
+				<th>
+					<label for="schoolOnly">
+						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
+					</label>
+				</th>
+				<td></td>
+				<td colspan="2"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">教育部科技奖统计数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1 nowrapTable">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>完成单位</th>
+						<th>年度</th>
+						<th>获奖级别</th>
+						<th>技术发明奖</th>
+						<th>技术发明奖-专利类</th>
+						<th>科技进步奖</th>
+						<th>科技进步奖-科普类</th>
+						<th>科技进步奖-推广类</th>
+						<th>自然科学奖</th>
+						<th>自然科学奖-教材类</th>
+						<th>青年科学奖</th>
+						<th>专利奖</th>
+						<th>汇总</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<div class="mask mask1"></div>
+<div class="mask mask1"></div>
+<div class="unitsChoose unitsChoose1" style="width:560px;">
+	<div class="unitsContainer">
+		<div class="cancelBtn"> 
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目牵头单位选择</p>
+		</div>
+		<div class="unitsContent unitsContent1" style="cursor:default;padding:0;">
+			<!-- <div class="topSearch">
+				<p class="topSearchContent"><input placeholder="快速查找单位"><i class="fa fa-search fa-lg"></i></p> 
+			</div> -->
+			<div class="custom-search-bar">
+				<div class="custom-input-box">
+					<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
+					<ul class="showElse" style="top: 28px;border-top: none;border: 1px solid #ebebeb;">
+							
+					</ul>
+				</div>
+				<div class="search-box">
+					<i class="fa fa-search fa-lg"></i>
+				</div>
+			</div>
+			<div class="totalModel" style="height:400px;margin-top:0">
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">单位名称</span>
+						</div>
+					</div>
+					<div class="qingta-ztree-table" style="width:535px">
+						<ul id="tree" class="ztree ztree-at-top" style="width:518px">
+						</ul>
+					</div>
+				</div>
+				<!-- <ul id="tree" class="ztree">
+				</ul> -->
+			</div>
+		</div>
+		<div class="beforeShow">
+			<p class="enterSearchInfo">
+				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+				<span class="sr-only">Loading...</span>
+			</p>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var projectUnits=[];
+	$(".showDetailBox1").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
+	})
+	if(finalResults){
+		judgeUnits(finalResults);
+	}
+	else{
+		getUnits();
+	}
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
+	doForSearch(".searchBox","/Landentity0");
+	topBarControl();
+</script>
+<script type="text/javascript">
+	var count;
+	var start;
+	$.post('/EducationScience/getLevel', function(data, textStatus, xhr) {
+		var state=data.state;
+		var result=data.level;
+		if(state==0){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".awardsLevel").append(newopt);
+				}
+			}
+		}
+	});
+	function getEduScienceSta(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school){//教育部科技奖统计
+	    var ajax = $.ajax({
+	        url: "/EducationScience/getStatistics",
+	        type: "POST",
+	        traditional:true,
+	        beforeSend:beforeHandle,
+	        success:successHandle,
+	        data:{
+	            "first_unit":first_unit,
+	            "participate_unit":participate_unit,
+	            "first_year":year1,
+	            "last_year":year2,
+	            "unit":entitys,
+	            "level":level,
+	            "start":start,
+	            "rows":rows,
+	            "only_school":only_school
+	        },
+	        success:function(data){
+	        	getDataDetail(data);
+	        }
+	    });
+	    return ajax;
+	}
+	function getDataDetail(data){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var result=data.data;
+		count=data.count;
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var level=$(".awardsLevel").val();
+		var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
+		addCount.children('span').eq(0).text(count);
+		if(count<20){
+			addCount.children('span').eq(1).text(count);
+		}
+		else{
+			addCount.children('span').eq(1).text("20");
+		}
+		var lee=$(".tableContent .infoTablePara").children('.topRight');
+		if(lee){
+			lee.empty();
+			$(".tableContent .infoTablePara").append(addCount);
+		}
+		else{
+			$(".tableContent .infoTablePara").append(addCount);
+		}
+		if(data.state==0&&count!=0){
+			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+			$(".tableContent").addClass('tableShow');
+			$(".searchUndo").addClass("searchDo");
+			for (var i=0,len=result.length;i<len;i++) {
+				var searchInfo=$('<tr>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+					'<td></td>'+
+				'</tr>');
+				searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
+				searchInfo.children('td').eq(1).html(madeNowrapText(result[i].unit));
+				searchInfo.children('td').eq(2).html(madeNowrapText(year1+'-'+year2));
+				if(level==""){
+					searchInfo.children('td').eq(3).html(madeNowrapText("全部获奖级别"));
+				}
+				else{
+					searchInfo.children('td').eq(3).html(madeNowrapText(level));
+				}
+				searchInfo.children('td').eq(4).html(madeNowrapText(result[i]["技术发明奖"]));
+				searchInfo.children('td').eq(5).html(madeNowrapText(result[i]["技术发明奖专利类"]));
+				searchInfo.children('td').eq(6).html(madeNowrapText(result[i]["科技进步奖"]));
+				searchInfo.children('td').eq(7).html(madeNowrapText(result[i]["科技进步奖推广类"]));
+				searchInfo.children('td').eq(8).html(madeNowrapText(result[i]["科技进步奖科普类"]));
+				searchInfo.children('td').eq(9).html(madeNowrapText(result[i]["自然科学奖"]));
+				searchInfo.children('td').eq(10).html(madeNowrapText(result[i]["自然科学奖教材类"]));
+				searchInfo.children('td').eq(11).html(madeNowrapText(result[i]["青年科学奖"]));
+				searchInfo.children('td').eq(12).html(madeNowrapText(result[i]["专利奖"]));
+				searchInfo.children('td').eq(13).html(madeNowrapText(result[i]["自然科学奖教材类"]+result[i]["专利奖"]+result[i]["青年科学奖"]+result[i]["自然科学奖"]+result[i]["科技进步奖科普类"]+result[i]["科技进步奖推广类"]+result[i]["科技进步奖"]+result[i]["技术发明奖专利类"]+result[i]["技术发明奖"]));
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+		}
+		else{
+			alert("没有符合查询条件的记录！");
+			count=0;
+			addCount.children('span').eq(0).text(count);
+			addCount.children('span').eq(1).text(count);
+			$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
+    		$(".searchUndo").removeClass("searchDo");
+    		$(".tableContent").removeClass('tableShow');
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		var first_unit=$("#box1").prop("checked");
+		var participate_unit=$("#box2").prop("checked");
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val();
+		var entitys=projectUnits;
+		var level=$(".awardsLevel").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			only_school=1;
+		}
+		else{
+			only_school=0;
+		}
+		// if(projectUnits.length){
+		// 	count=projectUnits.length;
+		// }
+		// else{
+		// 	$.ajax({
+		// 		url:"/askEntityCount",
+		// 		type:"POST",
+		// 		data:{
+		// 			schoolOnly:schoolOnly
+		// 		},
+		// 		success:function(data){
+		// 			count=data.count;
+		// 		}
+		// 	})
+		// }
+		start=0;
+		var rows=20;
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			$(".tableContent").addClass("tableShow");
+			$(".searchUndo").addClass("searchDo");
+			$.when(getEduScienceSta(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school)).done(function(data){
+				$('.M-box').pagination({
+		            totalData:count,
+		            showData:20,
+		            current:1,
+		            count:2,
+		            jump:true,
+		            coping:true,
+		            prevContent:'<i class="fa fa-angle-left"></i>',     //上一页内容
+		            nextContent:'<i class="fa fa-angle-right"></i>',        //下一页内容
+		            callback:function(api){
+		                var index=api.getCurrent();
+		                if(userlevel=="4"){
+				    		if(index>1){
+				    			clearPages(index);
+				    		}
+				    		else{
+				    			start=(index-1)*20;
+				    			getEduScienceSta(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school);
+			                }
+				    	}
+				    	else{
+							start=(index-1)*20;
+							getEduScienceSta(entitys,year1,year2,first_unit,participate_unit,level,start,rows,only_school);
+			          	}               
+		            }
+		        });
+			})
+		}		
+	})
+</script>
+<script type="text/javascript">
+	doForSearch(".custom-input","/Landentity0");
+	$("body").keydown(function() {
+        if (event.keyCode == "13") {//keyCode=13是回车键
+            $('.search-box').click();
+        }
+    })
+</script>

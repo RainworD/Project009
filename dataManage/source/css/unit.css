@@ -1,0 +1,10 @@
+.ztree li.level2 > a {
+  background: #ffffff;
+}
+.ztree li.level2 > a .node_name {
+  font-size: 14px;
+  color: #666666;
+}
+.ztree li.level2 > a .node_name-code {
+  padding-left: 30px;
+}

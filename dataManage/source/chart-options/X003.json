@@ -1,0 +1,75 @@
+{
+  "toolbox": {
+    "show": true,
+    "feature": {
+      "saveAsImage": {
+        "title": " "
+      }
+    },
+    "right": "40px"
+  },
+  "grid": {
+    "left": "40px",
+    "right": "40px",
+    "bottom": "40px",
+    "top": "40px",
+    "containLabel": true
+  },
+  "xAxis": {
+    "type": "category",
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#ccc"
+      }
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    },
+    "data": null
+  },
+  "yAxis": {
+    "type": "value",
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "show": false
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      },
+      "formatter": "{value}%"
+    },
+    "splitLine": {
+      "lineStyle": {
+        "color": "#eee"
+      }
+    }
+  },
+  "series": {
+      "type": "bar",
+      "barMaxWidth": "40px",
+      "data": null,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(50, 205, 205)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#666"
+          },
+          "formatter": "{c}%"
+        }
+      }
+    }
+}

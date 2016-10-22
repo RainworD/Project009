@@ -1,0 +1,287 @@
+@border-style: 1px solid #ccc;
+@row-height: 40px;
+@switch-width: 50px;
+@check-width: 70px;
+
+@span-node-width: 150px;
+@span-node-indent: 5px;
+
+@level0-bg-color: #FFFFDF; 
+@level0-font-size: 16px;
+@level0-font-color: #111;
+
+@level1-bg-color: #FFFFF2;
+@level1-font-size: 14px;
+@level1-font-color: #333;
+
+@level2-bg-color: #f7f8f7;
+@level2-font-size: 14px;
+@level2-font-color: #666;
+
+@level3-bg-color: #fff;
+@level3-font-size: 12px;
+@level3-font-color: #999;
+
+.qingta-ztree-table {
+    width:476px;height:380px;overflow-y:auto;overflow-x:hidden;position:relative;
+}
+.ztree-at-top {
+    width:458px;position:absolute;left:0px;top:0px;
+}
+
+.qingta-ztree-header {
+    border-top: @border-style;
+    border-left: @border-style;
+    border-right: @border-style;
+
+    position: relative;
+
+    .qingta-ztree-cell {
+        line-height: 40px;
+        font-size: 16px;
+        // font-weight: bold;
+        text-align: center;
+    }
+
+    .qingta-ztree-switch, .qingta-ztree-check {
+        position: absolute;
+    } 
+
+    .qingta-ztree-switch {
+        left: 0px;
+        width: @switch-width;
+    }
+
+    .qingta-ztree-check {
+        right: 0px;
+        width: @check-width;
+    }
+
+    .qingta-ztree-name {
+        padding-left: @switch-width;
+        padding-right: @check-width;
+        box-sizing: border-box;
+        table-layout: fixed;
+
+        display: table;
+        width: 100%;
+
+        .qingta-ztree-cell {
+            display: table-cell;
+
+            width: @span-node-width;
+            border-right: @border-style;
+
+            &:first-child {
+                border-left: @border-style;
+            }
+
+            &:last-child {
+                width: auto;
+            }
+        }
+    }
+}
+
+@tree3-theme-level0-bg: #FFFFDF;
+@tree3-theme-level1-bg: #FFFFF2;
+@tree3-theme-level2-bg: #fff;
+
+.ztree.ztree3 {
+    a {
+        &.level0 {
+            background-color: @tree3-theme-level0-bg;
+        }
+        &.level1 {
+            background-color: @tree3-theme-level1-bg;
+        }
+        &.level2 {
+            background-color: @tree3-theme-level2-bg;
+        }
+    }
+}
+
+.ztree {
+    margin: 0;
+    padding: 0px;
+    
+    border: @border-style;
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    ul {
+        list-style: none;
+        border-top: @border-style;
+    }
+
+    li {
+        position: relative;
+
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        white-space: nowrap;
+        outline: 0;
+    
+        border-bottom: @border-style;
+
+        &:last-child {
+            border-bottom: none;
+        }
+    }
+
+    a {
+        display: table;
+        width: 100%;
+        box-sizing: border-box;
+        table-layout: fixed;
+
+        background-color: transparent;
+        text-decoration: none;
+
+        padding: 0px @check-width 0px @switch-width;
+
+       /*  &.curSelectedNode {
+           background: lighten(#33ccff,5%) !important;
+       } */
+
+        > .node_name {
+            display: table-cell;
+            box-sizing: border-box;
+            width: @span-node-width;
+            line-height: @row-height;
+            
+            text-overflow: ellipsis;
+            overflow: hidden;
+
+            border-right: @border-style;
+
+            padding-left: 10px;
+
+            &:nth-child(2) {
+                border-left: @border-style;
+            }
+
+            &:last-child {
+                width: auto;
+            }
+        }
+
+        &.level0 {
+            background: @level0-bg-color;
+            
+            .node_name {
+                font-size: @level0-font-size;
+                color: @level0-font-color;
+                // font-weight: bolder;
+            }
+
+            .node_name-code {
+                padding-left: 10px;
+            }
+        }
+
+        &.level1 {
+            background: @level1-bg-color;
+
+            .node_name {
+                font-size: @level1-font-size;
+                color: @level1-font-color;
+            }
+
+            .node_name-code {
+                padding-left: 20px;
+            }
+        }
+
+        &.level2 {
+            background: @level2-bg-color;
+            
+            .node_name {
+                font-size: @level2-font-size;
+                color: @level2-font-color;
+            }
+
+            .node_name-code {
+                padding-left: 30px;
+            }
+        }
+
+        &.level3 {
+            background: @level3-bg-color;
+            
+            .node_name {
+                font-size: @level3-font-size;
+                color: @level3-font-color;
+            }
+
+            .node_name-code {
+                padding-left: 40px;
+            }
+        }
+    }
+}
+
+[treenode_ico] {
+    display: none;
+}
+
+[treenode_switch], [treenode_check] {
+    position: absolute;
+}
+[treenode_switch] {
+    width: @switch-width;
+    left: 0;
+    text-align: center;
+    line-height: @row-height;
+
+    &.noline_open:before {
+        content: "-";
+    }
+
+    &.noline_close:before {
+        content: "+";
+    }
+}
+
+[treenode_check] {
+    width: @check-width;
+    right: 0;
+    text-align: center;
+    line-height: @row-height;
+    
+    font-family: FontAwesome;
+
+    &.checkbox_true_part:before, &.checkbox_true_part_focus:before {
+        content: "\f14a";
+    }
+    
+    &.checkbox_false_full_focus:before, &[treenode_check].checkbox_false_full:before {
+        content: "\f096";
+    }
+
+    &.checkbox_true_full_focus:before, &[treenode_check].checkbox_true_full:before{
+        content: "\f046";
+    }
+
+    
+    /* radio 单选*/
+    &.radio_true_full_focus:before, &[treenode_check].radio_true_full:before {
+        content: "\f192";
+    }
+
+    &.radio_true_part_focus:before, &[treenode_check].radio_true_part:before {
+        content: "\f192";
+    }
+    
+    &.radio_false_full_focus:before, &[treenode_check].radio_false_full:before {
+        content: "\f10c";
+    }
+
+    &.radio_false_part_focus:before, &[treenode_check].radio_false_part:before {
+        content: "\f10c";
+    }
+}

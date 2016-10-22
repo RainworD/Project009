@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"> 
+	<title>高等教育发展指标数据平台</title>
+	<link rel="stylesheet" type="text/css" href="../source/css/reset.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/font-awesome-4.6.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../source/css/public.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/init.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/pagination.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/nation.css">
+	<link rel="stylesheet" type="text/css" href="../source/css/search.css">
+	<!-- <link rel="stylesheet" href="../source/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css"> -->
+	<link rel="stylesheet" href="../source/css/qingta-zTree.css" type="text/css">
+	<script type="text/javascript" src="../source/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="../source/zTree/js/jquery.ztree.all.min.js"></script>
+	<script type="text/javascript" src="../source/js/ajax.js"></script>
+	<script type="text/javascript" src="../source/js/jquery.pagination.js"></script>
+	<script src="../source/js/jquery.cookie.js"></script>
+	<script type="text/javascript" src="../source/js/jquery.treeview.js"></script>
+	<script type="text/javascript" src="../source/js/vue.js"></script>
+	<script type="text/javascript" src="../source/js/es5-shim.min.js"></script>
+	<script type="text/javascript" src="../source/js/Promise.min.js"></script> 
+	<script type="text/javascript" src="../source/js/chartoption.js"></script>
+	<script type="text/javascript" src="../source/js/echarts.min.js"></script> 
+</head>
+<body>
+	<div class="mainContainer"> 
+		<div class="leftBox">
+			<ul class="leftList">
+				<a href="#/home.html">
+					<li class="topItem">
+						<div class="leftImg">
+							<i class="fa fa-database fa-lg leftBtn "></i>
+						</div>
+						<span>cingta.com</span>
+					</li>
+				</a>
+				<li class="section"> 
+					<div class="leftImg"><i class="fa fa-bar-chart fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>可视化数据分析</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/commonDataAnalysis.html" class="linka comparea">
+									<li class="downItem">总体数据分析</li>
+								</a>
+								<a href="#/schoolMatchGoalDataAnalysis.html" class="linka comparea">
+									<li class="downItem">对标数据分析</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section">
+					<div class="leftImg"><i class="fa fa-flask fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>科研项目数据</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/nationPointDevelopPlan.html" class="linka comparea">
+									<li class="downItem">国家重点研发计划</li>
+								</a>
+								<a href="#/nationNatureTechnologyFund.html" class="linka comparea">
+									<li class="downItem">国家自然科学基金</li>
+								</a>
+								<a href="#/nationSocietyFund.html" class="linka comparea">
+									<li class="downItem">国家社会科学基金</li>
+								</a>
+								<a href="#/educationArtSocietyProject.html" class="linka comparea">
+									<li class="downItem">教育部人文社科项目</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section">
+					<div class="leftImg"><i class="fa fa-mortar-board fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>师资队伍数据</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/nationTechnologyAcademic.html" class="linka comparea">
+									<li class="downItem">中国科学院院士</li>
+								</a>
+								<a href="#/nationEnginerAcademic.html" class="linka comparea">
+									<li class="downItem">中国工程院院士</li>
+								</a>
+								<a href="#/CJScholar.html" class="linka comparea">
+									<li class="downItem">长江学者奖励计划</li>
+								</a>
+								<a href="#/nationalOYP.html" class="linka comparea">
+									<li class="downItem">国家杰出青年基金</li>
+								</a>
+								<a href="#/peoplePlanBeChoosen.html" class="linka comparea">
+									<li class="downItem">国家万人计划</li>
+								</a>
+								<a href="#/nationEY.html" class="linka comparea">
+									<li class="downItem">国家优秀青年基金</li>
+								</a>
+								<a href="#/youthThousand.html" class="linka comparea">
+									<li class="downItem">青年千人计划</li>
+								</a>
+								<a href="#/educationPartInnovationTeam.html" class="linka comparea">
+									<li class="downItem">教育部创新团队计划</li>
+								</a>
+								<a href="#/nationFundInnovationGroup.html" class="linka comparea">
+									<li class="downItem">国家基金委创新研究群体</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section">
+					<div class="leftImg"><i class="fa fa-book fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>学科建设数据</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/keyDiscipline.html" class="linka comparea">
+									<li class="downItem">国家重点学科</li>
+								</a>
+								<a href="#/educationSubjectEvaluate.html" class="linka comparea">
+									<li class="downItem">教育部学科评估</li>
+								</a>
+								<a href="#/ESISubjectData.html" class="linka comparea" id="esi">
+									<li class="downItem">ESI学科数据</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section">
+					<div class="leftImg"><i class="fa fa-bookmark fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>教学建设数据</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/nationalFeaturedProfessional.html" class="linka comparea">
+									<li class="downItem">国家级特色专业</li>
+								</a>
+								<a href="#/nationalEssentialResourceSharedLesson.html" class="linka comparea">
+									<li class="downItem">国家级精品资源共享课</li>
+								</a>
+								<a href="#/nationalEssentialResourcePublicLesson.html" class="linka comparea">
+									<li class="downItem">国家级精品视频公开课</li>
+								</a>
+								<a href="#/excellent.html" class="linka comparea">
+									<li class="downItem">全国百篇优博</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section">
+					<div class="leftImg"><i class="fa fa-trophy fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>奖励数据</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/nationalThreeAwards.html" class="linka comparea">
+									<li class="downItem">国家科学技术奖</li>
+								</a>
+								<a href="#/educationTechnologyAwards.html" class="linka comparea">
+									<li class="downItem">教育部科技奖</li>
+								</a>
+								<!-- <a href="#/peopleArtExcellentResults.html" class="linka comparea">
+									<li class="downItem">教育部人文社科奖</li>
+								</a> --> 
+								<a href="#/nationalTeachingResults.html" class="linka comparea">
+									<li class="downItem">国家级教学成果奖</li>
+								</a>
+								<a href="#/ImportantAwardsData.html" class="linka comparea">
+									<li class="downItem">重要科技奖励</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section">
+					<div class="leftImg"><i class="fa fa-lightbulb-o fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>专利与成果数据</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/authorizePatents.html" class="linka comparea">
+									<li class="downItem">授权专利数据</li>
+								</a>
+								<a href="#/techResultsandTransform.html" class="linka comparea">
+									<li class="downItem">科技成果与技术转让</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section">
+					<div class="leftImg"><i class="fa fa-yen fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>经费数据</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/annualBudgetData.html" class="linka comparea">
+									<li class="downItem">年度预算数据</li>
+								</a>
+								<a href="#/annualActualBudgetData.html" class="linka comparea">
+									<li class="downItem">年度决算数据</li>
+								</a>
+								<a href="#/collegeTechnologyTopicFunds.html" class="linka comparea">
+									<li class="downItem">高校科技课题数据</li>
+								</a>
+								<a href="#/collageResearchFunds.html" class="linka comparea">
+									<li class="downItem">高校科技活动科技经费</li>
+								</a>
+								<a href="#/educationDepartmentCollageResearchFunds.html" class="linka comparea">
+									<li class="downItem">教育部直属高校科技经费</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section userSection">
+					<div class="leftImg"><i class="fa fa-edit fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>用户与数据管理</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/userManagePage.html" class="linka comparea" id="schoolManager">
+									<i class="rec"></i><span>用户管理</span>
+								</a>
+								<a href="#/ESIDataService.html" class="linka comparea">
+									<li class="downItem">ESI数据管理</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section">
+					<div class="leftImg"><i class="fa fa-comments-o fa-lg leftBtn "></i></div>
+					<ul class="sectionList">						
+							<li class="downBtn">
+								<a href="#/FAQCenter.html" class="singleLink comparea">
+									<i class="rec"></i><span>问题与反馈</span>
+								</a>
+							</li>
+						<li class="downContent">
+							<ul class="downList">
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li class="section mainUserSection">
+					<div class="leftImg"><i class="fa fa-gears fa-lg leftBtn "></i></div>
+					<ul class="sectionList">
+						<li class="downBtn"><i class="rec"></i><span>系统与数据维护</span><i class="fa fa-plus fa-lg downflag"></i></li>
+						<li class="downContent">
+							<ul class="downList">
+								<a href="#/unitsBaseDataRepair.html" class="linka comparea">
+									<li class="downItem">单位基本信息维护</li>
+								</a>
+								<a href="#/fundApplyCodeRepair.html" class="linka comparea">
+									<li class="downItem">基金申请代码维护</li>
+								</a>
+								<a href="#/userManagerBackstage.html" class="linka comparea">
+									<li class="downItem">系统用户管理</li>
+								</a>
+								<a href="#/pointAnalysisFlatform.html" class="linka comparea">
+									<li class="downItem">可视化指标管理</li>
+								</a>
+								<a href="#/commonDataAnalysisAll.html" class="linka">
+									<li class="downItem">可视化指标库</li>
+								</a>
+							</ul>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<div class="rightBox">
+			<div class="topBar">
+				<div class="leftImg">
+					<i class="fa fa-bars fa-lg showBtn_"></i>
+				</div>
+				高等教育发展指标数据平台
+				<div class="userInfo">
+					<p class="leftInfo"></p>
+					<div class="rightInfoMenu">
+						<!-- <i class="fa fa-user logOut"></i> -->
+						<img class="logOut" src="../source/img/user.png">
+						<ul class="logOutList">
+							<!-- <li><span>用户名 :</span><span class="userName"></span></li> -->
+							<li><a class="changepw" href="#/changePassword.html" style="display:block;">修改密码</a></li>
+							<li><a class="logOutBtn">退出登录</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="rightContent" id="rightContent"></div>
+		</div>
+		<!-- <p class="rightBelong">Copyright&nbsp;©&nbsp;2016&nbsp;青塔</p> -->
+	</div>
+</body>
+<script type="text/javascript" src="../source/js/public.js"></script>
+<script type="text/javascript">
+	var myheight1=$(window).height();
+	$(".leftBox").css("min-height",myheight1);
+	var myDate = new Date();
+	var nowdate=myDate.getFullYear();         //获取当前年份(2位)
+	window.onload=function(){
+		var bottom=$('<p class="rightBelong">Copyright&nbsp;©&nbsp;<span></span>&nbsp;青塔</p>');
+		bottom.children("span").text(nowdate);
+		$(".leftBox").append(bottom);
+	}
+	console.log(nowdate);
+	// $(".rightBelong").children("span").text(nowdate);
+</script>
+<script type="text/javascript">
+	var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+	document.write(unescape("%3Cspan id='cnzz_stat_icon_1254581267'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254581267%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+</script>
+</html>

@@ -1,0 +1,149 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox">
+		<a href="#/keyDiscipline.html" class="changeLeft changeButton">国家重点学科统计</a>
+		<a href="#/keyDisciplineDetail.html" class="changeRight green changeButton">国家重点学科明细</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">学校名称 :</th>
+				<td style="width:18.3%;"> 
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput schoolName">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<th style="width:10.6%;">重点学科类型 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect" style="width:100%;"> 
+						<select class="selBox subjectType">
+							<option selected="selected"></option>
+							<option>国家重点培育学科</option>
+							<option>国家二级重点学科</option>
+							<option>国家一级重点学科</option>
+						</select>
+					</div>
+				</td>
+				<th style="width:10.6%;">重点学科名称 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox" style="width:100%;">
+						<input class="commonput subjectName">
+						<ul class="showElse">
+							
+						</ul>
+					</div>
+				</td>
+				<td colspan="2" style="width:26.3%;">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">国家重点学科明细数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>学校名称</th>
+						<th>重点学科类型</th>
+						<th>重点学科名称</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<script>
+var projectUnits=[];
+topBarControl();
+doForSearch(".schoolName","/Landentity0");
+</script>
+<script type="text/javascript">
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var eq=newindex%50;
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			// console.log((i+1)+20*(pageindex-1)*50);
+			if(result[i]){
+				for (var j=0;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					var text=madeNowrapText(result[i][j]);
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var entity=$(".schoolName").val();
+		var name=$(".subjectName").val();
+		var type=$(".subjectType").val();
+		var params={
+			'pageindex':1,
+			'name':name,
+			'entity':entity,
+			'type':type,
+		}
+		getDataBox(params,'/askNKS');
+	})
+	doForSearch(".schoolName","/Landentity0");
+	doForSearch(".subjectName","/LandNKSname");
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

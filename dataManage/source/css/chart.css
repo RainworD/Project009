@@ -1,0 +1,82 @@
+.chartCommentTitle {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: rgb(242,242,242);
+	border: 1px solid rgb(0, 204,204);
+	line-height: 30px;
+	padding: 0 15px;
+	border-radius: 6px;
+}
+
+.changeButton.yellow {
+	background: rgb(255,204,0);
+	color: #fff;
+}
+
+.changeButton.chartTab {
+	border-right: 1px solid #fff;
+	width: 100px !important;
+}
+.changeButton.chartTab:last-child {
+	border-right: none;
+}
+
+.commonselect {
+	float:right;
+	margin: 20px 0;
+}
+
+th.yellow {
+	border-bottom: 1px solid rgb(255,204,0) !important;
+}
+
+.infoTableTop {
+	border: none !important; 
+}
+
+.changeBarBox.changeBarBox6 > a {
+	width: 16.6% !important;
+	border-right: 1px solid #fff;
+}
+.changeBarBox.changeBarBox6 > a:last-child {
+	width: 17% !important;
+	border-right: none;
+}
+
+.changeButton.changeButtonTab {
+	width: auto !important;
+	min-width: 200px !important;
+}
+
+.changeButton:first-child {
+	padding-left: 20px !important;
+	border-bottom-left-radius: 6px !important;
+	border-top-left-radius: 6px !important;
+}
+
+.changeButton:last-child {
+	padding-right: 20px !important;
+	border-bottom-right-radius: 6px !important;
+	border-top-right-radius: 6px !important;
+}
+
+.qingta-button {
+	display: block;
+	width: 80px;
+	text-align: center;
+	margin-right: 20px;
+	border-radius: 3px;
+	color: #fff;
+	height: 30px;
+	line-height: 30px;
+}
+.button-blue {
+	background-color: #33ccff;
+}
+.button-green {
+	background-color: #00cc99;
+}
+.button-gray {
+	background-color: #c9c9c9;
+}

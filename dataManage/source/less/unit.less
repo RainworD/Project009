@@ -1,0 +1,30 @@
+@span-node-width: 150px;
+@span-node-indent: 5px;
+
+@level0-bg-color: #FFFFDF; 
+@level0-font-size: 16px;
+@level0-font-color: #111;
+
+@level1-bg-color: #FFFFF2;
+@level1-font-size: 14px;
+@level1-font-color: #333;
+
+@level2-bg-color: #fff;
+@level2-font-size: 14px;
+@level2-font-color: #666;
+.ztree {
+    li.level2 {
+        > a {
+            background: @level2-bg-color;
+            
+            .node_name {
+                font-size: @level2-font-size;
+                color: @level2-font-color;
+            }
+
+            .node_name-code {
+                padding-left: 30px;
+            }
+        }
+    }
+}

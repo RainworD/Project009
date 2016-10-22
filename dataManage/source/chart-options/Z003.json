@@ -1,0 +1,150 @@
+{
+  "legend": {
+    "data": [
+      "其他刊物发表","国外及全国性刊物发表","总论文数"
+    ],
+    "bottom": "bottom"
+  },
+  "toolbox": {
+    "show": true,
+    "feature": {
+      "saveAsImage": {
+        "title": " "
+      }
+    },
+    "right": "40px"
+  },
+  "grid": {
+    "left": "40px",
+    "right": "40px",
+    "bottom": "40px",
+    "top": "40px",
+    "containLabel": true
+  },
+  "xAxis": {
+    "type": "category",
+    "axisTick": {
+      "show": false
+    },
+    "axisLine": {
+      "lineStyle": {
+        "color": "#ccc"
+      }
+    },
+    "axisLabel": {
+      "textStyle": {
+        "color": "#999"
+      }
+    },
+    "data": null
+  },
+  "yAxis": [
+    {
+      "type": "value",
+      "axisTick": {
+        "show": false
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisLabel": {
+        "textStyle": {
+          "color": "#999"
+        }
+      },
+      "splitLine": {
+        "lineStyle": {
+          "color": "#eee"
+        }
+      }
+    },
+    {
+      "type": "value",
+      "axisTick": {
+        "show": false
+      },
+      "axisLine": {
+        "show": false
+      },
+      "axisLabel": {
+        "show": false
+      },
+      "splitLine": {
+        "show": false
+      }
+    }
+  ],
+  "series": [
+    {
+      "yAxisIndex": 1,
+      "type": "bar",
+      "stack": "quantity",
+      "name": "其他刊物发表",
+      "data": null,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(86, 217, 233)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "insideTop",
+          "textStyle": {
+            "color": "#666"
+          }
+        }
+      }
+    },
+    {
+      "yAxisIndex": 1,
+      "type": "bar",
+      "barWidth": "40%",
+      "stack": "quantity",
+      "name": "国外及全国性刊物发表",
+      "data": null,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(255, 211, 124)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "insideTop",
+          "textStyle": {
+            "color": "#666"
+          }
+        }
+      }
+    },
+    {
+      "yAxisIndex": 0,
+      "name": "总论文数",
+      "type":"line","connectNulls":true,
+      "symbolSize": 1,
+      "itemStyle": {
+        "normal": {
+          "color": "rgb(9,190,255)"
+        }
+      },
+      "label": {
+        "normal": {
+          "show": true,
+          "position": "top",
+          "textStyle": {
+            "color": "#333"
+          }
+        }
+      },
+      "lineStyle": {
+        "normal": {
+          "color": "rgb(9,190,255)",
+          "width": 3
+        }
+      },
+      "data": null,
+      "z": 3
+    }
+  ]
+}

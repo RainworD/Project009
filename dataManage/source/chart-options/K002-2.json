@@ -1,0 +1,137 @@
+{
+     "legend": {
+          "data" : ["立项数", "批准金额"],
+          "bottom": "bottom"
+      },
+      "toolbox": {
+          "show": true,
+          "feature": {
+               "saveAsImage": {
+                    "title": " "
+               }
+          },
+          "right": "40px"
+      },
+      "grid": {
+          "left": "40px",
+          "right": "40px",
+          "bottom": "40px",
+          "top": "40px",
+          "containLabel": true
+      },
+      "xAxis": {
+          "type": "category",
+          "axisTick": {
+               "show": false    
+          },
+          "axisLine": {
+               "lineStyle": {
+                    "color": "#ccc"
+               }
+          },
+          "axisLabel": {
+               "textStyle": {
+                    "color": "#999"
+               }    
+          },
+          "data": null
+      },
+      "yAxis": [
+          {     
+               "position": "left",
+               "type": "value",
+               "axisTick": {
+                    "show": false    
+               },
+               "axisLine": {
+                    "show": false
+               },
+               "minInterval": 1,
+               "axisLabel": {
+                    "textStyle": {
+                         "color": "#999"
+                    }    
+               },
+               "splitLine": {
+                    "lineStyle": {
+                         "color": "#eee"
+                    }
+               }
+          },
+          {    
+               "position": "right",
+               "type": "value",
+               "splitLine": {
+                    "show": false
+               },
+               "axisLine": {
+                    "show": true,
+                    "lineStyle": {
+                         "color": "#ccc"
+                    }
+               },
+               "axisLabel": {
+                    "textStyle": {
+                         "color": "#999"
+                    }   
+               },
+               "axisTick": {
+                    "textStyle": {
+                         "color": "#999"
+                    }   
+               }
+          }
+     ],
+     "series": [
+          {
+               "type":"bar",
+               "yAxisIndex": 0,
+               "name": "立项数",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(86, 217, 233)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#333"
+                        }
+                    }
+               },
+               "barWidth": "40",
+               "data": null
+          },
+          {
+                "yAxisIndex": 1,
+                "name": "批准金额",
+                "type":"line","connectNulls":true,
+                "symbolSize":1,
+                "itemStyle": {
+                    "normal": {
+                        "color": "rgb(255,211,124)"
+                    }
+                },
+                "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#333"
+                        }
+                    }
+                },
+                "lineStyle": {
+                    "normal": {
+                        "color": "rgb(255,211,124)",
+                        "width": 3
+                    }
+                },
+                "data": null,
+                "z":3
+          }
+     ]
+}
