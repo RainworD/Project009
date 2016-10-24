@@ -392,12 +392,13 @@ Vue.component('common-data', {
 			}
 			
 			var self = this
-			var $pageDom = $('<div><h1>' + 
-				this.university.name + 
+			var title = this.university.name + 
 				'-' +
 				this.points_data.find(function(point){
 					return point.id == self.tab_index
-				}).name + 
+				}).name
+			var $pageDom = $('<div><h1>' + 
+				 title + 
 				'</h1></div>')
 
 			this.$children.forEach(function(child){
@@ -437,7 +438,13 @@ Vue.component('common-data', {
 			self.pdfing = true
 			renderToPdf(Promise.resolve($.get("../source/template/image.html")).then(function(raw){
 				var i = raw.indexOf('<body>')
-				return Promise.resolve(raw.slice(0, i) + html_string + raw.slice(i))
+				var raw = raw.slice(0, i) + html_string + raw.slice(i)
+				i = raw.indexOf('<head>')
+				var title_str = '<title>' + 
+					title + 
+					'</title>'
+
+				return Promise.resolve(raw.slice(0, i) + title_str + raw.slice(i))
 			})).then(function(){
 				self.pdfing = false
 			})
