@@ -1,0 +1,226 @@
+.like {
+  float: left;
+  padding-right: 10px;
+}
+.like .likefont {
+  font-size: 16px;
+  color: red;
+}
+.reply {
+  float: left;
+}
+.reply .editfont {
+  font-size: 16px;
+}
+.after:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.item-title {
+  font-size: 14px;
+  color: #757575;
+  font-weight: 600px;
+}
+.veryCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+.verticalCenter {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  -webkit-transform: translate(0, -50%);
+}
+.horizontalCenter {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+}
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.topBanner {
+  width: 100%;
+}
+.topBanner .topContent,
+.topBanner .topContent_1,
+.topBanner .topContent_2 {
+  padding: 20px 0;
+  width: 100%;
+  height: 100%;
+  background-color: #57d9e9;
+}
+.topBanner .topContent .leftContent,
+.topBanner .topContent_1 .leftContent,
+.topBanner .topContent_2 .leftContent {
+  margin-top: 20px;
+  padding-left: 100px;
+  width: 65%;
+  float: left;
+}
+.topBanner .topContent .leftContent .topTitle,
+.topBanner .topContent_1 .leftContent .topTitle,
+.topBanner .topContent_2 .leftContent .topTitle {
+  font-size: 30px;
+  color: #fff;
+  margin-bottom: 40px;
+}
+.topBanner .topContent .leftContent .topPara,
+.topBanner .topContent_1 .leftContent .topPara,
+.topBanner .topContent_2 .leftContent .topPara {
+  font-size: 16px;
+  color: #fff;
+  line-height: 30px;
+  margin-bottom: 30px;
+}
+.topBanner .topContent .leftContent .topBtn,
+.topBanner .topContent_1 .leftContent .topBtn,
+.topBanner .topContent_2 .leftContent .topBtn {
+  display: block;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
+  color: #fff;
+  border-radius: 5px;
+  position: relative;
+  background-color: #94e7f1;
+  padding-left: 10px;
+}
+.topBanner .topContent .leftContent .topBtn .arrowIcon,
+.topBanner .topContent_1 .leftContent .topBtn .arrowIcon,
+.topBanner .topContent_2 .leftContent .topBtn .arrowIcon {
+  display: block;
+  position: absolute;
+  right: 8px;
+  bottom: 5px;
+  line-height: 30px;
+  width: 20px;
+}
+.topBanner .topContent .leftContent .topBtn_2,
+.topBanner .topContent_1 .leftContent .topBtn_2,
+.topBanner .topContent_2 .leftContent .topBtn_2 {
+  background-color: #6b7e91;
+  color: #798c9f;
+}
+.topBanner .topContent .rightContent,
+.topBanner .topContent_1 .rightContent,
+.topBanner .topContent_2 .rightContent {
+  width: 33%;
+  float: left;
+  margin-top: 30px;
+  margin-right: 0px;
+}
+.topBanner .topContent .rightContent .topImg,
+.topBanner .topContent_1 .rightContent .topImg,
+.topBanner .topContent_2 .rightContent .topImg {
+  width: 220px;
+  display: block;
+  margin-left: 100px;
+}
+.topBanner .topContent .rightContent .topImg_2,
+.topBanner .topContent_1 .rightContent .topImg_2,
+.topBanner .topContent_2 .rightContent .topImg_2 {
+  margin: 0;
+  width: 100%;
+}
+.topBanner .topContent_2 {
+  padding-bottom: 40px;
+  background-color: #00264d;
+}
+.containerBox {
+  width: 100%;
+}
+.containerBox .contentBox {
+  width: 100%;
+  padding: 0 100px;
+}
+.containerBox .contentBox .contentBar {
+  border-bottom: 2px dashed #ebebeb;
+  width: 100%;
+  padding: 40px 0 30px;
+}
+.containerBox .contentBox .contentBar .iconBox {
+  width: 33.3%;
+  padding: 0 20px;
+  height: 265px;
+  float: left;
+}
+.containerBox .contentBox .contentBar .iconBox .showIcon {
+  display: block;
+  width: 110px;
+  height: 110px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+.containerBox .contentBox .contentBar .iconBox .iconTitle {
+  text-align: center;
+  font-size: 18px;
+  color: #868686;
+  margin-bottom: 30px;
+}
+.containerBox .contentBox .contentBar .iconBox .iconPara {
+  text-align: center;
+  font-size: 14px;
+  color: #afafaf;
+}
+.containerBox .contentBox .contentBar:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.containerBox .bottomBox {
+  width: 350px;
+  margin: auto;
+  padding: 40px 0 50px;
+}
+.containerBox .bottomBox .bottomIcon {
+  display: block;
+  width: 70px;
+  padding-bottom: 40px;
+  margin: auto;
+}
+.containerBox .bottomBox .bottomPara {
+  padding-bottom: 50px;
+  color: #8689a4;
+  font-size: 20px;
+  text-align: center;
+}
+.containerBox .bottomBox .bottomBtn {
+  display: block;
+  color: #fff;
+  width: 160px;
+  height: 40px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  line-height: 40px;
+  float: left;
+  font-size: 16px;
+  text-align: center;
+}
+.containerBox .bottomBox .leftBtn {
+  background-color: #45d7e7;
+  margin-right: 30px;
+}
+.containerBox .bottomBox .rightBtn {
+  background-color: #00cc99;
+}
+.containerBox .bottomBox:after {
+  display: block;
+  content: '';
+  clear: both;
+}
+.slick-dots {
+  bottom: 10px;
+}
+.slick-dots li.slick-active button:before {
+  color: #fff;
+}
