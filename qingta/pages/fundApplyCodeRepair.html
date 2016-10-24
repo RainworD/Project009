@@ -20,7 +20,7 @@
 			<table class="topTable">
 				<tr>
 					<th style="width:100px;">申请代码名称 :</th>
-					<td style="width:18.3%;">
+					<td style="width:14%;">
 						<div class="commonInputBox" style="width:100%">
 							<input class="commonput unitsEnter" style="padding-right:30px;" v-on:focus="openSearchNameModal" v-model="search_name_string">
 							<div class="showDetailBox showDetailBox1" v-on:click="openSearchNameModal">
@@ -29,13 +29,23 @@
 						</div>	
 					</td> 
 					<th style="width:12.6%;">申请代码编号 :</th>
-					<td style="width:18.3%;">
+					<td style="width:14%;">
 						<div class="commonInputBox" style="width:100%;">
 							<input class="commonput" v-model="search_code">
 						</div>
 					</td> 
-					<th style="width:10.6%;">级次 :</th>
-					<td style="width:18.3%;">
+					<th style="width:10%;">是否显示 :</th>
+					<td style="width:10%;">
+						<div class="commonselect"  style="width:100%;">
+							<select class="selBox" v-model="search_show">
+								<option :value="null" selected>全部</option>
+								<option :value="false">不显示</option>
+								<option :value="true">显示</option>
+							</select>
+						</div>
+					</td>
+					<th style="width:10%;">级次 :</th>
+					<td style="width:10%;">
 						<div class="commonselect"  style="width:100%;">
 							<select class="selBox" v-model="search_level">
 								<option value="" selected>全部</option>
@@ -69,7 +79,8 @@
 							<th>申请代码编码</th>
 							<th>申请代码名称</th>
 							<th>级次</th>
-							<th>是否叶子节点</th>
+							<th style="width:110px;">是否叶子节点</th>
+							<th style="width:80px;">是否显示</th>
 							<th>维护</th>
 						</tr>
 					</thead>
@@ -80,6 +91,7 @@
 							<td>{{code.name}}</td>
 							<td>{{code.level}}</td>
 							<td>{{code.leaf ? '是': '否'}}</td>
+							<td>{{code.shows ? '是': '否'}}</td>
 							<td>
 								<div class="addLine">
 									<i class="fa fa-edit fa-lg removeBtn" v-on:click="openModifyModal(code)"></i>
@@ -129,6 +141,12 @@
 							<div class="commonInputBox" style="width:100%;">
 								<input class="commonput" v-on:focus="openFundCodeParentModal" v-model="parentNode_string">
 							</div>
+						</td>
+					</tr>
+					<tr>
+						<th style="width:80px;"><label for="editshows">是否显示 :</label></th>
+						<td>
+							<input type="checkbox" id="editshows" v-model="edit_shows">
 						</td>
 					</tr>
 				</table>
@@ -232,8 +250,10 @@
 				hideSearchBar: false,
 				search_level: "",
 				search_code: "",
+				search_show: null,
 				search_name: [],
 				search_name_string: "",
+				edit_shows: false,
 				edit_code: "", // 编辑框内代码编号
 				edit_name: "", // 编辑框内代码名称
 				edit_level: "", // 编辑框内级次, 新增数据时不显示
@@ -268,12 +288,14 @@
 								params = {
 									code: this.edit_code,
 									name: this.edit_name,
-									parent: parentId
+									parent: parentId,
+									shows: this.edit_shows
 								}
 							} else {
 								params = {
 									code: this.edit_code,
-									name: this.edit_name
+									name: this.edit_name,
+									shows: this.edit_shows
 								}
 							}
 							var self = this
@@ -304,13 +326,15 @@
 									id: this.selectedId.id,
 									code: this.edit_code,
 									name: this.edit_name,
-									parent: parentId
+									parent: parentId,
+									shows: this.edit_shows
 								}
 							} else {
 								params = {
 									id: this.selectedId.id,
 									code: this.edit_code,
-									name: this.edit_name
+									name: this.edit_name,
+									shows: this.edit_shows
 								}
 							}
 							var self = this
@@ -342,6 +366,7 @@
 					this.selectedId = JSON.parse(JSON.stringify(code))
 				}
 				if (this.selectedId == null) {
+					this.edit_shows = false
 					this.edit_code = ""
 					this.edit_name = ""
 					this.selectedFundCode.id = ""
@@ -350,6 +375,7 @@
 				} else {
 					this.edit_code = code.code
 					this.edit_name = code.name
+					this.edit_shows = code.shows
 					this.selectedFundCode.id = code.parent_id
 					this.selectedFundCode.name = code.parent_name
 					this.selectedFundCode.code = code.parent_code
@@ -394,6 +420,7 @@
 				this.search_name = []
 				this.search_code = ""
 				this.search_level = ""
+				this.search_show = false
 				this.initPagination()
 			},
 			openFundCodeParentModal: function(){
@@ -478,15 +505,22 @@
 						}
 					}
 				}, baseTree)
-				$.fn.zTree.init($("#fund-parent-tree"), {
+				var fundParentTree = $.fn.zTree.init($("#fund-parent-tree"), {
 					check:{
-						chkStyle:"checkbox",
-						enable:false
+						chkStyle:"radio",
+						enable:true,
+						radioType: "all"
 					},
 					view: {
 						showIcon: false,
 						showLine: false,
-						addDiyDom: addDiyDom
+						addDiyDom: addDiyDom,
+						selectedMulti: false
+					},
+					callback: {
+						onClick: function(event, treeId, treeNode, clickFlag){
+							fundParentTree.checkNode(treeNode, true)
+						}
 					}
 				}, baseTree)
 			},
@@ -518,6 +552,19 @@
 						return item.level == self.search_level
 					})
 				}
+				if (self.search_show !== null) {
+					var search_show = self.search_show
+					if (search_show === true) {
+						filtered_data = filtered_data.filter(function(item){
+							return item.shows
+						})
+					} else {
+						filtered_data = filtered_data.filter(function(item){
+							return !item.shows
+						})
+					}
+				}
+
 				var length = filtered_data.length
 				$('.M-box').pagination({
 					totalData: length,
@@ -568,6 +615,7 @@
 				ret.push({
 					name: subTree.name,
 					id: subTree.id,
+					shows: !!subTree.shows,
 					leaf: subTree.leaf,
 					level: subTree.level,
 					code: subTree.code,
