@@ -10,9 +10,9 @@
 			<tr>
 				<th style="width:105px;">学校名称 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%">
+					<div class="commonInputBox showDetailBox1"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
-						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>  
 				<th style="width:11.6%;">本年收入合计 :</th>
@@ -200,12 +200,13 @@
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
 	})
-	if(finalResults){
-		judgeUnits(finalResults);
-	}
-	else{
-		getUnits();
-	}
+	// if(finalResults){
+	// 	judgeUnits(finalResults);
+	// }
+	// else{
+	// 	getUnits();
+	// }
+	getUnits();
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
 	topBarControl(); 
@@ -233,9 +234,14 @@
 					if(result[i][j]==null){
 						text="--";
 					}
-					else if(j==1){
+					else{
+					}
+					if(j==1){
 						text=madeOneLineText(result[i][j]);
 						mytd.css("width","120px");
+					}
+					else if(j==10){
+						text=$('<a class="attachment" target="_blank" href='+result[i][10]+'>查看附件</a>')
 					}
 					// else if(j==0){
 					// 	text=year1+'-'+year2;
@@ -258,13 +264,16 @@
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}
-				var newtd=$('<td><a class="attachment">查看附件</a></td>')
-				searchInfo.append(newtd);
+				// var newtd=$('<td><a class="attachment">查看附件</a></td>')
+				// searchInfo.append(newtd);
 				$(".infoTable1").children('tbody').append(searchInfo);			
 			}
 			searchInfo.children('td').last().addClass('nowrap'); 
 		}
 	}
+	// $(".infoTable1").on("click",".attachment",function(){
+	// 	var addr=$(this).attr("data-addr");
+	// })
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		var year1=$(".yearName1").val();

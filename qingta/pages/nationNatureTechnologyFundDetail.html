@@ -29,9 +29,9 @@
 				</td> -->
 				<th style="width:10.6%;">申请代码 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%;">
+					<div class="commonInputBox showDetailBox2"  style="width:100%;">
 						<input class="commonput applyCode">
-						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td> 
 				<th style="width:10.6%;">项目名称 :</th>
@@ -229,12 +229,12 @@
 		popAlertBox(".unitsChoose2");
 		dragBox(".unitsChoose2");
 	})
-	if(baseTree){
-		judgeCodes(baseTree);
-	}
-	else{
+	// if(baseTree){
+	// 	judgeCodes(baseTree);
+	// }
+	// else{
 		getCodes();
-	}
+	// }
 	dragBoxCodesChoose(".unitsChoose2",projectCodes);
 	var projectUnits=[];
 	topBarControl();

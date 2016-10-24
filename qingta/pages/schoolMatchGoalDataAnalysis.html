@@ -11,16 +11,16 @@
 			<tr>
 				<th style="width:102px;">学校名称 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%">
+					<div class="commonInputBox showDetailBox1"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
-						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>
 				<th style="width:10.6%;">分析项目 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%">
+					<div class="commonInputBox showDetailBox2"  style="width:100%">
 						<input class="commonput analysisName" style="padding-right:30px;">
-						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>
 				<th style="width:10.6%;">对标年度 :</th>
@@ -355,12 +355,13 @@
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
 	})
-	if(finalResults){
-		judgeUnits(finalResults);
-	}
-	else{
-		getUnits();
-	}
+	// if(finalResults){
+	// 	judgeUnits(finalResults);
+	// }
+	// else{
+	// 	getUnits();
+	// }
+	getUnits();
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
 	topBarControl();

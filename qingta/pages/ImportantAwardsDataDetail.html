@@ -21,10 +21,11 @@
 				</td>
 				<th style="width:10.6%;">奖励名称 :</th>
 				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox awardName">
-							<option selected="selected"></option>
-						</select>
+					<div class="commonInputBox"  style="width:100%;">
+						<input class="commonput awardName" type="text">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>		
 				<th style="width:10.6%;">奖励类别 :</th>
@@ -432,4 +433,5 @@
 		}		
 	})
 	doForSearch(".projectUnits","/Landentity0");
+	doForSearch(".awardName","/ImportantRewards/reward_name_blurry");
 </script>

@@ -193,7 +193,7 @@
 			}
 		}
 	});
-	function getBlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title,type,rows,start){
+	function getBlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,tutor,title,type,rows,start){
 	   	var ajax = $.ajax({
 	        url: "/BlogPaper/detail",
 	        type: "POST",
@@ -207,6 +207,7 @@
 	            'first_year':first_year,
 	            'last_year':last_year,
 	            'author':author,
+	            'tutor':tutor,
 	            'title':title,
 	            'type':type,
 	            'rows':rows,
@@ -287,6 +288,7 @@
 		var title=$(".articleName").val();
 		var author=$(".professorName").val();
 		var type=$(".articleType").val();
+		var tutor=$(".leaderName").val();
 		start=0;
 		var rows=20; 
 		if(first_year!=""&&last_year!=""&&(first_year-0)>(last_year-0)){
@@ -297,7 +299,7 @@
 		else{
 			$(".tableContent").addClass("tableShow");
 			$(".searchUndo").addClass("searchDo");
-			$.when(getBlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title,type,rows,start)).done(function(data){
+			$.when(getBlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,tutor,title,type,rows,start)).done(function(data){
 				$('.M-box').pagination({
 		            totalData:count,
 		            showData:20,
@@ -315,12 +317,12 @@
 				    		}
 				    		else{
 				    			start=(index-1)*20;
-			                	getBlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title,type,rows,start); 
+			                	getBlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,tutor,title,type,rows,start); 
 				    		}
 				    	}
 				    	else{
 							start=(index-1)*20;
-			                getBlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,title,type,rows,start); 
+			                getBlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,tutor,title,type,rows,start); 
 				    	}              
 		            }
 		        });

@@ -11,16 +11,16 @@
 			<tr>
 				<th style="width:82px;">依托单位 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%">
+					<div class="commonInputBox showDetailBox1"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
-						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td>	
 				<th style="width:10.6%;">申请代码 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%;">
+					<div class="commonInputBox showDetailBox2"  style="width:100%;">
 						<input class="commonput applyCode">
-						<div class="showDetailBox showDetailBox2"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td> 
 				<th style="width:10.6%;">资助类别 :</th>
@@ -301,18 +301,18 @@
 		popAlertBox(".unitsChoose2");
 		dragBox(".unitsChoose2");
 	})
-	if(finalResults){
-		judgeUnits(finalResults);
-	}
-	else{
+	// if(finalResults){
+	// 	judgeUnits(finalResults);
+	// }
+	// else{
 		getUnits();
-	}
-	if(baseTree){
-		judgeCodes(baseTree);
-	}
-	else{
+	// }
+	// if(baseTree){
+	// 	judgeCodes(baseTree);
+	// }
+	// else{
 		getCodes();
-	}
+	// }
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	dragBoxCodesChoose(".unitsChoose2",projectCodes);
 	topBarControl();

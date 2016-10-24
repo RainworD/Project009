@@ -10,9 +10,9 @@
 			<tr>
 				<th style="width:105px;">学校名称 :</th>
 				<td style="width:18.3%;">
-					<div class="commonInputBox"  style="width:100%">
+					<div class="commonInputBox showDetailBox1"  style="width:100%">
 						<input class="commonput unitsEnter" style="padding-right:30px;">
-						<div class="showDetailBox showDetailBox1"><i class="fa fa-ellipsis-h showDetail"></i></div>
+						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
 					</div>
 				</td> 
 				<th style="width:10.6%;">公布年度 :</th>
@@ -50,7 +50,7 @@
 			<tr>
 				<td colspan="4" style="padding-left: 3%;">
 					<label for="patentCountFirst" class="label1">
-						<input type="radio" id="patentCountFirst" name="selBar" class="radioInput" checked="checked" value="按专著数量排序">
+						<input type="radio" id="patentCountFirst" name="selBar" class="radioInput" value="按专著数量排序">
 						按专著数量排序
 					</label>
 					<label for="articleCountFirst" class="label2">
@@ -62,7 +62,7 @@
 						按鉴定成果数量排序
 					</label>
 					<label for="transIncomeFirst" class="label2">
-						<input type="radio" id="transIncomeFirst" name="selBar" class="radioInput" value="按转让收入排序">
+						<input type="radio" id="transIncomeFirst" name="selBar" class="radioInput" checked="checked"  value="按转让收入排序">
 						按转让收入排序
 					</label>
 				</td>
@@ -184,12 +184,13 @@
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
 	})
-	if(finalResults){
-		judgeUnits(finalResults);
-	}
-	else{
-		getUnits();
-	}
+	// if(finalResults){
+	// 	judgeUnits(finalResults);
+	// }
+	// else{
+	// 	getUnits();
+	// }
+	getUnits();
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
 	topBarControl();

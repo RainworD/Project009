@@ -163,7 +163,7 @@ var setting = {
 	      showLine: false
 	    }
 	};
-function getUnits(finalResults){
+function getUnits(){
 	$.when(ajaxUnit()).done(function(data){
 		var result=data.result;
 		finalResults=result;
@@ -183,7 +183,7 @@ function judgeUnits(result){
 	}
 }
 
-function getCodes(baseTree){
+function getCodes(){
 	$.when(ajaxTree()).done(function(data){
 		baseTree=data.data;
 		judgeCodes(baseTree);
@@ -427,14 +427,17 @@ function dragBoxSortsChoose(selector){
 	})
 
 }
-function resetAlertBox(treeObj){
+function resetAlertBox(treeObj,flag){
 	var nodes_=treeObj.getCheckedNodes();
 	if(nodes_){
 		for(var i=0;i<nodes_.length;i++){
 			treeObj.checkNode(nodes_[i],false);
 			treeObj.expandNode(nodes_[i],false);
 		}
-		treeObj.expandNode(treeObj.getNodes()[0], true)
+		if(flag==0){
+			treeObj.expandNode(treeObj.getNodes()[0], true)
+		}
+		else{}
 	}
 	treeObj.refresh();
 }
@@ -442,10 +445,10 @@ function topBarControl(){
 	$(".resetBtn").bind("click",function(){
 		if(confirm("你确定重置所有查询条件？")){
 			if(rootObj){
-				resetAlertBox(rootObj);
+				resetAlertBox(rootObj,0);
 			}
 			if(codeObj){
-				resetAlertBox(codeObj);
+				resetAlertBox(codeObj,1);
 			}
 			$(this).parents(".topTable").find("input").val("");
 			var val_=$(this).parents(".topTable").find("select").children("option").first().val();
