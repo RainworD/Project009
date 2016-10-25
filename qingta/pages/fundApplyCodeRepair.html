@@ -424,6 +424,11 @@
 				this.initPagination()
 			},
 			openFundCodeParentModal: function(){
+				var zTreeObj = this.getParentZTreeObj()
+				var node = zTreeObj.getCheckedNode()[0]
+				if (node) {
+					zTreeObj.checkNode(node)
+				}
 				openModal($(this.$els.parentmodal))
 			},
 			closeFundCodeParentModal: function(save){
