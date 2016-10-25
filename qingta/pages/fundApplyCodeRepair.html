@@ -433,7 +433,7 @@
 			},
 			closeFundCodeParentModal: function(save){
 				var zTreeObj = this.getParentZTreeObj()
-				var selectedNodes = zTreeObj.getSelectedNodes()
+				var selectedNodes = zTreeObj.getCheckedNodes()
 				if (selectedNodes.length > 0 && save) {
 					var selectedNode = selectedNodes[0]
 					this.selectedFundCode.id = selectedNode.id
