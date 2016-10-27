@@ -152,7 +152,7 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=1;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					if(result[i][j]==null){
 						result[i][j]="";
@@ -163,10 +163,6 @@
 				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			// searchInfo.children('td').eq(1).addClass("nowrap");
-			// searchInfo.children('td').eq(2).addClass("nowrap");
-			searchInfo.children('td').css("height","57px");
-			// searchInfo.children('td').eq(3).css("text-align","left");
 		}
 	}
 	$(".searchBtn").bind("click",function(){

@@ -103,17 +103,16 @@ function eventBind(){
 			$(this).children(".downflag").addClass("fa-minus");
 		}
 	})
-	$(".section").on("click",".linka",function(){
+	$(".linka").bind("click",function(){
 		$(this).addClass("activeClass").siblings().removeClass("activeClass");
-	})
-	$(".leftBox").on("click",".leftImg",function(){
-		$(this).addClass("white");
-		$(this).parent(".section").siblings('.section').find(".downContent").removeClass("show");
-		$(this).parent(".section").siblings('.section').find(".leftImg").removeClass("white");
-		$(this).next().children('.downBtn').addClass('btnColor');
-		$(this).next().children('.downContent').addClass('show');
-		$(this).parent(".section").siblings('.section').find(".downBtn").removeClass("btnColor");
-		$(this).parent(".section").siblings('.section').find(".linka").removeClass("activeClass");
+		$(this).parents(".section").siblings().find(".leftImg").removeClass("white");
+		$(this).parents(".sectionList").prev(".leftImg").addClass("white");
+		$(this).parents(".downContent").prev('.downBtn').addClass('btnColor');
+		$(this).parents(".downContent").addClass('show');
+		$(this).parents(".section").siblings('.section').find(".downContent").removeClass("show");
+		$(this).parents(".section").siblings('.section').find(".leftImg").removeClass("white");
+		$(this).parents(".section").siblings('.section').find(".downBtn").removeClass("btnColor");
+		$(this).parents(".section").siblings('.section').find(".linka").removeClass("activeClass");
 	})
 	$(".rightBox").on("click",".leftImg",function(){
 		var showflag1=$(this).parents(".rightBox").attr("class");
@@ -195,13 +194,38 @@ function judgeCodes(result){
 			chkStyle:"checkbox",
 			enable:true
 		},
+		data:{
+			key:{
+				shows:"shows",
+			}
+		},
 		view: {
 			showIcon: false,
 			showLine: false,
 			addDiyDom: addDiyDom
+		},
+		callback:{
+			// beforeCheck:checkNodes,
 		}
 	}, result);
+	if(codeObj){
+		var nodes = codeObj.getNodesByParam("shows", false);
+		if(nodes){
+			for(var i=0;i<nodes.length;i++){
+				codeObj.hideNode(nodes[i]);
+			}
+		}
+	}
 }
+// function checkNodes(){
+// 	var nodes = codeObj.getNodeByParam("isHidden", true);
+// 	if (nodes) {
+// 		for(var i=0;i<nodes.length;i++){
+// 			codeObj.showNodes(nodes[i]);
+// 		}
+//   	}
+//   	codeObj.refresh();
+// }
 function addDiyDom(treeId, treeNode){
 	var code_span = $('<span class="node_name node_name-code"></span>')
 	code_span.attr('id', 'treeDemo_'+ treeId + '_code')
@@ -387,6 +411,10 @@ function dragBoxSortsChoose(selector){
 							$(".projectClass").append(newopt);
 						}
 					}
+				}
+				else{
+					var newopt=$('<option></option>');
+					$(".projectClass").append(newopt);
 				}  
 			});
 		}
@@ -421,6 +449,10 @@ function dragBoxSortsChoose(selector){
 							}
 						}
 					} 
+					else{
+						var newopt=$('<option></option>');
+						$(".projectClass").append(newopt);
+					}  
 				});
 			}
 		}
@@ -490,15 +522,30 @@ function getTreeNodes(treeObj,checkedArray,_array){
 	}
 	for (var i=0;i<_array.length;i++) {
 		var checkedObj={};
-		// if(_array[i].isParent){
-		// }
-		// else{
+		if(_array[i].check_Child_State=="2"){
 			checkedObj.name=_array[i].name;
 			checkedObj.id=_array[i].id;
-			if(_array[i].code){
-				checkedObj.code=_array[i].code;
-			}
+			checkedObj.code=_array[i].code;
 			checkedArray.push(checkedObj);
+			var children_=_array[i].children;
+			for(var j=0;j<children_.length;j++){
+				var checkedObj={};
+				if(children_[j].shows==false){
+					checkedObj.name=children_[j].name;
+					checkedObj.id=children_[j].id;
+					checkedObj.code=children_[j].code;
+					checkedArray.push(checkedObj);
+				}
+			}
+		}
+		else{
+			checkedObj.name=_array[i].name;
+			checkedObj.id=_array[i].id;
+			// if(_array[i].code){
+			checkedObj.code=_array[i].code;
+			// }
+			checkedArray.push(checkedObj);
+		}
 		// }
 	}
 	treeObj.refresh();

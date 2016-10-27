@@ -4,11 +4,11 @@
 		<a class="changeLeft green changeButton" href="#/nationPointDevelopPlan.html">国家重点研发计划统计</a>
 		<a class="changeRight changeButton" href="#/nationPointDevelopDetail.html">国家重点研发计划明细</a>
 	</div> 
-	<div class="addDataBtn" style="margin-right:0;background-color:#ccc;" id="uploadForm">
+	<!-- <div class="addDataBtn" style="margin-right:0;background-color:#ccc;float:left" id="uploadForm">
 	    <input id="file" type="file"  multiple="multiple"/>
 	    <button id="upload" type="button">导入excel</button>
-	</div>
-	<!-- <p class="hideBtn">隐藏查询条件</p>  -->
+	</div> -->
+	<p class="hideBtn">隐藏查询条件</p> 
 </div> 
 <div class="enterBox">
 	<div class="topTableBox">
@@ -312,7 +312,7 @@
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}
-				searchInfo.children('td').eq(3).addClass('nowrap');
+				// searchInfo.children('td').eq(3).addClass('nowrap');
 				var newtd=$('<td class="nowrap">'+
 							'<div class="addLine">'+
 								'<i class="fa fa-edit fa-lg removeBtn "></i>'+

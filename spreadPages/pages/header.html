@@ -1,0 +1,158 @@
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?dcf25673cac126520faedf6dd61f25b3";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan style='display:none' id='cnzz_stat_icon_1254581267'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254581267' type='text/javascript'%3E%3C/script%3E"));</script>
+<header class="header">
+	<div class="cenbox">
+		<div class="navicon mobile">
+			<i class="fa fa-search"></i>
+		</div>
+		<div class="logobox">
+			<a href="__ROOT__/main.html">
+				<img class="logo" src="{$logo}" />
+			</a>
+		</div>
+		<div class="navbox">
+			<ul class="nav">
+				<li><a href="__ROOT__/main.html">首页</a></li>
+				<li><a href="__ROOT__/data.html">数据</a></li>
+				<li><a href="__ROOT__/selected.html">精选</a></li>
+				<!-- <li><a href="__ROOT__/dynamic.html">动态</a></li> -->
+				<!-- <li><a href="__ROOT__/answer.html?key=全部问答">问答</a></li> -->
+				<li><a href="__ROOT__/lists.html">榜单</a></li>
+				<li><a href="__ROOT__/mainPages.html"></a></li>
+			</ul>
+		</div>
+		<if condition="$login eq 0">
+		<div class="loginbox">
+			<div class="login">
+				<a href="__ROOT__/login.html">
+					<i class="fa fa-sign-in"></i>
+					<span>登录</span>
+				</a>
+			</div>
+			<div class="regist">
+				<a href="__ROOT__/login.html">注册</a>
+			</div>
+		</div>
+		<else />
+		<div class="loginbox userbox">
+			<div class="login">
+				<a href="__ROOT__/user.html" target="_blank">
+					<i class="fa fa-user"></i>
+					<span>个人中心</span>
+				</a>
+			</div>
+		</div>
+		</if>
+		<div class="searchbox searchboxshow" id="headSearchBox">
+		</div>
+	</div>
+</header>
+
+<script>
+var timeout;
+createSearchInput("#headSearchBox","__ROOT__","__ROOT__");
+function createSearchInput(selector,baseROOT,rootROOT){
+	var html = $('<input class="searchInput" type="text" placeholder="搜索你想要的，查询大学数据请直接输入大学全称">'+
+				'<i class="fa fa-search search-icon searchButton"></i>'+
+				'<ul class="searchResult">'+
+				'</ul>');
+	html = html.filter(".searchButton").bind('click',function(){
+		window.location.href=baseROOT+"/search?key="+$(this).prev(".searchInput").val();
+	}).end()
+	.filter(".searchInput").bind('input',function(e){
+		var keyword = $.trim($(this).val());
+		var $this = $(this);
+		if(keyword!=""){
+				timeout&&clearTimeout(timeout);
+				timeout = setTimeout(function(){
+					$.ajax({
+					    url:rootROOT+"/searchapi",
+					    type:"POST",
+					    data:{
+					        "key":keyword
+					    },
+					    success: function(data){
+					        switch(data.state){
+				                case "0":
+				                	$this.siblings(".searchResult").empty();
+				                	var school=data.school;
+				                	if(school.length>0){
+				                		for (var i = 0, length = school.length; i < length; i++){
+					                		var orderhtml=$('<li>'+
+					                			'<a href="'+baseROOT+'/search.html?key='+school[i]+'">'+school[i]+'</a>'+
+					                			'</li>');
+					                		$this.siblings(".searchResult").append(orderhtml);
+					                	}
+					                	$this.siblings(".searchResult").show();
+				                	}
+				                	else{
+				                		$this.siblings(".searchResult").hide();
+				                	}
+				                break;
+				                default: 
+				                	$this.siblings(".searchResult").hide();
+				                break;
+				            }
+					    },
+					    error: function(){
+					            
+					    }
+					});
+				}, 300);
+		}
+	}).bind("keydown",function(e){
+		if(e.keyCode==13){
+			$(this).siblings(".searchButton").trigger("click");
+		}
+	}).end();
+	$(selector).append(html);
+}
+$(".searchInput").on("keyup",function(event) {
+	if($(".searchInput").text()==""){
+		$(".searchResult").hide();
+	}
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

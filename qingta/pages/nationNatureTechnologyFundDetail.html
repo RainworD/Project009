@@ -267,16 +267,16 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=1;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
 					var text = result[i][j];
-					if(j==0||j==1||j==3){
+					if(j==1||j==2||j==4){
 						text = madeNowrapText(result[i][j]);
 					}
-					else if(j==2||j==5){
+					else if(j==3||j==6){
 						text = madeOneLineText(result[i][j]);
 						mytd.css("width","120px");
 					}
@@ -286,9 +286,8 @@
 					mytd.html(text);
 					searchInfo.append(mytd); 
 				}
-				$(".infoTable1").children('tbody').append(searchInfo);
 			}
-			searchInfo.children('td').last().addClass("nowrap");
+			$(".infoTable1").children('tbody').append(searchInfo);
 		}
 	}
 	$(".searchBtn").bind("click",function(){

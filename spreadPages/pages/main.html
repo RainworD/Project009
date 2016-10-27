@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="keywords" content="大学,大学数据,大学资讯,高考,考研,学术,人才,科研">
+    <meta name="description" content="青塔网是一个聚焦于大学主题的网站，提供全面、客观、深度的大学资讯、评论和数据内容，你可以在这里阅读、分享、交流和提问。">
+    <title>青塔网-大学从未如此有料</title>
+    <link href="__PUBLIC__/source/img/favicon.ico" rel="icon">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/css/public.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/css/public_mobile.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/font-awesome-4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/css/pagination.css">
+    <script src="__PUBLIC__/source/js/jquery-1.7.2.min.js"></script>
+    <script src="__PUBLIC__/source/js/jquery.touchslider.min.js"></script>
+    <script src="__PUBLIC__/source/js/jquery.pagination.min.js"></script>
+</head>
+<body>
+	<include file="header" />
+	<div class="bannerbox bannerboxmain touchslider">
+		<div class="touchslider-viewport">
+			<div>
+				<volist name="carousel" id="vo">
+				<a class="banner" style="background-image:url('__ROOT__/{$vo.photo}');background-color:{$vo.color};" href="{$vo.url}" target="_blank">
+				</a>
+				</volist>
+			</div>
+		</div>
+		<div class="ctrlbox">
+		</div>
+		<div class="searchbox">
+		</div>
+	</div>
+	<div class="content">
+		<if condition="$code_block[0]['state'] neq 0">
+		<div class="adverRow cenbox pc" style="margin-bottom: 20px;">
+			<div class="codeBlockType2">
+				<php>echo htmlspecialchars_decode($code_block[0]['value']);</php>
+			</div>
+		</div>
+		</if>
+		<div class="cenbox">
+			<section class="leftbox">
+				<div class="listbox">
+					<volist name="article" id="vo">
+					<article <if condition="$vo['photo_state'] eq 1">class="nopic"</if>>
+						<if condition="$vo['photo_state'] eq 0">
+							<div class="picbox">
+								<img src="__ROOT__/{$vo.photo}" />
+							</div>
+						</if>
+						<div class="textbox">
+							<header class="texthead">
+								<volist name='vo.value' id='vo1' key='k'>
+									<if condition="$k eq 1">
+								<a class="tag">{$vo1.value}</a>
+									</if>
+								</volist>
+								<h2><a href="__ROOT__/index.html?p={$vo.id}" target="_blank">{$vo.title}</a></h2>
+							</header>
+							<p class="note" style="line-height:24px;margin: 17px 0;">
+								{$vo.summary}
+							</p>
+							<p class="meta" style="font-size: 14px;">
+							<volist name='vo.value' id='vo1' key='k'>
+									<if condition="$k eq 1">
+								<span class="display">
+								{$vo1.value}
+								/	
+								</span>
+								</if>
+								</volist>
+								<span class="author span" style="margin-right: 0;">
+									{$vo.name}
+								</span>
+								/
+								<time class="time span" style="margin-right:0px;">
+									<php>echo date('Y-m-d',$vo['in_time']);</php>
+								</time>
+								
+							</p>
+						</div>
+					</article>
+					</volist>
+				</div>
+				<if condition ="$totalData gt $showData">
+                    <div class="M-box pc"></div>
+                    <div class="loadMoreButton mobile" data-nowpage="{$current}">加载更多</div>
+                </if>
+			</section>
+			<include file="right" />
+		</div>
+		<div class="adverRow cenbox pc" style="margin-top: 20px;">
+			<if condition="$code_block[6]['state'] neq 0">
+			<div class="codeBlockType2">
+				<php>echo htmlspecialchars_decode($code_block[6]['value']);</php>
+			</div>
+			</if>
+		</div>
+	</div>
+	<include file="footer" />
+<script src="__PUBLIC__/source/js/public.js"></script>
+<script>
+var pageData = {
+	"pageIndex":0
+};
+init(pageData);
+// 轮播图相关
+initBanner();
+// 分页
+$('.M-box').pagination({
+	totalData:{$totalData},
+    showData:{$showData},
+    current:{$current},
+    count:2,
+    jump:true,
+	coping:true,
+	prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
+	nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
+    callback:function(index){
+        location.href="__ROOT__/main.html?page="+index
+    }
+});
+$(".loadMoreButton").bind('click',function(){
+	var $this = $(this);
+	var page = $this.attr("data-nowpage");
+	var index = 0;
+	$.ajax({
+		url: "__ROOT__/loadmoreapi",
+		type: "POST",
+		data: {
+			"page":++page,
+			"index":index
+		},
+		success: function(data){
+			if(data.state == 0){
+				var order = data.order;
+				if(order){
+					for(var i = 0; i<order.length; i++){
+						$(".leftbox .listbox").append(createNewArticle(order[i]));
+					}
+					$this.attr("data-nowpage",page);
+				}
+				else{
+					alert("没有更多文章了");
+				}
+			}
+			else{
+				alert(data.detail);
+			}
+		},
+		error: function(){
+			alert("网络异常");
+		}
+	});
+});
+</script>
+</body>
+</html>

@@ -33,7 +33,7 @@
 						</ul>
 					</div>
 				</td>
-				<th style="width:10.6%;">公布年度 :</th>
+				<th style="width:10.6%;">入选年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1">
@@ -153,15 +153,15 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
-							var mytd=$('<td></td>');
-							if(result[i][j]==null){
-								result[i][j]="";
-							}
-							var text=madeNowrapText(result[i][j]);
-							mytd.html(text);
-							searchInfo.append(mytd);
-						}
+				for (var j=1;j<result[i].length;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					var text=madeNowrapText(result[i][j]);
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 			searchInfo.children('td').last().addClass('nowrap');

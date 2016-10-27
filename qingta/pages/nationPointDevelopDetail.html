@@ -181,12 +181,16 @@
 			'</tr>');
 			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
 			searchInfo.children('td').eq(0).addClass('nowrap');
-			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=1;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					var text = result[i][j];
-					if(j==6||j==7){
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					else{
+					}
+					if(j==7||j==8){
 						if(result[i][j]==null||result[i][j]=="*"){
 							text="*";
 						}
@@ -200,29 +204,23 @@
 							}
 						}
 					}
-					else {
-						if(result[i][j]==null){
-							result[i][j]="";
-						}
-						else{
-							text=madeNowrapText(result[i][j]);
-						}
-					}
-					if(j==0){
+					else if(j==1){
 						text = madeNowrapText(result[i][j]);
 					}
-					else if(j==1||j==4||j==2){
+					else if(j==2||j==5||j==3){
 						text = madeOneLineText(result[i][j]);
-						mytd.css("width","350px");
+						mytd.css("width","250px");
 					}
-					else if(j==5){
+					else if(j==6){
 						text = madeOneLineText(result[i][j]);
 						mytd.css("width","150px");
 					}
+					else{}
 					mytd.html(text);
 					searchInfo.append(mytd);
+
 				}
-				$(".infoTable1").children('tbody').append(searchInfo);
+				$(".infoTable1").children('tbody').append(searchInfo);	
 			}
 		}
 	}

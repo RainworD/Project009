@@ -4,6 +4,10 @@
 		<a class="changeRight changeButton" href="#/peoplePlanBeChoosenDetail.html">万人计划明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
+	<div class="addDataBtn" style="margin-right:0;background-color:#ccc;float:left" id="uploadForm">
+	    <input id="file" type="file"  multiple="multiple"/>
+	    <button id="upload" type="button">导入excel</button>
+	</div>
 </div>
 <div class="enterBox">
 	<div class="topTableBox">
@@ -295,4 +299,94 @@
             $('.search-box').click();
         }
     })
+</script>
+<script type="text/javascript">
+	$("#upload").bind("click",function(){
+		var formData = new FormData();
+		formData.append('file', $('#file')[0].files[0]);
+		$.ajax({
+		    url: '/MPimport',
+		    type: 'POST',
+		    cache: false,
+		    data: formData,
+		    processData: false,
+		    contentType: false
+		}).done(function(res) {
+			if(res.state==1){
+				alert("导入数据成功！")
+			}
+			else{
+				alert("导入数据失败！")
+			}
+		}).fail(function(res) {
+		});
+	})
+	$(".infoTable1").on("click",".addLine",function(){
+		var td_=$(this).parents("tr").children("td");
+		var txt;
+		for(var i=1;i<td_.length-1;i++){
+			if(td_.eq(i).find("span").length){
+				txt=td_.eq(i).find("span").first().text();
+			}
+			else{
+				txt=td_.eq(i).text();
+			}
+			console.log(txt);
+			td_.eq(i).html(madeInputBox(txt));
+		}
+		$(this).addClass("showMenu");
+		$(this).siblings(".checkData").removeClass("showMenu")
+	})
+	$(".infoTable1").on("click",".checkData",function(){
+		$(this).addClass("showMenu");
+		$(this).siblings(".addLine").removeClass("showMenu");
+		var td_=$(this).parents("tr").children("td");
+		var txt;
+		for(var i=1;i<td_.length-1;i++){
+			if(td_.eq(i).children("input").length){
+				txt=td_.eq(i).children("input").val();
+			}
+			if(i==2){
+				console.log("i=2");
+				td_.eq(i).html(madeOneLineText(txt));
+			}
+			else{
+				td_.eq(i).html(madeNowrapText(txt));
+			}
+		}
+	})
+	$(".infoTable1 thead").on("click",".checkAll",function(){
+		var check_all=$(this).prop("checked");
+		if(check_all){
+			var len_=$(".infoTable1 tbody tr").length;
+			for(var i=0;i<len_;i++){
+				$(".infoTable1 tbody tr").eq(i).children("td").eq(0).children("input").prop("checked",true);
+			}
+		}
+		else{
+			var len_=$(".infoTable1 tbody tr").length;
+			for(var i=0;i<len_;i++){
+				$(".infoTable1 tbody tr").eq(i).children("td").eq(0).children("input").prop("checked",false);
+			}
+		}
+	})
+	$(".infoTable1 tbody").on("click",".checkItem",function(){
+		var count=0;
+		for(var i=0;i<$(".checkItem").length;i++){
+			var check_item=$(".checkItem").eq(i).prop("checked");
+			if(check_item){
+				count++;
+			}
+			else{
+				count--;
+			}
+		}
+		console.log(count);
+		if(count<20){
+			$(".checkAll").prop("checked",false);
+		}
+		else if(count==20){
+			$(".checkAll").prop("checked",true);
+		}
+	})
 </script>

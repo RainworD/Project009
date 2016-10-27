@@ -60,67 +60,72 @@
 .topBanner .topContent .leftContent,
 .topBanner .topContent_1 .leftContent,
 .topBanner .topContent_2 .leftContent {
-  margin-top: 20px;
-  padding-left: 100px;
-  width: 65%;
+  margin-top: 1%;
+  padding-left: 15%;
+  width: 55%;
   float: left;
 }
 .topBanner .topContent .leftContent .topTitle,
 .topBanner .topContent_1 .leftContent .topTitle,
 .topBanner .topContent_2 .leftContent .topTitle {
-  font-size: 30px;
+  font-size: 3em;
+  font-weight: 600;
   color: #fff;
-  margin-bottom: 40px;
+  margin-bottom: 2%;
+  margin-top: 4%;
 }
 .topBanner .topContent .leftContent .topPara,
 .topBanner .topContent_1 .leftContent .topPara,
 .topBanner .topContent_2 .leftContent .topPara {
-  font-size: 16px;
+  font-size: 1.5em;
   color: #fff;
-  line-height: 30px;
-  margin-bottom: 30px;
+  line-height: 1.8em;
+  margin-bottom: 3%;
 }
 .topBanner .topContent .leftContent .topBtn,
 .topBanner .topContent_1 .leftContent .topBtn,
 .topBanner .topContent_2 .leftContent .topBtn {
   display: block;
-  width: 100px;
-  height: 30px;
-  line-height: 30px;
+  width: 8em;
+  height: 2.5em;
+  line-height: 2.5em;
   color: #fff;
   border-radius: 5px;
   position: relative;
   background-color: #94e7f1;
-  padding-left: 10px;
+  padding-left: 2%;
+  margin-bottom: 2%;
+  font-size: 1.2em;
 }
 .topBanner .topContent .leftContent .topBtn .arrowIcon,
 .topBanner .topContent_1 .leftContent .topBtn .arrowIcon,
 .topBanner .topContent_2 .leftContent .topBtn .arrowIcon {
   display: block;
   position: absolute;
-  right: 8px;
-  bottom: 5px;
-  line-height: 30px;
-  width: 20px;
+  right: 0.5em;
+  bottom: 0.4em;
+  line-height: 3em;
+  width: 1.8em;
 }
 .topBanner .topContent .leftContent .topBtn_2,
 .topBanner .topContent_1 .leftContent .topBtn_2,
 .topBanner .topContent_2 .leftContent .topBtn_2 {
-  background-color: #6b7e91;
-  color: #798c9f;
+  background: rgba(107, 126, 145, 0.4);
+  color: #fff;
 }
 .topBanner .topContent .rightContent,
 .topBanner .topContent_1 .rightContent,
 .topBanner .topContent_2 .rightContent {
-  width: 33%;
+  width: 35%;
   float: left;
-  margin-top: 30px;
+  margin-bottom: 30px;
   margin-right: 0px;
+  height: 17em;
 }
 .topBanner .topContent .rightContent .topImg,
 .topBanner .topContent_1 .rightContent .topImg,
 .topBanner .topContent_2 .rightContent .topImg {
-  width: 220px;
+  width: 27em;
   display: block;
   margin-left: 100px;
 }
@@ -128,10 +133,10 @@
 .topBanner .topContent_1 .rightContent .topImg_2,
 .topBanner .topContent_2 .rightContent .topImg_2 {
   margin: 0;
+  margin-top: 5%;
   width: 100%;
 }
 .topBanner .topContent_2 {
-  padding-bottom: 40px;
   background-color: #00264d;
 }
 .containerBox {
@@ -139,7 +144,7 @@
 }
 .containerBox .contentBox {
   width: 100%;
-  padding: 0 100px;
+  padding: 0 15%;
 }
 .containerBox .contentBox .contentBar {
   border-bottom: 2px dashed #ebebeb;
@@ -147,8 +152,8 @@
   padding: 40px 0 30px;
 }
 .containerBox .contentBox .contentBar .iconBox {
-  width: 33.3%;
-  padding: 0 20px;
+  width: 33%;
+  padding: 0 4%;
   height: 265px;
   float: left;
 }
@@ -176,7 +181,7 @@
   clear: both;
 }
 .containerBox .bottomBox {
-  width: 350px;
+  width: 420px;
   margin: auto;
   padding: 40px 0 50px;
 }
@@ -195,7 +200,7 @@
 .containerBox .bottomBox .bottomBtn {
   display: block;
   color: #fff;
-  width: 160px;
+  width: 120px;
   height: 40px;
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
@@ -209,6 +214,9 @@
 .containerBox .bottomBox .leftBtn {
   background-color: #45d7e7;
   margin-right: 30px;
+}
+.containerBox .bottomBox .middleBtn {
+  background-color: #59f;
 }
 .containerBox .bottomBox .rightBtn {
   background-color: #00cc99;

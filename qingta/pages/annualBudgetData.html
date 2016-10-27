@@ -228,20 +228,19 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=1;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					var text=result[i][j];
 					if(result[i][j]==null){
 						text="--";
 					}
 					else{}
-					if(j==1){
+					if(j==2){
 						text=madeOneLineText(result[i][j]);
 						mytd.css("width","100px");
 					} 
-					else if(j==9){
-						console.log("j==9");
-						text=$('<a class="attachment" target="_blank" href='+result[i][9]+'>查看附件</a>')
+					else if(j==10){
+						text=$('<a class="attachment nowrap" target="_blank" href='+result[i][9]+'>查看附件</a>')
 					}
 					// else if(j==0){
 					// 	text=year1+'-'+year2;

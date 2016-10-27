@@ -224,13 +224,13 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=1;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					var text=result[i][j];
 					if(result[i][j]==null){
 						text="";
 					}
-					else if(j==0){
+					else if(j==1){
 						text=madeOneLineText(result[i][j]);
 						mytd.css("width","150px");
 					}

@@ -225,21 +225,21 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=1;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					var text=result[i][j];
 					if(result[i][j]==null){
 						text="";
 					}
-					else if(j==2){
-						text=madeOneLineText(result[i][2]);
-					}
 					else if(j==3){
 						text=madeOneLineText(result[i][3]);
+					}
+					else if(j==4){
+						text=madeOneLineText(result[i][4]);
 						mytd.css("width","180px");
 					}
-					else if(j==6){
-						text=madeOneLineText(result[i][6]);
+					else if(j==7){
+						text=madeOneLineText(result[i][7]);
 						mytd.css("width","120px");
 					}
 					else{
