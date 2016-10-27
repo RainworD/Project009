@@ -424,11 +424,16 @@
 				this.initPagination()
 			},
 			openFundCodeParentModal: function(){
+				var zTreeObj = this.getParentZTreeObj()
+				var node = zTreeObj.getCheckedNodes()[0]
+				if (node) {
+					zTreeObj.checkNode(node)
+				}
 				openModal($(this.$els.parentmodal))
 			},
 			closeFundCodeParentModal: function(save){
 				var zTreeObj = this.getParentZTreeObj()
-				var selectedNodes = zTreeObj.getSelectedNodes()
+				var selectedNodes = zTreeObj.getCheckedNodes()
 				if (selectedNodes.length > 0 && save) {
 					var selectedNode = selectedNodes[0]
 					this.selectedFundCode.id = selectedNode.id
