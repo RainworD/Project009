@@ -1,6 +1,6 @@
 {
      "legend": {
-          "data" : ["自然科学奖", "技术发明奖","科技进步奖","青年科学奖","专利奖","获奖总数"],
+          "data" : ["自然科学奖", "技术发明奖","科技进步奖","青年科学奖", "专利奖","获奖总数"],
           "bottom": "bottom"
       },
       "toolbox": {
@@ -84,7 +84,7 @@
                "data":null,
                "itemStyle": {
                     "normal": {
-                        "color": "rgb(44, 220, 153)"
+                        "color": "rgb(86, 217, 233)"
                     }
                },
                "label": {
@@ -100,7 +100,7 @@
           },
           {
                "type":"bar",
-               "name": "技术发明奖",
+               "name": "科技进步奖",
                "data":null,
                "itemStyle": {
                     "normal": {

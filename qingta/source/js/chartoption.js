@@ -664,8 +664,8 @@ var POINT_MARK = {
 									url: '/NationalScience/getSchoolStatistics',
 									data: {
 										unit: university.id,
-										first_unit: option === "全部",
-										participate_unit: true
+										first_unit: true,
+										participate_unit: option === "全部"
 									}
 								}))
 							]).then(function(resArr){
@@ -707,8 +707,8 @@ var POINT_MARK = {
 									url: '/EducationScience/getSchoolStatistics',
 									data: {
 										unit: university.id,
-										first_unit: option === "全部",
-										participate_unit: true
+										first_unit: true,
+										participate_unit: option === "全部"
 									}
 								}))
 							]).then(function(resArr){
@@ -727,13 +727,13 @@ var POINT_MARK = {
 								res.forEach(function(item){
 									var index = yearToIndex(item.year)
 									if (index < 0) { return }
-									natural[index] = item['自然科学奖']
-									invention[index] = item['技术发明奖']
-									tech[index] = item['科技进步奖']
+									natural[index] = item['自然科学奖'] + item['自然科学奖教材类']
+									invention[index] = item['技术发明奖'] + item['技术发明奖专利类']
+									tech[index] = item['科技进步奖'] + item['科技进步奖推广类'] + item['科技进步奖科普类']
 									youth[index] = item['青年科学奖']
 									patent[index] = item['专利奖']
-									
-									all[index] = item['自然科学奖'] + item['技术发明奖'] + item['科技进步奖'] + item['青年科学奖'] + item['专利奖']
+
+									all[index] = natural[index] + invention[index] + tech[index] + youth[index] + patent[index]
 								})
 								
 								chartOption.xAxis.data = makeYears()
