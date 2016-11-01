@@ -254,4 +254,10 @@
             $('.search-box').click();
         }
     })
+    var yearArray=CJScholarSetting.years_seperate;
+    for(var i=yearArray.length-1;i>=0;i--){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>
