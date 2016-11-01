@@ -37,16 +37,9 @@
 				</td>
 				<th style="width:10.6%;">课题年度 :</th>
 				<td style="width:19.3%">
-					<div class="commonselect">
-						<select class="selBox yearName1">
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
+					<div class="commonselect" style="width:100%">
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<!-- <span style="text-align: center;width:7%;">至</span>
@@ -118,6 +111,7 @@
 			</table>
 		</div>
 	</div>
+	<div class="dataOut"><img class="" src="../source/img/download.png" style="display: block;width: 100%;"></div> 
 	<div class="M-box"></div>
 </div>
 <div class="mask mask1"></div>
@@ -311,8 +305,146 @@
 			getDataBox(params,'/askSTP');
 		}
 	})
+	$(".dataOut").bind("click",function(){
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName1").val();
+		var entitys=projectUnits;
+		var incoming1=$(".income1").val();
+		var incoming2=$(".income2").val();
+		var count1=$(".years1").val();
+		var count2=$(".years2").val();
+		var orderby=$("input[name='selBar']:checked").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var pageindex;
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(count1!=""&&count2!=""&&(count1-0)>(count2-0)){
+			alert("输入的起始课题总数不能大于终止课题总数！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else if(incoming1!=""&&incoming2!=""&&(incoming1-0)>(incoming2-0)){
+			alert("输入的起始拨入经费不能大于终止拨入经费！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
+		}
+		else{
+			var params={
+				"entitys": entitys, //选择的学校列表
+		        "year1":year1,//年度范围左侧
+		        "year2":year2,//年度范围右侧
+		        "incoming1":incoming1,
+		        "incoming2":incoming2,
+		        "count1":count1,
+		        "count2":count2,
+		        // "pageindex":1,//分页数
+		        "schoolOnly":schoolOnly, 
+		        "orderby":orderby
+			}
+			$.ajax({
+				url:'/askSTP',
+				type:'POST',
+				data:params,
+				traditional:true,
+				success:function(data){
+					var result=data.result;
+					var year1=$(".yearName1").val();
+					var year2=$(".yearName2").val();
+					var val=$(".projectType").val();
+					if(data.state==1){	
+					    for(var i=0;i<result.length;i++){
+					    	if(result[i]){
+								for (var j=1;j<result[i].length;j++) {
+									if(result[i][j]==null){
+										result[i][j]="";
+									}
+									else if(j==1){
+									}
+									// else if(j==1){
+									// 	text=year1+'-'+year2;
+									// 	text = madeNowrapText(text);
+									// }
+									else{
+										// if(result[i][j]==null||result[i][j]=="*"){
+										// 	text="*";
+										// }
+										// else{
+										var ex = /^\d+$/;
+										if(ex.test(result[i][j])){
+										}
+										else{
+											result[i][j]=Number(result[i][j]).toFixed(2);
+										}
+									}
+								}
+								result[i].splice(0,1);
+							}
+					    }		
+						array_all=result;
+						var array_item=[];
+						var title_item=$(".infoTable1 thead").children(".tableTitle").children("th");
+						for(var i=1;i<title_item.length;i++){
+							array_item.push(title_item.eq(i).text());
+						}
+						array_all.splice(0,0,array_item);
+						if(array_all.length){
+							$.ajax({
+								url:'/Excelexport',
+								type:"POST",
+								traditional:true,
+								data:{
+									array_all:array_all,
+									title:$(".green").text()
+								},
+								success:function(data){
+									if(data.state==1){
+										window.open(data.path);
+									}
+								}
+							})
+						}
+					}
+					else if(data.state==0){
+						alert("没有可导出的数据！");
+					}
+					else{
+						alert(data.error);
+						window.location.href="login.html";
+					}
+				}
+			})
+		}
+	})
 </script>
-
+<script type="text/javascript">
+	doForSearch(".custom-input","/Landentity0");
+	$("body").keydown(function() {
+        if (event.keyCode == "13") {//keyCode=13是回车键
+            $('.search-box').click();
+        }
+    })
+    var yearArray=collegeTechnologyTopicFundsSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
+    if(userlevel=="4"){
+		$(".dataOut").addClass("showMenu");
+	}
+	else{
+		$(".dataOut").removeClass("showMenu");
+	}
+</script>
 
 
 

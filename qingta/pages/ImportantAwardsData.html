@@ -28,58 +28,16 @@
 				<th style="width:10.6%;">获奖年度 :</th>
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox yearName1">
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
-							<option>1999</option>
-							<option>1998</option>
-							<option>1997</option>
-							<option>1996</option>
-							<option>1995</option>
-							<option>1994</option>
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox yearName2">
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
-							<option>1999</option>
-							<option>1998</option>
-							<option>1997</option>
-							<option>1996</option>
-							<option>1995</option>
-							<option>1994</option>
+						<select class="selBox yearName2 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
-					</div>
+					</div>					
 					<span class="starAfter">*</span>
 				</td>
 				<td style="width:26.3%">
@@ -125,6 +83,7 @@
 			</table>
 		</div>
 	</div>
+	<div class="dataOut"><img class="" src="../source/img/download.png" style="display: block;width: 100%;"></div> 
 	<div class="M-box"></div>
 </div>
 <div class="searchUndo">
@@ -390,6 +349,80 @@
 			})
 		}		
 	})
+	$(".dataOut").bind("click",function(){
+		var first_year=$(".yearName1").val();
+		var last_year=$(".yearName2").val();
+		var unit=projectUnits;
+		var category=$(".awardType").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			only_school=1;
+		}
+		else{
+			only_school=0;
+		}
+		var start=0;
+		var rows=10000;
+		$.ajax({
+	        url:"/ImportantRewards/statistic",	        
+	        type: "POST",
+	        traditional:true,
+	        data:{
+	            'unit':unit,
+	            'category':category,
+	            'first_year':first_year,
+	            'last_year':last_year,
+	            'rows':rows,
+	            'start':start,
+	            'only_school':only_school
+	        },
+	        success:function(data){
+				var result=data.data;
+				var first_year=$(".yearName1").val();
+				var last_year=$(".yearName2").val();
+				var category=$(".awardType").val();
+				if(data.state==0&&count!=0){
+					if(result){
+						for (var i=0,len=result.length;i<len;i++){
+							if(category==""){
+									category="全部奖励类别";
+								}
+								else{
+								}
+								result[i]=[result[i][0],category,first_year+'-'+last_year,result[i][1]];
+							}
+							array_all=result;
+							var array_item=[];
+							var title_item=$(".infoTable1 thead").children(".tableTitle").children("th");
+							for(var i=1;i<title_item.length;i++){
+								array_item.push(title_item.eq(i).text());
+							}
+							array_all.splice(0,0,array_item);
+							if(array_all.length){
+								$.ajax({
+									url:'/Excelexport',
+									type:"POST",
+									traditional:true,
+									data:{
+										array_all:array_all,
+										title:$(".green").text()
+									},
+									success:function(data){
+										if(data.state==1){
+											window.open(data.path);
+										}
+									}
+								})
+							}
+						}
+					}
+					else{
+						alert("没有可导出的数据！");
+					}
+				}
+		    });
+		})
+
 </script>
 <script type="text/javascript">
 	doForSearch(".custom-input","/Landentity0");
@@ -398,4 +431,16 @@
             $('.search-box').click();
         }
     })
+    var yearArray=ImportantAwardsDataSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
+    if(userlevel=="4"){
+		$(".dataOut").addClass("showMenu");
+	}
+	else{
+		$(".dataOut").removeClass("showMenu");
+	}
 </script>

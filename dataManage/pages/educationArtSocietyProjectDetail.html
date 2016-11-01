@@ -412,8 +412,14 @@
 			else{
 				txt=td_.eq(i).text();
 			}
-			console.log(txt);
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==8){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -423,6 +429,47 @@
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var approvednumber=td_.eq(2).children("input").val();
+		var type=td_.eq(3).children("input").val();
+		var subject=td_.eq(4).children("input").val();
+		var name=td_.eq(5).children("input").val();
+		var year=td_.eq(6).children("input").val();
+		var _class=td_.eq(7).children("input").val();
+		var entity_=td_.eq(8).children("input").val();
+		var manager=td_.eq(9).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			approvednumber:approvednumber,
+			subject:subject,
+			name:name,
+			type:type,
+			year:year,
+			entity:entity,
+			manager:manager,
+			_class:_class
+		}
+		$.ajax({
+			url:'/updateHSS',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 		for(var i=1;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();

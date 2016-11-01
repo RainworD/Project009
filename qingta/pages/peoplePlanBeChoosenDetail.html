@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/peoplePlanBeChoosen.html">万人计划统计</a>
-		<a class="changeRight green changeButton" href="#/peoplePlanBeChoosenDetail.html">万人计划明细</a>
+		<a class="changeLeft changeButton" href="#/peoplePlanBeChoosen.html">万人计划入选统计</a>
+		<a class="changeRight green changeButton" href="#/peoplePlanBeChoosenDetail.html">万人计划入选明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -35,22 +35,14 @@
 				<th style="width:10.6%;">公布年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox yearName1">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox yearName2">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
+						<select class="selBox yearName2 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -96,7 +88,7 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">万人计划明细数据</span>
+				<span class="topLeft">万人计划入选明细数据</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -211,4 +203,10 @@
 		}
 	})
 	doForSearch(".choosenUnits","/Landentity0");
+	var yearArray=peoplePlanBeChoosenSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>

@@ -286,7 +286,7 @@
 			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			if(result[i]){
-				for (var j=0;j<result[i].length-1;j++) {
+				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					if(subject==""){
 						result[i][2]="全部学科分类";

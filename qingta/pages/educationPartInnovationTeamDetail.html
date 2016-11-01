@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/educationPartInnovationTeam.html">教育部创新团队统计</a>
-		<a class="changeRight green changeButton" href="#/educationPartInnovationTeamDetail.html">教育部创新团队明细</a>
+		<a class="changeLeft changeButton" href="#/educationPartInnovationTeam.html">教育部创新团队入选统计</a>
+		<a class="changeRight green changeButton" href="#/educationPartInnovationTeamDetail.html">教育部创新团队入选明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -36,38 +36,16 @@
 				<th style="width:10.6%;">入选年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox yearName1">
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox yearName2">
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
+						<select class="selBox yearName2 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
-					</div>
+					</div>					
 					<span class="starAfter">*</span>
 				</td>
 			</tr>
@@ -87,7 +65,7 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">教育部创新团队明细数据&nbsp;（金额单位：万元）</span>
+				<span class="topLeft">教育部创新团队入选明细数据&nbsp;（金额单位：万元）</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -187,4 +165,10 @@
 	})
 	doForSearch(".projectUnits","/Landentity0");
 	doForSearch(".searchDirection","/LandITresearch");
+	var yearArray=educationPartInnovationTeamSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>

@@ -78,6 +78,9 @@
 							<option>3</option>
 							<option>4</option>
 							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
@@ -89,6 +92,9 @@
 							<option>3</option>
 							<option>4</option>
 							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
 						</select>
 					</div>
 					<!-- <span class="starAfter">*</span> -->
@@ -371,8 +377,14 @@ doForSearch(".lessonName","/LandVCname");
 			else{
 				txt=td_.eq(i).text();
 			}
-			console.log(txt);
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==4){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -382,6 +394,41 @@ doForSearch(".lessonName","/LandVCname");
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var year=td_.eq(2).children("input").val();
+		var _index=td_.eq(3).children("input").val();
+		var entity_=td_.eq(4).children("input").val();
+		var name=td_.eq(5).children("input").val();
+		var manager=td_.eq(6).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			entity:entity,
+			year:year,
+			_index:_index,
+			manager:manager,
+			name:name
+		}
+		$.ajax({
+			url:'/updateVC',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 		for(var i=1;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();

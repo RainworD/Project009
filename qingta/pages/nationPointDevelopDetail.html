@@ -5,6 +5,7 @@
 		<a class="changeRight changeButton green " href="#/nationPointDevelopDetail.html">国家重点研发计划明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
+	<div class="addDataBtn dataOut" style="margin-right:0;float:left;">数据导出</div> 
 </div>
 <div class="enterBox">
 	<div class="topTableBox">
@@ -38,14 +39,14 @@
 				<th style="width:10.6%">入选年度 :</th>
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox yearName1">
-							<option selected="selected">2016</option>
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox yearName2">
-							<option selected="selected">2016</option>
+						<select class="selBox yearName2 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -287,4 +288,17 @@
 	})
 	doForSearch(".projectUnits","/Landentity0");
 	doForSearch(".nameput","/LandNKRPname");
+	var yearArray=nationPointDevelopPlanSetting.years_seperate;
+    if(yearArray.length<2){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[0]);
+    	$(".year_Name").append(option_);
+    }
+    else{
+    	for(var i=yearArray.length-1;i>=0;i++){
+	    	var option_=$('<option></option>');
+	    	option_.text(yearArray[i]);
+	    	$(".year_Name").append(option_);
+	    }
+    }
 </script>

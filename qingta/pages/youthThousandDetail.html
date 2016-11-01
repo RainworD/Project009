@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/youthThousand.html">青年千人计划统计</a>
-		<a class="changeRight green changeButton" href="#/youthThousandDetail.html">青年千人计划明细</a>
+		<a class="changeLeft changeButton" href="#/youthThousand.html">青年千人入选计划统计</a>
+		<a class="changeRight green changeButton" href="#/youthThousandDetail.html">青年千人入选计划明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -27,46 +27,14 @@
 				<th style="width:10.6%;">公布年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox yearName1">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox yearName2">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
+						<select class="selBox yearName2 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -98,7 +66,7 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">青年千人计划明细数据</span>
+				<span class="topLeft">青年千人入选计划明细数据</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -194,4 +162,10 @@
 	})
 	doForSearch(".units","/Landentity0");
 	doForSearch(".professionArea","/LandTYsubject");
+	var yearArray=youthThousandSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>

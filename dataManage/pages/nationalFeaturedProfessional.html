@@ -162,6 +162,7 @@
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
+		var _index=$(".indexNum").val();
 		if(eq==0){
 			eq=50;
 		}
@@ -178,8 +179,11 @@
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
-					if(j==1){
-						result[i][j]="全部批次"
+					if(_index){
+						result[i][1]=_index;
+					}
+					else{
+						result[i][1]="全部批次";
 					}
 					var text=madeNowrapText(result[i][j]);
 					mytd.html(text);

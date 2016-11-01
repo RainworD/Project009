@@ -41,12 +41,9 @@
 				</td>
 				<th style="width:10.6%;">决算年度 :</th>
 				<td style="width:19.3%">
-					<div class="commonselect" style="width:100%">
-						<select class="selBox yearName1">
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
+					<div class="commonselect" style="width:100%;">
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<!-- <span style="text-align: center;width:7%;">至</span>
@@ -243,7 +240,7 @@
 					if(result[i][j]==null){
 						text="--";
 					}
-					else if(j==2){
+					else if(j==2||j==3||j==6||j==7){
 						text=madeOneLineText(result[i][j]);
 						mytd.css("width","120px");
 					}
@@ -471,8 +468,14 @@
 			else{
 				txt=td_.eq(i).text();
 			}
-			console.log(txt);
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==3){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -482,11 +485,56 @@
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var year=td_.eq(2).children("input").val();
+		var entity_=td_.eq(3).children("input").val();
+		var nowtotalincome=td_.eq(4).children("input").val();
+		var enterprisefundsdifference=td_.eq(5).children("input").val();
+		var lastbalance=td_.eq(6).children("input").val();
+		var totalincome=td_.eq(7).children("input").val();
+		var nowtotalexpenditure=td_.eq(8).children("input").val();
+		var surplusdistribution=td_.eq(9).children("input").val();
+		var nowbalance=td_.eq(10).children("input").val();
+		var totalexpenditure=td_.eq(11).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			totalincome:totalincome,
+			nowtotalincome:nowtotalincome,
+			nowtotalexpenditure:nowtotalexpenditure,
+			year:year,
+			entity:entity,
+			lastbalance:lastbalance,
+			enterprisefundsdifference:enterprisefundsdifference,
+			surplusdistribution:surplusdistribution,
+			nowbalance:nowbalance,
+			totalexpenditure:totalexpenditure
+		}
+		$.ajax({
+			url:'/updateAD',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 		for(var i=1;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();
 			}
-			if(i==3){
+			if(i==3||i==4||i==7||i==8){
 				td_.eq(i).html(madeOneLineText(txt));
 			}
 			else{
@@ -528,6 +576,12 @@
 			$(".checkAll").prop("checked",true);
 		}
 	})
+	var yearArray=annualActualBudgetDataSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>
 
 

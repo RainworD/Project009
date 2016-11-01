@@ -37,15 +37,12 @@
 				</td>
 				<th style="width:10.6%;">决算年度 :</th>
 				<td style="width:19.3%">
-					<div class="commonselect" style="width:100%">
-						<select class="selBox yearName1">
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
+					<div class="commonselect" style="width:100%;">
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
-					<!-- <span style="text-align: center;width:7%;">至</span>
+				<!-- <span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2">
 							<option>2015</option>
@@ -123,6 +120,7 @@
 			</table>
 		</div>
 	</div>
+	<div class="dataOut"><img class="" src="../source/img/download.png" style="display: block;width: 100%;"></div> 
 	<div class="M-box"></div>
 </div>
 <div class="mask mask1"></div>
@@ -234,9 +232,7 @@
 					if(result[i][j]==null){
 						text="--";
 					}
-					else{
-					}
-					if(j==2){
+					else if(j==2){
 						text=madeOneLineText(result[i][j]);
 						mytd.css("width","120px");
 					}
@@ -333,6 +329,106 @@
 			getDataBox(params,'/askAD');
 		}
 	})
+	$(".dataOut").bind("click",function(){
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName1").val();
+		var entitys=projectUnits;
+		var nowtotalincome1=$(".income1").val();
+		var nowtotalincome2=$(".income2").val();
+		var nowtotalexpenditure1=$(".outcome1").val();
+		var nowtotalexpenditure2=$(".outcome2").val();
+		var totalincome1=$(".totalIncome1").val();
+		var totalincome2=$(".totalIncome2").val();
+		var totalexpenditure1=$(".totalOutcome1").val();
+		var totalexpenditure2=$(".totalOutcome2").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var pageindex;
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var pageindex;
+		var params={
+			"entitys": entitys, //选择的学校列表
+	        "year1":year1,//年度范围左侧
+	        "year2":year2,//年度范围右侧
+	        "nowtotalincome1":nowtotalincome1,
+	        "nowtotalincome2":nowtotalincome2,
+	        "nowtotalexpenditure1":nowtotalexpenditure1,
+	        "nowtotalexpenditure2":nowtotalexpenditure2,
+	        "totalincome1":totalincome1,
+	        "totalincome2":totalincome2,
+	        "totalexpenditure1":totalexpenditure1,
+	        "totalexpenditure2":totalexpenditure2,
+	        "pageindex":1,//分页数
+	        "schoolOnly":schoolOnly,
+		}
+		$.ajax({
+			url:'/askAD',
+			type:'POST',
+			data:params,
+			traditional:true,
+			success:function(data){
+				var result=data.result;
+				if(data.state==1){	
+				    for(var i=0;i<result.length;i++){
+				    	if(result[i]){
+							for (var j=1;j<result[i].length;j++) {
+								if(result[i][j]==null){
+									result[i][j]="--";
+								}
+								else if(j==11){
+									// result[i][j]=$('<a class="attachment" target="_blank" href='+result[i][11]+'>查看附件</a>');
+									result[i][j]="查看附件";
+								}
+								else if(j==2){
+
+								}
+								else{
+									var ex = /^\d+$/;
+									if(ex.test(result[i][j])){
+									}
+									else{
+										result[i][j]=Number(result[i][j]).toFixed(2);
+									}
+								}
+							}
+							result[i].splice(0,1);
+						} 
+				    }		
+					array_all=result;
+					var array_item=["年度","学校名称","本年收入合计","用事业基金弥补收支差额","上半年结转和结余","总计","本年支出合计","结余分配","年末转结与结余","总计","备注"];
+					array_all.splice(0,0,array_item);
+					if(array_all.length){
+						$.ajax({
+							url:'/Excelexport',
+							type:"POST",
+							traditional:true,
+							data:{
+								array_all:array_all,
+								title:$(".green").text()
+							},
+							success:function(data){
+								if(data.state==1){
+									window.open(data.path);
+								}
+							}
+						})
+					}
+				}
+				else if(data.state==0){
+					alert("没有可导出的数据！");
+				}
+				else{
+					alert(data.error);
+					window.location.href="login.html";
+				}
+			}
+		})
+	})
+
 	$(".infoTable1").delegate(".attachment","click",function(){
 		if(userlevel=="4"){
 			alert("试用账户不支持附件查看！");
@@ -346,7 +442,19 @@
             $('.search-box').click();
         }
     })
-</script>
+    var yearArray=annualActualBudgetDataSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
+    if(userlevel=="4"){
+		$(".dataOut").addClass("showMenu");
+	}
+	else{
+		$(".dataOut").removeClass("showMenu");
+	}
+</script> 
 
 
 

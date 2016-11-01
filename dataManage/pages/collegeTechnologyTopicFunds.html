@@ -434,8 +434,14 @@
 			else{
 				txt=td_.eq(i).text();
 			}
-			console.log(txt);
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==2){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -445,6 +451,47 @@
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var entity_=td_.eq(2).children("input").val();
+		var year=td_.eq(3).children("input").val();
+		var countofproject=td_.eq(4).children("input").val();
+		var countofperson=td_.eq(5).children("input").val();
+		var incoming=td_.eq(6).children("input").val();
+		var avgbyproject=td_.eq(7).children("input").val();
+		var avgbyperson=td_.eq(8).children("input").val();
+		var expenditure=td_.eq(9).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			avgbyproject:avgbyproject,
+			avgbyperson:avgbyperson,
+			year:year,
+			entity:entity,
+			countofperson:countofperson,
+			countofproject:countofproject,
+			incoming:incoming,
+			expenditure:expenditure,
+		}
+		$.ajax({
+			url:'/updateSTP',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 		for(var i=1;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();

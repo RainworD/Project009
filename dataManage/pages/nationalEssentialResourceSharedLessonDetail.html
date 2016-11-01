@@ -296,8 +296,14 @@ doForSearch(".lessonName","/LandNSCname");
 			else{
 				txt=td_.eq(i).text();
 			}
-			console.log(txt);
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==2){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -307,17 +313,46 @@ doForSearch(".lessonName","/LandNSCname");
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var entity_=td_.eq(2).children("input").val();
+		var type=td_.eq(3).children("input").val();
+		var year=td_.eq(4).children("input").val();//缺少
+		var name=td_.eq(5).children("input").val();
+		var manager=td_.eq(6).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			year:year,
+			type:type,
+			entity:entity,
+			manager:manager,
+			name:name
+		}
+		$.ajax({
+			url:'/updateNSC',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 		for(var i=1;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();
 			}
-			// if(i==2){
-			// 	console.log("i=2");
-			// 	td_.eq(i).html(madeOneLineText(txt));
-			// }
-			// else{
-				td_.eq(i).html(madeNowrapText(txt));
-			// }
+			td_.eq(i).html(madeNowrapText(txt));
 		}
 	})
 	$(".infoTable1 thead").on("click",".checkAll",function(){

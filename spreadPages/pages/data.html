@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>青塔</title>
+    <link href="__PUBLIC__/source/img/favicon.ico" rel="icon">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/css/public.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/css/public_mobile.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/css/data.css">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/source/font-awesome-4.4.0/css/font-awesome.min.css">
+    <script src="__PUBLIC__/source/js/jquery-1.7.2.min.js"></script>
+    <script src="__PUBLIC__/source/js/jquery.touchslider.min.js"></script>
+</head>
+<body>
+	<include file="header" />
+	<div class="bannerbox touchslider">
+		<div class="touchslider-viewport">
+			<div>
+				<volist name="carousel" id="vo">
+					<a class="banner" style="background-image:url('__ROOT__/{$vo.photo}');background-color:{$vo.color};" ></a>
+				</volist>
+			</div>
+		</div>
+		<div class="ctrlbox">
+		</div>
+		<div class="searchboxbox">
+			<div class="searchbox" id="dataSearchBox"></div>
+		</div>
+	</div>
+	<div class="content data_content">
+		<div class="cenbox">
+			<section class="topbox">
+				<h3>选择省份</h3>
+				<ul class="lists provinces">
+					<volist name="province" id="vo">
+						<if condition="$vo eq $name">
+							<li class="set">
+							<a href="__ROOT__/data.html?key={$vo}">{$vo}</a></li>
+						<else /><li><a href="__ROOT__/data.html?key={$vo}">{$vo}</a></li>
+						</if>
+					</volist>
+				</ul>
+			</section>
+			<volist name="school" id="vo" key="k">
+				<if condition="$k eq 1">
+					<section class="bottombox">
+				<else />
+					<section class="bottombox" style="display:none;">
+				</if>
+					<h3>选择大学</h3>
+					
+					<ul class="lists schools">
+						<volist name="school" id="vo1">
+							<li><a href="__ROOT__/data_axis.html?p={$vo1.id}" target="_blank">{$vo1.name}</a></li>
+						</volist>
+					</ul>
+					
+				</section>
+			</volist>
+		</div>
+	</div>
+	<include file="footer" />
+<script src="__PUBLIC__/source/js/public.js"></script>
+<script>
+var pageData = {
+	"pageIndex":1,
+	"pageId":"data"
+}
+init(pageData);
+// 轮播图相关
+initBanner();
+createSearchInput("#dataSearchBox","__ROOT__","__ROOT__");
+// 复制搜索功能
+// var searchinputcopy = $(".header .searchInput").clone(true);
+// $(".bannerbox .searchbox").append(searchinputcopy);
+$(".data_content").on('change','.selector',function(){
+	var province = $(this).val();
+	window.location.href="__ROOT__/data.html?key="+province;
+})
+</script>
+</body>
+</html> 
+
+
+
+

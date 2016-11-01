@@ -344,8 +344,14 @@
 			else{
 				txt=td_.eq(i).text();
 			}
-			console.log(txt);
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==7){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -355,6 +361,46 @@
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var year=td_.eq(2).children("input").val();
+		var applicationcode=td_.eq(3).children("input").val();
+		var applicationcodename=td_.eq(4).children("input").val();
+		// var gender=td_.eq(5).children("input").val();缺少群体名称
+		var head=td_.eq(6).children("input").val();
+		var entity_=td_.eq(7).children("input").val();
+		var money=td_.eq(8).children("input").val();
+		var beginend=td_.eq(9).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			head:head,
+			money:money,
+			year:year,
+			applicationcode:applicationcode,
+			applicationcodename:applicationcodename,
+			beginend:beginend,
+			entity:entity,
+		}
+		$.ajax({
+			url:'/updateNSFCIG',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 		for(var i=1;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();

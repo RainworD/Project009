@@ -37,16 +37,9 @@
 				</td>
 				<th style="width:11.6%;">经费年度 :</th>
 				<td style="width:19.3%">
-					<div class="commonselect">
-						<select class="selBox yearName1">
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
+					<div class="commonselect" style="width:100%;">
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<!-- <span style="text-align: center;width:7%;">至</span>
@@ -321,6 +314,104 @@
 			getDataBox(params,'/askSTF');
 		}
 	})
+	$(".dataOut").bind("click",function(){
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName1").val();
+		var entitys=projectUnits;
+		var totalincoming1=$(".income1").val();
+		var totalincoming2=$(".income2").val();
+		var sciencefund1=$(".scienceFee1").val();
+		var sciencefund2=$(".scienceFee2").val();
+		var expenditure1=$(".outcome1").val();
+		var expenditure2=$(".outcome2").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked"); 
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var pageindex;
+		var params={
+			"entitys": entitys, //选择的学校列表
+	        "year1":year1,//年度范围左侧
+	        "year2":year2,//年度范围右侧
+	        "totalincoming1":totalincoming1,
+	        "totalincoming2":totalincoming2,
+	        "sciencefund1":sciencefund1,
+	        "sciencefund2":sciencefund2,
+	        "expenditure1":expenditure1,
+	        "expenditure2":expenditure2,
+	        // "pageindex":1,//分页数
+	        "schoolOnly":schoolOnly,
+		}
+		$.ajax({
+			url:'/askSTF',
+			type:'POST',
+			data:params,
+			traditional:true,
+			success:function(data){
+				var result=data.result;
+				var year1=$(".yearName1").val();
+				var year2=$(".yearName1").val();
+				if(data.state==1){	
+				    for(var i=0;i<result.length;i++){
+				    	if(result[i]){
+							for (var j=1;j<result[i].length;j++) {
+								if(result[i][j]==null){
+									result[i][j]="";
+								}
+								else{}
+								if(j==1){
+
+								}
+								else{
+									// if(result[i][j]==null||result[i][j]=="*"){
+									// 	result[i][j]="*";
+									// }
+									// else{
+									var ex = /^\d+$/;
+									if(ex.test(result[i][j])){
+									}
+									else{
+										result[i][j]=Number(result[i][j]).toFixed(2);
+									}
+								}
+							}
+							result[i].splice(0,1);
+						}
+				    }	
+					array_all=result;
+					var array_item=["学校名称","年度","科研经费合计（万元）","总计","政府资金","企事业单位委托＊＊","其他","当年内部支出（万元）"];
+					array_all.splice(0,0,array_item);
+					if(array_all.length){
+						$.ajax({
+							url:'/Excelexport',
+							type:"POST",
+							traditional:true,
+							data:{
+								array_all:array_all,
+								title:$(".green").text()
+							},
+							success:function(data){
+								if(data.state==1){
+									window.open(data.path);
+								}
+							}
+						})
+					}
+				}
+				else if(data.state==0){
+					alert("没有可导出的数据！");
+				}
+				else{
+					alert(data.error);
+					window.location.href="login.html";
+				}
+			}
+		})
+	})
+
 </script>
 <script type="text/javascript">
 	doForSearch(".custom-input","/Landentity0");
@@ -329,6 +420,18 @@
             $('.search-box').click();
         }
     })
+    var yearArray=collageResearchFundsSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
+    if(userlevel=="4"){
+		$(".dataOut").addClass("showMenu");
+	}
+	else{
+		$(".dataOut").removeClass("showMenu");
+	}
 </script>
 
 

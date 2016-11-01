@@ -102,7 +102,7 @@
 						<th rowspan="2">序号</th>
 						<th rowspan="2">学校名称</th>
 						<th rowspan="2">年度</th>
-						<th colspan="4">拨入（千元）</th>
+						<th colspan="4">拨入（万元）</th>
 						<th colspan="5">支出（万元）</th>
 						<th rowspan="2">操作</th>
 					</tr>
@@ -236,8 +236,8 @@
 					if(result[i][j]==null){
 						text="";
 					}
-					if(j==1){
-						text=madeOneLineText(result[i][1]);
+					if(j==1||j==2||j==6){
+						text=madeOneLineText(result[i][j]);
 						mytd.css("width","150px")
 					}
 					// else if(j==1){
@@ -436,8 +436,14 @@
 			else{
 				txt=td_.eq(i).text();
 			}
-			console.log(txt);
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==2){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -447,11 +453,56 @@
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var entity_=td_.eq(2).children("input").val();
+		var year=td_.eq(3).children("input").val();
+		// var nowtotalincome=td_.eq(4).children("input").val();缺少拨入总计
+		var governmentfund=td_.eq(5).children("input").val();
+		var enterprisesentrust=td_.eq(6).children("input").val();
+		var otherfund=td_.eq(7).children("input").val();
+		// var nowtotalexpenditure=td_.eq(8).children("input").val();缺少支出总计
+		var laborcost=td_.eq(9).children("input").val();
+		var servicefee=td_.eq(10).children("input").val();
+		var otherunits=td_.eq(11).children("input").val();
+		var otherexpenditure=td_.eq(12).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					projectentity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			otherfund:otherfund,
+			year:year,
+			entity:entity,
+			enterprisesentrust:enterprisesentrust,
+			governmentfund:governmentfund,
+			servicefee:servicefee,
+			otherunits:otherunits,
+			laborcost:laborcost,
+			otherexpenditure:otherexpenditure
+		}
+		$.ajax({
+			url:'/updateCUMOEfund',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 		for(var i=1;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();
 			}
-			if(i==2){
+			if(i==2||i==3||i==6){
 				console.log("i=2");
 				td_.eq(i).html(madeOneLineText(txt));
 			}

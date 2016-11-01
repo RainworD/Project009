@@ -68,6 +68,7 @@
 			</table>
 		</div>
 	</div>
+	<div class="dataOut"><img class="" src="../source/img/download.png" style="display: block;width: 100%;"></div> 
 	<div class="M-box"></div>
 </div>
 <div class="searchUndo">
@@ -161,6 +162,7 @@
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
+		var _index=$(".indexNum").val();
 		if(eq==0){
 			eq=50;
 		}
@@ -177,8 +179,11 @@
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
-					if(j==1){
-						result[i][j]="全部批次"
+					if(_index){
+						result[i][1]=_index;
+					}
+					else{
+						result[i][1]="全部批次";
 					}
 					var text=madeNowrapText(result[i][j]);
 					mytd.html(text);
@@ -208,6 +213,78 @@
 		}
 		getDataBox(params,'/askNSsta');
 	})
+	$(".dataOut").bind("click",function(){
+		var entitys=projectUnits;
+		var _index=$(".indexNum").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var pageindex;
+		var params={
+			// 'pageindex':1,
+			'_index':_index,
+			'entitys':entitys,
+			'schoolOnly':schoolOnly,
+		}
+		$.ajax({
+			url:'/askNSsta',
+			type:'POST',
+			data:params,
+			traditional:true,
+			success:function(data){
+				var result=data.result;
+				if(data.state==1){	
+				    for(var i=0;i<result.length;i++){
+				    	if(result[i]){
+							for (var j=0;j<result[i].length;j++) {
+								if(result[i][j]==null){
+									result[i][j]="";
+								}
+								if(j==1){
+									result[i][j]="全部批次"
+								}
+							}
+
+						}
+				    }		
+					array_all=result;
+					var array_item=[];
+					var title_item=$(".infoTable1 thead").children(".tableTitle").children("th");
+					for(var i=1;i<title_item.length;i++){
+						array_item.push(title_item.eq(i).text());
+					}
+					array_all.splice(0,0,array_item);
+					if(array_all.length){
+						$.ajax({
+							url:'/Excelexport',
+							type:"POST",
+							traditional:true,
+							data:{
+								array_all:array_all,
+								title:$(".green").text()
+							},
+							success:function(data){
+								if(data.state==1){
+									window.open(data.path);
+								}
+							}
+						})
+					}
+				}
+				else if(data.state==0){
+					alert("没有可导出的数据！");
+				}
+				else{
+					alert(data.error);
+					window.location.href="login.html";
+				}
+			}
+		})
+	})
 </script>
 <script type="text/javascript">
 	doForSearch(".custom-input","/Landentity0");
@@ -216,6 +293,12 @@
             $('.search-box').click();
         }
     })
+    if(userlevel=="4"){
+		$(".dataOut").addClass("showMenu");
+	}
+	else{
+		$(".dataOut").removeClass("showMenu");
+	}
 </script>
 
 

@@ -706,7 +706,7 @@ function getMatchCode(txt,selector){
 }
 var dataBox;
 var count;
-function getDataBox(params,url){
+function getDataBox(params,url){ 
 	var newindex=1;
 	dataBox={};
 	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
@@ -973,7 +973,7 @@ $.when(getUserInfo()).done(function(data){
 		}
 	}
 	else{
-		alert(data.error);
+		alert("闲置时间过长，请重新登录！");
 		window.location.href="login.html";
 	}
 })

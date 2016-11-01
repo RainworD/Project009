@@ -22,11 +22,8 @@
 				<th style="width:10.6%;">公布年度 :</th>
 				<td style="width:18.3%">
 					<div class="commonselect" style="width:100%;">
-						<select class="selBox yearName1">
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -355,8 +352,14 @@
 			else{
 				txt=td_.eq(i).text();
 			}
-			console.log(txt);
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==2){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -366,17 +369,48 @@
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var entity_=td_.eq(2).children("input").val();
+		var year=td_.eq(3).children("input").val();
+		var Authorizationinvention=td_.eq(4).children("input").val();
+		var UtilityModel=td_.eq(5).children("input").val();
+		var Designs=td_.eq(6).children("input").val();
+		var total=td_.eq(7).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			total:total,
+			Authorizationinvention:Authorizationinvention,
+			year:year,
+			entity:entity,
+			Designs:Designs,
+			UtilityModel:UtilityModel
+		}
+		$.ajax({
+			url:'/updatePt',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 		for(var i=1;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();
 			}
-			// if(i==2){
-			// 	console.log("i=2");
-			// 	td_.eq(i).html(madeOneLineText(txt));
-			// }
-			// else{
-				td_.eq(i).html(madeNowrapText(txt));
-			// }
+			td_.eq(i).html(madeNowrapText(txt));
 		}
 	})
 	$(".infoTable1 thead").on("click",".checkAll",function(){
@@ -413,5 +447,11 @@
 			$(".checkAll").prop("checked",true);
 		}
 	})
+	var yearArray=authorizePatentsSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>
 

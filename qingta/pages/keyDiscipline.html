@@ -54,6 +54,7 @@
 			</table>
 		</div>
 	</div>
+	<div class="dataOut"><img class="" src="../source/img/download.png" style="display: block;width: 100%;"></div> 
 	<div class="M-box"></div>
 </div>
 <div class="searchUndo">
@@ -181,6 +182,73 @@
 		}
 		getDataBox(params,'/askNKSsta');
 	})
+	$(".dataOut").bind("click",function(){
+		var entitys=projectUnits;
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var pageindex;
+		var params={
+			// 'pageindex':1,
+			'entitys':entitys,
+			'schoolOnly':schoolOnly,
+		}
+		$.ajax({
+			url:'/askNKSsta',
+			type:'POST',
+			data:params,
+			traditional:true,
+			success:function(data){
+				var result=data.result;
+				if(data.state==1){	
+				    for(var i=0;i<result.length;i++){
+				    	if(result[i]){
+							for (var j=0;j<result[i].length-1;j++) {
+								if(result[i][j]==null){
+									result[i][j]="";
+								}
+							}
+						}
+				    }		
+					array_all=result;
+					var array_item=[];
+					var title_item=$(".infoTable1 thead").children(".tableTitle").children("th");
+					for(var i=1;i<title_item.length;i++){
+						array_item.push(title_item.eq(i).text());
+					}
+					array_all.splice(0,0,array_item);
+					if(array_all.length){
+						$.ajax({
+							url:'/Excelexport',
+							type:"POST",
+							traditional:true,
+							data:{
+								array_all:array_all,
+								title:$(".green").text()
+							},
+							success:function(data){
+								if(data.state==1){
+									window.open(data.path);
+								}
+							}
+						})
+					}
+				}
+				else if(data.state==0){
+					alert("没有可导出的数据！");
+				}
+				else{
+					alert(data.error);
+					window.location.href="login.html";
+				}
+			}
+		})
+	})
+
 </script>
 <script type="text/javascript">
 	doForSearch(".custom-input","/Landentity0");
@@ -189,6 +257,12 @@
             $('.search-box').click();
         }
     })
+    if(userlevel=="4"){
+		$(".dataOut").addClass("showMenu");
+	}
+	else{
+		$(".dataOut").removeClass("showMenu");
+	}
 </script>
 
 

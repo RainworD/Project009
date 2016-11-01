@@ -1,19 +1,17 @@
-@pagecolor_green:#3cb371;
-.like{
-	float: left;
-	padding-right:10px;
-	.likefont{
-		font-size: 16px;
-		color:red;
-	}
-
-}
-.reply{
-	float: left;
-	.editfont{
-		font-size: 16px;
-	}
-}
+@labelgreycolor: rgba(100,100,100,1);
+@bodygrey: rgba(248, 248, 248, 1);
+@qianhui: #f3f4f5;
+@qinglan: rgba(51,203,204,1);
+@lan: rgba(98, 183, 255, 1);
+@black1: rgba(51,51,51,1);
+@hengcolor: rgba(0,0,0,0.1);
+@length_cenbox: 1200px;
+@tagcolor:#2CDB87;
+@buttoncommonRadius: 5px;
+@transitionDefaultSet: 0.2s linear;
+@mobileWidth:600px;
+@tagblue:#d6f5f5;
+@keywordred:#ff5549;
 .after{
 	&:after{
 		display: block;
@@ -21,10 +19,12 @@
 		clear: both;
 	}
 }
-.item-title{
-	font-size: 14px;
-	color:#757575;
-	font-weight: 600px;
+.before{
+	&:before{
+		display: block;
+		content: '';
+		clear: both;
+	}
 }
 .veryCenter{
 	position: absolute;
@@ -57,3 +57,76 @@
 	-webkit-line-clamp: @n;
 	-webkit-box-orient: vertical;
 }
+.mutilLineVerticalCenter{
+	font-size:0;
+	&:before{
+		content:'123';
+		// font-size: 0
+		display: inline-block;
+		vertical-align: middle;
+		width: 0;
+		height: 100%;
+	}
+	a{
+		display: inline-block;
+		vertical-align: middle;
+	}
+}
+.full{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.hoverableLabel(@colorType:color,@secondColor:@qinglan){
+	transition: @colorType 0.5s ease;
+	-webkit-transition: @colorType 0.5s ease;
+	&:hover{
+		@{colorType}: @secondColor;
+	}
+}
+.colorList(@colorType:background-color){
+	&:nth-child(10n-9){
+		@{colorType}:#fd5f00;
+	}
+	&:nth-child(10n-8){
+		@{colorType}:#ffc002;
+	}
+	&:nth-child(10n-7){
+		@{colorType}:#00a635;
+	}
+	&:nth-child(10n-6){
+		@{colorType}:#00c3c4;
+	}
+	&:nth-child(10n-5){
+		@{colorType}:#b92400;
+	}
+	&:nth-child(10n-4){
+		@{colorType}:#e07e00;
+	}
+	&:nth-child(10n-3){
+		@{colorType}:#27c790;
+	}
+	&:nth-child(10n-2){
+		@{colorType}:#5c68ec;
+	}
+	&:nth-child(10n-1){
+		@{colorType}:#00a9da;
+	}
+	&:nth-child(10n){
+		@{colorType}:#e41a91;
+	}
+}
+.viewTransitionSet{
+	transition: @transitionDefaultSet;
+	-webkit-transition: @transitionDefaultSet;
+	-moz-transition: @transitionDefaultSet;
+	-ms-transition: @transitionDefaultSet;
+	-o-transition: @transitionDefaultSet;
+}
+
+
+
+
+
+
+

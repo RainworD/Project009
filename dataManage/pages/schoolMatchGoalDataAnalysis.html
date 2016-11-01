@@ -986,8 +986,8 @@
 			}
 		})
 	}
-	function getThreeAward(argu,entitys,year1,year2,len_1){
-		$.when(getStatistics(entitys,year1,year2)).done(function(data){
+	function getThreeAward(argu,entitys,year1,year2,len_1){ 
+		$.when(getStatistics(entitys,year1,year2,0,20)).done(function(data){
 			var result=data.data;
 			if(data.state==0){
 				for(var k=0;k<result.length;k++){
@@ -1007,7 +1007,7 @@
 		})
 	}
 	function getEduAward(argu,entitys,year1,year2,len_1){
-		$.when(educationScienceSta(entitys,year1,year2)).done(function(data){
+		$.when(educationScienceSta(entitys,year1,year2,0,20)).done(function(data){
 			var result=data.data;
 			if(data.state==0){
 				for(var k=0;k<result.length;k++){
@@ -1027,7 +1027,7 @@
 		})
 	}
 	function getEduArtResults(argu,entitys,year1,year2,len_1){
-		$.when(LandHSSAsta(entitys,year1,year2)).done(function(data){
+		$.when(LandHSSAsta(entitys,year1,year2,0,20)).done(function(data){
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
@@ -1051,7 +1051,7 @@
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
-					unitsName=result[k][0];
+					unitsName=result[k][1];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][5];
 					if(projectNum==""){

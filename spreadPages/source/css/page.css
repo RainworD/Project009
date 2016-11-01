@@ -1,26 +1,12 @@
-.like {
-  float: left;
-  padding-right: 10px;
-}
-.like .likefont {
-  font-size: 16px;
-  color: red;
-}
-.reply {
-  float: left;
-}
-.reply .editfont {
-  font-size: 16px;
-}
 .after:after {
   display: block;
   content: '';
   clear: both;
 }
-.item-title {
-  font-size: 14px;
-  color: #757575;
-  font-weight: 600px;
+.before:before {
+  display: block;
+  content: '';
+  clear: both;
 }
 .veryCenter {
   position: absolute;
@@ -46,21 +32,66 @@
   overflow: hidden;
   white-space: nowrap;
 }
+.mutilLineVerticalCenter {
+  font-size: 0;
+}
+.mutilLineVerticalCenter:before {
+  content: '123';
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+}
+.mutilLineVerticalCenter a {
+  display: inline-block;
+  vertical-align: middle;
+}
+.full {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.viewTransitionSet {
+  transition: 0.2s linear;
+  -webkit-transition: 0.2s linear;
+  -moz-transition: 0.2s linear;
+  -ms-transition: 0.2s linear;
+  -o-transition: 0.2s linear;
+}
 .topBanner {
   width: 100%;
 }
 .topBanner .topContent,
 .topBanner .topContent_1,
 .topBanner .topContent_2 {
-  padding: 20px 0;
   width: 100%;
   height: 100%;
-  background-color: #57d9e9;
+  background-color: #59d9ee;
+  height: 285px;
+}
+.topBanner .topContent .picContent,
+.topBanner .topContent_1 .picContent,
+.topBanner .topContent_2 .picContent {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  background-repeat: no-repeat;
+  background-size: 1200px 285px;
+  background-position: center;
+}
+.topBanner .topContent .picContent_1,
+.topBanner .topContent_1 .picContent_1,
+.topBanner .topContent_2 .picContent_1 {
+  background-image: url('../img/banner1.png');
+}
+.topBanner .topContent .picContent_2,
+.topBanner .topContent_1 .picContent_2,
+.topBanner .topContent_2 .picContent_2 {
+  background-image: url('../img/banner2.png');
 }
 .topBanner .topContent .leftContent,
 .topBanner .topContent_1 .leftContent,
 .topBanner .topContent_2 .leftContent {
-  margin-top: 1%;
   padding-left: 15%;
   width: 55%;
   float: left;
@@ -68,7 +99,7 @@
 .topBanner .topContent .leftContent .topTitle,
 .topBanner .topContent_1 .leftContent .topTitle,
 .topBanner .topContent_2 .leftContent .topTitle {
-  font-size: 3em;
+  font-size: 32px;
   font-weight: 600;
   color: #fff;
   margin-bottom: 2%;
@@ -77,35 +108,36 @@
 .topBanner .topContent .leftContent .topPara,
 .topBanner .topContent_1 .leftContent .topPara,
 .topBanner .topContent_2 .leftContent .topPara {
-  font-size: 1.5em;
+  font-size: 18px;
   color: #fff;
-  line-height: 1.8em;
+  line-height: 30px;
   margin-bottom: 3%;
 }
 .topBanner .topContent .leftContent .topBtn,
 .topBanner .topContent_1 .leftContent .topBtn,
 .topBanner .topContent_2 .leftContent .topBtn {
   display: block;
-  width: 8em;
-  height: 2.5em;
-  line-height: 2.5em;
+  width: 115px;
+  height: 40px;
+  line-height: 40px;
   color: #fff;
   border-radius: 5px;
   position: relative;
   background-color: #94e7f1;
   padding-left: 2%;
   margin-bottom: 2%;
-  font-size: 1.2em;
+  font-size: 14px;
 }
 .topBanner .topContent .leftContent .topBtn .arrowIcon,
 .topBanner .topContent_1 .leftContent .topBtn .arrowIcon,
 .topBanner .topContent_2 .leftContent .topBtn .arrowIcon {
   display: block;
   position: absolute;
-  right: 0.5em;
-  bottom: 0.4em;
-  line-height: 3em;
-  width: 1.8em;
+  right: 10px;
+  bottom: 7px;
+  line-height: 45px;
+  width: 25px;
+  margin-left: 10%;
 }
 .topBanner .topContent .leftContent .topBtn_2,
 .topBanner .topContent_1 .leftContent .topBtn_2,
@@ -116,16 +148,15 @@
 .topBanner .topContent .rightContent,
 .topBanner .topContent_1 .rightContent,
 .topBanner .topContent_2 .rightContent {
+  margin-top: 0.75%;
   width: 35%;
   float: left;
-  margin-bottom: 30px;
   margin-right: 0px;
-  height: 17em;
 }
 .topBanner .topContent .rightContent .topImg,
 .topBanner .topContent_1 .rightContent .topImg,
 .topBanner .topContent_2 .rightContent .topImg {
-  width: 27em;
+  width: 70%;
   display: block;
   margin-left: 100px;
 }
@@ -133,11 +164,7 @@
 .topBanner .topContent_1 .rightContent .topImg_2,
 .topBanner .topContent_2 .rightContent .topImg_2 {
   margin: 0;
-  margin-top: 5%;
-  width: 100%;
-}
-.topBanner .topContent_2 {
-  background-color: #00264d;
+  width: 90%;
 }
 .containerBox {
   width: 100%;
@@ -231,4 +258,7 @@
 }
 .slick-dots li.slick-active button:before {
   color: #fff;
+}
+.slick-dots li {
+  margin: 0;
 }

@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>cingta</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>青塔HDI数据平台介绍</title>
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/source_/css/reset.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/source_/css/font-awesome-4.6.3/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/source_/css/init.css">
@@ -10,30 +12,42 @@
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/source_/css/slick-theme.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/source_/css/slick.css">
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/source_/css/page.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/source_/css/page_mobile.css">
 	<script type="text/javascript" src="__PUBLIC__/source_/js/jquery-1.7.2.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/source_/js/public.js"></script>
 </head>
-<body>
+<body style="display:none;">
 	<include file="header" />
 	<div class="topBanner">
 		<div class="topContent topContent_1">
-			<div class="leftContent">
+			<a class="picContent picContent_1" href="http://form.mikecrm.com/tmdTbG" target="_blank">
+				<!-- <div class="pic_"></div> -->
+				<!-- <img src="__PUBLIC__/source_/img/banner3.png" class="bannerImg"> -->
+			</a>
+			<!-- <div class="leftContent">
 				<p class="topTitle">数据&nbsp;&nbsp;从未如此好用</p>
 				<p class="topPara">青塔正式面向高校等机构用户，发布全新的专业版高等教育发展指标数据平台，整合高等教育核心发展指标数据，并带来全新的分析体验</p>
 				<a href="http://form.mikecrm.com/tmdTbG" target="_blank" class="topBtn topBtn_1">申请体验<img src="__PUBLIC__/source_/img/arrow.png" class="arrowIcon"></a>
 			</div>
 			<p class="rightContent">
 				<img class="topImg" src="__PUBLIC__/source_/img/banner1.png">
-			</p>	
+			</p> -->	
 		</div>
 		<div class="topContent topContent_2">
-			<div class="leftContent">
+			<a class="picContent picContent_2" href="blank.html?p=1047" target="_blank">
+				<!-- <div class="pic_"></div> -->
+				<!-- <img src="__PUBLIC__/source_/img/banner3.png" class="bannerImg"> -->
+			</a>
+			<!-- <img src="__PUBLIC__/source_/img/banner3.png" class="bannerImg"> -->
+			<!-- <div class="leftContent">
 				<p class="topTitle">数据&nbsp;&nbsp;洞见未来发展</p>
 				<p class="topPara">当高等教育遇见大数据和云计算，全新的组合让裂变就此发生。从数据中洞见全新的世界和趋势，并以此驱动高校未来发展</p>
 				<a href="http://form.mikecrm.com/tmdTbG" target="_blank" class="topBtn topBtn_2">申请体验<img src="__PUBLIC__/source_/img/arrow.png" class="arrowIcon"></a>
 			</div>
 			<p class="rightContent">
 				<img class="topImg topImg_2" src="__PUBLIC__/source_/img/banner2.png">
-			</p>
+			</p> -->
+
 		</div>
 	</div>
 	<div class="containerBox">
@@ -41,7 +55,7 @@
 			<div class="contentBar">
 				<div class="iconBox">
 					<img src="__PUBLIC__/source_/img/icon1.png" class="showIcon">
-					<p class="iconTitle">核心指标数据全收入</p>
+					<p class="iconTitle">核心指标数据全收录</p>
 					<p class="iconPara">青塔高等教育发展指标数据平台全面收录了数十个核心指标的数据，收录核心数据达到千万级</p>
 				</div>
 				<div class="iconBox">
@@ -93,22 +107,50 @@
 				<img src="__PUBLIC__/source_/img/icon0.png" class="bottomIcon">
 				<p class="bottomPara">数据呈现价值&nbsp;&nbsp;&nbsp;&nbsp;智慧驱动发展</p>
 				<a href="http://form.mikecrm.com/tmdTbG" target="_blank" class="leftBtn bottomBtn">申请体验</a>
-				<a href="http://www.cingta.com/blank.html?p=1047" target="_blank" class="middleBtn leftBtn bottomBtn">了解更多</a>
-				<a href="blank.html?p=252" target="_blank" class="rightBtn bottomBtn">联系我们</a>
+				<a href="blank.html?p=1047" target="_blank" class="middleBtn leftBtn bottomBtn">了解更多</a>
+				<a href="blank.html?p=1056" target="_blank" class="rightBtn bottomBtn">联系我们</a>
 			</div>
 		</div>
 	</div>
 	<include file="footer" />
 	<script type="text/javascript" src="__PUBLIC__/source_/js/slick.min.js"></script>
 	<script type="text/javascript">
+		var pageData = {
+			"pageIndex":4
+		};
+		init(pageData);
 		$(document).ready(function(){
 	      $('.topBanner').slick({
-	      	  // autoplay:true,
+	      	  autoplay:true,
 	      	  autoplaySpeed:3000,
 	      	  dots:true
 	      });
+	      $("body").show();
 	    });
+	 //    function changeHeight(){
+		// 	var myheight_1=$(".topContent_1").height();
+		// 	console.log(myheight_1);
+		// 	var myheight_2=$(".topContent_2").height();
+		// 	console.log(myheight_2);
+		// 	if(myheight_2>myheight_1){
+		// 		$(".topContent").css("min-height",(myheight_2-0)+40);
+		// 	}
+		// 	else{
+		// 		$(".topContent").css("min-height",(myheight_1-0)+40);
+		// 	}
+		// } 
+		// window.onload=function(){  
+		//   	window.onresize = changeHeight;  
+		//   	changeHeight(); 
+		// }
+	    $("body").on("click",".mobile",function(){
+	    	if($(".searchboxshow_").length){
+	    		$(".searchbox").removeClass("searchboxshow_");
+	    	}
+	    	else{
+	    		$(".searchbox").addClass("searchboxshow_");
+	    	}
+	    })
     </script>
-
 </body>
 </html>

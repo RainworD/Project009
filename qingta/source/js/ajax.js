@@ -750,7 +750,7 @@ function askMSD(entity,subject,turn,place1,place2,score1,score2,pageindex){//教
     });
     return ajax;
 }
-function getStatistics(entitys,year1,year2,first_unit,participate_unit,level){//国家科技奖统计
+function getStatistics(entitys,year1,year2,start,rows,first_unit,participate_unit,level){//国家科技奖统计
     var ajax = $.ajax({
         url: "/NationalScience/getStatistics",
         type: "POST",
@@ -763,12 +763,13 @@ function getStatistics(entitys,year1,year2,first_unit,participate_unit,level){//
             "first_year":year1,
             "last_year":year2,
             "unit":entitys,
-            "level":level
+            "level":level,
+            "start":start,
+            "rows":rows,
         }
     });
     return ajax;
-}
-function getDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//国家科技奖统计
+}function getDetail(type,user,first_user,first_unit,participate_user,participate_unit,first_year,last_year,name,unit,rows,level,start){//国家科技奖统计
     var ajax = $.ajax({
         url: "/NationalScience/getDetail",
         type: "POST",
@@ -854,7 +855,7 @@ function getLearnSearchProject(sub){//教学成果名称搜索
     });
     return ajax;
 }
-function educationScienceSta(entitys,year1,year2,first_unit,participate_unit,level){//教育部科技奖统计
+function educationScienceSta(entitys,year1,year2,start,rows,first_unit,participate_unit,level){//教育部科技奖统计
     var ajax = $.ajax({
         url: "/EducationScience/getStatistics",
         type: "POST",
@@ -867,7 +868,9 @@ function educationScienceSta(entitys,year1,year2,first_unit,participate_unit,lev
             "first_year":year1,
             "last_year":year2,
             "unit":entitys,
-            "level":level
+            "level":level,
+            "start":start,
+            "rows":rows,
         }
     });
     return ajax;
@@ -898,7 +901,7 @@ function educationScience(type,user,first_user,first_unit,participate_user,parti
     });
     return ajax;
 }
-function LearnScienceSta(entitys,year1,year2,first_unit,participate_unit){//教学成果奖统计
+function LearnScienceSta(entitys,year1,year2,start,rows,first_unit,participate_unit){//教学成果奖统计
     var ajax = $.ajax({
         url: "/LearnScience/getStatistics",
         type: "POST",
@@ -910,7 +913,9 @@ function LearnScienceSta(entitys,year1,year2,first_unit,participate_unit){//教�
             "participate_unit":participate_unit, 
             "first_year":year1,
             "last_year":year2,
-            "unit":entitys
+            "unit":entitys,
+            "start":start,
+            "rows":rows
         }
     });
     return ajax;
@@ -1627,7 +1632,7 @@ function BlogPaperDetail(unit,disciplines,first_year,last_year,subject,author,ti
     });
     return ajax;
 }
-function ImportantRewardsSta(unit,category,first_year,last_year){//重要奖励统计
+function ImportantRewardsSta(unit,category,first_year,last_year,start,rows){//重要奖励统计
     var ajax = $.ajax({
         url: "/ImportantRewards/statistic",
         type: "POST",
@@ -1638,7 +1643,9 @@ function ImportantRewardsSta(unit,category,first_year,last_year){//重要奖励�
             'unit':unit,
             'category':category,
             'first_year':first_year,
-            'last_year':last_year
+            'last_year':last_year,
+            'start':start,
+            "rows":rows,
         }
     });
     return ajax;
@@ -1681,7 +1688,7 @@ function LandHSSAsubject(){//人文社科学科名称
     });
     return ajax;
 }
-function LandHSSAsta(entitys,year1,year2,pageindex,subject,level,_index1,_index2){//人文社科统计
+function LandHSSAsta(entitys,year1,year2,start,rows,pageindex,subject,level,_index1,_index2){//人文社科统计
     var ajax = $.ajax({
         url: "/askHSSAsta",
         type: "POST",// or GET
@@ -1696,7 +1703,9 @@ function LandHSSAsta(entitys,year1,year2,pageindex,subject,level,_index1,_index2
             'year1':year1,
             'year2':year2,
             '_index1':_index1,
-            '_index2':_index2
+            '_index2':_index2,
+            'start':start,
+            'rows':rows,
         }
     });
     return ajax;

@@ -406,14 +406,21 @@
 	$(".infoTable1").on("click",".addLine",function(){
 		var td_=$(this).parents("tr").children("td");
 		var txt;
-		for(var i=1;i<td_.length-1;i++){
+		for(var i=2;i<td_.length-1;i++){
 			if(td_.eq(i).find("span").length){
 				txt=td_.eq(i).find("span").first().text();
 			}
 			else{
 				txt=td_.eq(i).text();
 			}
-			td_.eq(i).html(madeInputBox(txt));
+			if(i==6){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
 		}
 		$(this).addClass("showMenu");
 		$(this).siblings(".checkData").removeClass("showMenu")
@@ -423,7 +430,43 @@
 		$(this).siblings(".addLine").removeClass("showMenu");
 		var td_=$(this).parents("tr").children("td");
 		var txt;
-		for(var i=1;i<td_.length-1;i++){
+		var id=td_.eq(1).attr("data-id");
+		var projectnumber=td_.eq(2).children("input").val();
+		var name=td_.eq(3).children("input").val();
+		var type=td_.eq(4).children("input").val();
+		var year=td_.eq(5).children("input").val();
+		var entity=td_.eq(6).children("input").val();
+		var manager=td_.eq(7).children("input").val();
+		var centermoney=td_.eq(8).children("input").val();
+		var totalmoney=td_.eq(9).children("input").val();
+		var period=td_.eq(10).children("input").val();
+		var projectentity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity,
+			},
+			success:function(data){
+				if(data.state==1){
+					projectentity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			projectnumber:projectnumber,
+			name:name,
+			type:type,
+			year:year,
+			projectentity:projectentity,
+			manager:manager,
+			centermoney:centermoney,
+			totalmoney:totalmoney,
+			period:period
+		}
+		for(var i=2;i<td_.length-1;i++){
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();
 			}
@@ -433,7 +476,16 @@
 			else{
 				td_.eq(i).html(madeNowrapText(txt));
 			}
+			td_.eq(2).children("input").val();
+
 		}
+		$.ajax({
+			url:'/updateNKRP',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
 	})
 	$(".infoTable1 thead").on("click",".checkAll",function(){
 		var check_all=$(this).prop("checked");
