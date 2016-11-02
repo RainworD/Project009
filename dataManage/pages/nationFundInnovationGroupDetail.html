@@ -40,48 +40,16 @@
 				<th style="width:10.6%;">批准年度 :</th>
 				<td style="width:18.3%;">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox yearName1">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox yearName2">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
+						<select class="selBox yearName2 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
-					</div>
+					</div>															
 					<span style="color:red;width: 1%">*</span>
 				</td>
 			</tr>
@@ -365,7 +333,7 @@
 		var year=td_.eq(2).children("input").val();
 		var applicationcode=td_.eq(3).children("input").val();
 		var applicationcodename=td_.eq(4).children("input").val();
-		// var gender=td_.eq(5).children("input").val();缺少群体名称
+		var research=td_.eq(5).children("input").val();
 		var head=td_.eq(6).children("input").val();
 		var entity_=td_.eq(7).children("input").val();
 		var money=td_.eq(8).children("input").val();
@@ -393,6 +361,7 @@
 			applicationcodename:applicationcodename,
 			beginend:beginend,
 			entity:entity,
+			research:research
 		}
 		$.ajax({
 			url:'/updateNSFCIG',
@@ -448,4 +417,10 @@
 			$(".checkAll").prop("checked",true);
 		}
 	})
+	var yearArray=nationFundInnovationGroupSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>

@@ -432,6 +432,9 @@
 				td_.eq(i).css("position","relative");
 				doForSearch(".schoolChoose","/Landentity0");
 			}
+			else if(i==7||i==8){
+				
+			}
 			else{
 				td_.eq(i).html(madeInputBox(txt));
 			}
@@ -450,8 +453,8 @@
 		var countofproject=td_.eq(4).children("input").val();
 		var countofperson=td_.eq(5).children("input").val();
 		var incoming=td_.eq(6).children("input").val();
-		var avgbyproject=td_.eq(7).children("input").val();
-		var avgbyperson=td_.eq(8).children("input").val();
+		// var avgbyproject=td_.eq(7).children("input").val();
+		// var avgbyperson=td_.eq(8).children("input").val();
 		var expenditure=td_.eq(9).children("input").val();
 		var entity;
 		$.ajax({
@@ -469,8 +472,8 @@
 		})
 		var params_={ 
 			id:id,
-			avgbyproject:avgbyproject,
-			avgbyperson:avgbyperson,
+			// avgbyproject:avgbyproject,
+			// avgbyperson:avgbyperson,
 			year:year,
 			entity:entity,
 			countofperson:countofperson,

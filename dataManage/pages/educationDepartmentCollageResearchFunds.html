@@ -449,11 +449,11 @@
 		var id=td_.eq(1).attr("data-id");
 		var entity_=td_.eq(2).children("input").val();
 		var year=td_.eq(3).children("input").val();
-		// var nowtotalincome=td_.eq(4).children("input").val();缺少拨入总计
+		var totalincoming =td_.eq(4).children("input").val();
 		var governmentfund=td_.eq(5).children("input").val();
 		var enterprisesentrust=td_.eq(6).children("input").val();
 		var otherfund=td_.eq(7).children("input").val();
-		// var nowtotalexpenditure=td_.eq(8).children("input").val();缺少支出总计
+		var totalexpenditure=td_.eq(8).children("input").val();
 		var laborcost=td_.eq(9).children("input").val();
 		var servicefee=td_.eq(10).children("input").val();
 		var otherunits=td_.eq(11).children("input").val();
@@ -482,7 +482,9 @@
 			servicefee:servicefee,
 			otherunits:otherunits,
 			laborcost:laborcost,
-			otherexpenditure:otherexpenditure
+			otherexpenditure:otherexpenditure,
+			totalexpenditure:totalexpenditure,
+			totalincoming:totalincoming
 		}
 		$.ajax({
 			url:'/updateCUMOEfund',

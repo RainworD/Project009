@@ -227,4 +227,10 @@ topBarControl();
             $('.search-box').click();
         }
     })
+    var yearArray=educationPartInnovationTeamSetting.years_seperate;
+    for(var i=0;i<yearArray.length;i++){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>

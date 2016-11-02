@@ -565,6 +565,13 @@ function madeSchoolInputBox(text){
 	inputBox.val(text);
 	return inputBox;
 }
+function madeSchool_InputBox(text){
+	var inputBox=$('<input class="editData schoolChoose_"><ul class="showElse">'+						
+	'</ul>');
+	inputBox.val(text);
+	return inputBox;
+}
+
 function madeNoInputBox(text){
 	var jqy=$(text);
 	var val=jqy.find("input").val();
