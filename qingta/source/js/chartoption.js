@@ -263,7 +263,15 @@ var POINT_MARK = {
 						var res = resArr[1]
 
 						var _result = res.result || []
+
+						var _otherQuantity = 0
+						var _otherMoney = 0
 						var result = _result.map(function(item){
+							if (item[0] == "") {
+								_otherQuantity += toInt(item[1])
+								_otherMoney += toInt(item[2])
+							}
+
 							return {
 								department:item[0],
 								quantity:toInt(item[1]),
@@ -273,16 +281,18 @@ var POINT_MARK = {
 						result.sort(function(depA, depB){
 							return depB.quantity - depA.quantity
 						})
-						var other = result.slice(3).reduce(function(prev, cur){
-							prev.quantity += cur.quantity
-							prev.money += cur.money
-							return prev
-						}, {
+						var other = {
 							department: "其他学部",
-							quantity: 0,
-							money: 0
-						})
-						var ret = result.slice(0, 6).concat(other)
+							quantity: _otherQuantity,
+							money: _otherMoney
+						}
+						var ret = result
+							.slice(0, 6)
+							.concat(result.slice(6).reduce(function(ret, item){
+								ret.quantity += item.quantity
+								ret.money += item.money
+								return ret
+							}, other))
 
 						var colors = chartOption.color
 
