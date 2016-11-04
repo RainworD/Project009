@@ -178,6 +178,28 @@
 		</div>
 	</div>
 </div>
+<div class="unitsChoose unitsChoose2" style="width:360px;">
+	<div class="unitsContainer">
+		<div class="cancelBtn"> 
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">文件上传</p>
+		</div>
+		<div class="unitsContent unitsContent1" style="cursor:default;padding:0;display:block">
+			<div class="addDataBtn" style="margin-right: 0;background-color: #fff;margin: 20px 10px;position: relative;width: 90%;" id="uploadForm_1">
+			    <input id="file_1" type="file"  multiple="multiple" onChange="if(this.value)insertTitle(this.value);" style="color: #000;position: absolute;left: 0px;bottom: 10px;"/>
+			    <button id="upload_1" type="button" style="position: absolute;right: 0;bottom: 5px;">上传附件</button>
+			</div>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
 <div class="searchUndo">
 	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
 	<img class="getInfoImg" src="../source/img/info.png"></img>
@@ -194,6 +216,12 @@
 		$(".mask").show();
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
+	})
+	$(".infoTable1").on("click",".showDetailBox2",function(){
+		id=$(this).attr("data-id");
+		$(".mask").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
 	})
 	if(finalResults){
 		judgeUnits(finalResults);
@@ -236,7 +264,13 @@
 						mytd.css("width","100px");
 					}
 					else if(j==10){
-						text=$('<a class="attachment" target="_blank" href='+result[i][10]+'>查看附件</a>')
+						text=$('<a class="attachment showDetailBox2" target="_blank" style="display: inline-block;padding: 3px;background-color: #ebebeb;margin:0 3px;" data-id='+result[i][0]+'>'+
+							'<i class="fa fa-upload fa-lg removeBtn"></i>'+
+							'</a>'+
+							'<a class="attachment" target="_blank" style="display: inline-block;padding: 3px;background-color: #ebebeb;margin:0 3px;" href='+result[i][10]+'>'+
+							'<i class="fa fa-download fa-lg removeBtn"></i>'+
+							'</a>'
+							)
 						mytd.addClass("nowrap");
 					}
 					// else if(j==0){
@@ -358,6 +392,14 @@
     })
 </script>
 <script type="text/javascript">
+	var fileName;
+	function insertTitle(path){ 
+		// console.log($("#file_1").val());
+	    var file=document.getElementById('file_1').value;
+		var s=file.substring(file.lastIndexOf('\\')+1); 
+		var s_array=s.split(".");
+		fileName=s_array[1];
+	}
 	$("#upload").bind("click",function(){
 		var formData = new FormData();
 		formData.append('file', $('#file')[0].files[0]);
@@ -374,6 +416,30 @@
 			}
 			else{
 				alert("导入数据失败！")
+			}
+		}).fail(function(res) {
+		});
+	})
+	$("#upload_1").bind("click",function(){
+		var formData = new FormData();
+		formData.append('file', $('#file_1')[0].files[0]);
+		formData.append('suffix',fileName);
+		formData.append('id',id);
+		$.ajax({
+		    url: '/BDupload',
+		    type: 'POST',
+		    cache: false,
+		    data: formData,
+		    processData: false,
+		    contentType: false
+		}).done(function(res) {
+			if(res.state==1){
+				alert("文件上传成功！");
+				$(".unitsChoose2").hide();
+				$(".mask").hide();
+			}
+			else{
+				alert("文件上传失败！")
 			}
 		}).fail(function(res) {
 		});

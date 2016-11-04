@@ -319,13 +319,21 @@
 		var totalmoney2=$(".projectFee2").val();
 		var centermoney1=$(".nationFee1").val();
 		var centermoney2=$(".nationFee2").val(); 
-		var orderby=$("input[name='selBar']:checked").val();
+		var orderby_1=$("#countFirst").prop("checked");
+		var orderby_2=$("#feeFirst").prop("checked");
 		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var orderby;
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
 		else{
-			schoolOnly=0;
+			schoolOnly=0; 
+		}
+		if(orderby_1){
+			orderby=2;
+		}
+		else{
+			orderby=1;
 		}
 		var pageindex;
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){

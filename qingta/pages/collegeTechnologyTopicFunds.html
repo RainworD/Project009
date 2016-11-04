@@ -66,11 +66,11 @@
 				</th>
 				<td>
 					<label for="countFirst" class="label1">
-						<input type="radio" id="countFirst" name="selBar" class="radioInput" checked="checked" value="2">
+						<input type="radio" id="countFirst" name="selBar" class="radioInput" checked="checked">
 						按课题数量排序
 					</label>
 					<label for="feeFirst" class="label2">
-						<input type="radio" id="feeFirst" name="selBar" class="radioInput" value="1">
+						<input type="radio" id="feeFirst" name="selBar" class="radioInput">
 						按拨入经费排序
 					</label>
 				</td>
@@ -263,13 +263,21 @@
 		var incoming2=$(".income2").val();
 		var count1=$(".years1").val();
 		var count2=$(".years2").val();
-		var orderby=$("input[name='selBar']:checked").val();
+		var orderby_1=$("#countFirst").prop("checked");
+		var orderby_2=$("#feeFirst").prop("checked");
 		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var orderby;
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
 		else{
-			schoolOnly=0;
+			schoolOnly=0; 
+		}
+		if(orderby_1){
+			orderby=2;
+		}
+		else{
+			orderby=1;
 		}
 		var pageindex;
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
@@ -313,13 +321,21 @@
 		var incoming2=$(".income2").val();
 		var count1=$(".years1").val();
 		var count2=$(".years2").val();
-		var orderby=$("input[name='selBar']:checked").val();
+		var orderby_1=$("#countFirst").prop("checked");
+		var orderby_2=$("#feeFirst").prop("checked");
 		var schoolOnly1=$("#schoolOnly").prop("checked");
+		var orderby;
 		if(schoolOnly1){
 			schoolOnly=1;
 		}
 		else{
-			schoolOnly=0;
+			schoolOnly=0; 
+		}
+		if(orderby_1){
+			orderby=2;
+		}
+		else{
+			orderby=1;
 		}
 		var pageindex;
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){

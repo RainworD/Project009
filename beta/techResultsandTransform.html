@@ -49,6 +49,10 @@
 			</tr>
 			<tr>
 				<td colspan="4" style="padding-left: 3%;">
+					<label for="transIncomeFirst" class="label2">
+						<input type="radio" id="transIncomeFirst" name="selBar" class="radioInput" checked="checked"  value="按转让收入排序">
+						按转让收入排序
+					</label>
 					<label for="patentCountFirst" class="label1">
 						<input type="radio" id="patentCountFirst" name="selBar" class="radioInput" value="按专著数量排序">
 						按专著数量排序
@@ -60,10 +64,6 @@
 					<label for="resultCountFirst" class="label2">
 						<input type="radio" id="resultCountFirst" name="selBar" class="radioInput" value="按鉴定成果数量排序">
 						按鉴定成果数量排序
-					</label>
-					<label for="transIncomeFirst" class="label2">
-						<input type="radio" id="transIncomeFirst" name="selBar" class="radioInput" checked="checked"  value="按转让收入排序">
-						按转让收入排序
 					</label>
 				</td>
 				<td colspan="2"></td>
@@ -378,7 +378,23 @@ $(".searchBtn").bind("click",function(){
 	var first_year=$(".yearName1").val();
 	var last_year=$(".yearName1").val();
 	var unit=projectUnits;
-	var order=$("input[name='selBar']:checked").val();
+	var order_1=$("#transIncomeFirst").prop("checked");
+	var order_2=$("#patentCountFirst").prop("checked");
+	var order_3=$("#articleCountFirst").prop("checked");
+	var order;
+	if(order_1){
+		order="按转让收入排序";
+	}
+	else if(order_2){
+		order="按专著数量排序";
+	}
+	else if(order_3){
+		order="按论文数量排序";
+	}
+	else{
+		order="按鉴定成果数量排序";
+	}
+
 	start=0;
 	var rows=20;
 	if(first_year!=""&&last_year!=""&&(first_year-0)>(last_year-0)){

@@ -483,12 +483,13 @@ function topBarControl(){
 				resetAlertBox(codeObj,1);
 			}
 			$(this).parents(".topTable").find("input").val("");
+			$(this).parents(".topTable").find("input[name='selBar']").eq(0).prop("checked",true);
 			var val_=$(this).parents(".topTable").find("select").children("option").first().val();
 			$(this).parents(".topTable").find("select").val(val_);
 			if(projectUnits){
 				projectUnits.length=0;
 			}
-		}	
+		} 	
 	})
 	$(".changeBarContainer").on("click",".hideBtn",function(){
 		var className=$(this).parent(".changeBarContainer").next().attr("class");

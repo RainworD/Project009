@@ -1663,7 +1663,8 @@ body {
   width: 100%;
   text-align: center;
 }
-#upload {
+#upload,
+#upload_1 {
   border: none;
   background-color: #fff;
   padding: 5px;
@@ -1674,4 +1675,18 @@ body {
   position: absolute;
   bottom: 33px;
   z-index: 1;
+}
+.addDataBtn {
+  cursor: pointer;
+  float: left;
+  display: block;
+  background-color: #4ec1ff;
+  padding: 0px 10px;
+  height: 36px;
+  line-height: 36px;
+  color: #fff;
+  border-radius: 6px;
+  margin-left: 20px;
+  min-width: 100px;
+  text-align: center;
 }

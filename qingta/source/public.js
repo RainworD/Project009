@@ -212,10 +212,8 @@ function judgeCodes(result){
 		var nodes = codeObj.getNodesByParam("shows", false);
 		if(nodes){
 			for(var i=0;i<nodes.length;i++){
-				console.log(nodes[i]);
 				codeObj.hideNode(nodes[i]);
 			}
-		console.log(nodes);
 		}
 	}
 }
@@ -367,7 +365,6 @@ function dragBoxCodesChoose(selector){
 		var checkedLen_=checkedArray_.length;
 		showName=[];
 		projectCodes=[];
-		console.log(checkedLen_);
 		if(checkedLen_){
 			for (var i=0;i<checkedLen_;i++) {
 				var pushItem=checkedArray_[i].name;
@@ -414,6 +411,10 @@ function dragBoxSortsChoose(selector){
 							$(".projectClass").append(newopt);
 						}
 					}
+				}
+				else{
+					var newopt=$('<option></option>');
+					$(".projectClass").append(newopt);
 				}  
 			});
 		}
@@ -448,6 +449,10 @@ function dragBoxSortsChoose(selector){
 							}
 						}
 					} 
+					else{
+						var newopt=$('<option></option>');
+						$(".projectClass").append(newopt);
+					}  
 				});
 			}
 		}
@@ -517,15 +522,30 @@ function getTreeNodes(treeObj,checkedArray,_array){
 	}
 	for (var i=0;i<_array.length;i++) {
 		var checkedObj={};
-		// if(_array[i].isParent){
-		// }
-		// else{
+		if(_array[i].check_Child_State=="2"){
 			checkedObj.name=_array[i].name;
 			checkedObj.id=_array[i].id;
-			if(_array[i].code){
-				checkedObj.code=_array[i].code;
-			}
+			checkedObj.code=_array[i].code;
 			checkedArray.push(checkedObj);
+			var children_=_array[i].children;
+			for(var j=0;j<children_.length;j++){
+				var checkedObj={};
+				if(children_[j].shows==false){
+					checkedObj.name=children_[j].name;
+					checkedObj.id=children_[j].id;
+					checkedObj.code=children_[j].code;
+					checkedArray.push(checkedObj);
+				}
+			}
+		}
+		else{
+			checkedObj.name=_array[i].name;
+			checkedObj.id=_array[i].id;
+			// if(_array[i].code){
+			checkedObj.code=_array[i].code;
+			// }
+			checkedArray.push(checkedObj);
+		}
 		// }
 	}
 	treeObj.refresh();
@@ -686,7 +706,7 @@ function getMatchCode(txt,selector){
 }
 var dataBox;
 var count;
-function getDataBox(params,url){
+function getDataBox(params,url){ 
 	var newindex=1;
 	dataBox={};
 	$.when(ajaxMorePages(1,1,params,url)).done(function(data){
@@ -953,7 +973,7 @@ $.when(getUserInfo()).done(function(data){
 		}
 	}
 	else{
-		alert(data.error);
+		alert("闲置时间过长，请重新登录！");
 		window.location.href="login.html";
 	}
 })

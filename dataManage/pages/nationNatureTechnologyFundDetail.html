@@ -259,8 +259,7 @@
 					mytd.html(text);
 					searchInfo.append(mytd); 
 				}
-			}
-			var newtd=$('<td class="nowrap">'+
+				var newtd=$('<td class="nowrap">'+
 						'<div class="addLine">'+
 							'<i class="fa fa-edit fa-lg removeBtn "></i>'+
 						'</div>'+
@@ -271,8 +270,9 @@
 							'<i class="fa fa-times fa-lg removeBtn "></i>'+
 						'</div>'+
 					'</td>');
-			searchInfo.append(newtd);
-			$(".infoTable1").children('tbody').append(searchInfo);	
+				searchInfo.append(newtd);
+				$(".infoTable1").children('tbody').append(searchInfo);	 
+			}
 		}
 	}
 	$(".searchBtn").bind("click",function(){
