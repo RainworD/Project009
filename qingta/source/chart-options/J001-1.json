@@ -1,6 +1,6 @@
 {
      "legend": {
-          "data" : ["自然科学奖","技术发明奖","科技进步奖","获奖总数"],
+          "data" : ["自然科学奖","技术发明奖","科技进步奖","国家最高奖", "获奖总数"],
           "bottom": "bottom"
       },
       "toolbox": {
@@ -106,6 +106,27 @@
                "itemStyle": {
                     "normal": {
                         "color": "rgb(255, 204, 102)"
+                    }
+               },
+               "label": {
+                    "normal": {
+                        "show": true,
+                        "position": "top",
+                        "textStyle": {
+                            "color":"#666"
+                        }
+                    }
+               },
+               "data": null
+          },
+          {
+               "type":"bar",
+               "yAxisIndex": 0,
+               "name": "国家最高奖",
+               "data":null,
+               "itemStyle": {
+                    "normal": {
+                        "color": "rgb(255, 133, 133)"
                     }
                },
                "label": {

@@ -661,10 +661,10 @@ var POINT_MARK = {
 	},
 	"J001": function(university) {
 		return {
-				title: '国家三大奖数据分析 & 教育部科技奖数据分析',
+				title: '国家科技奖数据分析 & 教育部科技奖数据分析',
 				tabs: [
 					{
-						name: '国家三大奖数据分析',
+						name: '国家科技奖数据分析',
 						options: ['全部', '第一单位'],
 						options_placeholder: "选择单位",
 						getOptions: function(option, chart){
@@ -686,6 +686,7 @@ var POINT_MARK = {
 								var natural = makeTenItems()
 								var tech = makeTenItems()
 								var science = makeTenItems()
+								var top = makeTenItems()
 								var all = makeTenItems()
 
 								res.forEach(function(item){
@@ -694,13 +695,15 @@ var POINT_MARK = {
 									natural[index] = item.natural
 									science[index] = item.science
 									tech[index] = item.tech
+									top[index] = item.top || 0
 									all[index] = item.natural + item.science + item.tech
 								})
 
 								chartOption.series[0].data = natural
 								chartOption.series[1].data = tech
 								chartOption.series[2].data = science
-								chartOption.series[3].data = all
+								chartOption.series[3].data = top
+								chartOption.series[4].data = all
 
 								return Promise.resolve(chartOption)
 							})
