@@ -695,7 +695,7 @@ var POINT_MARK = {
 									natural[index] = item.natural
 									science[index] = item.science
 									tech[index] = item.tech
-									top[index] = item.top || 0
+									top[index] = item.highest
 									all[index] = item.natural + item.science + item.tech
 								})
 
