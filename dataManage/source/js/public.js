@@ -571,7 +571,18 @@ function madeSchool_InputBox(text){
 	inputBox.val(text);
 	return inputBox;
 }
-
+function madeAlertInputBox(text,array){
+	// var array_=text.split(",");
+	var inputBox=$('<input class="editData changeData" data-array='+text+'>');
+	inputBox.val(text);
+	return inputBox;
+}
+function madeAlertInputBox_(text,array){
+	// var array_=text.split(",");
+	var inputBox=$('<input class="editData changeData_" data-array='+text+'>');
+	inputBox.val(text);
+	return inputBox;
+}
 function madeNoInputBox(text){
 	var jqy=$(text);
 	var val=jqy.find("input").val();

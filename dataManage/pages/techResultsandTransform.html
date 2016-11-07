@@ -3,6 +3,10 @@
 		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">科技成果与技术转让</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
+	<div class="addDataBtn" style="margin-right:0;background-color:#ccc;float:left" id="uploadForm">
+	    <input id="file" type="file"  multiple="multiple"/>
+	    <button id="upload" type="button">导入excel</button>
+	</div>
 </div>
 <div class="enterBox">
 	<div class="topTableBox"> 
@@ -79,20 +83,22 @@
 			<table class="infoTable infoTable1">
 				<thead>
 					<tr class="tableTitle">
+						<th rowspan="2"><input type="checkbox" class="checkAll"></th>   
 						<th rowspan="2">序号</th>
 						<th rowspan="2">学校名称</th>
 						<th rowspan="2">年度</th>
-						<th rowspan="2">教学与科研人员</th>
+						<th rowspan="2">教学与科研</th>
 						<th colspan="2">专著</th>
 						<th colspan="2">学术论文（篇）</th>
 						<th rowspan="2">鉴定成果</th>
 						<th colspan="2">技术转让</th>
+						<th rowspan="2">操作</th>
 					</tr>
 					<tr class="tableTitle">
 						<th>数量</th>
 						<th>字数(千字)</th>
 						<th>合计</th>
-						<th>国外及全国性论文</th>
+						<th>国外、全国论文</th>
 						<th>合同数</th>
 						<th>当年实际收入</th>
 					</tr>
@@ -101,6 +107,9 @@
 				</tbody>				
 			</table>
 		</div>
+	</div>
+	<div class="addDataBtn batchDelete" style="margin-right:0;float: none;width: 100px;">
+		批量删除
 	</div>
 	<div class="M-box"></div>
 </div>
@@ -214,95 +223,6 @@ function getTechResults(unit,order,first_year,last_year,start,rows){//教育部�
     });
     return ajax;
 }
-// $(".searchBtn").bind("click",function(){
-// 	var first_year=$(".yearName1").val();
-// 	var last_year=$(".yearName2").val();
-// 	var unit=projectUnits;
-// 	var order=$("input[name='selBar']:checked").val();
-// 	if(first_year!=""&&last_year!=""&&(first_year-0)>(last_year-0)){
-// 		alert("输入的起始年度不能大于终止年度！");
-// 		$(".tableContent").removeClass("tableShow");
-// 		$(".searchUndo").removeClass("searchDo")
-// 	}
-// 	else{
-// 		$(".tableContent").addClass("tableShow");
-// 		$(".searchUndo").addClass("searchDo");
-// 		$.when(STtransfer(unit,order,first_year,last_year)).done(function(data){
-// 			var result=data.data;
-// 			$(".infoTable1").children('tbody').empty();
-// 			$(".infoTable1 thead").find('th').addClass("nowrap");
-// 			// var count=data.count;
-// 			var count=result.length;
-// 			var addCount=$('<span class="topRight">共查询出<span></span>条数据记录，本页显示<span></span>条</span>');
-// 			addCount.children('span').eq(0).text(count);
-// 			if(count<20){
-// 				addCount.children('span').eq(1).text(count);
-// 			}
-// 			else{
-// 				addCount.children('span').eq(1).text("20");
-// 			}
-// 			var lee=$(".tableContent .infoTablePara").children('.topRight');
-// 			if(lee){
-// 				lee.empty();
-// 				$(".tableContent .infoTablePara").append(addCount);
-// 			}
-// 			else{
-// 				$(".tableContent .infoTablePara").append(addCount);
-// 			}
-// 			if(data.state==0&&count!=0){
-// 				for (var i=0,len=result.length;i<len;i++) {
-// 					var searchInfo=$('<tr>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 						'<td></td>'+
-// 					'</tr>');
-// 					searchInfo.children('td').eq(0).html(madeNowrapText(i+1));
-// 					searchInfo.children('td').eq(1).html(madeOneLineText(result[i].unit));
-// 					searchInfo.children('td').eq(2).html(madeNowrapText(first_year+'-'+last_year));
-// 					searchInfo.children('td').eq(3).html(madeNowrapText(result[i].patent_number));
-// 					searchInfo.children('td').eq(4).html(madeNowrapText(result[i].patent_count));
-// 					searchInfo.children('td').eq(5).html(madeNowrapText(result[i].paper_number));
-// 					searchInfo.children('td').eq(6).html(madeNowrapText(result[i].paper_among));
-// 					searchInfo.children('td').eq(7).html(madeNowrapText(result[i].identification));
-// 					searchInfo.children('td').eq(8).html(madeNowrapText(result[i].contract));
-// 					searchInfo.children('td').eq(9).html(madeNowrapText(result[i].income));
-// 					$(".infoTable1").children('tbody').append(searchInfo);
-// 				}
-// 				getPages(0);
-// 				$('.M-box').pagination({
-// 					totalData:count,
-// 				    showData:20,
-// 				    current:1,
-// 				    count:2,
-// 				    jump:true,
-// 					coping:true,
-// 					prevContent:'<i class="fa fa-angle-left"></i>',		//上一页内容
-// 					nextContent:'<i class="fa fa-angle-right"></i>',		//下一页内容
-// 				    callback:function(api){
-// 				    	var index=api.getCurrent();
-// 				        getPages(index-1);
-// 				    }
-// 				});
-// 			}
-// 			else{
-// 				alert("没有符合查询条件的记录！");
-// 				count=0;
-// 				addCount.children('span').eq(0).text(count);
-// 				addCount.children('span').eq(1).text(count);
-// 				$(".beforeSearch").removeClass('tableShow').addClass("searchDo");
-// 			    $(".searchUndo").removeClass("searchDo");
-// 			    $(".tableContent").removeClass('tableShow');
-// 			}
-// 		})		
-// 	}
-// })
 function getDetailData(data){
 	var result=data.data;
 	var first_year=$(".yearName1").val();
@@ -329,8 +249,10 @@ function getDetailData(data){
 	}
 	if(data.state==0&&count!=0){
 		for (var i=0,len=result.length;i<len;i++) {
-			var searchInfo=$('<tr>'+
-				'<td></td>'+
+			var searchInfo=$('<tr>'+				
+				'<td><input type="checkbox" class="checkItem"></td>'+
+					'<td data-id='+result[i].id+
+					'></td>'+
 				'<td></td>'+
 				'<td></td>'+
 				'<td></td>'+
@@ -342,17 +264,29 @@ function getDetailData(data){
 				'<td></td>'+
 				'<td></td>'+
 			'</tr>');
-			searchInfo.children('td').eq(0).html(madeNowrapText(start+i+1));
-			searchInfo.children('td').eq(1).html(madeOneLineText(result[i].unit));
-			searchInfo.children('td').eq(2).html(madeNowrapText(result[i].year));
-			searchInfo.children('td').eq(3).html(madeNowrapText(result[i].number));
-			searchInfo.children('td').eq(4).html(madeNowrapText(result[i].patent_number));
-			searchInfo.children('td').eq(5).html(madeNowrapText(result[i].patent_count));
-			searchInfo.children('td').eq(6).html(madeNowrapText(result[i].paper_number));
-			searchInfo.children('td').eq(7).html(madeNowrapText(result[i].paper_among));
-			searchInfo.children('td').eq(8).html(madeNowrapText(result[i].identification));
-			searchInfo.children('td').eq(9).html(madeNowrapText(result[i].contract));
-			searchInfo.children('td').eq(10).html(madeNowrapText(result[i].income));
+			searchInfo.children('td').eq(1).html(madeNowrapText(start+i+1));
+			searchInfo.children('td').eq(2).html(madeOneLineText(result[i].unit));
+			searchInfo.children('td').eq(3).html(madeNowrapText(result[i].year));
+			searchInfo.children('td').eq(4).html(madeNowrapText(result[i].number));
+			searchInfo.children('td').eq(5).html(madeNowrapText(result[i].patent_number));
+			searchInfo.children('td').eq(6).html(madeNowrapText(result[i].patent_count));
+			searchInfo.children('td').eq(7).html(madeNowrapText(result[i].paper_number));
+			searchInfo.children('td').eq(8).html(madeNowrapText(result[i].paper_among));
+			searchInfo.children('td').eq(9).html(madeNowrapText(result[i].identification));
+			searchInfo.children('td').eq(10).html(madeNowrapText(result[i].contract));
+			searchInfo.children('td').eq(11).html(madeNowrapText(result[i].income));
+			var newtd=$('<td class="nowrap">'+
+							'<div class="addLine">'+
+								'<i class="fa fa-edit fa-lg removeBtn "></i>'+
+							'</div>'+
+							'<div class="checkData showMenu" style="background-color:#4ec1ff">'+
+								'<i class="fa fa-check fa-lg removeBtn"></i>'+
+							'</div>'+
+							'<div class="removeData">'+
+								'<i class="fa fa-times fa-lg removeBtn "></i>'+
+							'</div>'+
+						'</td>');
+			searchInfo.append(newtd);
 			$(".infoTable1").children('tbody').append(searchInfo);
 		}
 	}
@@ -415,7 +349,203 @@ for(var i=0;i<yearArray.length;i++){
 	option_.text(yearArray[i]);
 	$(".year_Name").append(option_);
 }
+</script>
+<script type="text/javascript">
+	$("#upload").bind("click",function(){
+		var formData = new FormData();
+		formData.append('file', $('#file')[0].files[0]);
+		$.ajax({
+		    url: '/NKSimport',
+		    type: 'POST',
+		    cache: false,
+		    data: formData,
+		    processData: false,
+		    contentType: false
+		}).done(function(res) {
+			if(res.state==1){
+				alert("导入数据成功！")
+			}
+			else{
+				alert("导入数据失败！")
+			}
+		}).fail(function(res) {
+		});
+	})
+	$(".infoTable1").on("click",".removeData",function(){
+		var that=$(this);
+		var id=$(this).parents("tr").children("td").eq(1).attr("data-id");
+		if(confirm("您确认删除改行数据？")){
+			$.ajax({
+				url:'/STtransfer/delete',
+				type:'POST',
+				data:{
+					id:id,
+				},
+				success:function(data){
+					if(data.state==0){
+						if(id){
+							alert("删除成功！");
+						}
+						else{
+							alert("删除失败！")
+						}
+						window.location.reload();
+						// that.parents("tr").remove();
+					}
+				}
+				
+			})
+		}
+	}) 
+	$(".batchDelete").bind("click",function(){
+		var check_judge=$(".infoTable1 thead tr").children("th").first().children("input").prop("checked");
+		var id=[];
+		if(check_judge){
+			for(var i=0;i<20;i++){
+				var id_item=$(".infoTable1 tbody").children("tr").eq(i).children("td").eq(1).attr("data-id");
+				id.push(id_item);
+			}
+		}
+		else{
+			for(var i=0;i<20;i++){
+				var check_judge_1=$(".infoTable1 tbody").children("tr").eq(i).children("td").first().children("input").prop("checked");
+				if(check_judge_1){
+					var id_item=$(".infoTable1 tbody").children("tr").eq(i).children("td").eq(1).attr("data-id");
+					id.push(id_item);
+				}
+			}
+		}
+		if(id.length){
+			if(confirm("您确认删除选中数据？")){
+				$.ajax({
+					url:'/STtransfer/delete',
+					type:'POST',
+					traditional:true,
+					data:{
+						id:id,
+					},
+					success:function(data){
+						if(data.state==0){
+							if(id){
+								alert("删除成功！");
+							}
+							else{
+								alert("删除失败！")
+							}
+							window.location.reload();
+							// that.parents("tr").remove();
+						}
+					}
+					
+				})
+			}
+		}
+	})
 
+	$(".infoTable1").on("click",".addLine",function(){
+		var td_=$(this).parents("tr").children("td");
+		var txt;
+		for(var i=1;i<td_.length-1;i++){
+			if(td_.eq(i).find("span").length){
+				txt=td_.eq(i).find("span").first().text();
+			}
+			else{
+				txt=td_.eq(i).text();
+			}
+			if(i==2){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
+		}
+		$(this).addClass("showMenu");
+		$(this).siblings(".checkData").removeClass("showMenu")
+	})
+	$(".infoTable1").on("click",".checkData",function(){
+		$(this).addClass("showMenu");
+		$(this).siblings(".addLine").removeClass("showMenu");
+		var td_=$(this).parents("tr").children("td");
+		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var unit=td_.eq(2).children("input").val();
+		var year=td_.eq(3).children("input").val();
+		var number=td_.eq(4).children("input").val();
+		var patent_number=td_.eq(5).children("input").val();
+		var patent_count=td_.eq(6).children("input").val();
+		var paper_number=td_.eq(7).children("input").val();
+		var paper_among=td_.eq(8).children("input").val();
+		var identification=td_.eq(9).children("input").val();
+		var contract=td_.eq(10).children("input").val();
+		var income=td_.eq(11).children("input").val();
+		var params_={ 
+			id:id,
+			unit:unit,
+			number:number,
+			year:year,
+			patent_number:patent_number,
+			patent_count:patent_count,
+			paper_number:paper_number,
+			paper_among:paper_among,
+			identification:identification,
+			contract:contract,
+			income:income,
+		}
+		$.ajax({
+			url:'/STtransfer/edit',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
+		for(var i=1;i<td_.length-1;i++){
+			if(td_.eq(i).children("input").length){
+				txt=td_.eq(i).children("input").val();
+			}
+			if(i==6){
+				td_.eq(i).html(madeOneLineText(txt));
+			}
+			else{
+				td_.eq(i).html(madeNowrapText(txt));
+			}
+		}
+	})
+	$(".infoTable1 thead").on("click",".checkAll",function(){
+		var check_all=$(this).prop("checked");
+		if(check_all){
+			var len_=$(".infoTable1 tbody tr").length;
+			for(var i=0;i<len_;i++){
+				$(".infoTable1 tbody tr").eq(i).children("td").eq(0).children("input").prop("checked",true);
+			}
+		}
+		else{
+			var len_=$(".infoTable1 tbody tr").length;
+			for(var i=0;i<len_;i++){
+				$(".infoTable1 tbody tr").eq(i).children("td").eq(0).children("input").prop("checked",false);
+			}
+		}
+	})
+	$(".infoTable1 tbody").on("click",".checkItem",function(){
+		var count=0;
+		for(var i=0;i<$(".checkItem").length;i++){
+			var check_item=$(".checkItem").eq(i).prop("checked");
+			if(check_item){
+				count++;
+			}
+			else{
+				count--;
+			}
+		}
+		console.log(count);
+		if(count<20){
+			$(".checkAll").prop("checked",false);
+		}
+		else if(count==20){
+			$(".checkAll").prop("checked",true);
+		}
+	})
 </script>
 
 
