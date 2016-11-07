@@ -516,7 +516,7 @@
 			else{
 				txt=td_.eq(i).text();
 			}
-			if(i==2){
+			if(i==9){
 				td_.eq(i).html(madeSchoolInputBox(txt));
 				td_.eq(i).css("position","relative");
 				doForSearch(".schoolChoose","/Landentity0");
@@ -540,30 +540,35 @@
 		var td_=$(this).parents("tr").children("td");
 		var txt;
 		var id=td_.eq(1).attr("data-id");
-		var unit=td_.eq(2).children("input").val();
-		var disciplines=td_.eq(3).children("input").val();
-		var subject=td_.eq(4).children("input").val();
+		var code=td_.eq(2).children("input").val();
+		var type=td_.eq(3).children("input").val();
+		var name=td_.eq(4).children("input").val();
 		var year=td_.eq(5).children("input").val();
-		var title=td_.eq(6).children("input").val();
-		var author=td_.eq(7).children("input").val();
-		var tutor=td_.eq(8).children("input").val();
-		var type=td_.eq(7).children("input").val();
-		var entity;
+		var level=td_.eq(6).children("input").val();
+		var user=td_.eq(7).children("input").val();
+		var personList=people_new;
+		td_.eq(7).children("input").val(people_new.join(","));
+		var unit=td_.eq(9).children("input").val();
+		var unitList=unit_new;
+		var recommend=td_.eq(11).children("input").val();
 		var params_={ 
 			id:id,
-			subject:subject,
+			name:name,
+			code:code,
 			unit:unit,
-			disciplines:disciplines,
 			year:year,
-			title:title,
-			author:author,
-			tutor:tutor,
-			type:type
+			level:level,
+			user:user,
+			personList:personList,
+			type:type,
+			unitList:unitList,
+			recommend:recommend,
 		}
 		$.ajax({
-			url:'/BlogPaper/edit',
+			url:'/NationalScience/edit',
 			type:"POST",
 			data:params_,
+			traditional:true,
 			success:function(data){
 			}
 		})
@@ -675,6 +680,5 @@
     	for(var i=0;i<insert.length;i++){
     		unit_new.push(insert.eq(i).children("input").val());
     	}
-    	console.log(unit_new);
     })
 </script>
