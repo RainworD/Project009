@@ -696,7 +696,7 @@ var POINT_MARK = {
 									science[index] = item.science
 									tech[index] = item.tech
 									top[index] = item.highest
-									all[index] = item.natural + item.science + item.tech
+									all[index] = item.natural + item.science + item.tech + item.highest
 								})
 
 								chartOption.series[0].data = natural
