@@ -72,7 +72,15 @@ if (!Array.prototype.find) {
 
 var curYear = (new Date()).getFullYear()
 
-var toInt = Number.parseInt
+var toInt = function(str){
+	var i1 = parseInt(str)
+	var i2 = parseInt(parseFloat(str) + 0.5)
+	if (i2 > i1) {
+		return i2
+	} else {
+		return i1
+	}
+}
 
 function makeTenItems(){
 	return makeItems(10)
@@ -200,7 +208,7 @@ var POINT_MARK = {
 			})).then(function(res){
 				var result = res.result || []
 
-				var curYear = Number.parseInt(res.year) || curYear
+				var curYear = toInt(res.year) || curYear
 
 				var years = makeYears()
 				var quantities = makeTenItems()

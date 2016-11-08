@@ -393,12 +393,17 @@
 			},
 			pushItemToSearch: function(checkedNode){
 				var self = this
+				//console.dir(checkedNode)
 				var _node = {
 					id: checkedNode.id,
 					name: checkedNode.name,
 					code: checkedNode.code,
 					level: checkedNode.level + 1,
-					leaf: checkedNode.leaf
+					leaf: checkedNode.leaf,
+					shows: checkedNode.shows,
+					parent_id: checkedNode.parent_id,
+					parent_name: checkedNode.parent_name,
+					parent_code: checkedNode.parent_code
 				}
 				self.search_name.push(_node)
 				_node.nodeTree = checkedNode
@@ -488,7 +493,7 @@
 			},
 			initZtree: function(){
 				var self = this
-				console.dir(baseTree)
+				//console.dir(baseTree)
 				$.fn.zTree.init($("#fund-tree"), {
 					check:{
 						chkStyle:"checkbox",
@@ -534,16 +539,20 @@
 				var filtered_data = null
 				if (self.search_name.length > 0) {
 					filtered_data = self.search_name.map(function(item){
+						//console.dir(item)
 						return {
 							name: item.name,
 							id: item.id,
 							leaf: item.leaf,
 							level: item.level,
 							code: item.code,
-							parent_id: item.nodeTree.id,
-							parent_name: item.nodeTree.name
+							shows: item.shows,
+							parent_code: item.parent_code,
+							parent_id: item.parent_id,
+							parent_name: item.parent_name
 						}
 					})
+					console.dir(JSON.stringify(filtered_data))
 				} else {
 					filtered_data = baseData
 				}
@@ -617,6 +626,9 @@
 		var ret = []
 		function _addNode(tree, parentTree) { // tree的数组
 			tree.forEach(function(subTree){
+				subTree.parent_id = parentTree.id || ''
+				subTree.parent_name = parentTree.name || ''
+				subTree.parent_code = parentTree.code || ''
 				ret.push({
 					name: subTree.name,
 					id: subTree.id,
