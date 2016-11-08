@@ -124,7 +124,7 @@
 						<div style="float:right;padding-top:5px;" v-if="tabs[tab_index] && tabs[tab_index].options.length > 0">
 							<span style="color:#777;font-size:14px;">{{tabs[tab_index].options_placeholder + " :"}}</span>
 							<div class="commonInputBox" style="display:inline-block;">
-								<input class="commonput" @focus="openSelectOptionModal(tabs[tab_index].options_placeholder)" v-model="selected_name">
+								<input class="commonput" style="padding-right:30px" @focus="openSelectOptionModal(tabs[tab_index].options_placeholder)" v-model="selected_name">
 								<div class="search-button-point" @click="openSelectOptionModal(tabs[tab_index].options_placeholder)"><i class="fa fa-ellipsis-h showDetail"></i></div>
 							</div>
 						</div>

@@ -200,54 +200,63 @@ function loadPoints(university, result, points){
 var POINT_MARK = {
 	"K001": function(university) {
 		return Promise.resolve($.ajax({
-				url: '/k001',
-				data: {
-					entity: university.id,
-					error: function(){}
-				}
-			})).then(function(res){
-				var result = res.result || []
-
-				var curYear = toInt(res.year) || curYear
-
-				var years = makeYears()
-				var quantities = makeTenItems()
-				var moneyArr = makeTenItems()
-				var minMoney = Infinity
-				result.forEach(function(item){
-					var year = toInt(item[0])
-					var quantity = toInt(item[1])
-					var money = toInt(item[2])
-					var index = 9 - (curYear - year)
-					quantities[index] = quantity
-					moneyArr[index] = money
-					if (minMoney > money) {
-						minMoney = money
-					}
-				})
-
-				var minMoney = Number.isFinite(minMoney) ? minMoney : 0
-				return Promise.resolve({
-					title: '国家自然科学基金总体立项数据分析',
-					tabs: [
-						{
-							name: '总体分析',
-							options: [],
-							options_placeholder: "",
-							getOptions: function(option, chart){
-								var options_promise = getJSON('K001')
-								return options_promise.then(function(res){
-									res.xAxis.data = years
-									res.series[0].data = quantities
-									res.series[1].data = moneyArr
-									res.yAxis[1].min = minMoney
-									return Promise.resolve(res)
+			url: "/LandNNSFtype"
+		})).then(function(_options){
+			var options = _options.result || []
+			options.unshift('总体')
+			return Promise.resolve({
+				title: '国家自然科学基金总体立项数据分析',
+				tabs: [
+					{
+						name: '',
+						options: options,
+						options_placeholder: "选择资助类别",
+						getOptions: function(_option, chart){
+							return Promise.all([
+								getJSON('K001'),
+								Promise.resolve($.ajax({
+									url: "/k001",
+									data: _option == '总体' ? {
+										entity: university.id
+									} : {
+										entity: university.id,
+										type: _option
+									}
+								}))
+							]).then(function(resArr){
+								var chartOption = resArr[0]
+								var res = resArr[1].result || []
+								var curYear = toInt(resArr[1].year)
+								
+								var years = makeYears()
+								var quantities = makeTenItems()
+								var moneyArr = makeTenItems()
+								var minMoney = Infinity
+								res.forEach(function(item){
+									var year = toInt(item[0])
+									var quantity = toInt(item[1])
+									var money = toInt(item[2])
+									var index = 9 - (curYear - year)
+									quantities[index] = quantity
+									moneyArr[index] = money
+									if (minMoney > money) {
+										minMoney = money
+									}
 								})
-							}
+
+								var minMoney = Number.isFinite(minMoney) ? minMoney : 0
+
+								chartOption.xAxis.data = years
+								chartOption.series[0].data = quantities
+								chartOption.series[1].data = moneyArr
+								chartOption.yAxis[1].min = minMoney
+								return Promise.resolve(chartOption)
+							})
 						}
-					]
-				})
+					}
+				]
 			})
+		})
 	},
 	"K002": function(university) {
 		return Promise.all([
