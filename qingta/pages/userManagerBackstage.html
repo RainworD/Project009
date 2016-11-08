@@ -154,7 +154,7 @@
 										<option>普通用户</option>
 										<option>学校管理员</option>
 										<option>试用用户</option>
-										<option>系统管理员</option>
+										<option>系统管理员</option> 
 									</select>
 								</div>
 							</td>
@@ -308,7 +308,7 @@
 			}
 			if(entity){
 				if(val=="学校管理员"){
-				type=2;
+				type=1;
 				if(id){
 					$(this).parents(".bottomBtn").removeAttr("data-id");
 					$.when(UpdateAccount(entity,id,password,type,nickname,department,mail,phone,year,month,day,concurrency)).done(function(data){
@@ -333,14 +333,17 @@
 				}
 				}
 				else{
-					if(val=="普通用户"){
+					if(val=="系统管理员"){
 						type=0;
 					}
 					else if(val=="数据管理员"){
-						type=1;
+						type=2;
+					}
+					else if(val=="普通用户"){
+						type=3;
 					}
 					else{
-						type=2
+						type=4;
 					}
 					if(id){
 						$(this).parents(".bottomBtn").removeAttr("data-id");
@@ -449,7 +452,7 @@
 								result[i][j]="普通用户";
 							}
 							else if(result[i][7]==4){
-								result[i][j]="临时用户";
+								result[i][j]="试用用户";
 							}
 						}
 						else if(j==8){

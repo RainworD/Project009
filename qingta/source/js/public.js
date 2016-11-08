@@ -345,7 +345,34 @@ function dragBoxUnitsChoose(selector){
 			$(".unitsEnter").val("")
 		}
 	})
-	
+	$(selector).on("click",".forSure_",function(){
+		$(this).addClass("getUnitsInfo");
+		$(document).unbind(".drag");
+		getTreeNodes_(rootObj,checkedArray,_array);
+		var checkedLen=checkedArray.length;
+		showName=[];
+		projectUnits=[];
+		if(checkedLen){
+			for (var i=0;i<checkedLen;i++) {
+				var pushItem=checkedArray[i].name;
+				var pushid=checkedArray[i].id;
+				projectUnits.push(pushid);
+				showName.push(pushItem);
+				$(".unitsEnter").val(showName[0]+'...');
+			}
+		}
+		else{
+			$(".unitsEnter").val("")
+		}
+		if(projectUnits.length>10){
+			alert("选择的学校不能超过10个，请重新选择！");
+		}
+		else{
+			console.log("console");
+			$(".mask").hide();
+			$(selector).hide();
+		}	
+	})
 	$(selector).on("click",".search-box",function(){
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
 		var find = searchAndScrollToNode_(rootObj, search_str,"name");

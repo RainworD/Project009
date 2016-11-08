@@ -26,72 +26,14 @@
 				<th style="width:10.6%;">对标年度 :</th>
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
-						<select class="selBox yearName1">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
-							<option>1999</option>
-							<option>1998</option>
-							<option>1997</option>
-							<option>1996</option>
-							<option>1995</option>
-							<option>1994</option>
-							<option>1993</option>
-							<option>1992</option>
-							<option>1991</option>
-							<option>1990</option>
-							<option>1980</option>
-							<option>1957</option>
-							<option>1955</option>
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
-						<select class="selBox yearName2">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
-							<option>1999</option>
-							<option>1998</option>
-							<option>1997</option>
-							<option>1996</option>
-							<option>1995</option>
-							<option>1994</option>
-							<option>1993</option>
-							<option>1992</option>
-							<option>1991</option>
-							<option>1990</option>
-							<option>1980</option>
-							<option>1957</option>
-							<option>1955</option>
+						<select class="selBox yearName2 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span class="starAfter">*</span>
@@ -201,149 +143,153 @@
 				<thead>
 					<tr class="tableTitle">
 						<th>分析项目名称</th>
-						<th>操作</th>
+						<th><input type="checkbox" class="checkAll" checked="checked"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td data-type="1">国家重点研发计划立项数</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="2">国家重点研发计划立项金额</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="3">国家自然科学基金立项数</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="4">国家自然科学基金立项金额</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="5">国家社会科学基金立项数</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="6">教育部人文社科项目立项数</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
-						<td data-type="7">工程院、科学院院士数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td data-type="7">科学院院士当选数量</td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="36">工程院士当选数量</td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="8">长江学者数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="9">国家杰出青年数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="10">万人计划入选数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="11">国家优秀青年数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="12">青年千人数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="13">教育部创新团队数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="14">国家基金委创新研究群体数</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="15">国家重点学科入选数量(一级/二级)</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<!-- <tr class="esihide">
 						<td data-type="16">ESI全球1%学科数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr class="esihide">
 						<td data-type="17">ESI全球排名</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr> -->
 					<tr>
 						<td data-type="18">国家级特色专业数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="19">国家级精品资源共享课数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="20">视频公开课数量</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="21">全国百篇优博入选数</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="22">国家科技奖(含参与单位)</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="23">教育部科技奖(含参与单位)</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<!-- <tr>
 						<td data-type="24">教育部人文社科优秀成果奖</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr> -->
 					<tr>
 						<td data-type="30">国家级教学成果奖</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="25">授权专利数</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<!-- <tr>
 						<td data-type="31">科技成果与技术转让收入</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr> -->
 					<tr>
 						<td data-type="26">年度预算收入</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="27">年度预算支出</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="32">年度决算收入</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="33">年度决算支出</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="34">高校课题数据课题总数</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="35">高校课题数据拨入经费</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="28">科技活动科技经费</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr>
 						<td data-type="29">年度科技经费</td>
-						<td><input type="checkbox" checked="checked"></td>
+						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 				</tbody>
 			</table>
@@ -439,9 +385,12 @@
 					}
 					else if(analysisArray_[j]=="6"){
 						getEduArt(tr_add,entitys,year1,year2,len_1);
-					}
+					} 
 					else if(analysisArray_[j]=="7"){
 						getTechEnginerCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="36"){
+						getEnginerCount(tr_add,entitys,year1,year2,len_1);
 					}
 					else if(analysisArray_[j]=="8"){
 						getCJCount(tr_add,entitys,year1,year2,len_1);
@@ -566,6 +515,21 @@
 							}
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -612,6 +576,21 @@
 							}
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -649,6 +628,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -669,8 +663,25 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+
 				}
 			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
+				}
+			}
+
 		})
 	}
 	function getTechEnginerCount(argu,entitys,year1,year2,len_1){
@@ -680,38 +691,170 @@
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
-					// projectNum=result[k][4]+projectNum;
 					projectNum=result[k][4];
 					if(projectNum==""){
 						projectNum=0;
 					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
+							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
-					// getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
 	}
-	function getTechCount(num,argu,entitys,year1,year2,len_1,unitsName){
+	function getEnginerCount(argu,entitys,year1,year2,len_1){
 		$.when(askEAsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
-					unitsName1=result[k][0];
-					if(unitsName1==unitsName){
-						projectNum1=(num-0)+(result[k][4]-0);
-						if(projectNum1==""){
-							projectNum1=0;
+					unitsName=result[k][0];
+					// for (var j=0;j<result[k].length-1;j++) {
+					projectNum=result[k][4];
+					if(projectNum==""){
+						projectNum=0;
+					}
+					for(var i=0;i<len_1;i++){
+						if(unitsName==showName[i]){
+							argu.children("td").eq(i+1).text(projectNum);
 						}
-						// projectNum=result[k][4];
-						for(var i=0;i<len_1;i++){
-							if(unitsName==showName[i]){
-								argu.children("td").eq(i+1).text(projectNum1);
-							}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
 						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
+				}
+			}
+		})
+	}
+	// function getTechEnginerCount(argu,entitys,year1,year2,len_1){
+	// 	$.when(askSAsta(entitys,year1,year2)).done(function(data){
+	// 		var result=data.result;
+	// 		if(data.state==1){
+	// 			for(var k=0;k<result.length;k++){
+	// 				unitsName=result[k][0];
+	// 				// for (var j=0;j<result[k].length-1;j++) {
+	// 				// projectNum=result[k][4]+projectNum;
+	// 				projectNum=result[k][4];
+	// 				if(projectNum==""){
+	// 					projectNum=0;
+	// 				}
+	// 				for(var i=0;i<len_1;i++){
+	// 					if(unitsName==showName[i]){
+	// 						argu.children("td").eq(i+1).attr("data-id","0");
+	// 						getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
+	// 					}
+	// 				}			// getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
+	// 			}
+	// 			for(var i=0;i<argu.children("td").length;i++){
+	// 				if(argu.children("td").eq(i).attr("data-id")){
+	// 				}
+	// 				else{
+	// 					getTechAcademic(argu,entitys,year1,year2,len_1);
+	// 				}
+	// 			}	
+	// 		}
+	// 		else{
+	// 			getTechAcademic(argu,entitys,year1,year2,len_1);
+	// 		}
+	// 	})
+	// }
+	// function getTechCount(num,argu,entitys,year1,year2,len_1,unitsName){
+	// 	$.when(askEAsta(entitys,year1,year2)).done(function(data){
+	// 		var result=data.result;
+	// 		if(data.state==1){
+	// 			for(var k=0;k<result.length;k++){
+	// 				unitsName1=result[k][0];
+	// 				if(unitsName1==unitsName){
+	// 					projectNum1=(num-0)+(result[k][4]-0);
+	// 					if(projectNum1==""){
+	// 						projectNum1=0;
+	// 					}
+	// 					// projectNum=result[k][4];
+	// 					for(var i=0;i<len_1;i++){
+	// 						if(unitsName==showName[i]){
+	// 							argu.children("td").eq(i+1).text(projectNum1);
+	// 						}
+	// 					}
+	// 				}
+	// 				else{
+	// 					for(var i=0;i<len_1;i++){
+	// 						if(unitsName==showName[i]){
+	// 							argu.children("td").eq(i+1).text(num);
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 		else{
+	// 			for(var i=0;i<len_1;i++){
+	// 				if(unitsName==showName[i]){
+	// 					argu.children("td").eq(i+1).text("0");
+	// 				}
+	// 				else{
+	// 					argu.children("td").eq(i+1).text("0");
+	// 				}
+	// 			}
+	// 		}
+	// 	})
+	// }
+	function getTechAcademic(argu,entitys,year1,year2,len_1){
+		$.when(askEAsta(entitys,year1,year2)).done(function(data){
+			var result=data.result;
+			if(data.state==1){
+				for(var k=0;k<result.length;k++){
+					unitsName=result[k][0];
+					// for (var j=0;j<result[k].length-1;j++) {
+					projectNum=result[k][4];
+					if(projectNum==""){
+						projectNum=0;
+					}
+					for(var i=0;i<len_1;i++){
+						if(unitsName==showName[i]){
+							argu.children("td").eq(i+1).text(projectNum);
+						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -733,6 +876,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -741,7 +899,7 @@
 		$.when(askOYsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
 			if(data.state==1){
-					for(var k=0;k<result.length;k++){
+				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
 					projectNum=result[k][3];
@@ -752,6 +910,21 @@
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
 						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -773,6 +946,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -792,6 +980,21 @@
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
 						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -813,6 +1016,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -831,7 +1049,22 @@
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
+						}						
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
 						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -852,6 +1085,21 @@
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
 						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -878,6 +1126,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -886,16 +1149,33 @@
 		$.when(getESIData(entitys)).done(function(data){
 			var result=data.esi;
 			if(data.state==0){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k].unit;
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k].one_percent;
-					if(projectNum==""){
-						projectNum=0;
+				if(result.length){
+					for(var k=0;k<result.length;k++){
+						unitsName=result[k].unit;
+						// for (var j=0;j<result[k].length-1;j++) {
+						projectNum=result[k].one_percent;
+						if(projectNum==""){
+							projectNum=0;
+						}
+						for(var i=0;i<len_1;i++){
+							if(unitsName==showName[i]){
+								argu.children("td").eq(i+1).text(projectNum);
+							}
+						}
+						for(var i=0;i<argu.children("td").length;i++){
+							if(argu.children("td").eq(i).text()==""){
+								argu.children("td").eq(i).text("0")
+							}
+						}
 					}
+				}
+				else{
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							argu.children("td").eq(i+1).text("0");
+						}
+						else{
+							argu.children("td").eq(i+1).text("0");
 						}
 					}
 				}
@@ -906,16 +1186,33 @@
 		$.when(getESIData(entitys)).done(function(data){
 			var result=data.esi;
 			if(data.state==0){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k].unit;
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k].international_rank;
-					if(projectNum==""){
-						projectNum=0;
+				if(result.length){
+					for(var k=0;k<result.length;k++){
+						unitsName=result[k].unit;
+						// for (var j=0;j<result[k].length-1;j++) {
+						projectNum=result[k].international_rank;
+						if(projectNum==""){
+							projectNum=0;
+						}
+						for(var i=0;i<len_1;i++){
+							if(unitsName==showName[i]){
+								argu.children("td").eq(i+1).text(projectNum);
+							}				
+						}
+						for(var i=0;i<argu.children("td").length;i++){
+							if(argu.children("td").eq(i).text()==""){
+								argu.children("td").eq(i).text("0")
+							}
+						}
 					}
+				}
+				else{
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							argu.children("td").eq(i+1).text("0");
+						}
+						else{
+							argu.children("td").eq(i+1).text("0");
 						}
 					}
 				}
@@ -938,6 +1235,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -957,6 +1269,21 @@
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
 						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -978,6 +1305,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -986,17 +1328,34 @@
 		$.when(BlogPaperSta(entitys,year1,year2,0,20)).done(function(data){
 			var result=data.data;
 			if(data.state==0){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k][0];
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][1]; 
-					console.log(projectNum);
-					if(projectNum==""){
-						projectNum=0;
+				if(result.length){
+					for(var k=0;k<result.length;k++){
+						unitsName=result[k][0];
+						// for (var j=0;j<result[k].length-1;j++) {
+						projectNum=result[k][1]; 
+						console.log(projectNum);
+						if(projectNum==""){
+							projectNum=0;
+						}
+						for(var i=0;i<len_1;i++){
+							if(unitsName==showName[i]){
+								argu.children("td").eq(i+1).text(projectNum);
+							}
+						}
+						for(var i=0;i<argu.children("td").length;i++){
+							if(argu.children("td").eq(i).text()==""){
+								argu.children("td").eq(i).text("0")
+							}
+						}
 					}
+				}
+				else{
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							argu.children("td").eq(i+1).text("0");
+						}
+						else{
+							argu.children("td").eq(i+1).text("0");
 						}
 					}
 				}
@@ -1007,16 +1366,33 @@
 		$.when(getStatistics(entitys,year1,year2,0,20)).done(function(data){
 			var result=data.data;
 			if(data.state==0){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k].unit;
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=Number(result[k].highest+result[k].tech+result[k].science+result[k].natural);
-					if(projectNum==""){
-						projectNum=0;
+				if(result.length){
+					for(var k=0;k<result.length;k++){
+						unitsName=result[k].unit;
+						// for (var j=0;j<result[k].length-1;j++) {
+						projectNum=Number(result[k].highest+result[k].tech+result[k].science+result[k].natural);
+						if(projectNum==""){
+							projectNum=0;
+						}
+						for(var i=0;i<len_1;i++){
+							if(unitsName==showName[i]){
+								argu.children("td").eq(i+1).text(projectNum);
+							}	
+						}
+						for(var i=0;i<argu.children("td").length;i++){
+							if(argu.children("td").eq(i).text()==""){
+								argu.children("td").eq(i).text("0")
+							}
+						}
 					}
+				}
+				else{
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							argu.children("td").eq(i+1).text("0");
+						}
+						else{
+							argu.children("td").eq(i+1).text("0");
 						}
 					}
 				}
@@ -1027,16 +1403,33 @@
 		$.when(educationScienceSta(entitys,year1,year2,0,20)).done(function(data){
 			var result=data.data;
 			if(data.state==0){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k].unit;
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k]["自然科学奖教材类"]+result[k]["专利奖"]+result[k]["青年科学奖"]+result[k]["自然科学奖"]+result[k]["科技进步奖科普类"]+result[k]["科技进步奖推广类"]+result[k]["科技进步奖"]+result[k]["技术发明奖专利类"]+result[k]["技术发明奖"]; 
-					if(projectNum==""){
-						projectNum=0;
+				if(result.length){
+					for(var k=0;k<result.length;k++){
+						unitsName=result[k].unit;
+						// for (var j=0;j<result[k].length-1;j++) {
+						projectNum=result[k]["自然科学奖教材类"]+result[k]["专利奖"]+result[k]["青年科学奖"]+result[k]["自然科学奖"]+result[k]["科技进步奖科普类"]+result[k]["科技进步奖推广类"]+result[k]["科技进步奖"]+result[k]["技术发明奖专利类"]+result[k]["技术发明奖"];
+						if(projectNum==""){
+							projectNum=0;
+						}
+						for(var i=0;i<len_1;i++){
+							if(unitsName==showName[i]){
+								argu.children("td").eq(i+1).text(projectNum);
+							}
+						}
+						for(var i=0;i<argu.children("td").length;i++){
+							if(argu.children("td").eq(i).text()==""){
+								argu.children("td").eq(i).text("0")
+							}
+						}
 					}
+				}
+				else{
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							argu.children("td").eq(i+1).text("0");
+						}
+						else{
+							argu.children("td").eq(i+1).text("0");
 						}
 					}
 				}
@@ -1050,7 +1443,7 @@
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k][6];
+					projectNum=result[k][5];
 					if(projectNum==""){
 						projectNum=0;
 					}
@@ -1058,6 +1451,21 @@
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
 						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -1078,6 +1486,21 @@
 						if(unitsName==showName[i]){
 							argu.children("td").eq(i+1).text(projectNum);
 						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -1107,6 +1530,21 @@
 								argu.children("td").eq(i+1).text(projectNum2);
 							}
 						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -1145,6 +1583,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -1165,6 +1618,21 @@
 							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -1173,16 +1641,33 @@
 		$.when(LearnScienceSta(entitys,year1,year2,0,20)).done(function(data){
 			var result=data.data;
 			if(data.state==0){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k].unit;
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k]["特等奖"]+result[k]["一等奖"]+result[k]["二等奖"];
-					if(projectNum==""){
-						projectNum=0;
+				if(result.length){
+					for(var k=0;k<result.length;k++){
+						unitsName=result[k].unit;
+						// for (var j=0;j<result[k].length-1;j++) {
+						projectNum=result[k]["特等奖"]+result[k]["一等奖"]+result[k]["二等奖"];
+						if(projectNum==""){
+							projectNum=0;
+						}
+						for(var i=0;i<len_1;i++){
+							if(unitsName==showName[i]){
+								argu.children("td").eq(i+1).text(projectNum);
+							}		
+						}
+						for(var i=0;i<argu.children("td").length;i++){
+							if(argu.children("td").eq(i).text()==""){
+								argu.children("td").eq(i).text("0")
+							}
+						}
 					}
+				}
+				else{
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							argu.children("td").eq(i+1).text("0");
+						}
+						else{
+							argu.children("td").eq(i+1).text("0");
 						}
 					}
 				}
@@ -1193,16 +1678,33 @@
 		$.when(STtransfer(entitys,year1,year2)).done(function(data){
 			var result=data.data;
 			if(data.state==0){
-				for(var k=0;k<result.length;k++){
-					unitsName=result[k].unit;
-					// for (var j=0;j<result[k].length-1;j++) {
-					projectNum=result[k].income;
-					if(projectNum==""){
-						projectNum=0;
+				if(result.length){
+					for(var k=0;k<result.length;k++){
+						unitsName=result[k].unit;
+						// for (var j=0;j<result[k].length-1;j++) {
+						projectNum=result[k].income;
+						if(projectNum==""){
+							projectNum=0;
+						}
+						for(var i=0;i<len_1;i++){
+							if(unitsName==showName[i]){
+								argu.children("td").eq(i+1).text(projectNum);
+							}
+						}
+						for(var i=0;i<argu.children("td").length;i++){
+							if(argu.children("td").eq(i).text()==""){
+								argu.children("td").eq(i).text("0")
+							}
+						}
 					}
+				}
+				else{
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							argu.children("td").eq(i+1).text(projectNum);
+							argu.children("td").eq(i+1).text("0");
+						}
+						else{
+							argu.children("td").eq(i+1).text("0");
 						}
 					}
 				}
@@ -1234,6 +1736,21 @@
 							}
 						}
 					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
+					}
 				}
 			}
 		})
@@ -1262,6 +1779,21 @@
 								argu.children("td").eq(i+1).text(projectNum2);
 							}
 						}
+					}
+					for(var i=0;i<argu.children("td").length;i++){
+						if(argu.children("td").eq(i).text()==""){
+							argu.children("td").eq(i).text("0")
+						}
+					}
+				}
+			}
+			else{
+				for(var i=0;i<len_1;i++){
+					if(unitsName==showName[i]){
+						argu.children("td").eq(i+1).text("0");
+					}
+					else{
+						argu.children("td").eq(i+1).text("0");
 					}
 				}
 			}
@@ -1323,4 +1855,44 @@
 	else{
 		$(".esihide").removeClass("showMenu");
 	}
+	var yearArray=schoolMatchGoalDataAnalysisSetting.years_seperate;
+    for(var i=yearArray.length-1;i>=0;i--){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
+    $(".infoTable2 thead").on("click",".checkAll",function(){
+		var check_all=$(this).prop("checked");
+		if(check_all){
+			var len_=$(".infoTable2 tbody tr").length;
+			for(var i=0;i<len_;i++){
+				$(".infoTable2 tbody tr").eq(i).children("td").eq(1).children("input").prop("checked",true);
+			}
+		}
+		else{
+			var len_=$(".infoTable2 tbody tr").length;
+			for(var i=0;i<len_;i++){
+				$(".infoTable2 tbody tr").eq(i).children("td").eq(1).children("input").prop("checked",false);
+			}
+		}
+	})
+	$(".infoTable2 tbody").on("click",".checkItem",function(){
+		var count=0;
+		for(var i=0;i<$(".checkItem").length;i++){
+			var check_item=$(".checkItem").eq(i).prop("checked");
+			if(check_item){
+				count++;
+			}
+			else{
+				count--;
+			}
+		}
+		console.log(count);
+		if(count<20){
+			$(".checkAll").prop("checked",false);
+		}
+		else if(count==20){
+			$(".checkAll").prop("checked",true);
+		}
+	})
 </script>

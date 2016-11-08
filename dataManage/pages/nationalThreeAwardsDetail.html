@@ -140,6 +140,9 @@
 			</table>
 		</div>
 	</div>
+	<div class="addDataBtn batchDelete" style="margin-right:0;float: none;width: 100px;">
+		批量删除
+	</div>
 	<div class="M-box"></div>
 </div>
 <div class="searchUndo">
@@ -419,14 +422,14 @@
 		var formData = new FormData();
 		formData.append('file', $('#file')[0].files[0]);
 		$.ajax({
-		    url: '/NKSimport',
+		    url: '/resolveNationalScience',
 		    type: 'POST',
 		    cache: false,
 		    data: formData,
 		    processData: false,
 		    contentType: false
 		}).done(function(res) {
-			if(res.state==1){
+			if(res.state==0){
 				alert("导入数据成功！")
 			}
 			else{
@@ -521,11 +524,18 @@
 				td_.eq(i).css("position","relative");
 				doForSearch(".schoolChoose","/Landentity0");
 			}
+			else if(i==11){
+				td_.eq(i).html(madeSchool_InputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
 			else if(i==8){
 				td_.eq(i).html(madeAlertInputBox(txt));
+				people_new=txt.split(',');
 			}
 			else if(i==10){
 				td_.eq(i).html(madeAlertInputBox_(txt));
+				unit_new=txt.split(",");
 			}
 			else{
 				td_.eq(i).html(madeInputBox(txt));
@@ -546,10 +556,15 @@
 		var year=td_.eq(5).children("input").val();
 		var level=td_.eq(6).children("input").val();
 		var user=td_.eq(7).children("input").val();
-		var personList=people_new;
-		td_.eq(7).children("input").val(people_new.join(","));
+		// var personList=people_new;
+		td_.eq(8).children("input").val(people_new.join(","));
+		var personList_=td_.eq(8).children("input").val();
+		var personList=personList_.split(",");
 		var unit=td_.eq(9).children("input").val();
-		var unitList=unit_new;
+		td_.eq(10).children("input").val(unit_new.join(","));
+		// var unitList=unit_new;
+		var unitList_=td_.eq(10).children("input").val();
+		var unitList=unitList_.split(",");
 		var recommend=td_.eq(11).children("input").val();
 		var params_={ 
 			id:id,
@@ -576,7 +591,7 @@
 			if(td_.eq(i).children("input").length){
 				txt=td_.eq(i).children("input").val();
 			}
-			if(i==4||i==8||i==10||i==9||i==11){
+			if(i==4||i==10||i==9||i==11||i==8){
 				td_.eq(i).html(madeOneLineText(txt));
 			}
 			else{
@@ -652,7 +667,6 @@
     function changeData(array,selector){
 		for(var i=0;i<array.length;i++){
     		var insert_item=$('<div class="insertItem"><input class=""><i class="fa fa-times removeInsert"></i></div>');
-    		console.log(array[i]);
     		insert_item.find("input").val(array[i]);
     		$(selector).append(insert_item);
     	}
@@ -667,12 +681,9 @@
     $(".unitsChoose1 .forSure").bind("click",function(){
     	people_new=[];
     	var insert=$(this).parents(".unitsChoose").find(".insertItem");
-    	console.log(insert.length);
     	for(var i=0;i<insert.length;i++){
-    		console.log(insert.eq(i).children("input").val());
     		people_new.push(insert.eq(i).children("input").val());
     	}
-    	console.log(people_new);
     })
     $(".unitsChoose2 .forSure").bind("click",function(){
     	unit_new=[];

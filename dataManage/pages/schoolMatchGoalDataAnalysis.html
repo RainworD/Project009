@@ -172,7 +172,11 @@
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr>
-						<td data-type="7">工程院、科学院院士数量</td>
+						<td data-type="7">科学院院士数量</td>
+						<td><input type="checkbox" checked="checked"></td>
+					</tr>
+					<tr>
+						<td data-type="36">工程院士数量</td>
 						<td><input type="checkbox" checked="checked"></td>
 					</tr>
 					<tr>
@@ -383,6 +387,9 @@
 					}
 					else if(analysisArray_[j]=="7"){
 						getTechEnginerCount(tr_add,entitys,year1,year2,len_1);
+					}
+					else if(analysisArray_[j]=="36"){
+						getEnginerCount(tr_add,entitys,year1,year2,len_1);
 					}
 					else if(analysisArray_[j]=="8"){
 						getCJCount(tr_add,entitys,year1,year2,len_1);
@@ -621,43 +628,83 @@
 				for(var k=0;k<result.length;k++){
 					unitsName=result[k][0];
 					// for (var j=0;j<result[k].length-1;j++) {
-					// projectNum=result[k][4]+projectNum;
 					projectNum=result[k][4];
 					if(projectNum==""){
 						projectNum=0;
 					}
 					for(var i=0;i<len_1;i++){
 						if(unitsName==showName[i]){
-							getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
+							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
-					// getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
 				}
 			}
 		})
 	}
-	function getTechCount(num,argu,entitys,year1,year2,len_1,unitsName){
+	function getEnginerCount(argu,entitys,year1,year2,len_1){
 		$.when(askEAsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;
 			if(data.state==1){
 				for(var k=0;k<result.length;k++){
-					unitsName1=result[k][0];
-					if(unitsName1==unitsName){
-						projectNum1=(num-0)+(result[k][4]-0);
-						if(projectNum1==""){
-							projectNum1=0;
-						}
-						// projectNum=result[k][4];
-						for(var i=0;i<len_1;i++){
-							if(unitsName==showName[i]){
-								argu.children("td").eq(i+1).text(projectNum1);
-							}
+					unitsName=result[k][0];
+					// for (var j=0;j<result[k].length-1;j++) {
+					projectNum=result[k][4];
+					if(projectNum==""){
+						projectNum=0;
+					}
+					for(var i=0;i<len_1;i++){
+						if(unitsName==showName[i]){
+							argu.children("td").eq(i+1).text(projectNum);
 						}
 					}
 				}
 			}
 		})
 	}
+	// function getTechEnginerCount(argu,entitys,year1,year2,len_1){
+	// 	$.when(askSAsta(entitys,year1,year2)).done(function(data){
+	// 		var result=data.result;
+	// 		if(data.state==1){
+	// 			for(var k=0;k<result.length;k++){
+	// 				unitsName=result[k][0];
+	// 				// for (var j=0;j<result[k].length-1;j++) {
+	// 				// projectNum=result[k][4]+projectNum;
+	// 				projectNum=result[k][4];
+	// 				if(projectNum==""){
+	// 					projectNum=0;
+	// 				}
+	// 				for(var i=0;i<len_1;i++){
+	// 					if(unitsName==showName[i]){
+	// 						getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
+	// 					}
+	// 				}
+	// 				// getTechCount(projectNum,argu,entitys,year1,year2,len_1,unitsName);
+	// 			}
+	// 		}
+	// 	})
+	// }
+	// function getTechCount(num,argu,entitys,year1,year2,len_1,unitsName){
+	// 	$.when(askEAsta(entitys,year1,year2)).done(function(data){
+	// 		var result=data.result;
+	// 		if(data.state==1){
+	// 			for(var k=0;k<result.length;k++){
+	// 				unitsName1=result[k][0];
+	// 				if(unitsName1==unitsName){
+	// 					projectNum1=(num-0)+(result[k][4]-0);
+	// 					if(projectNum1==""){
+	// 						projectNum1=0;
+	// 					}
+	// 					// projectNum=result[k][4];
+	// 					for(var i=0;i<len_1;i++){
+	// 						if(unitsName==showName[i]){
+	// 							argu.children("td").eq(i+1).text(projectNum1);
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	})
+	// }
 	function getCJCount(argu,entitys,year1,year2,len_1){
 		$.when(askCJSchsta(entitys,year1,year2)).done(function(data){
 			var result=data.result;

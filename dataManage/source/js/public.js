@@ -283,7 +283,7 @@ function dragBox(selector){//弹窗窗口的拖拽方法
 		myleft=$(selector).position().left;
 	})
 }
-$(document).on("click",".unitsChoose .cancelBtn,.unitsChoose .forConsole,.unitsChoose .forSure",function(){
+$(document).on("click",".unitsChoose .cancelBtn,.unitsChoose .forConsole,.unitsChoose .forSure,.forSure_",function(){
 	$(this).closest('.unitsChoose').hide();
 	var hasUnitsChooseVisible = false;
 	$.each($(".unitsChoose"),function(){
@@ -321,7 +321,26 @@ function dragBoxUnitsChoose(selector){
 			$(".unitsEnter").val("")
 		}
 	})
-	
+	$(selector).on("click",".forSure_",function(){
+		$(this).addClass("getUnitsInfo");
+		$(document).unbind(".drag");
+		getTreeNodes_(rootObj,checkedArray,_array);
+		var checkedLen=checkedArray.length;
+		showName=[];
+		projectUnits=[];
+		if(checkedLen){
+			for (var i=0;i<checkedLen;i++) {
+				var pushItem=checkedArray[i].name;
+				var pushid=checkedArray[i].id;
+				projectUnits.push(pushid);
+				showName.push(pushItem);
+				$(".unitsEnter").val(showName[0]+'...');
+			}
+		}
+		else{
+			$(".unitsEnter").val("")
+		}
+	})
 	$(selector).on("click",".search-box",function(){
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
 		var find = searchAndScrollToNode_(rootObj, search_str,"name");
