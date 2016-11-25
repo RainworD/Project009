@@ -1,10 +1,14 @@
 
 <div class="changeBarContainer">
 	<div class="changeBarBox">
-		<a class="changeLeft changeButton" href="#/peopleArtExcellentResults.html">人文社科优秀成果奖统计</a>
-		<a class="changeRight changeButton green " href="#/peopleArtExcellentResultsDetail.html">人文社科优秀成果奖明细</a>
+		<a class="changeLeft changeButton" href="#/peopleArtExcellentResults.html">教育部人文社科奖统计</a>
+		<a class="changeRight changeButton green " href="#/peopleArtExcellentResultsDetail.html">教育部人文社科奖明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
+	<div class="addDataBtn" style="margin-right:0;background-color:#ccc;float:left" id="uploadForm">
+	    <input id="file" type="file"  multiple="multiple"/>
+	    <button id="upload" type="button">导入excel</button>
+	</div>
 </div>
 <div class="enterBox">
 	<div class="topTableBox">
@@ -58,22 +62,12 @@
 					<div class="commonselect" style="width:42.8%;margin-right:1%;">
 						<select class="selBox chooseNum1">
 							<option selected="selected"></option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:42.8%;margin-left:1%;">
 						<select class="selBox chooseNum2">
 							<option selected="selected"></option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
 						</select>
 					</div>
 					<!-- <span style="color:red;width: 1%;">*</span> -->
@@ -104,13 +98,14 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">人文社科优秀成果奖明细&nbsp;（金额单位：万元）</span>
+				<span class="topLeft">教育部人文社科奖明细&nbsp;（金额单位：万元）</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
 			<table class="infoTable infoTable1">
 				<thead>
 					<tr class="tableTitle">
+						<th><input type="checkbox" class="checkAll"></th>
 						<th>序号</th>
 						<th>学校名称</th>
 						<th>成果名称</th>
@@ -120,12 +115,16 @@
 						<th>奖励级别</th>
 						<th>作者名称</th>
 						<th>发行机构</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 				</tbody>
 			</table>
 		</div>
+	</div>
+	<div class="addDataBtn batchDelete" style="margin-right:0;float: none;width: 100px;">
+		批量删除
 	</div>
 	<div class="M-box"></div>
 </div>
@@ -192,6 +191,19 @@
 			}
 		}
 	})
+	$.when(LandHSSAIndex()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".chooseNum1,.chooseNum2").append(newopt);
+				}
+			}
+		}
+	})
 	$.when(LandHSSAsubject()).done(function(data){
 		var state=data.state;
 		var result=data.result;
@@ -213,20 +225,22 @@
 			eq=50;
 		}
 		for (var i=(eq-1)*20;i<eq*20;i++) {
-			var searchInfo=$('<tr>'+
-				'<td></td>'+
-			'</tr>');
-			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
-			searchInfo.children('td').eq(0).addClass('nowrap');
-			// console.log((i+1)+20*(pageindex-1)*50);
+			// console.log((i+1)+20*(pageindex-1)*50); 
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				var searchInfo=$('<tr>'+
+					'<td><input type="checkbox" class="checkItem"></td>'+
+					'<td data-id='+result[i][0]+
+					'></td>'+
+				'</tr>');			
+				searchInfo.children('td').eq(1).text((i+1)+20*(pageindex-1)*50);
+				searchInfo.children('td').eq(1).addClass('nowrap');
+				for (var j=1;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					var text=result[i][j];
 					if(result[i][j]==null){
 						text="";
 					}
-					if(j==0||j==1||j==6||j==7){
+					else if(j==1||j==2||j==7||j==8){
 						text=madeOneLineText(result[i][j])
 					}
 					else{
@@ -235,6 +249,18 @@
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}
+				var newtd=$('<td class="nowrap">'+
+						'<div class="addLine">'+
+							'<i class="fa fa-edit fa-lg removeBtn "></i>'+
+						'</div>'+
+						'<div class="checkData showMenu" style="background-color:#4ec1ff">'+
+							'<i class="fa fa-check fa-lg removeBtn"></i>'+
+						'</div>'+
+						'<div class="removeData">'+
+							'<i class="fa fa-times fa-lg removeBtn "></i>'+
+						'</div>'+
+					'</td>');
+				searchInfo.append(newtd);
 				$(".infoTable1").children('tbody').append(searchInfo);
 			}
 		}
@@ -282,8 +308,217 @@
 	})
 	doForSearch(".projectUnits","/Landentity0");
 	doForSearch(".nameput","/LandHSSAname");
+</script>
+<script type="text/javascript">
+	$("#upload").bind("click",function(){
+		var val=$(this).prev("input").val();
+		if(confirm("确认导入"+val)){
+			var formData = new FormData();
+			formData.append('file', $('#file')[0].files[0]);
+			$.ajax({
+			    url: '/HSSAimport',
+			    type: 'POST',
+			    cache: false,
+			    data: formData,
+			    processData: false,
+			    contentType: false
+			}).done(function(res) {
+				if(res.state==1){
+					alert("导入数据成功！")
+				}
+				else{
+					alert("导入数据失败！");
+					$(this).prev("input").val("");
+				}
+			}).fail(function(res) {
+			});
+		}
+		else{
+			$(this).prev("input").val("")
+		}
+	})
+	$(".infoTable1").on("click",".removeData",function(){
+		var that=$(this);
+		var id=$(this).parents("tr").children("td").eq(1).attr("data-id");
+		if(confirm("您确认删除改行数据？")){
+			$.ajax({
+				url:'/delHSSA',
+				type:'POST',
+				data:{
+					id:id,
+				},
+				success:function(data){
+					if(data.state==1){
+						if(id){
+							alert("删除成功！");
+						}
+						else{
+							alert("删除失败！")
+						}
+						window.location.reload();
+						// that.parents("tr").remove();
+					}
+				}
+				
+			})
+		}
+	})
+	$(".batchDelete").bind("click",function(){
+		var check_judge=$(".infoTable1 thead tr").children("th").first().children("input").prop("checked");
+		var id=[];
+		if(check_judge){
+			for(var i=0;i<20;i++){
+				var id_item=$(".infoTable1 tbody").children("tr").eq(i).children("td").eq(1).attr("data-id");
+				id.push(id_item);
+			}
+		}
+		else{
+			for(var i=0;i<20;i++){
+				var check_judge_1=$(".infoTable1 tbody").children("tr").eq(i).children("td").first().children("input").prop("checked");
+				if(check_judge_1){
+					var id_item=$(".infoTable1 tbody").children("tr").eq(i).children("td").eq(1).attr("data-id");
+					id.push(id_item);
+				}
+			}
+		}
+		if(id.length){
+			if(confirm("您确认删除选中数据？")){
+				$.ajax({
+					url:'/delHSSA',
+					type:'POST',
+					traditional:true,
+					data:{
+						id:id,
+					},
+					success:function(data){
+						if(data.state==1){
+							if(id){
+								alert("删除成功！");
+							}
+							else{
+								alert("删除失败！")
+							}
+							window.location.reload();
+							// that.parents("tr").remove();
+						}
+					}
+					
+				})
+			}
+		}
+	})
+
+	$(".infoTable1").on("click",".addLine",function(){
+		var td_=$(this).parents("tr").children("td");
+		var txt;
+		for(var i=1;i<td_.length-1;i++){
+			if(td_.eq(i).find("span").length){
+				txt=td_.eq(i).find("span").first().text();
+			}
+			else{
+				txt=td_.eq(i).text();
+			}
+			if(i==2){
+				td_.eq(i).html(madeSchoolInputBox(txt));
+				td_.eq(i).css("position","relative");
+				doForSearch(".schoolChoose","/Landentity0");
+			}
+			else{
+				td_.eq(i).html(madeInputBox(txt));
+			}
+		}
+		$(this).addClass("showMenu");
+		$(this).siblings(".checkData").removeClass("showMenu")
+	})
+	$(".infoTable1").on("click",".checkData",function(){
+		$(this).addClass("showMenu");
+		$(this).siblings(".addLine").removeClass("showMenu");
+		var td_=$(this).parents("tr").children("td");
+		var txt;
+		var id=td_.eq(1).attr("data-id");
+		var entity_=td_.eq(2).children("input").val();
+		var name=td_.eq(3).children("input").val();
+		var _index=td_.eq(4).children("input").val();
+		var year=td_.eq(5).children("input").val();
+		var subject=td_.eq(6).children("input").val();
+		var level=td_.eq(7).children("input").val();
+		var writer=td_.eq(8).children("input").val();
+		var issuer=td_.eq(9).children("input").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
+		var params_={ 
+			id:id,
+			_index:_index,
+			name:name,
+			year:year,
+			entity:entity,
+			subject:subject,
+			level:level,
+			writer:writer,
+			issuer:issuer,
+		}
+		$.ajax({
+			url:'/updateHSSA',
+			type:"POST",
+			data:params_,
+			success:function(data){
+			}
+		})
+		for(var i=1;i<td_.length-1;i++){
+			if(td_.eq(i).children("input").length){
+				txt=td_.eq(i).children("input").val();
+			}
+			td_.eq(i).html(madeNowrapText(txt));
+		}
+	})
+	$(".infoTable1 thead").on("click",".checkAll",function(){
+		var check_all=$(this).prop("checked");
+		if(check_all){
+			var len_=$(".infoTable1 tbody tr").length;
+			for(var i=0;i<len_;i++){
+				$(".infoTable1 tbody tr").eq(i).children("td").eq(0).children("input").prop("checked",true);
+			}
+		}
+		else{
+			var len_=$(".infoTable1 tbody tr").length;
+			for(var i=0;i<len_;i++){
+				$(".infoTable1 tbody tr").eq(i).children("td").eq(0).children("input").prop("checked",false);
+			}
+		}
+	})
+	$(".infoTable1 tbody").on("click",".checkItem",function(){
+		var count=0;
+		for(var i=0;i<$(".checkItem").length;i++){
+			var check_item=$(".checkItem").eq(i).prop("checked");
+			if(check_item){
+				count++;
+			}
+			else{
+				count--;
+			}
+		}
+		console.log(count);
+		if(count<20){
+			$(".checkAll").prop("checked",false);
+		}
+		else if(count==20){
+			$(".checkAll").prop("checked",true);
+		}
+	})
 	var yearArray=peopleArtExcellentResultsSetting.years_seperate;
-    for(var i=0;i<yearArray.length;i++){
+    for(var i=yearArray.length-1;i>=0;i--){
     	var option_=$('<option></option>');
     	option_.text(yearArray[i]);
     	$(".year_Name").append(option_);

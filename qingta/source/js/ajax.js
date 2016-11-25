@@ -1678,6 +1678,16 @@ function ImportantRewardsDetail(unit,category,first_year,last_year,reward_name,u
     });
     return ajax;
 }
+function LandHSSAIndex(){//人文社科奖励类型
+    var ajax = $.ajax({
+        url: "/LandHSSAindex",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
 function LandHSSAsubject(){//人文社科学科名称
     var ajax = $.ajax({
         url: "/LandHSSAsubject",
@@ -1835,4 +1845,113 @@ function getUserInfo(){
     })
     return ajax;
 }
+function LandPSsubject(){
+    var ajax = $.ajax({
+        url: "/LandPSsubject",
+        type: "POST",// or GET
+        data:{
 
+        }
+    });
+    return ajax;
+}
+function LandPStype(){
+    var ajax = $.ajax({
+        url: "/LandPStype",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandPSFsubject(){
+    var ajax = $.ajax({
+        url: "/LandPSFsubject",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandPSFtype(){
+    var ajax = $.ajax({
+        url: "/LandPSFtype",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandSTCMEtype(){
+    var ajax = $.ajax({
+        url: "/LandSTCMEtype",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandSTCMEdepartment(){
+    var ajax = $.ajax({
+        url: "/LandSTCMEdepartment",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandSTCMEindex(){
+    var ajax = $.ajax({
+        url: "/LandSTCMEindex",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandSTMItype(){
+    var ajax = $.ajax({
+        url: "/LandSTMItype",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandDRGindex(){
+    var ajax = $.ajax({
+        url: "/LandDRGindex",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandPSFindex(){
+    var ajax = $.ajax({
+        url: "/LandPSFindex",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandSTCMEindex(){
+    var ajax = $.ajax({
+        url: "/LandSTCMEindex",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}

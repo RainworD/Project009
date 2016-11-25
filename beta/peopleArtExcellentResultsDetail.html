@@ -38,59 +38,17 @@
 				</td>
 				<th style="width:10.6%">入选年度 :</th>
 				<td style="width:19.3%">
-					<div class="commonselect" style="width:42.8%;margin-right:1%;">
-						<select class="selBox yearName1">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
-							<option>1999</option>
-							<option>1998</option>
-							<option>1997</option>
-							<option>1996</option>
-							<option>1995</option>
+					<div class="commonselect" style="width:41.1%;margin-right:1%;">
+						<select class="selBox yearName1 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
-					<div class="commonselect" style="width:42.8%;margin-left:1%;">
-						<select class="selBox yearName2">
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-							<option>2012</option>
-							<option>2011</option>
-							<option>2010</option>
-							<option>2009</option>
-							<option>2008</option>
-							<option>2007</option>
-							<option>2006</option>
-							<option>2005</option>
-							<option>2004</option>
-							<option>2003</option>
-							<option>2002</option>
-							<option>2001</option>
-							<option>2000</option>
-							<option>1999</option>
-							<option>1998</option>
-							<option>1997</option>
-							<option>1996</option>
-							<option>1995</option>
+					<div class="commonselect" style="width:41.1%;margin-left:1%;">
+						<select class="selBox yearName2 year_Name">
+							<!-- <option selected="selected">2016</option> -->
 						</select>
-					</div>
+					</div>															
 					<span class="starAfter">*</span>
 				</td>	
 			</tr>
@@ -100,22 +58,12 @@
 					<div class="commonselect" style="width:42.8%;margin-right:1%;">
 						<select class="selBox chooseNum1">
 							<option selected="selected"></option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:42.8%;margin-left:1%;">
 						<select class="selBox chooseNum2">
 							<option selected="selected"></option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
 						</select>
 					</div>
 					<!-- <span style="color:red;width: 1%;">*</span> -->
@@ -247,6 +195,19 @@
 			}
 		}
 	})
+	$.when(LandHSSAIndex()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".chooseNum1,.chooseNum2").append(newopt);
+				}
+			}
+		}
+	})
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
@@ -268,7 +229,7 @@
 					if(result[i][j]==null){
 						text="";
 					}
-					if(j==1||j==2||j==7||j==8){
+					else if(j==1||j==2||j==7||j==8){
 						text=madeOneLineText(result[i][j])
 					}
 					else{
@@ -324,4 +285,10 @@
 	})
 	doForSearch(".projectUnits","/Landentity0");
 	doForSearch(".nameput","/LandHSSAname");
+	var yearArray=peopleArtExcellentResultsSetting.years_seperate;
+    for(var i=yearArray.length-1;i>=0;i--){
+    	var option_=$('<option></option>');
+    	option_.text(yearArray[i]);
+    	$(".year_Name").append(option_);
+    }
 </script>

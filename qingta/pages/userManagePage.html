@@ -134,8 +134,10 @@
 							<td>
 								<div class="commonselect"  style="width:100%;">
 									<select class="selBox userType">
-										<option>数据管理员</option>
 										<option>普通用户</option>
+										<option>数据管理员</option>
+										<option>试用用户</option>
+										<option>学校管理员</option>
 									</select>
 								</div>
 							</td>
@@ -184,6 +186,7 @@
 		$(".mailBox").val("");
 		$(".phoneNum").val("");
 		$(".userType").val("");
+		$(".userType").children("option").last().hide();
 		// $(".userType").removeAttr("disabled");
 		$(".forLogOut1").hide();
 		$(".deleteUser").hide();
@@ -206,8 +209,7 @@
 		$(".department").val(department);
 		$(".mailBox").val(email);
 		$(".phoneNum").val(phoneNum);
-		$(".userType").val(type);
-		// $(".userType").attr("disabled","disabled");
+		$(".userType").val(type);		// $(".userType").attr("disabled","disabled");
 		$(".mask").show();
 		popAlertBox(".unitsChoose");
 		dragBox(".unitsChoose");
@@ -249,7 +251,7 @@
 					alert("删除用户成功");
 				}
 				else{
-					alert("网络异常！");
+					alert(data.error);
 				}
 				window.location.reload();
 			}
@@ -280,9 +282,12 @@
 		}
 		var val=$(".userType").val();
 		if(val=="普通用户"){
-			type=0;
+			type=3;
 		}
-		else{
+		else if(val=="数据管理员"){
+			type=2;
+		}
+		else if(val=="学校管理员"){
 			type=1;
 		}
 		if(id){
@@ -308,7 +313,7 @@
 		}
 		$(".mask").hide();
 		$(".unitsChoose").hide();
-		// window.location.reload();
+		window.location.reload();
 	})
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
@@ -382,6 +387,9 @@
 								}
 								else if(result[i][7]==3){
 									result[i][j]="普通用户";
+								}
+								else if(result[i][7]==4){
+									result[i][j]="试用用户";
 								}
 							}
 							else if(j==8){

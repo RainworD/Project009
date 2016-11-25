@@ -113,6 +113,13 @@ function eventBind(){
 		$(this).parents(".section").siblings('.section').find(".leftImg").removeClass("white");
 		$(this).parents(".section").siblings('.section').find(".downBtn").removeClass("btnColor");
 		$(this).parents(".section").siblings('.section').find(".linka").removeClass("activeClass");
+		console.log("top:"+$(".topBar").offset().top);
+		$("html,body").animate({
+			scrollTop:$(".topBar").offset().top
+		},800)
+		// $(".rightBox").animate({
+		// 	scrollTop:$(".topBar").offset().top
+		// },800)
 	})
 	$(".rightBox").on("click",".leftImg",function(){
 		var showflag1=$(this).parents(".rightBox").attr("class");
@@ -345,6 +352,7 @@ function dragBoxUnitsChoose(selector){
 			$(".unitsEnter").val("")
 		}
 	})
+	console.log("outside")
 	$(selector).on("click",".forSure_",function(){
 		$(this).addClass("getUnitsInfo");
 		$(document).unbind(".drag");
@@ -374,6 +382,8 @@ function dragBoxUnitsChoose(selector){
 		}	
 	})
 	$(selector).on("click",".search-box",function(){
+		$(document).unbind(".drag");
+		console.log("inside");
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
 		var find = searchAndScrollToNode_(rootObj, search_str,"name");
 		if (!find) {
@@ -385,6 +395,7 @@ function dragBoxCodesChoose(selector){
 	var checkedArray_=[];
 	var _array_=[];
 	$(selector).on("click",".forSure",function(){
+		$(document).unbind(".drag");
 		$(".mask").hide();
 		$(selector).hide();
 		$(this).addClass("getUnitsInfo");
@@ -406,6 +417,7 @@ function dragBoxCodesChoose(selector){
 		}
 	})
 	$(selector).on("click",".search-box",function(){
+		$(document).unbind(".drag");
 		var search_str=$(this).siblings(".custom-input-box").find("input").val();
 		var find = searchAndScrollToNode_(codeObj, search_str,"name");
 		if (!find) {
@@ -848,6 +860,7 @@ function beforeHandle(){
     $(".beforeSearch").addClass("tableShow").removeClass("searchDo");
     $(".searchUndo").addClass("searchDo");
 }
+
 var searchAndScrollToNode_ = function (zTreeObj, str) {
 	var attrs = Array.prototype.slice.call(arguments, 2)
 
@@ -862,7 +875,7 @@ var searchAndScrollToNode_ = function (zTreeObj, str) {
 	})[0]
 
 	if (!node) {
-		alert('未找到相关数据')
+		alert('未找到相关数据');
 		return false 
 	}
 	

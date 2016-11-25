@@ -4,6 +4,10 @@
 		<a class="changeRight green changeButton" href="#/peoplePlanBeChoosenDetail.html">万人计划明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
+	<div class="addDataBtn" style="margin-right:0;background-color:#ccc;float:left" id="uploadForm">
+	    <input id="file" type="file"  multiple="multiple"/>
+	    <button id="upload" type="button">导入excel</button>
+	</div>
 </div>
 <div class="enterBox">
 	<div class="topTableBox">
@@ -157,7 +161,7 @@
 					'<td><input type="checkbox" class="checkItem"></td>'+
 					'<td data-id='+result[i][0]+
 					'></td>'+
-				'</tr>');
+				'</tr>'); 
 				searchInfo.children('td').eq(1).text((i+1)+20*(pageindex-1)*50);
 				searchInfo.children('td').eq(1).addClass('nowrap');
 				for (var j=1;j<result[i].length;j++) {
@@ -225,25 +229,33 @@
 </script>
 <script type="text/javascript">
 	$("#upload").bind("click",function(){
-		var formData = new FormData();
-		formData.append('file', $('#file')[0].files[0]);
-		$.ajax({
-		    url: '/MPimport',
-		    type: 'POST',
-		    cache: false,
-		    data: formData,
-		    processData: false,
-		    contentType: false
-		}).done(function(res) {
-			if(res.state==1){
-				alert("导入数据成功！")
-			}
-			else{
-				alert("导入数据失败！")
-			}
-		}).fail(function(res) {
-		});
+		var val=$(this).prev("input").val();
+		if(confirm("确认导入"+val)){
+			var formData = new FormData();
+			formData.append('file', $('#file')[0].files[0]);
+			$.ajax({
+			    url: '/MPimport',
+			    type: 'POST',
+			    cache: false,
+			    data: formData,
+			    processData: false,
+			    contentType: false
+			}).done(function(res) {
+				if(res.state==1){
+					alert("导入数据成功！")
+				}
+				else{
+					alert("导入数据失败！");
+					$(this).prev("input").val("");
+				}
+			}).fail(function(res) {
+			});
+		}
+		else{
+			$(this).prev("input").val("")
+		}
 	})
+
 	$(".infoTable1").on("click",".removeData",function(){
 		var that=$(this);
 		var id=$(this).parents("tr").children("td").eq(1).attr("data-id");

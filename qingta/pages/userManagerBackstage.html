@@ -150,8 +150,8 @@
 							<td>
 								<div class="commonselect"  style="width:100%;">
 									<select class="selBox userType">
-										<option>数据管理员</option>
 										<option>普通用户</option>
+										<option>数据管理员</option>
 										<option>学校管理员</option>
 										<option>试用用户</option>
 										<option>系统管理员</option> 
@@ -406,7 +406,7 @@
 					alert("删除用户成功");
 				}
 				else{
-					alert("网络异常！");
+					alert(data.error);
 				}
 				window.location.reload();
 			}
@@ -478,12 +478,26 @@
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		var entity_=$(".schoolNameEnter").val();
+		var entity;
+		$.ajax({
+			url:"/getEntityID",
+			type:"POST",
+			async:false,
+			data:{
+				name:entity_,
+			},
+			success:function(data){
+				if(data.state==1){
+					entity=data.result;
+				}
+			}
+		})
 		var name=$(".accountNameEnter").val();
 		var nickname=$(".userNameEnter").val();
 		var pageindex;
 		var params={
 			'pageindex':1,
-			'entity':entity_,
+			'entity':entity,
 			'name':name,
 			'nickname':nickname,
 		}

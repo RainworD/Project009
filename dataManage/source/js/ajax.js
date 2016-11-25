@@ -1669,9 +1669,19 @@ function ImportantRewardsDetail(unit,category,first_year,last_year,reward_name,u
     });
     return ajax;
 }
- function LandHSSAlevel(){//人文社科奖励类型
+function LandHSSAlevel(){//人文社科奖励类型
     var ajax = $.ajax({
         url: "/LandHSSAlevel",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandHSSAIndex(){//人文社科奖励类型
+    var ajax = $.ajax({
+        url: "/LandHSSAindex",
         type: "POST",// or GET
         data:{
 

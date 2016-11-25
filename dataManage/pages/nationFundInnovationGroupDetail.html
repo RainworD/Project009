@@ -212,24 +212,31 @@
 </script>
 <script type="text/javascript">
 	$("#upload").bind("click",function(){
-		var formData = new FormData();
-		formData.append('file', $('#file')[0].files[0]);
-		$.ajax({
-		    url: '/NSFCIGimport',
-		    type: 'POST',
-		    cache: false,
-		    data: formData,
-		    processData: false,
-		    contentType: false
-		}).done(function(res) {
-			if(res.state==1){
-				alert("导入数据成功！")
-			}
-			else{
-				alert("导入数据失败！")
-			}
-		}).fail(function(res) {
-		});
+		var val=$(this).prev("input").val();
+		if(confirm("确认导入"+val)){
+			var formData = new FormData();
+			formData.append('file', $('#file')[0].files[0]);
+			$.ajax({
+			    url: '/NSFCIGimport',
+			    type: 'POST',
+			    cache: false,
+			    data: formData,
+			    processData: false,
+			    contentType: false
+			}).done(function(res) {
+				if(res.state==1){
+					alert("导入数据成功！")
+				}
+				else{
+					alert("导入数据失败！");
+					$(this).prev("input").val("");
+				}
+			}).fail(function(res) {
+			});
+		}
+		else{
+			$(this).prev("input").val("")
+		}
 	})
 	$(".infoTable1").on("click",".removeData",function(){
 		var that=$(this);
