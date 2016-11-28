@@ -252,9 +252,6 @@
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
 		var eq=newindex%50;
-		var place1=$(".subjectLevel1").val();
-		var place2=$(".subjectLevel2").val();
-		var subject=$(".firstSubject").val(); 
 		if(eq==0){
 			eq=50;
 		}
@@ -266,16 +263,10 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=1;j<result[i].length;j++) {
 						var mytd=$('<td></td>');
 						if(result[i][j]==null){
 							result[i][j]="";
-						}
-						if(subject==""){
-							result[i][1]="全部学科";
-						}
-						if(j==3){
-							result[i][j]=place1+'-'+place2;
 						}
 						var text=madeNowrapText(result[i][j]);
 						mytd.html(text)
@@ -288,20 +279,23 @@
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		var pageindex;
-		var entitys=projectUnits;
-		var subject=$(".firstSubject").val();
-		var turn=$(".subjectEvaluate").val();
-		var place1=$(".subjectLevel1").val();
-		var place2=$(".subjectLevel2").val(); 
-		var schoolOnly1=$("#schoolOnly").prop("checked");
-		if(schoolOnly1){
-			schoolOnly=1;
+		var entity=$(".schoolName").val();
+		var entity2=$(".dependSchool").val();
+		var name=$('.nameput').val();
+		var position=$(".position").val();
+		var type=$(".type").val();
+		var department=$(".subject").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val(); 		
+		var _index1=$("._index1").val();
+		var _index2=$("._index2").val(); 
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
+			$(".tableContent").removeClass("tableShow");
+			$(".searchUndo").removeClass("searchDo")
 		}
-		else{
-			schoolOnly=0;
-		}
-		if(place1!=""&&place2!=""&&(place1-0)>(place2-0)){
-			alert("输入的起始排名不能大于终止排名！");
+		else if(_index1!=""&&_index2!=""&&(_index1-0)>(_index2-0)){
+			alert("输入的起始届数不能大于终止届数！");
 			$(".tableContent").removeClass("tableShow");
 			$(".searchUndo").removeClass("searchDo")
 		}
@@ -310,61 +304,58 @@
 			$(".searchUndo").addClass("searchDo")
 			var params={
 				'pageindex':1,
-				'entitys':entitys,
-				'turn':turn,
-				'place1':place1,
-				'place2':place2,
-				'subject':subject,	
-				'schoolOnly':schoolOnly,	
+				'type':type,
+				'departemnt':department,
+				'year1':year1,
+				'year2':year2,
+				'_index1':_index1,
+				'_index2':_index2,
+				'position':position,
+				'name':name,
+				'entity':entity,
+				'entity2':entity2,	
 			}
-			getDataBox(params,'/askMSDsta');
+			getDataBox(params,'/askSTCME');
 		}
 	})
 	$(".dataOut").bind("click",function(){
-		var entitys=projectUnits;
-		var subject=$(".firstSubject").val();
-		var turn=$(".subjectEvaluate").val();
-		var place1=$(".subjectLevel1").val();
-		var place2=$(".subjectLevel2").val(); 
-		var schoolOnly1=$("#schoolOnly").prop("checked");
-		if(schoolOnly1){
-			schoolOnly=1;
-		}
-		else{
-			schoolOnly=0;
-		}
+		var entity=$(".schoolName").val();
+		var entity2=$(".dependSchool").val();
+		var name=$('.nameput').val();
+		var position=$(".position").val();
+		var type=$(".type").val();
+		var department=$(".subject").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val(); 		
+		var _index1=$("._index1").val();
+		var _index2=$("._index2").val(); 
 		var pageindex;
 		var params={
 			// 'pageindex':1,
-			'entitys':entitys,
-			'turn':turn,
-			'place1':place1,
-			'place2':place2,
-			'subject':subject,	
-			'schoolOnly':schoolOnly,	
+			'type':type,
+			'departemnt':department,
+			'year1':year1,
+			'year2':year2,
+			'_index1':_index1,
+			'_index2':_index2,
+			'position':position,
+			'name':name,
+			'entity':entity,
+			'entity2':entity2,	
 		}
 		$.ajax({
-			url:'/askMSDsta',
+			url:'/askSTCME',
 			type:'POST',
 			data:params,
 			traditional:true,
 			success:function(data){
 				var result=data.result;
-				var place1=$(".subjectLevel1").val();
-				var place2=$(".subjectLevel2").val();
-				var subject=$(".firstSubject").val(); 
 				if(data.state==1){	
 				    for(var i=0;i<result.length;i++){
 				    	if(result[i]){
-							for (var j=0;j<result[i].length;j++) {
+							for (var j=1;j<result[i].length;j++) {
 								if(result[i][j]==null){
 									result[i][j]="";
-								}
-								if(subject==""){
-									result[i][1]="全部学科";
-								}
-								if(j==3){
-									result[i][j]=place1+'-'+place2;
 								}
 							}
 						}

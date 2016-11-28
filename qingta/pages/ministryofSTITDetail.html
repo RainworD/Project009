@@ -172,7 +172,7 @@
 				var newopt=$('<option></option>');
 				if (result[i]) {
 					newopt.text(result[i]);
-					$(".subject").append(newopt);
+					$(".type").append(newopt);
 				}
 			}
 		}
@@ -194,10 +194,19 @@
 			if(result[i]){
 				for (var j=1;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
+					var text;
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
-					var text=madeNowrapText(result[i][j]);
+					if(j==1){
+						text=madeOneLineText(result[i][j])
+					}
+					else if(j==4){
+						text=madeOneLineText(result[i][j])
+					}
+					else{
+						text=madeNowrapText(result[i][j]);
+					} 
 					mytd.html(text);
 					searchInfo.append(mytd);
 				}

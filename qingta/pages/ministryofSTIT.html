@@ -28,13 +28,13 @@
 				<td style="width:19.3%">
 					<div class="commonselect" style="width:41.1%;margin-right:1%;">
 						<select class="selBox yearName1 year_Name">
-							<option selected="selected">2016</option>
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>
 					<span style="text-align: center;width:7%;">至</span>
 					<div class="commonselect" style="width:41.1%;margin-left:1%;">
 						<select class="selBox yearName2 year_Name">
-							<option selected="selected">2016</option>
+							<!-- <option selected="selected">2016</option> -->
 						</select>
 					</div>					
 					<span class="starAfter">*</span>
@@ -201,9 +201,9 @@
 							result[i][j]="";
 						}
 						if(type==""){
-							result[i][3]="全部学科";
+							result[i][2]="全部类别";
 						}
-						if(j==2){
+						if(j==1){
 							result[i][j]=year1+'-'+year2;
 						}
 						var text=madeNowrapText(result[i][j]);
@@ -286,9 +286,9 @@
 									result[i][j]="";
 								}
 								if(type==""){
-									result[i][3]="全部学科";
+									result[i][2]="全部类别";
 								}
-								if(j==2){
+								if(j==1){
 									result[i][j]=year1+'-'+year2;
 								}
 							}

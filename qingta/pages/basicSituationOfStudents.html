@@ -1,6 +1,6 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox" style="background-color:#fff;">
-		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">在校生基本情况</a>
+		<a class="changeLeft green changeButton" style="width: 100%;border-radius: 6px;text-align: center;padding-left:10px;">在校生基本数据</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -220,7 +220,12 @@
 		$(".infoTable1").children('tbody').empty();
 		var pageindex;
 		var year=$(".yearName1").val();
-		var entity=projectUnits;
+		if($(".unitsEnter").val()){
+			entitys=projectUnits;
+		}
+		else{
+			entity="";
+		}
 		var orderby=$("input[name='selBar']:checked").val();
 		// var schoolOnly1=$("#schoolOnly").prop("checked");
 		// if(schoolOnly1){
@@ -234,7 +239,7 @@
 		var params={
 			'pageindex':1,
 			'year':year,
-			'entity':entity,
+			'entitys':entitys,
 			'orderby':orderby
 		}
 		getDataBox(params,'/askS');
@@ -242,7 +247,7 @@
 	$(".dataOut").bind("click",function(){
 		var pageindex;
 		var year=$(".yearName1").val();
-		var entity=projectUnits;
+		var entitys=projectUnits;
 		var orderby=$("input[name='selBar']:checked").val();
 		var params={
 			// 'pageindex':1,
