@@ -109,7 +109,6 @@
 	</p>
 </div>
 <div class="mask mask1"></div>
-<div class="mask mask1"></div>
 <div class="unitsChoose unitsChoose1" style="width:560px;">
 	<div class="unitsContainer">
 		<div class="cancelBtn"> 
@@ -165,6 +164,34 @@
 		</div>
 	</div>
 </div>
+<div class="unitsChoose unitsChoose2">
+	<div class="unitsContainer">
+		<div class="cancelBtn">
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader">
+			<p class="unitsTitle">评议组选择</p>
+		</div>
+		<div class="unitsContent unitsContent2" style="padding-top:20px">
+			<table class="infoTable infoTable2" style="cursor: pointer;">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>评议组名称</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 	var projectUnits=[];
 	$(".showDetailBox1").bind("click",function(){
@@ -172,6 +199,12 @@
 		popAlertBox(".unitsChoose1");
 		dragBox(".unitsChoose1");
 	})
+	$(".showDetailBox2").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose2");
+		dragBox(".unitsChoose2");
+	})
+	dragBoxSortsChoose(".unitsChoose2");
 	getUnits();
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
@@ -186,6 +219,20 @@
 					newopt.text(result[i]);
 					$(".firstSubject").append(newopt);
 				}
+			}
+		}
+	})
+	$.when(LandDRGtype()).done(function(data){
+		var result=data.result;
+		if(data.state==1){
+			for (var i = 0;i<result.length;i++) {
+				var mytr=$('<tr>'+
+								'<td></td>'+
+								'<td></td>'+
+							'</tr>');
+				mytr.children('td').eq(0).text(i+1);
+				mytr.children('td').eq(1).text(result[i]);
+				$(".unitsChoose").find(".infoTable2").children('tbody').append(mytr);
 			}
 		}
 	})
@@ -217,9 +264,9 @@
 							result[i][j]="";
 						}
 						if(type==""){
-							result[i][4]="全部学科";
+							result[i][3]="全部评议组";
 						}
-						if(j==3){
+						if(j==2){
 							if(!_index1&&!_index2){
 								result[i][j]="全部届数"
 							}
@@ -227,7 +274,7 @@
 								result[i][j]=_index1+'-'+_index2;
 							}
 						}
-						else if(j==2){
+						else if(j==1){
 							result[i][j]=year1+'-'+year2;
 						}
 						var text=madeNowrapText(result[i][j]);
@@ -325,9 +372,9 @@
 									result[i][j]="";
 								}
 								if(type==""){
-									result[i][4]="全部学科";
+									result[i][3]="全部评议组";
 								}
-								if(j==3){
+								if(j==2){
 									if(!_index1&&!_index2){
 										result[i][j]="全部届数"
 									}
@@ -335,7 +382,7 @@
 										result[i][j]=_index1+'-'+_index2;
 									}
 								}
-								else if(j==2){
+								else if(j==1){
 									result[i][j]=year1+'-'+year2;
 								}
 							}

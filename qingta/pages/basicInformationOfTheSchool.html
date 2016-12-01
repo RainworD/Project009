@@ -225,8 +225,6 @@
 		// else{
 		// 	schoolOnly=0;
 		// }
-		$(".tableContent").addClass("tableShow");
-		$(".searchUndo").addClass("searchDo");
 		var params={
 			'pageindex':1,
 			'year':year,
@@ -244,8 +242,7 @@
 		var type=$(".department").val();
 		var params={
 			// 'pageindex':1,
-			'year1':year1,
-			'year2':year2,
+			'year':year,
 			'type':type,
 			'entitys':entitys,
 			'orderby':orderby
@@ -267,6 +264,7 @@
 									result[i][j]="";
 								}
 							}
+							result[i].splice(0,1);
 						}
 				    }		
 					array_all=result;

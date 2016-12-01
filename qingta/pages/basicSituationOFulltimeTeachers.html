@@ -66,7 +66,7 @@
 						<th>中级</th>
 						<th>初级</th>
 						<th>未定职级</th>
-						<th>师生比*100</th>
+						<th>师生比</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -183,7 +183,7 @@
 						}
 						else{
 							var newNum=Number(result[i][j]).toFixed(2);
-							text=newNum;
+							text=madeNowrapText('1:'+newNum);
 						}
 					}
 					mytd.html(madeNowrapText(text));
@@ -207,8 +207,6 @@
 		// else{
 		// 	schoolOnly=0;
 		// }
-		$(".tableContent").addClass("tableShow");
-		$(".searchUndo").addClass("searchDo");
 		var params={
 			'pageindex':1,
 			'year':year,
@@ -224,10 +222,9 @@
 		var orderby=$("input[name='selBar']:checked").val();
 		var params={
 			// 'pageindex':1,
-			'year1':year1,
-			'year2':year2,
-			'subject':subject,
+			'year':year,
 			'entitys':entitys,
+			'orderby':orderby
 			// 'schoolOnly':schoolOnly,
 		}
 		$.ajax({
@@ -241,6 +238,7 @@
 				    for(var i=0;i<result.length;i++){
 				    	if(result[i]){
 							for (var j=1;j<result[i].length;j++) {
+								var text=result[i][j];
 								if(result[i][j]==null){
 									result[i][j]="";
 								}
@@ -250,10 +248,11 @@
 									}
 									else{
 										var newNum=Number(result[i][j]).toFixed(2);
-										text=newNum;
+										result[i][j]='1:'+newNum;
 									}
 								}
 							}
+							result[i].splice(0,1);
 						}
 				    }		
 					array_all=result;

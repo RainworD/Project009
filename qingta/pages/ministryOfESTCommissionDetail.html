@@ -206,7 +206,21 @@
 	getUnits();
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
+	doForSearch(".schoolName","/Landentity0");
 	topBarControl();
+	$.when(LandSTCMEtype()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".type").append(newopt);
+				}
+			}
+		}
+	})
 	$.when(LandSTCMEdepartment()).done(function(data){
 		var state=data.state;
 		var result=data.result;
@@ -220,17 +234,42 @@
 			}
 		}
 	})
-	$.when(LandSTCMEtype()).done(function(data){
-		var state=data.state;
-		var result=data.result;
-		if(state==1){
-			for (var i=0;i<result.length;i++) {
-				var newopt=$('<option></option>');
-				if (result[i]) {
-					newopt.text(result[i]);
-					$(".type").append(newopt);
+	$(".type").bind("change",function(){
+		if($(".type").val()==""){
+			$.when(LandSTCMEdepartment()).done(function(data){
+				var state=data.state;
+				var result=data.result;
+				if(state==1){
+					for (var i=0;i<result.length;i++) {
+						var newopt=$('<option></option>');
+						if (result[i]) {
+							newopt.text(result[i]);
+							$(".subject").append(newopt);
+						}
+					}
+					var firsttd=$('<option selected="selected"></option>');
+					$(".subject").prepend(firsttd);
 				}
-			}
+			})
+		}
+		else{
+			var sub=$(".type").val();
+			$(".subject").empty();
+			$.when(LandSTCMEFilterdepartment(sub)).done(function(data){
+				var state=data.state;
+				var result=data.result;
+				if(state==1){
+					for (var i=0;i<result.length;i++) {
+						var newopt=$('<option></option>');
+						if (result[i]) {
+							newopt.text(result[i]);
+							$(".subject").append(newopt);
+						}
+					}
+					var firsttd=$('<option selected="selected"></option>');
+					$(".subject").prepend(firsttd);
+				}
+			})
 		}
 	})
 	$.when(LandSTCMEindex()).done(function(data){

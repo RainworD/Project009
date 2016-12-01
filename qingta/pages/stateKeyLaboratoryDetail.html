@@ -21,13 +21,19 @@
 				<th style="width:10.6%;">领域 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput nameput">
+						<input class="commonput area">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 				<th style="width:10.6%;">基地名称 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
 						<input class="commonput nameput">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 				<th style="width:10.6%;">公布年度 :</th>	
@@ -50,7 +56,10 @@
 				<th style="width:10.6%;">主管部门 :</th>
 				<td style="width:18.3%;">
 					<div class="commonInputBox" style="width:100%;">
-						<input class="commonput nameput">
+						<input class="commonput department">
+						<ul class="showElse">
+							
+						</ul>
 					</div>
 				</td>
 				<td colspan="2"></td>
@@ -87,7 +96,6 @@
 			</table>
 		</div>
 	</div>
-	<div class="dataOut"><img class="" src="../source/img/download.png" style="display: block;width: 100%;"></div> 
 	<div class="M-box"></div>
 </div>
 <div class="searchUndo">
@@ -100,7 +108,6 @@
 		<span class="sr-only">Loading...</span>
 	</p>
 </div>
-<div class="mask mask1"></div>
 <div class="mask mask1"></div>
 <div class="unitsChoose unitsChoose1" style="width:560px;">
 	<div class="unitsContainer">
@@ -167,16 +174,17 @@
 	getUnits();
 	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
 	doForSearch(".searchBox","/Landentity0");
+	doForSearch(".schoolName","/Landentity0");
+	doForSearch(".nameput","/LandNKLname");
+	doForSearch(".area","/LandNKLsubject");
+	doForSearch(".department","/LandNKLdepartment");
 	topBarControl();
 </script>
 <script type="text/javascript">
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
-		var eq=newindex%50;
-		var place1=$(".subjectLevel1").val();
-		var place2=$(".subjectLevel2").val();
-		var subject=$(".firstSubject").val(); 
+		var eq=newindex%50; 
 		if(eq==0){
 			eq=50;
 		}
@@ -188,16 +196,10 @@
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			// console.log((i+1)+20*(pageindex-1)*50);
 			if(result[i]){
-				for (var j=0;j<result[i].length;j++) {
+				for (var j=1;j<result[i].length;j++) {
 						var mytd=$('<td></td>');
 						if(result[i][j]==null){
 							result[i][j]="";
-						}
-						if(subject==""){
-							result[i][1]="全部学科";
-						}
-						if(j==3){
-							result[i][j]=place1+'-'+place2;
 						}
 						var text=madeNowrapText(result[i][j]);
 						mytd.html(text)
@@ -210,20 +212,14 @@
 	$(".searchBtn").bind("click",function(){
 		$(".infoTable1").children('tbody').empty();
 		var pageindex;
-		var entitys=projectUnits;
-		var subject=$(".firstSubject").val();
-		var turn=$(".subjectEvaluate").val();
-		var place1=$(".subjectLevel1").val();
-		var place2=$(".subjectLevel2").val(); 
-		var schoolOnly1=$("#schoolOnly").prop("checked");
-		if(schoolOnly1){
-			schoolOnly=1;
-		}
-		else{
-			schoolOnly=0;
-		}
-		if(place1!=""&&place2!=""&&(place1-0)>(place2-0)){
-			alert("输入的起始排名不能大于终止排名！");
+		var entity=$(".schoolName").val();
+		var name=$(".nameput").val();
+		var subject=$(".area").val();
+		var department=$(".department").val();
+		var year1=$(".yearName1").val();
+		var year2=$(".yearName2").val(); 
+		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
+			alert("输入的起始年度不能大于终止年度！");
 			$(".tableContent").removeClass("tableShow");
 			$(".searchUndo").removeClass("searchDo")
 		}
@@ -232,98 +228,15 @@
 			$(".searchUndo").addClass("searchDo")
 			var params={
 				'pageindex':1,
-				'entitys':entitys,
-				'turn':turn,
-				'place1':place1,
-				'place2':place2,
-				'subject':subject,	
-				'schoolOnly':schoolOnly,	
+				'entity':entity,
+				'year1':year1,
+				'year2':year2,
+				'name':name,
+				'subject':subject,
+				'department':department,
 			}
-			getDataBox(params,'/askMSDsta');
+			getDataBox(params,'/askNKL');
 		}
-	})
-	$(".dataOut").bind("click",function(){
-		var entitys=projectUnits;
-		var subject=$(".firstSubject").val();
-		var turn=$(".subjectEvaluate").val();
-		var place1=$(".subjectLevel1").val();
-		var place2=$(".subjectLevel2").val(); 
-		var schoolOnly1=$("#schoolOnly").prop("checked");
-		if(schoolOnly1){
-			schoolOnly=1;
-		}
-		else{
-			schoolOnly=0;
-		}
-		var pageindex;
-		var params={
-			// 'pageindex':1,
-			'entitys':entitys,
-			'turn':turn,
-			'place1':place1,
-			'place2':place2,
-			'subject':subject,	
-			'schoolOnly':schoolOnly,	
-		}
-		$.ajax({
-			url:'/askMSDsta',
-			type:'POST',
-			data:params,
-			traditional:true,
-			success:function(data){
-				var result=data.result;
-				var place1=$(".subjectLevel1").val();
-				var place2=$(".subjectLevel2").val();
-				var subject=$(".firstSubject").val(); 
-				if(data.state==1){	
-				    for(var i=0;i<result.length;i++){
-				    	if(result[i]){
-							for (var j=0;j<result[i].length;j++) {
-								if(result[i][j]==null){
-									result[i][j]="";
-								}
-								if(subject==""){
-									result[i][1]="全部学科";
-								}
-								if(j==3){
-									result[i][j]=place1+'-'+place2;
-								}
-							}
-						}
-				    }		
-					array_all=result;
-					var array_item=[];
-					var title_item=$(".infoTable1 thead").children(".tableTitle").children("th");
-					for(var i=1;i<title_item.length;i++){
-						array_item.push(title_item.eq(i).text());
-					}
-					array_all.splice(0,0,array_item);
-					if(array_all.length){
-						$.ajax({
-							url:'/Excelexport',
-							type:"POST",
-							traditional:true,
-							data:{
-								array_all:array_all,
-								title:$(".green").text()
-							},
-							success:function(data){
-								if(data.state==1){
-									window.open(data.path);
-								}
-							}
-						})
-					}
-				}
-				else if(data.state==0){
-					alert("没有可导出的数据！");
-				}
-				else{
-					alert(data.error);
-					window.location.href="login.html";
-				}
-			}
-		})
 	})
 	$.when(LandMOESDsubject()).done(function(data){
 		var state=data.state;

@@ -1,7 +1,7 @@
 <div class="changeBarContainer">
 	<div class="changeBarBox"> 
-		<a href="#/postdoctoralMobileStation.html" class="changeLeft green changeButton">博士后流动站评估结果统计</a>
-		<a href="#/postdoctoralMobileStationDetail.html" class="changeRight changeButton">博士后流动站评估结果明细</a>
+		<a href="#/postdoctoralMobileStation.html" class="changeLeft green changeButton">博士后流动站统计</a>
+		<a href="#/postdoctoralMobileStationDetail.html" class="changeRight changeButton">博士后流动站明细</a>
 	</div>
 	<p class="hideBtn">隐藏查询条件</p>
 </div>
@@ -51,14 +51,8 @@
 					<tr class="tableTitle">
 						<th>序号</th>
 						<th>单位名称</th>
-						<th>评估年度</th>
 						<th>一级学科</th>
-						<th>优秀</th>
-						<th>良好</th>
-						<th>合格</th>
-						<th>不合格</th>
-						<th>未参评</th>
-						<th>汇总统计</th>
+						<th>合计</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -176,13 +170,13 @@
 			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
 			searchInfo.children('td').eq(0).addClass('nowrap');
 			if(result[i]){
-				for (var j=0;j<result[i].length-1;j++) {
+				for (var j=0;j<result[i].length;j++) {
 					var mytd=$('<td></td>');
 					if(result[i][j]==null){
 						result[i][j]="";
 					}
 					if(subject==""){
-						result[i][3]="全部一级学科";
+						result[i][1]="全部一级学科";
 					}
 					else{}
 					var text=madeNowrapText(result[i][j]);
@@ -211,7 +205,7 @@
 			'schoolOnly':schoolOnly,
 			'subject':subject
 		}
-		getDataBox(params,'/askPDSsta');
+		getDataBox(params,'/askPDS2sta');
 	})
 	$(".dataOut").bind("click",function(){
 		var entitys=projectUnits;
@@ -231,7 +225,7 @@
 			'subject':subject
 		}
 		$.ajax({
-			url:'/askPDSsta',
+			url:'/askPDS2sta',
 			type:'POST',
 			data:params,
 			traditional:true,
@@ -241,12 +235,12 @@
 				if(data.state==1){	
 				    for(var i=0;i<result.length;i++){
 				    	if(result[i]){
-							for (var j=0;j<result[i].length-1;j++) {
+							for (var j=0;j<result[i].length;j++) {
 								if(result[i][j]==null){
 									result[i][j]="";
 								}
 								if(subject==""){
-									result[i][3]="全部一级学科";
+									result[i][1]="全部一级学科";
 								}
 								else{}
 							}

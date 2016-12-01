@@ -368,12 +368,12 @@
 									result[i][j]="";
 								}
 								if(subject==""){
-									result[i][2]="全部一级学科";
+									result[i][1]="全部一级学科";
 								}
 								if(type==""){
-									result[i][3]="全部类型";
+									result[i][2]="全部类型";
 								}
-								if(j==5){
+								if(j==4){
 									if(!_index1&&!_index2){
 										result[i][j]="全部批次";
 									}
@@ -381,10 +381,9 @@
 										result[i][j]=_index1+'-'+_index2;
 									}
 								}
-								else if(j==4){
+								else if(j==3){
 									result[i][j]=year1+'-'+year2;
 								}
-								else{}
 							}
 						}
 				    }		

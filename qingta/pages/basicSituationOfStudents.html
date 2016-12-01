@@ -46,7 +46,7 @@
 					</label>
 					<label for="ratioFirst" class="label2">
 						<input type="radio" id="ratioFirst" name="selBar" class="radioInput" value="4">
-						按本硕比排序
+						按本研比排序
 					</label>
 					<label for="numberOfStudentsFirst" class="label2">
 						<input type="radio" id="numberOfStudentsFirst" name="selBar" class="radioInput" checked="checked" data-state="check" value="5">
@@ -179,6 +179,7 @@
 	function selfResult(pageindex,result,newindex){
 		$(".infoTable1").children('tbody').empty();
 		$(".infoTable1 thead").find('th').addClass("nowrap");
+		$(".infoTable1 thead").find('th').css("font-size","13px");
 		var eq=newindex%50;
 		if(eq==0){
 			eq=50;
@@ -203,11 +204,14 @@
 						}
 						else{
 							var newNum=Number(result[i][j]).toFixed(2);
-							text=madeNowrapText(newNum);
+							text=madeNowrapText(newNum+':1');
 						}
 					}
 					else if(j==1){
 						text=madeOneLineText(result[i][j]);
+					}
+					else{
+						text=madeNowrapText(result[i][j]);
 					}
 					mytd.html(text);
 					searchInfo.append(mytd);
@@ -224,7 +228,7 @@
 			entitys=projectUnits;
 		}
 		else{
-			entity="";
+			entitys="";
 		}
 		var orderby=$("input[name='selBar']:checked").val();
 		// var schoolOnly1=$("#schoolOnly").prop("checked");
@@ -234,8 +238,8 @@
 		// else{
 		// 	schoolOnly=0;
 		// }
-		$(".tableContent").addClass("tableShow");
-		$(".searchUndo").addClass("searchDo");
+		// $(".tableContent").addClass("tableShow");
+		// $(".searchUndo").addClass("searchDo");
 		var params={
 			'pageindex':1,
 			'year':year,
@@ -251,10 +255,9 @@
 		var orderby=$("input[name='selBar']:checked").val();
 		var params={
 			// 'pageindex':1,
-			'year1':year1,
-			'year2':year2,
-			'subject':subject,
+			'year':year,
 			'entitys':entitys,
+			'orderby':orderby
 			// 'schoolOnly':schoolOnly,
 		}
 		$.ajax({
@@ -277,10 +280,11 @@
 									}
 									else{
 										var newNum=Number(result[i][j]).toFixed(2);
-										text=newNum;
+										result[i][j]=newNum+':1';
 									}
 								}
 							}
+							result[i].splice(0,1);
 						}
 				    }		
 					array_all=result;

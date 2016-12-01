@@ -164,6 +164,8 @@
 <script type="text/javascript">
 	var projectUnits=[];
 	topBarControl();
+	doForSearch(".schoolName","/Landentity0");
+	doForSearch(".teamName","/LandSTMIname");
 	$.when(LandSTMItype()).done(function(data){
 		var state=data.state;
 		var result=data.result;
@@ -221,9 +223,9 @@
 		var entity=$(".schoolName").val();
 		var name=$(".teamName").val();
 		var type=$(".type").val();
-		var manager=$(".name").val();
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val();
+		var manager=$(".nameput").val();
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
 			alert("输入的起始年度不能大于终止年度！");
 			$(".tableContent").removeClass("tableShow");

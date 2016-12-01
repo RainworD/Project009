@@ -225,6 +225,7 @@
 		var _index2=$("._index2").val(); 
 		var year1=$(".yearName1").val();
 		var year2=$(".yearName2").val(); 
+		var type=$(".commentGroup").val();
 		var manager=$(".nameput").val();
 		if(year1!=""&&year2!=""&&(year1-0)>(year2-0)){
 			alert("输入的起始年度不能大于终止年度！");
@@ -248,6 +249,7 @@
 				'year1':year1,
 				'year2':year2,	
 				'manager':manager,
+				'type':type,
 			}
 			getDataBox(params,'/askDRG');
 		}

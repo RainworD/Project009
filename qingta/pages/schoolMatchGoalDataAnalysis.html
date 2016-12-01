@@ -130,7 +130,56 @@
 		</div>
 	</div>
 </div>
-<div class="unitsChoose unitsChoose2">
+<div class="unitsChoose unitsChoose2" style="width:560px;">
+	<div class="unitsContainer">
+		<div class="cancelBtn"> 
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目类型选择</p>
+		</div>
+		<div class="unitsContent unitsContent1" style="cursor:default;padding:0px;display: block;padding-top: 20px;">
+			<!-- <div class="topSearch">
+				<p class="topSearchContent"><input placeholder="快速查找单位"><i class="fa fa-search fa-lg"></i></p> 
+			</div> -->
+			<!-- <div class="custom-search-bar">
+				<div class="custom-input-box">
+					<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
+					<ul class="showElse" style="top: 28px;border-top: none;border: 1px solid #ebebeb;">
+							
+					</ul>
+				</div>
+				<div class="search-box">
+					<i class="fa fa-search fa-lg"></i>
+				</div>
+			</div> -->
+			<div class="totalModel" style="height:400px;margin-top:0">
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check"><span id="checkAll" class="check_new" treenode_check=""></span></span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">分析项目名称</span>
+						</div>
+					</div>
+					<div class="qingta-ztree-table" style="width:535px">
+						<ul id="tree_new" class="ztree ztree-at-top" style="width:518px">
+						</ul>
+					</div>
+				</div>
+				<!-- <ul id="tree" class="ztree">
+				</ul> -->
+			</div>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+<!-- <div class="unitsChoose unitsChoose2">
 	<div class="unitsContainer">
 		<div class="cancelBtn">
 			<i class="fa fa-close showCollege"></i>
@@ -211,14 +260,14 @@
 						<td data-type="15">国家重点学科入选数量(一级/二级)</td>
 						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
-					<!-- <tr class="esihide">
+					<tr class="esihide">
 						<td data-type="16">ESI全球1%学科数量</td>
 						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
 					<tr class="esihide">
 						<td data-type="17">ESI全球排名</td>
 						<td><input type="checkbox" class="checkItem" checked="checked"></td>
-					</tr> -->
+					</tr>
 					<tr>
 						<td data-type="18">国家级特色专业数量</td>
 						<td><input type="checkbox" class="checkItem" checked="checked"></td>
@@ -259,7 +308,7 @@
 						<td data-type="31">科技成果与技术转让收入</td>
 						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr> -->
-					<tr>
+					<!-- <tr>
 						<td data-type="26">年度预算收入</td>
 						<td><input type="checkbox" class="checkItem" checked="checked"></td>
 					</tr>
@@ -301,7 +350,7 @@
 			</p>
 		</div>
 	</div>
-</div>
+</div> -->
 <script type="text/javascript">
 	$(".showDetailBox2").bind("click",function(){
 		$(".mask").show();
@@ -330,9 +379,7 @@
 </script>
 <script type="text/javascript">
 	// $(".unitsChoose1 .forSure_").bind("click",function(){
-	// 	console.log(projectUnits.length);
 	// 	if(projectUnits.length>10){
-	// 		console.log("forSure");
 	// 		alert("选择的学校数量过多，请重新选择！");
 	// 	}
 	// 	else{
@@ -372,125 +419,133 @@
 					thead_new.append(th_add);
 				}
 				for(var j=0;j<len_2;j++){
-					var tr_add=$('<tr>'+
+					var new_tr_add=$('<tr>'+
+						'<td class="nowrap" colspan='+Number(len_1+1)+'>'+analysisArray[j].name+'对标分析</td>'+
+						'</tr>');
+					new_tr_add.css({"background-color":"#ffffdf","color":"#000"});
+					$(".infoTable1 tbody").append(new_tr_add);
+					for(var w=0;w<analysisArray[j].array.length;w++){
+						var tr_add=$('<tr>'+
 						'<td class="nowrap"></td>'+
 						'</tr>');
-					for(var i=0;i<len_1;i++){
-						var td_add=$('<td></td>');
-						tr_add.append(td_add);
+						for(var i=0;i<len_1;i++){
+							var td_add=$('<td></td>');
+							tr_add.append(td_add);
+						}
+
+						if(analysisArray[j].array[w].id=="1"){
+							getPlanCount(tr_add,entitys,year1,year2,len_1,"0");
+						}
+						else if(analysisArray[j].array[w].id=="2"){
+							getPlanCount(tr_add,entitys,year1,year2,len_1,"1");
+						}
+						else if(analysisArray[j].array[w].id=="3"){
+							getNaturalCount(tr_add,entitys,year1,year2,len_1,"0");
+						}
+						else if(analysisArray[j].array[w].id=="4"){
+							getNaturalCount(tr_add,entitys,year1,year2,len_1,"1");
+						}
+						else if(analysisArray[j].array[w].id=="5"){
+							getSocietyCount(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="6"){
+							getEduArt(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="7"){
+							getTechEnginerCount(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="36"){
+							getEnginerCount(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="8"){
+							getCJCount(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="9"){
+							getOYPCount(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="10"){
+							getThousandCount(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="11"){
+							getEYCount(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="12"){
+							getYouthCount(tr_add,entitys,year1,year2,len_1);
+						}
+						else if(analysisArray[j].array[w].id=="13"){
+							getInnovation(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="14"){
+							getFundGroup(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="15"){
+							getImportantSubject(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="16"){
+							getESICount(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="17"){
+							getESILevel(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="18"){
+							getSpecial(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="19"){
+							getShareLesson(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="20"){
+							getPublicLesson(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="21"){
+							getExcellent(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="22"){
+							getThreeAward(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="23"){
+							getEduAward(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="24"){
+							getEduArtResults(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="25"){
+							getPatent(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="26"){
+							getBudgetIncome(tr_add,entitys,year1,year2,len_1,"0")
+						}
+						else if(analysisArray[j].array[w].id=="27"){
+							getBudgetIncome(tr_add,entitys,year1,year2,len_1,"1")
+						}
+						else if(analysisArray[j].array[w].id=="28"){
+							getTechFee(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="29"){
+							getEduFee(tr_add,entitys,year1,year2,len_1)
+						}
+						else if(analysisArray[j].array[w].id=="30"){
+							getEduResult(tr_add,entitys,year1,year2,len_1)
+						}
+						// else if(analysisArray[j].array[w].id=="31"){
+						// 	getTechTransform(tr_add,entitys,year1,year2,len_1)
+						// }
+						else if(analysisArray[j].array[w].id=="32"){
+							getannualBugetIncome(tr_add,entitys,year1,year2,len_1,"0")
+						}
+						else if(analysisArray[j].array[w].id=="33"){
+							getannualBugetIncome(tr_add,entitys,year1,year2,len_1,"0")
+						}
+						else if(analysisArray[j].array[w].id=="34"){
+							getLessonFee(tr_add,entitys,year1,year2,len_1,"0")
+						}
+						else if(analysisArray[j].array[w].id=="35"){
+							getLessonFee(tr_add,entitys,year1,year2,len_1,"1")
+						}
+						tr_add.children("td").eq(0).text(analysisArray[j].array[w].name);
+						tr_add.children("td").eq(0).attr("data-id",analysisArray[j].array[w].id)
+						// tr_add.children("td").eq(index).val(projectNum);
+						$(".infoTable1 tbody").append(tr_add);
 					}
-					if(analysisArray_[j]=="1"){
-						getPlanCount(tr_add,entitys,year1,year2,len_1,"0");
-					}
-					else if(analysisArray_[j]=="2"){
-						getPlanCount(tr_add,entitys,year1,year2,len_1,"1");
-					}
-					else if(analysisArray_[j]=="3"){
-						getNaturalCount(tr_add,entitys,year1,year2,len_1,"0");
-					}
-					else if(analysisArray_[j]=="4"){
-						getNaturalCount(tr_add,entitys,year1,year2,len_1,"1");
-					}
-					else if(analysisArray_[j]=="5"){
-						getSocietyCount(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="6"){
-						getEduArt(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="7"){
-						getTechEnginerCount(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="36"){
-						getEnginerCount(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="8"){
-						getCJCount(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="9"){
-						getOYPCount(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="10"){
-						getThousandCount(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="11"){
-						getEYCount(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="12"){
-						getYouthCount(tr_add,entitys,year1,year2,len_1);
-					}
-					else if(analysisArray_[j]=="13"){
-						getInnovation(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="14"){
-						getFundGroup(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="15"){
-						getImportantSubject(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="16"){
-						getESICount(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="17"){
-						getESILevel(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="18"){
-						getSpecial(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="19"){
-						getShareLesson(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="20"){
-						getPublicLesson(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="21"){
-						getExcellent(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="22"){
-						getThreeAward(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="23"){
-						getEduAward(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="24"){
-						getEduArtResults(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="25"){
-						getPatent(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="26"){
-						getBudgetIncome(tr_add,entitys,year1,year2,len_1,"0")
-					}
-					else if(analysisArray_[j]=="27"){
-						getBudgetIncome(tr_add,entitys,year1,year2,len_1,"1")
-					}
-					else if(analysisArray_[j]=="28"){
-						getTechFee(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="29"){
-						getEduFee(tr_add,entitys,year1,year2,len_1)
-					}
-					else if(analysisArray_[j]=="30"){
-						getEduResult(tr_add,entitys,year1,year2,len_1)
-					}
-					// else if(analysisArray_[j]=="31"){
-					// 	getTechTransform(tr_add,entitys,year1,year2,len_1)
-					// }
-					else if(analysisArray_[j]=="32"){
-						getannualBugetIncome(tr_add,entitys,year1,year2,len_1,"0")
-					}
-					else if(analysisArray_[j]=="33"){
-						getannualBugetIncome(tr_add,entitys,year1,year2,len_1,"0")
-					}
-					else if(analysisArray_[j]=="34"){
-						getLessonFee(tr_add,entitys,year1,year2,len_1,"0")
-					}
-					else if(analysisArray_[j]=="35"){
-						getLessonFee(tr_add,entitys,year1,year2,len_1,"1")
-					}
-					tr_add.children("td").eq(0).text(analysisArray[j]);
-					tr_add.children("td").eq(0).attr("data-id",analysisArray_[j])
-					// tr_add.children("td").eq(index).val(projectNum);
-					$(".infoTable1 tbody").append(tr_add);
 				}
 
 				$(".infoTable1 thead").append(thead_new);
@@ -1344,7 +1399,6 @@
 						unitsName=result[k][0];
 						// for (var j=0;j<result[k].length-1;j++) {
 						projectNum=result[k][1]; 
-						console.log(projectNum);
 						if(projectNum==""){
 							projectNum=0;
 						}
@@ -1821,16 +1875,34 @@
 	$(".unitsChoose2 .forSure").bind("click",function(){
 		$(".mask").hide();
 		$(".unitsChoose2").hide();
+		var treeObj_new=$.fn.zTree.getZTreeObj("tree_new");
 		analysisArray=[];
 		analysisArray_=[];
-		var len=$(".infoTable2 tbody").children("tr").length;
-		for(var i=0;i<len;i++){
-			var flag=$(".infoTable2 tbody").children("tr").eq(i).children("td").eq(1).children("input").prop("checked");
-			if(flag==true){
-				var analysisItem=$(".infoTable2 tbody").children("tr").eq(i).children("td").first().text();
-				var analysisNum=$(".infoTable2 tbody").children("tr").eq(i).children("td").first().attr("data-type");
-				analysisArray_.push(analysisNum);
-				analysisArray.push(analysisItem);
+		// var len=$(".infoTable2 tbody").children("tr").length;
+		// for(var i=0;i<len;i++){
+		// 	var flag=$(".infoTable2 tbody").children("tr").eq(i).children("td").eq(1).children("input").prop("checked");
+		// 	if(flag==true){
+		// 		var analysisItem=$(".infoTable2 tbody").children("tr").eq(i).children("td").first().text();
+		// 		var analysisNum=$(".infoTable2 tbody").children("tr").eq(i).children("td").first().attr("data-type");
+		// 		analysisArray_.push(analysisNum);
+		// 		analysisArray.push(analysisItem);
+		// 	}
+		// }
+		var checkItem=treeObj_new.getCheckedNodes();
+		var _len1=checkItem.length;
+		for (var k=0;k<_len1;k++) {
+			obj={};
+			obj.array=[];
+			if(checkItem[k].isParent){
+				obj.name=checkItem[k].name;
+				analysisArray.push(obj)
+			}
+			else{
+				for (var i = 0; i<analysisArray.length; i++) {
+					if(checkItem[k].getParentNode().name==analysisArray[i].name){
+						analysisArray[i].array.push(checkItem[k]);
+					}
+				}			
 			}
 		}
 	})
@@ -1849,8 +1921,6 @@
 			}
 		}
 	}
-</script>
-<script type="text/javascript">
 	doForSearch(".custom-input","/Landentity0");
 	$(".qingta-ztree-table").delegate("li.level0","click",function(){
 		$(this).parents(".ztree").find(".level2 a").css("background-color","#fff");
@@ -1898,12 +1968,142 @@
 				count--;
 			}
 		}
-		console.log(count);
 		if(count<20){
 			$(".checkAll").prop("checked",false);
 		}
 		else if(count==20){
 			$(".checkAll").prop("checked",true);
+		}
+	})
+	var zNodes_new =[
+			{ name:"科研项目数据", open:true,
+				children: [
+					{ name:"国家重点研发计划立项数",id:"1"},
+					{ name:"国家重点研发计划立项金额",id:"2"},
+					{ name:"国家自然科学基金立项数",id:"3"},
+					{ name:"国家自然科学基金立项金额",id:"4"},
+					{ name:"国家社会科学基金立项数",id:"5"},
+					{ name:"教育部人文社科项目立项数",id:"6"},
+				]
+			},
+			{ name:"师资队伍数据",open:true,
+				children: [
+					{ name:"科学院院士当选数量",id:"7"},
+					{ name:"工程院士当选数量",id:"36"},
+					{ name:"长江学者入选数量",id:"8"},
+					{ name:"国家杰出青年数量",id:"9"},
+					{ name:"万人计划入选数量",id:"10"},
+					{ name:"国家优秀青年获得数量",id:"11"},
+					{ name:"青年千人入选数量",id:"12"},
+					{ name:"教育部创新团队入选数量",id:"13"},
+					{ name:"国家基金委创新研究群体获得数",id:"14"},
+				]
+			},
+			{ name:"学科建设数据",open:true,children: [
+					{ name:"国家重点学科入选数量(一级/二级)",id:"15"},
+					{ name:"ESI全球1%学科数量",id:"16"},
+					{ name:"ESI全球排名",id:"17"},
+				]
+			},
+			{ name:"教学建设数据",open:true,
+				children: [
+					{ name:"国家级特色专业数量",id:"18"},
+					{ name:"国家级精品资源共享课数量",id:"19"},
+					{ name:"视频公开课数量",id:"20"},
+					{ name:"全国百篇优博入选数",id:"21"},
+				]
+			},
+			{ name:"奖励数据",open:true,
+				children: [
+					{ name:"国家科技奖(含参与单位)",id:"22"},
+					{ name:"国家级精品资源共享课数量",id:"23"},
+					{ name:"教育部人文社科优秀成果奖",id:"24"},
+					{ name:"国家级教学成果奖",id:"30"},
+				]
+			},
+			{ name:"专利与成果数据",open:true,
+				children: [
+					{ name:"授权专利数",id:"25"},
+					// { name:"科技成果与技术转让收入",id:"31"},
+				]
+			},
+			{ name:"经费数据",open:true,
+				children: [
+					{ name:"年度预算收入",id:"26"},
+					{ name:"年度预算支出",id:"27"},
+					{ name:"年度决算收入",id:"32"},
+					{ name:"年度决算支出",id:"33"},
+					{ name:"高校课题数据课题总数",id:"34"},
+					{ name:"高校课题数据拨入经费",id:"35"},
+					{ name:"科技活动科技经费",id:"28"},
+					{ name:"年度科技经费",id:"29"},
+				]
+			},
+		];
+	var setting_new = {
+		check:{
+			chkStyle:"checkbox",
+			enable:true,
+			chkboxType:{ "Y": "ps", "N": "ps" }
+		},
+		data:{
+			key:{
+				// parents:"parents",
+				// kids:"kids",
+				children:"children",
+				name:"name",
+				id:"id"
+			}
+		},
+	    view: { 
+	      showIcon: false,
+	      showLine: false
+	    }
+	};
+	$.fn.zTree.init($("#tree_new"), setting_new, zNodes_new);
+	var treeObj_new=$.fn.zTree.getZTreeObj("tree_new");
+	var zNodes_1=treeObj_new.checkAllNodes(true);
+	var checkItem=treeObj_new.getCheckedNodes();
+	var _len1=checkItem.length;
+	for (var k=0;k<_len1;k++) {
+		obj={};
+		obj.array=[];
+		if(checkItem[k].isParent){
+			obj.name=checkItem[k].name;
+			analysisArray.push(obj)
+		}
+		else{
+			for (var i = 0; i<analysisArray.length; i++) {
+				if(checkItem[k].getParentNode().name==analysisArray[i].name){
+					analysisArray[i].array.push(checkItem[k]);
+				}
+			}			
+		}
+	}
+	$(".unitsChoose2").on("click",".check_new",function(){
+		$(this).addClass("check_new_1").removeClass("check_new");
+		var zNodes_1=treeObj_new.checkAllNodes(false);
+	})
+	$(".unitsChoose2").on("click",".check_new_1",function(){
+		$(this).addClass("check_new").removeClass("check_new_1");
+		var zNodes_1=treeObj_new.checkAllNodes(true);
+	})
+	$(".unitsChoose2").on("click",".chk",function(){
+		var treeObj_new=$.fn.zTree.getZTreeObj("tree_new");
+		var num=treeObj_new.getCheckedNodes();
+		var num_=treeObj_new.getNodes();
+		var num_new=treeObj_new.transformToArray(num_);
+		if(num.length==num_new.length){
+			$("#checkAll").removeClass();
+			$("#checkAll").addClass("check_new");
+		}
+		else if(num.length==0){
+			$("#checkAll").removeClass();
+			$("#checkAll").addClass("check_new_1");
+		}
+		else{
+			$("#checkAll").removeClass();
+			$("#checkAll").addClass("check_new_2");
 		}
 	})
 </script>

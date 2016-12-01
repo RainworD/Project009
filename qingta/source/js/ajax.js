@@ -1935,6 +1935,16 @@ function LandDRGindex(){
     });
     return ajax;
 }
+function LandDRGtype(){
+    var ajax = $.ajax({
+        url: "/LandDRGtype",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
 function LandPSFindex(){
     var ajax = $.ajax({
         url: "/LandPSFindex",
@@ -1951,6 +1961,56 @@ function LandSTCMEindex(){
         type: "POST",// or GET
         data:{
 
+        }
+    });
+    return ajax;
+}
+function LandMOIKLindex(){
+    var ajax = $.ajax({
+        url: "/LandMOIKLindex",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandVSETCindex(){
+    var ajax = $.ajax({
+        url: "/LandVSETCindex",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandNCMCindex(){
+    var ajax = $.ajax({
+        url: "/LandNCMCindex",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandNHKUtype(){
+    var ajax = $.ajax({
+        url: "/LandNHKUtype",
+        type: "POST",// or GET
+        data:{
+
+        }
+    });
+    return ajax;
+}
+function LandSTCMEFilterdepartment(sub){
+    var ajax = $.ajax({
+        url: "/LandSTCMEtypetodepartment",
+        type: "POST",// or GET
+        data:{
+            sub:sub,
         }
     });
     return ajax;

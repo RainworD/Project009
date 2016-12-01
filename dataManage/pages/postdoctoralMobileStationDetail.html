@@ -30,14 +30,7 @@
 						</select>
 					</div>
 				</td>
-				<th style="width:11.6%;">评估结果 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox result">
-							<option selected="selected"></option>
-						</select>
-					</div>
-				</td>
+				<td colspan="2"></td>
 				<td colspan="2" style="width:26.3%;">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
@@ -50,20 +43,16 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">国家重点学科明细数据</span>
+				<span class="topLeft">博士后流动站明细数据</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
 			<table class="infoTable infoTable1">
 				<thead>
 					<tr class="tableTitle">
-						<th><input type="checkbox" class="checkAll"></th>
 						<th>序号</th>
 						<th>设站单位</th>
 						<th>一级学科</th>
-						<th>评估时间</th>
-						<th>评估结果</th>
-						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -71,9 +60,6 @@
 			</table>
 		</div>
 	</div>
-	<div class="addDataBtn batchDelete" style="margin-right:0;float: none;width: 100px;">
-		批量删除
-	</div> 
 	<div class="M-box"></div>
 </div>
 <div class="searchUndo">
@@ -90,32 +76,32 @@
 	var projectUnits=[];
 	topBarControl();
 	doForSearch(".schoolName","/Landentity0");
-	$.when(LandPSsubject()).done(function(data){
-		var state=data.state;
-		var result=data.result;
-		if(state==1){
-			for (var i=0;i<result.length;i++) {
-				var newopt=$('<option></option>');
-				if (result[i]) {
-					newopt.text(result[i]);
-					$(".firstSubject").append(newopt);
-				}
-			}
-		}
-	})
-	$.when(LandPStype()).done(function(data){
-		var state=data.state;
-		var result=data.result;
-		if(state==1){
-			for (var i=0;i<result.length;i++) {
-				var newopt=$('<option></option>');
-				if (result[i]) {
-					newopt.text(result[i]);
-					$(".result").append(newopt);
-				}
-			}
-		}
-	})	
+	// $.when(LandPSsubject()).done(function(data){
+	// 	var state=data.state;
+	// 	var result=data.result;
+	// 	if(state==1){
+	// 		for (var i=0;i<result.length;i++) {
+	// 			var newopt=$('<option></option>');
+	// 			if (result[i]) {
+	// 				newopt.text(result[i]);
+	// 				$(".firstSubject").append(newopt);
+	// 			}
+	// 		}
+	// 	}
+	// })
+	// $.when(LandPStype()).done(function(data){
+	// 	var state=data.state;
+	// 	var result=data.result;
+	// 	if(state==1){
+	// 		for (var i=0;i<result.length;i++) {
+	// 			var newopt=$('<option></option>');
+	// 			if (result[i]) {
+	// 				newopt.text(result[i]);
+	// 				$(".result").append(newopt);
+	// 			}
+	// 		}
+	// 	}
+	// })	
 </script>
 <script type="text/javascript">
 	function selfResult(pageindex,result,newindex){
@@ -171,7 +157,7 @@
 			var formData = new FormData();
 			formData.append('file', $('#file')[0].files[0]);
 			$.ajax({
-			    url: '/PSimport',
+			    url: '/PS2import',
 			    type: 'POST',
 			    cache: false,
 			    data: formData,

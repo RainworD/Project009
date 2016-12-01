@@ -26,14 +26,7 @@
 						</select>
 					</div>
 				</td>
-				<th style="width:11.6%;">评估结果 :</th>
-				<td style="width:18.3%;">
-					<div class="commonselect"  style="width:100%;">
-						<select class="selBox result">
-							<option selected="selected"></option>
-						</select>
-					</div>
-				</td>
+				<td colspan="2"></td>
 				<td colspan="2" style="width:26.3%;">
 					<a class="searchBtn rightMinBtn">查询</a>
 					<a class="resetBtn rightMinBtn">重置</a>
@@ -46,7 +39,7 @@
 	<div class="infoTableBox">
 		<div class="infoTableTop">
 			<p class="infoTablePara">
-				<span class="topLeft">国家重点学科明细数据</span>
+				<span class="topLeft">博士后流动站明细数据</span>
 			</p>
 		</div>
 		<div class="infoTableContent">
@@ -56,8 +49,6 @@
 						<th>序号</th>
 						<th>设站单位</th>
 						<th>一级学科</th>
-						<th>评估时间</th>
-						<th>评估结果</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -149,7 +140,7 @@
 			'entity':entity,
 			'type':type,
 		}
-		getDataBox(params,'/askPDS');
+		getDataBox(params,'/askPDS2');
 	})
 	doForSearch(".schoolName","/Landentity0");
 </script>

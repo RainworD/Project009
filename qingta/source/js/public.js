@@ -164,7 +164,7 @@ var setting = {
 				id:"id"
 			}
 		},
-	    view: {
+	    view: { 
 	      showIcon: false,
 	      showLine: false
 	    }

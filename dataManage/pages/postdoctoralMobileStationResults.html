@@ -1,0 +1,240 @@
+<div class="changeBarContainer">
+	<div class="changeBarBox"> 
+		<a href="#/postdoctoralMobileStationResults.html" class="changeLeft green changeButton">博士后流动站统计</a>
+		<a href="#/postdoctoralMobileStationResultsDetail.html" class="changeRight changeButton">博士后流动站明细</a>
+	</div>
+	<p class="hideBtn">隐藏查询条件</p>
+</div>
+<div class="enterBox">
+	<div class="topTableBox">
+		<table class="topTable">
+			<tr>
+				<th style="width:80px;">设站单位 :</th>
+				<td style="width:18.3%;">
+					<div class="commonInputBox showDetailBox1"  style="width:100%">
+						<input class="commonput unitsEnter" style="padding-right:30px;">
+						<div class="showDetailBox"><i class="fa fa-ellipsis-h showDetail"></i></div>
+					</div>
+				</td>
+				<th style="width:11.6%;">一级学科 :</th>
+				<td style="width:18.3%;">
+					<div class="commonselect"  style="width:100%;">
+						<select class="selBox firstSubject">
+							<option selected="selected"></option>
+						</select>
+					</div>
+				</td>
+				<th>
+					<label for="schoolOnly">
+						<input type="checkbox" id="schoolOnly" name="schoolChoose" checked="checked">&nbsp;只看高校
+					</label>
+				</th>
+				<td></td>
+				<td colspan="2" width="26.3%">
+					<a class="searchBtn rightMinBtn">查询</a>
+					<a class="resetBtn rightMinBtn">重置</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="tableContent">
+	<div class="infoTableBox">
+		<div class="infoTableTop">
+			<p class="infoTablePara">
+				<span class="topLeft">博士后流动站统计数据</span>
+			</p>
+		</div>
+		<div class="infoTableContent">
+			<table class="infoTable infoTable1">
+				<thead>
+					<tr class="tableTitle">
+						<th>序号</th>
+						<th>单位名称</th>
+						<th>评估年度</th>
+						<th>一级学科</th>
+						<th>优秀</th>
+						<th>良好</th>
+						<th>合格</th>
+						<th>不合格</th>
+						<th>未参评</th>
+						<th>汇总统计</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="M-box"></div>
+</div>
+<div class="searchUndo">
+	<p class="enterSearchInfo">输入查询条件，即刻获取数据</p>
+	<img class="getInfoImg" src="../source/img/info.png"></img>
+</div>
+<div class="beforeSearch">
+	<p class="enterSearchInfo">
+		<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+		<span class="sr-only">Loading...</span>
+	</p>
+</div>
+<div class="mask mask1"></div>
+<div class="mask mask1"></div>
+<div class="unitsChoose unitsChoose1" style="width:560px;">
+	<div class="unitsContainer">
+		<div class="cancelBtn"> 
+			<i class="fa fa-close showCollege"></i>
+		</div>
+		<div class="unitsHeader unitsHeader1">
+			<p class="unitsTitle">项目牵头单位选择</p>
+		</div>
+		<div class="unitsContent unitsContent1" style="cursor:default;padding:0;">
+			<!-- <div class="topSearch">
+				<p class="topSearchContent"><input placeholder="快速查找单位"><i class="fa fa-search fa-lg"></i></p> 
+			</div> -->
+			<div class="custom-search-bar">
+				<div class="custom-input-box">
+					<input type="text" class="custom-input" v-model="search_str" @keydown.13="searchNode">
+					<ul class="showElse" style="top: 28px;border-top: none;border: 1px solid #ebebeb;">
+							
+					</ul>
+				</div>
+				<div class="search-box">
+					<i class="fa fa-search fa-lg"></i>
+				</div>
+			</div>
+			<div class="totalModel" style="height:400px;margin-top:0">
+				<div style="padding:0px 20px;">
+					<div class="qingta-ztree-header">
+						<span class="qingta-ztree-cell qingta-ztree-switch">展开</span>
+						<span class="qingta-ztree-cell qingta-ztree-check">选择单位</span>
+						<div class="qingta-ztree-name">
+							<span class="qingta-ztree-cell">单位名称</span>
+						</div>
+					</div>
+					<div class="qingta-ztree-table" style="width:535px">
+						<ul id="tree" class="ztree ztree-at-top" style="width:518px">
+						</ul>
+					</div>
+				</div>
+				<!-- <ul id="tree" class="ztree">
+				</ul> -->
+			</div>
+		</div>
+		<div class="beforeShow">
+			<p class="enterSearchInfo">
+				<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+				<span class="sr-only">Loading...</span>
+			</p>
+		</div>
+		<div class="bottomBtn">
+			<p>
+				<a class="forSure">确定</a>
+				<a class="forConsole">取消</a>
+			</p>
+		</div>
+	</div>
+</div>
+<script> 
+	var projectUnits=[];
+	$(".showDetailBox1").bind("click",function(){
+		$(".mask").show();
+		popAlertBox(".unitsChoose1");
+		dragBox(".unitsChoose1");
+	})
+	getUnits();
+	dragBoxUnitsChoose(".unitsChoose1",projectUnits);
+	doForSearch(".searchBox","/Landentity0");
+	topBarControl();
+	$.when(LandPSsubject()).done(function(data){
+		var state=data.state;
+		var result=data.result;
+		if(state==1){
+			for (var i=0;i<result.length;i++) {
+				var newopt=$('<option></option>');
+				if (result[i]) {
+					newopt.text(result[i]);
+					$(".firstSubject").append(newopt);
+				}
+			}
+		}
+	})
+</script>
+<script type="text/javascript">
+	function selfResult(pageindex,result,newindex){
+		$(".infoTable1").children('tbody').empty();
+		$(".infoTable1 thead").find('th').addClass("nowrap");
+		var eq=newindex%50;
+		var subject=$(".firstSubject").val();
+		if(eq==0){
+			eq=50;
+		}
+		for (var i=(eq-1)*20;i<eq*20;i++) {
+			var searchInfo=$('<tr>'+
+				'<td></td>'+
+			'</tr>');
+			searchInfo.children('td').eq(0).text((i+1)+20*(pageindex-1)*50);
+			searchInfo.children('td').eq(0).addClass('nowrap');
+			if(result[i]){
+				for (var j=0;j<result[i].length-1;j++) {
+					var mytd=$('<td></td>');
+					if(result[i][j]==null){
+						result[i][j]="";
+					}
+					if(subject==""){
+						result[i][3]="全部一级学科";
+					}
+					else{}
+					var text=madeNowrapText(result[i][j]);
+					mytd.html(text);
+					searchInfo.append(mytd);
+				}
+				$(".infoTable1").children('tbody').append(searchInfo);
+			}
+		}
+	}
+	$(".searchBtn").bind("click",function(){
+		$(".infoTable1").children('tbody').empty();
+		var pageindex;
+		var entitys=projectUnits;
+		var subject=$(".firstSubject").val();
+		var schoolOnly1=$("#schoolOnly").prop("checked");
+		if(schoolOnly1){
+			schoolOnly=1;
+		}
+		else{
+			schoolOnly=0;
+		}
+		var params={
+			'pageindex':1,
+			'entitys':entitys,
+			'schoolOnly':schoolOnly,
+			'subject':subject
+		}
+		getDataBox(params,'/askPDSsta');
+	})
+</script>
+<script type="text/javascript">
+	doForSearch(".custom-input","/Landentity0");
+	$("body").keydown(function() {
+        if (event.keyCode == "13") {//keyCode=13是回车键
+            $('.search-box').click();
+        }
+    })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
